@@ -1,5 +1,3 @@
-# Godot 4 CI
+# Godot 4 Jam Template
 
-Customization of [abarichello/godot-ci](https://github.com/abarichello/godot-ci) for my needs.
-
-Uses [imjp94/gd-plug](https://github.com/imjp94/gd-plug) to manage Godot plugins.
+Quickstart template for game jams built on [hatmix/godot-4-ci](https://github.com/hatmix/godot-4-ci).
