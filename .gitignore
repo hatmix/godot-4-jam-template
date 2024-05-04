@@ -1,0 +1,12 @@
+.import/
+.DS_Store
+exports/
+Exports/
+*.import
+*.mkv
+*.mp4
+.godot/
+.plugged/
+.justfile
+addons/
+!addons/gd-plug/
