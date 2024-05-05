@@ -1,0 +1,36 @@
+[gd_scene load_steps=3 format=3 uid="uid://3s7lo7jd53un"]
+
+[ext_resource type="Script" path="res://UI/PauseMenu/pause_menu.gd" id="1_fpgrf"]
+[ext_resource type="Script" path="res://addons/simple-gui-transitions/transition.gd" id="1_jv5dm"]
+
+[node name="PauseMenu" type="CenterContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_fpgrf")
+
+[node name="GuiTransition" type="Node" parent="."]
+script = ExtResource("1_jv5dm")
+auto_start = 0
+layout = NodePath("..")
+group = NodePath("../Buttons")
+
+[node name="Buttons" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Resume" type="Button" parent="Buttons"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Resume"
+
+[node name="Settings" type="Button" parent="Buttons"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Settings"
+
+[node name="Quit" type="Button" parent="Buttons"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Quit"

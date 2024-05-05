@@ -31,17 +31,21 @@ window/size/resizable=false
 
 enabled=PackedStringArray("res://addons/gut/plugin.cfg", "res://addons/maaacks_ui_sound_controller/plugin.cfg", "res://addons/markdownlabel/plugin.cfg", "res://addons/simple-gui-transitions/plugin.cfg")
 
+[gui]
+
+theme/custom="res://UI/ui_theme.tres"
+
 [gui_transitions]
 
-config/default/auto_start=true
+config/default/auto_start=false
 config/default/fade_layout=true
 config/default/center_pivot=true
-config/default/duration=0.5
-config/default/delay=0.5
+config/default/duration=0.1
+config/default/delay=0.1
 config/default/transition_type="SINE"
 config/default/ease_type="IN_OUT"
-config/default/animation_enter=4
-config/default/animation_leave=4
+config/default/animation_enter=7
+config/default/animation_leave=7
 
 [rendering]
 
