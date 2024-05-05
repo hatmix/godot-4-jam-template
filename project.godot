@@ -10,11 +10,38 @@ config_version=5
 
 [application]
 
-config/name="Godot-4-CI"
-config/description="Testing GH action CI with Godot 4 and GUT"
+config/name="Godot-4-Jam-Template"
+config/description="Godot 4 template project for game jams"
 run/main_scene="res://main.tscn"
 config/features=PackedStringArray("4.2")
 config/icon="res://icon.png"
+
+[autoload]
+
+ProjectUISoundController="*res://addons/maaacks_ui_sound_controller/base/scenes/Autoloads/ProjectUISoundController.tscn"
+GuiTransitions="*res://addons/simple-gui-transitions/singleton.gd"
+
+[display]
+
+window/size/viewport_width=1280
+window/size/viewport_height=800
+window/size/resizable=false
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/gut/plugin.cfg", "res://addons/maaacks_ui_sound_controller/plugin.cfg", "res://addons/markdownlabel/plugin.cfg", "res://addons/simple-gui-transitions/plugin.cfg")
+
+[gui_transitions]
+
+config/default/auto_start=true
+config/default/fade_layout=true
+config/default/center_pivot=true
+config/default/duration=0.5
+config/default/delay=0.5
+config/default/transition_type="SINE"
+config/default/ease_type="IN_OUT"
+config/default/animation_enter=4
+config/default/animation_leave=4
 
 [rendering]
 
