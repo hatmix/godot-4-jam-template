@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bojsla6nqcf03"]
 
-[ext_resource type="Script" path="res://UI/game/game_ui.gd" id="1_67una"]
+[ext_resource type="Script" path="res://ui/game/game_ui.gd" id="1_67una"]
 [ext_resource type="Script" path="res://addons/simple-gui-transitions/transition.gd" id="1_nx2qw"]
 
 [node name="Game" type="CenterContainer"]

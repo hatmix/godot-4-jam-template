@@ -1,6 +1,6 @@
 [gd_scene load_steps=16 format=3 uid="uid://dekllill0y50r"]
 
-[ext_resource type="Script" path="res://UI/credits/credits.gd" id="1_0pb5o"]
+[ext_resource type="Script" path="res://ui/credits/credits.gd" id="1_0pb5o"]
 [ext_resource type="Script" path="res://addons/simple-gui-transitions/transition.gd" id="2_stnqr"]
 [ext_resource type="Script" path="res://addons/markdownlabel/markdownlabel.gd" id="3_rqcdg"]
 [ext_resource type="Script" path="res://addons/markdownlabel/header_formats/h1_format.gd" id="4_wuulm"]
