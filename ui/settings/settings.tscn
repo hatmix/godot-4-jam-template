@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://c31bw3nk5ujvg"]
 
 [ext_resource type="Script" path="res://addons/simple-gui-transitions/transition.gd" id="1_7qsrg"]
-[ext_resource type="Script" path="res://UI/Settings/settings.gd" id="1_dabjx"]
+[ext_resource type="Script" path="res://ui/settings/settings.gd" id="1_dabjx"]
 
 [node name="Settings" type="CenterContainer"]
 anchors_preset = 15

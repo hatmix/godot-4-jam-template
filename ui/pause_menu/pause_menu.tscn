@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://3s7lo7jd53un"]
 
-[ext_resource type="Script" path="res://UI/PauseMenu/pause_menu.gd" id="1_fpgrf"]
+[ext_resource type="Script" path="res://UI/pause_menu/pause_menu.gd" id="1_fpgrf"]
 [ext_resource type="Script" path="res://addons/simple-gui-transitions/transition.gd" id="1_jv5dm"]
 
 [node name="PauseMenu" type="CenterContainer"]
