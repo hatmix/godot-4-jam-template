@@ -1,5 +1,11 @@
 name: "godot-ci"
-on: push
+on:
+  push:
+    paths-ignore:
+      - '**.md'
+      - '!ATTRIBUTION.md'
+      - '.gitignore'
+      - '.gitattributes'
 
 env:
   GODOT_VERSION: 4.2.2
@@ -40,26 +46,30 @@ jobs:
           godot --headless --path . -s addons/gut/gut_cmdln.gd -gexit
 
       - name: Export Web
+        id: export-web
+        env:
+          ITCHIO_USERNAME: ${{ secrets.ITCHIO_USERNAME }}
+          ITCHIO_GAME: ${{ secrets.ITCHIO_GAME }}
+          BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
+        if: env.ITCHIO_USERNAME && env.ITCHIO_GAME && env.BUTLER_API_KEY
         run: |
           mkdir -v -p exports/web
           godot --headless --path . --export-release "Web" exports/web/index.html
 
-      - name: Export Windows
-        run: |
-          pwd
-          ls
-          mkdir -v -p exports/windows
-          godot --headless --path . --export-debug "Windows" exports/windows/game.exe
-
       - name: Cache butler files
         id: cache-butler
+        if: steps.export-web.outcome == 'success'
         uses: actions/cache@v4
         with:
           path: butler
           key: ${{ runner.os }}-butler
 
       - name: Download Butler
-        if: steps.cache-butler.outputs.cache-hit != 'true'
+        env:
+          ITCHIO_USERNAME: ${{ secrets.ITCHIO_USERNAME }}
+          ITCHIO_GAME: ${{ secrets.ITCHIO_GAME }}
+          BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
+        if: steps.cache-butler.outputs.cache-hit != 'true' && steps.export-web.outcome == 'success'
         run: |
           wget -O butler.zip https://broth.itch.ovh/butler/linux-amd64/LATEST/archive/default
           unzip butler.zip
@@ -71,7 +81,7 @@ jobs:
           ITCHIO_USERNAME: ${{ secrets.ITCHIO_USERNAME }}
           ITCHIO_GAME: ${{ secrets.ITCHIO_GAME }}
           BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
-        if: env.BUTLER_API_KEY
+        if: env.ITCHIO_USERNAME && env.ITCHIO_GAME && env.BUTLER_API_KEY && steps.export-web.outcome == 'success'
         run: |
           ./butler push exports/web/ ${ITCHIO_USERNAME}/${ITCHIO_GAME}:HTML5
           ./butler status ${ITCHIO_USERNAME}/${ITCHIO_GAME}:HTML5
