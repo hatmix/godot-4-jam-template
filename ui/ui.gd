@@ -4,11 +4,7 @@ extends CanvasLayer
 func _ready() -> void:
 	GuiTransitions.show_completed.connect(_on_show_completed)
 	GuiTransitions.hide()
-	call_deferred("show_main_menu")
-
-
-func show_main_menu() -> void:
-	GuiTransitions.go_to("MainMenu")
+	GuiTransitions.go_to.bind("show_main_menu").call_deferred()
 
 
 func _on_show_completed() -> void:

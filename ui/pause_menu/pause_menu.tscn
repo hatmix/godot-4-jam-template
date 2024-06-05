@@ -12,6 +12,7 @@ grow_vertical = 2
 script = ExtResource("1_fpgrf")
 
 [node name="GuiTransition" type="Node" parent="."]
+unique_name_in_owner = true
 script = ExtResource("1_jv5dm")
 auto_start = 0
 layout = NodePath("..")

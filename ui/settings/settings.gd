@@ -1,6 +1,5 @@
 extends CenterContainer
 
-var _previous_layout: String = "MainMenu"
 var _audio_bus_name_idx_mapping: Dictionary = {}
 
 
@@ -20,12 +19,14 @@ func _input(_event: InputEvent) -> void:
 	# $GuiTransition._status is non-zero while transition is active
 	if visible and not $GuiTransition._status and Input.is_action_just_pressed("ui_cancel"):
 		get_viewport().set_input_as_handled()
-		GuiTransitions.go_to(_previous_layout)
+		_on_back()
 
 
 func _on_back() -> void:
-	# TODO: add test for coming from pause menu or main menu, maybe if game active
-	GuiTransitions.go_to(_previous_layout)
+	if get_tree().paused == true:
+		GuiTransitions.go_to("PauseMenu")
+	else:
+		GuiTransitions.go_to("MainMenu")
 
 
 func _on_audio_hslider_value_changed(value: float, bus_name: String) -> void:

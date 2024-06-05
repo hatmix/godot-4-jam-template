@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://u1vgfeia861q"]
+[gd_scene load_steps=11 format=3 uid="uid://u1vgfeia861q"]
 
 [ext_resource type="PackedScene" uid="uid://cc37235kj4384" path="res://addons/maaacks_ui_sound_controller/base/scenes/Autoloads/ProjectUISoundController.tscn" id="1_v2lrn"]
 [ext_resource type="Script" path="res://ui/ui.gd" id="1_yeoin"]
 [ext_resource type="PackedScene" uid="uid://2vrf5v6tmuk7" path="res://ui/main_menu/main_menu.tscn" id="2_7jndn"]
 [ext_resource type="AudioStream" uid="uid://5kc55ftsdrvt" path="res://ui/assets/audio/rollover5.ogg" id="2_xhe7v"]
 [ext_resource type="AudioStream" uid="uid://c6nd767eu76fj" path="res://ui/assets/audio/click_003.ogg" id="3_jtpv2"]
+[ext_resource type="Script" path="res://ui/darken.gd" id="5_62ttk"]
 [ext_resource type="PackedScene" uid="uid://dekllill0y50r" path="res://ui/credits/credits.tscn" id="5_hqkqk"]
 [ext_resource type="PackedScene" uid="uid://3s7lo7jd53un" path="res://ui/pause_menu/pause_menu.tscn" id="6_2pasj"]
 [ext_resource type="PackedScene" uid="uid://bojsla6nqcf03" path="res://ui/game/game_ui.tscn" id="8_62oa5"]
@@ -19,12 +20,21 @@ button_hovered = ExtResource("2_xhe7v")
 button_focused = ExtResource("2_xhe7v")
 button_pressed = ExtResource("3_jtpv2")
 
+[node name="Darken" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.784314)
+script = ExtResource("5_62ttk")
+
 [node name="Credits" parent="." instance=ExtResource("5_hqkqk")]
 
 [node name="MainMenu" parent="." instance=ExtResource("2_7jndn")]
 
-[node name="PauseMenu" parent="." instance=ExtResource("6_2pasj")]
-
 [node name="Game" parent="." instance=ExtResource("8_62oa5")]
+
+[node name="PauseMenu" parent="." instance=ExtResource("6_2pasj")]
 
 [node name="Settings" parent="." instance=ExtResource("9_jqbk6")]
