@@ -8,6 +8,10 @@
 
 config_version=5
 
+[addons]
+
+ControlsRemap/action_list=Array[StringName]([&"ui_up", &"ui_down", &"ui_left", &"ui_right", &"ui_accept", &"ui_cancel"])
+
 [application]
 
 config/name="Godot-4-Jam-Template"
@@ -21,6 +25,7 @@ config/icon="res://icon.png"
 ProjectUISoundController="*res://addons/maaacks_ui_sound_controller/base/scenes/Autoloads/ProjectUISoundController.tscn"
 GuiTransitions="*res://addons/simple-gui-transitions/singleton.gd"
 Settings="*res://autoloads/settings.gd"
+PromptManager="*res://addons/input_prompts/input_prompt_manager.gd"
 
 [debug]
 
@@ -36,7 +41,7 @@ window/stretch/mode="viewport"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/gut/plugin.cfg", "res://addons/maaacks_ui_sound_controller/plugin.cfg", "res://addons/markdownlabel/plugin.cfg", "res://addons/simple-gui-transitions/plugin.cfg")
+enabled=PackedStringArray("res://addons/ControlsRemap/plugin.cfg", "res://addons/gut/plugin.cfg", "res://addons/input_prompts/plugin.cfg", "res://addons/maaacks_ui_sound_controller/plugin.cfg", "res://addons/markdownlabel/plugin.cfg", "res://addons/simple-gui-transitions/plugin.cfg")
 
 [gui]
 

@@ -1,6 +1,4 @@
-[gd_resource type="Theme" load_steps=3 format=3 uid="uid://dh04nykbuslvr"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g2qne"]
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://dh04nykbuslvr"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v5sp4"]
 content_margin_left = 2.0
@@ -15,7 +13,7 @@ expand_margin_bottom = 4.0
 
 [resource]
 Button/font_sizes/font_size = 40
-Button/styles/hover = SubResource("StyleBoxFlat_g2qne")
+HBoxContainer/constants/separation = 20
 Label/font_sizes/font_size = 40
 Label/styles/normal = SubResource("StyleBoxFlat_v5sp4")
 MarginContainer/constants/margin_bottom = 10
@@ -23,4 +21,4 @@ MarginContainer/constants/margin_left = 10
 MarginContainer/constants/margin_right = 10
 MarginContainer/constants/margin_top = 10
 TabContainer/font_sizes/font_size = 40
-VBoxContainer/constants/separation = 8
+VBoxContainer/constants/separation = 20

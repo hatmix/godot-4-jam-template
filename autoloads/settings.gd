@@ -1,13 +1,36 @@
 extends Node
 
-const FILE: String = "user://settings.cfg"
-const DEFAULT_FILE: String = "res://default_settings.cfg"
+const SETTINGS_FILE: String = "user://settings.cfg"
+const DEFAULT_SETTINGS_FILE: String = "res://default_settings.cfg"
+const REMAP_FILE: String = "user://remap.tres"
 
 enum SECTION {AUDIO}
 
+static var _remap: ControlsRemap
 static var _settings: ConfigFile
 # Timer is used to prevent fast repeated saving of cfg file
 var timer: Timer
+
+
+func load_remap() -> void:
+	_remap = load(REMAP_FILE)
+	if _remap:
+		_remap.apply()
+	else:
+		_remap = ControlsRemap.new()
+
+
+func save_remap() -> void:
+	_remap.create_remap()
+	ResourceSaver.save(_remap, REMAP_FILE)
+
+
+func get_action_key(action: String) -> InputEventKey:
+	return _remap.get_action_key(action)
+
+
+func get_action_button(action: String) -> InputEventJoypadButton:
+	return _remap.get_action_button(action)
 
 
 func load_settings() -> void:
@@ -15,12 +38,12 @@ func load_settings() -> void:
 		return
 	_init_timer()
 	_settings = ConfigFile.new()
-	var err: int = _settings.load(FILE)
+	var err: int = _settings.load(SETTINGS_FILE)
 	if err:
 		print("Loading settings from defaults")
-		err = _settings.load(DEFAULT_FILE)
+		err = _settings.load(DEFAULT_SETTINGS_FILE)
 		if not err:
-			err = _settings.save(FILE)
+			err = _settings.save(SETTINGS_FILE)
 
 
 func _init_timer() -> void:
@@ -32,7 +55,7 @@ func _init_timer() -> void:
 
 func save_settings() -> void:
 	print("saving settings")
-	_settings.save(FILE)
+	_settings.save(SETTINGS_FILE)
 
 
 func get_value(section: SECTION, key: String, default: Variant) -> Variant:
