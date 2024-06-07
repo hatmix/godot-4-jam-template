@@ -15,6 +15,8 @@ func _on_show_completed() -> void:
 				var layout: Node = layout_transition.get_node(layout_transition.layout)
 				if layout.visible:
 					for button: Button in layout.find_children("*", "Button"):
+						# Helpful for discovering focus goes to a hidden button
+						#print("Found button %s" % button.name)
 						button.grab_focus()
 						break
 					break
