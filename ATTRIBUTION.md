@@ -4,46 +4,46 @@ A thing by [hatmix](https://hatmix.itch.io)
 
 ## Game Engine Addons
 ### Simple GUI Transitions
-Author: [murikistudio](https://github.com/murikistudio)
-Source: [https://github.com/murikistudio/simple-gui-transitions](https://github.com/murikistudio/simple-gui-transitions)
-License: [MIT License](https://github.com/murikistudio/simple-gui-transitions/tree/godot-4?tab=MIT-1-ov-file#readme)
+Author: [murikistudio](https://github.com/murikistudio)  
+Source: [https://github.com/murikistudio/simple-gui-transitions](https://github.com/murikistudio/simple-gui-transitions)  
+License: [MIT License](https://github.com/murikistudio/simple-gui-transitions/tree/godot-4?tab=MIT-1-ov-file#readme)  
 
 ### Godot UI Sound Controller
-Author: [Marek "Maaack"](https://github.com/Maaack)
-Source: [https://github.com/Maaack/Godot-UI-Sound-Controller](https://github.com/Maaack/Godot-UI-Sound-Controller)
-License: [MIT License](https://github.com/Maaack/Godot-UI-Sound-Controller?tab=MIT-1-ov-file#readme)
+Author: [Marek "Maaack"](https://github.com/Maaack)  
+Source: [https://github.com/Maaack/Godot-UI-Sound-Controller](https://github.com/Maaack/Godot-UI-Sound-Controller)  
+License: [MIT License](https://github.com/Maaack/Godot-UI-Sound-Controller?tab=MIT-1-ov-file#readme)  
 
 ### Markdown Label
-Author: [Daenvil](https://github.com/daenvil)
-Source: [https://github.com/daenvil/MarkdownLabel](https://github.com/daenvil/MarkdownLabel)
-License: [MIT License](https://github.com/daenvil/MarkdownLabel/tree/main?tab=MIT-1-ov-file#readme)
+Author: [Daenvil](https://github.com/daenvil)  
+Source: [https://github.com/daenvil/MarkdownLabel](https://github.com/daenvil/MarkdownLabel)  
+License: [MIT License](https://github.com/daenvil/MarkdownLabel/tree/main?tab=MIT-1-ov-file#readme)  
 
 ### Godot Input Remap
-Author: [Tomek "KoBeWi"](https://github.com/KoBeWi)
-Source [https://github.com/KoBeWi/Godot-Input-Remap](https://github.com/KoBeWi/Godot-Input-Remap)
-License: [MIT License](https://github.com/KoBeWi/Godot-Input-Remap?tab=MIT-1-ov-file)
+Author: [Tomek "KoBeWi"](https://github.com/KoBeWi)  
+Source [https://github.com/KoBeWi/Godot-Input-Remap](https://github.com/KoBeWi/Godot-Input-Remap)  
+License: [MIT License](https://github.com/KoBeWi/Godot-Input-Remap?tab=MIT-1-ov-file)  
 
 ### Godot Input Prompts
-Author: [John Pennycook](https://github.com/Pennycook)
-Source [https://github.com/Pennycook/godot-input-prompts](https://github.com/Pennycook/godot-input-prompts)
-License: [MIT License](https://github.com/Pennycook/godot-input-prompts?tab=MIT-1-ov-file)
+Author: [John Pennycook](https://github.com/Pennycook)  
+Source [https://github.com/Pennycook/godot-input-prompts](https://github.com/Pennycook/godot-input-prompts)  
+License: [MIT License](https://github.com/Pennycook/godot-input-prompts?tab=MIT-1-ov-file)  
 
 
 ## Additional source
 ### Godot CI
-Author: hatmix, [Barichello](https://github.com/abarichello)
-Source: [https://github.com/hatmix/godot-4-ci](https://github.com/hatmix/godot-4-ci)
-License: [MIT License](https://github.com/hatmix/godot-4-ci?tab=MIT-1-ov-file#readme)
+Author: hatmix, [Barichello](https://github.com/abarichello)  
+Source: [https://github.com/hatmix/godot-4-ci](https://github.com/hatmix/godot-4-ci)  
+License: [MIT License](https://github.com/hatmix/godot-4-ci?tab=MIT-1-ov-file#readme)  
 
 ### gd-plug
-Author: [imjp94](https://github.com/imjp94)
-Source: [https://github.com/imjp94/gd-plug](https://github.com/hatmix/godot-4-ci)
-License:  [MIT License](https://github.com/imjp94/gd-plug/blob/master/LICENSE)
+Author: [imjp94](https://github.com/imjp94)  
+Source: [https://github.com/imjp94/gd-plug](https://github.com/hatmix/godot-4-ci)  
+License:  [MIT License](https://github.com/imjp94/gd-plug/blob/master/LICENSE)  
 
 ## Game Engine
 ### Godot Engine
-Authors: [AUTHORS.md](https://github.com/godotengine/godot/blob/master/AUTHORS.md)
-Source: [https://github.com/godotengine/godot](https://github.com/godotengine/godot)
+Authors: [AUTHORS.md](https://github.com/godotengine/godot/blob/master/AUTHORS.md)  
+Source: [https://github.com/godotengine/godot](https://github.com/godotengine/godot)  
 License: [MIT License](godotengine.org/license)
 
 ### Godot Engine 3rd party licenses

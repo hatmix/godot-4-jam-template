@@ -3,22 +3,22 @@
 Opinionated quick start template for game jams built on [hatmix/godot-4-ci](https://github.com/hatmix/godot-4-ci).
 
 Features:
-	* Github template repository vs. Addon for simplicity
-	* Web-export & GDScript focused for maximum jam
-	* Premade basic UI for main menu, pause menu, settings, controls, and credits
-	* UI transition animations with [simple-gui-transitions](https://github.com/murikistudio/simple-gui-transitions)
-	* ATTRIBUTION.md for in-game credits (inspired by [Maaack](https://github.com/Maaack/Godot-Game-Template/blob/main/ATTRIBUTION.md)'s approach)
-	* Addon management with [gd-plug](https://github.com/imjp94/gd-plug)
-	* CI/CD adapted from [abarichello/godot-ci](https://github.com/abarichello/godot-ci)
-	* ...
+* Github template repository vs. Addon for simplicity
+* Web-export & GDScript focused for maximum jam
+* Premade basic UI for main menu, pause menu, settings, controls, and credits
+* UI transition animations with [simple-gui-transitions](https://github.com/murikistudio/simple-gui-transitions)
+* ATTRIBUTION.md for in-game credits (inspired by [Maaack](https://github.com/Maaack/Godot-Game-Template/blob/main/ATTRIBUTION.md)'s approach)
+* Addon management with [gd-plug](https://github.com/imjp94/gd-plug)
+* CI/CD adapted from [abarichello/godot-ci](https://github.com/abarichello/godot-ci)
+* ...
 
 Don't just settle for the first template you find! Compare the alternatives and decide which best fits your desired features, coding style and approach to game development.
 
 Alternatives:
-	* [https://github.com/Maaack/Godot-Game-Template](https://github.com/Maaack/Godot-Game-Template)
-	* [https://github.com/bitbrain/godot-gamejam](https://github.com/bitbrain/godot-gamejam)
-	* [https://github.com/nezvers/Godot-GameTemplate](https://github.com/nezvers/Godot-GameTemplate)
-	* [And many more...](https://godotengine.org/asset-library/asset?filter=template&category=&godot_version=&cost=&sort=updated)
+* [https://github.com/Maaack/Godot-Game-Template](https://github.com/Maaack/Godot-Game-Template)
+* [https://github.com/bitbrain/godot-gamejam](https://github.com/bitbrain/godot-gamejam)
+* [https://github.com/nezvers/Godot-GameTemplate](https://github.com/nezvers/Godot-GameTemplate)
+* [And many more...](https://godotengine.org/asset-library/asset?filter=template&category=&godot_version=&cost=&sort=updated)
 
 ## Initial setup
 
@@ -43,7 +43,7 @@ Once plugins are setup, open `res://main.tscn` and `res://main.gd` and create yo
 * Input (depends on DisplayServer)
 
 On succesful test and export, and if configured, the CI action uses [butler](https://itch.io/docs/butler/) to deploy the game to [itch.io](https://itch.io).  Setup these secrets in your Github repository to enable push:
-	* ITCHIO_USERNAME
-	* ITCHIO_GAME
-	* BUTLER_API_KEY
+* ITCHIO_USERNAME
+* ITCHIO_GAME
+* BUTLER_API_KEY
 
