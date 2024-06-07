@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=2 format=3 uid="uid://dh04nykbuslvr"]
+[gd_resource type="Theme" load_steps=3 format=3 uid="uid://dh04nykbuslvr"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v5sp4"]
 content_margin_left = 2.0
@@ -11,6 +11,18 @@ expand_margin_top = 4.0
 expand_margin_right = 4.0
 expand_margin_bottom = 4.0
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_th128"]
+content_margin_left = 20.0
+content_margin_top = 20.0
+content_margin_right = 20.0
+content_margin_bottom = 20.0
+bg_color = Color(0, 0, 0, 0.784314)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.980392, 0.380392, 0.286275, 1)
+
 [resource]
 Button/font_sizes/font_size = 40
 HBoxContainer/constants/separation = 20
@@ -20,5 +32,6 @@ MarginContainer/constants/margin_bottom = 10
 MarginContainer/constants/margin_left = 10
 MarginContainer/constants/margin_right = 10
 MarginContainer/constants/margin_top = 10
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_th128")
 TabContainer/font_sizes/font_size = 40
 VBoxContainer/constants/separation = 20

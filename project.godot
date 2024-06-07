@@ -18,6 +18,8 @@ config/name="Godot-4-Jam-Template"
 config/description="Godot 4 template project for game jams"
 run/main_scene="res://main.tscn"
 config/features=PackedStringArray("4.2")
+boot_splash/bg_color=Color(0.0784314, 0.133333, 0.25098, 1)
+boot_splash/show_image=false
 config/icon="res://icon.png"
 
 [autoload]
@@ -26,6 +28,7 @@ ProjectUISoundController="*res://addons/maaacks_ui_sound_controller/base/scenes/
 GuiTransitions="*res://addons/simple-gui-transitions/singleton.gd"
 Settings="*res://autoloads/settings.gd"
 PromptManager="*res://addons/input_prompts/input_prompt_manager.gd"
+SignalBus="*res://autoloads/signal_bus.gd"
 
 [debug]
 
@@ -79,3 +82,5 @@ ui_cancel={
 [rendering]
 
 renderer/rendering_method="gl_compatibility"
+environment/defaults/default_clear_color=Color(0.0784314, 0.133333, 0.25098, 1)
+anti_aliasing/quality/screen_space_aa=1

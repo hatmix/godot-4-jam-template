@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" path="res://ui/controls/controls.gd" id="1_ypuet"]
 [ext_resource type="Script" path="res://addons/simple-gui-transitions/transition.gd" id="2_m5t2f"]
-[ext_resource type="Texture2D" uid="uid://d26kijpqkvxb7" path="res://ui/assets/icons/keyboard.svg" id="3_qlbyq"]
-[ext_resource type="Texture2D" uid="uid://0jg5joerwgk0" path="res://ui/assets/icons/controller_xboxone.svg" id="4_ddh31"]
+[ext_resource type="Texture2D" uid="uid://d26kijpqkvxb7" path="res://ui/assets/icons/input_devices/keyboard.svg" id="3_gbh48"]
+[ext_resource type="Texture2D" uid="uid://0jg5joerwgk0" path="res://ui/assets/icons/input_devices/controller_xboxone.svg" id="4_0i1ma"]
 
 [node name="Controls" type="Control"]
 layout_mode = 3
@@ -42,13 +42,13 @@ layout_mode = 2
 [node name="KeyboardMouse" type="TextureRect" parent="CenterContainer/VBoxContainer/Actions"]
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
-texture = ExtResource("3_qlbyq")
+texture = ExtResource("3_gbh48")
 stretch_mode = 3
 
 [node name="Controller" type="TextureRect" parent="CenterContainer/VBoxContainer/Actions"]
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
-texture = ExtResource("4_ddh31")
+texture = ExtResource("4_0i1ma")
 stretch_mode = 3
 
 [node name="Buttons" type="HBoxContainer" parent="CenterContainer/VBoxContainer"]

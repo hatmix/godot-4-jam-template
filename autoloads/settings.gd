@@ -1,15 +1,15 @@
 extends Node
 
+enum SECTION { AUDIO }
+
 const SETTINGS_FILE: String = "user://settings.cfg"
 const DEFAULT_SETTINGS_FILE: String = "res://default_settings.cfg"
 const REMAP_FILE: String = "user://remap.tres"
 
-enum SECTION {AUDIO}
-
+# Timer is used to prevent fast repeated saving of cfg files
+var _timer: Timer
 static var _remap: ControlsRemap
 static var _settings: ConfigFile
-# Timer is used to prevent fast repeated saving of cfg file
-var timer: Timer
 
 
 func load_remap() -> void:
@@ -40,22 +40,27 @@ func load_settings() -> void:
 	_settings = ConfigFile.new()
 	var err: int = _settings.load(SETTINGS_FILE)
 	if err:
-		print("Loading settings from defaults")
+		SignalBus.post_message.emit("Loading default settings", Message.ICON.SUCCESS)
 		err = _settings.load(DEFAULT_SETTINGS_FILE)
 		if not err:
 			err = _settings.save(SETTINGS_FILE)
 
 
 func _init_timer() -> void:
-	timer = Timer.new()
-	timer.one_shot = true
-	timer.timeout.connect(save_settings)
-	add_child(timer)
+	_timer = Timer.new()
+	_timer.one_shot = true
+	_timer.timeout.connect(save_settings)
+	add_child(_timer)
 
 
 func save_settings() -> void:
-	print("saving settings")
-	_settings.save(SETTINGS_FILE)
+	var err: int = _settings.save(SETTINGS_FILE)
+	if err:
+		print("post failure message")
+		SignalBus.post_message.emit("Error saving settings '%s'" % str(err), Message.ICON.FAILURE)
+	else:
+		print("post success message")
+		SignalBus.post_message.emit("Settings saved", Message.ICON.SUCCESS)
 
 
 func get_value(section: SECTION, key: String, default: Variant) -> Variant:
@@ -68,4 +73,4 @@ func set_value(section: SECTION, key: String, value: Variant) -> void:
 	load_settings()
 	var section_name: String = SECTION.keys()[section]
 	_settings.set_value(section_name.to_pascal_case(), key, value)
-	timer.start(1.0)
+	_timer.start(1.0)
