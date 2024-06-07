@@ -16,6 +16,8 @@ font_size = 2.285
 is_bold = false
 is_italic = false
 is_underlined = false
+override_font_color = false
+font_color = Color(1, 1, 1, 1)
 
 [sub_resource type="Resource" id="Resource_uu3wp"]
 resource_local_to_scene = true
@@ -23,7 +25,9 @@ script = ExtResource("5_n3t0q")
 font_size = 1.714
 is_bold = false
 is_italic = false
-is_underlined = false
+is_underlined = true
+override_font_color = false
+font_color = Color(1, 1, 1, 1)
 
 [sub_resource type="Resource" id="Resource_8u7im"]
 resource_local_to_scene = true
@@ -32,6 +36,8 @@ font_size = 1.428
 is_bold = false
 is_italic = false
 is_underlined = false
+override_font_color = false
+font_color = Color(1, 1, 1, 1)
 
 [sub_resource type="Resource" id="Resource_qwqmm"]
 resource_local_to_scene = true
@@ -40,6 +46,8 @@ font_size = 1.142
 is_bold = false
 is_italic = false
 is_underlined = false
+override_font_color = false
+font_color = Color(1, 1, 1, 1)
 
 [sub_resource type="Resource" id="Resource_8meyr"]
 resource_local_to_scene = true
@@ -48,6 +56,8 @@ font_size = 1.0
 is_bold = false
 is_italic = false
 is_underlined = false
+override_font_color = false
+font_color = Color(1, 1, 1, 1)
 
 [sub_resource type="Resource" id="Resource_mgj3t"]
 resource_local_to_scene = true
@@ -56,6 +66,8 @@ font_size = 0.857
 is_bold = true
 is_italic = false
 is_underlined = false
+override_font_color = false
+font_color = Color(1, 1, 1, 1)
 
 [node name="Credits" type="CenterContainer"]
 anchors_preset = 15

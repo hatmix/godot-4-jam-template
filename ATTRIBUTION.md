@@ -3,12 +3,6 @@
 A thing by [hatmix](https://hatmix.itch.io)
 
 ## Game Engine Addons
-
-### Godot Unit Test
-Author: [Butch Wesley "bitwes"](https://github.com/bitwes)
-Source: [https://github.com/bitwes/Gut](https://github.com/bitwes/Gut)
-License: [MIT License](https://github.com/bitwes/Gut/blob/main/addons/gut/LICENSE.md)
-
 ### Simple GUI Transitions
 Author: [murikistudio](https://github.com/murikistudio)
 Source: [https://github.com/murikistudio/simple-gui-transitions](https://github.com/murikistudio/simple-gui-transitions)
@@ -36,7 +30,6 @@ License: [MIT License](https://github.com/Pennycook/godot-input-prompts?tab=MIT-
 
 
 ## Additional source
-
 ### Godot CI
 Author: hatmix, [Barichello](https://github.com/abarichello)
 Source: [https://github.com/hatmix/godot-4-ci](https://github.com/hatmix/godot-4-ci)
@@ -48,14 +41,12 @@ Source: [https://github.com/imjp94/gd-plug](https://github.com/hatmix/godot-4-ci
 License:  [MIT License](https://github.com/imjp94/gd-plug/blob/master/LICENSE)
 
 ## Game Engine
-
 ### Godot Engine
 Authors: [AUTHORS.md](https://github.com/godotengine/godot/blob/master/AUTHORS.md)
 Source: [https://github.com/godotengine/godot](https://github.com/godotengine/godot)
 License: [MIT License](godotengine.org/license)
 
 ### Godot Engine 3rd party licenses
-
 #### Freetype
 Portions of this software are copyright ©1996-2023 The FreeType Project (www.freetype.org). All rights reserved.
 
