@@ -31,16 +31,18 @@ func _input(event: InputEvent) -> void:
 
 	if type == InputPrompt.Icons.KEYBOARD:
 		if event is InputEventKey or event is InputEventMouseButton:
-			Settings.remap_control(action, event)
+			if event.is_pressed():
+				Settings.update_action_event(action, event)
+				visible = false
+				return
+	elif event is InputEventJoypadButton:
+		if event.is_pressed():
+			Settings.update_action_event(action, event)
 			visible = false
 			return
-	elif event is InputEventJoypadButton:
-		Settings.remap_control(action, event)
-		visible = false
-		return
 	elif event is InputEventJoypadMotion:
 		event = event as InputEventJoypadMotion
 		if abs(event.axis_value) > InputMap.action_get_deadzone(action):
-			Settings.remap_control(action, event)
+			Settings.update_action_event(action, event)
 			visible = false
 			return

@@ -33,27 +33,72 @@ func load_controls() -> void:
 
 
 func save_controls() -> void:
+	print("save_controls called")
 	var actions: Array = InputMap.get_actions()
 	var data: ControlsData = ControlsData.new()
 	for action: String in actions:
 		if action.begins_with("editor_") or action.begins_with("ui_"):
 			continue
 		data.controls[action] = InputMap.action_get_events(action)
-		var err: int = ResourceSaver.save(data, CONTROLS_FILE)
-		if err:
-			SignalBus.post_message.emit(
-				"Error saving controls '%s'" % str(err), Message.ICON.FAILURE
-			)
-		else:
-			SignalBus.post_message.emit("Controls saved", Message.ICON.SUCCESS)
+	var err: int = ResourceSaver.save(data, CONTROLS_FILE)
+	if err:
+		SignalBus.post_message.emit("Error saving controls '%s'" % str(err), Message.ICON.FAILURE)
+	else:
+		SignalBus.post_message.emit("Controls saved", Message.ICON.SUCCESS)
 
 
 func reset_controls() -> void:
 	InputMap.load_from_project_settings()
 
 
-func remap_control(action: String, event: InputEvent) -> void:
-	print("remap %s event %s" % [action, JSON.stringify(event)])
+func update_action_event(action: String, event: InputEvent) -> void:
+	print("remap action %s event %s" % [action, JSON.stringify(event)])
+	var updated: bool = false
+	var action_events: Array = InputMap.action_get_events(action)
+	for action_event: InputEvent in action_events:
+		# First, check for equivalent event type to update
+		if event is InputEventKey and action_event is InputEventKey:
+			event = event as InputEventKey
+			action_event = action_event as InputEventKey
+			action_event.keycode = event.keycode
+			updated = true
+			break
+		elif event is InputEventMouseButton and action_event is InputEventMouseButton:
+			event = event as InputEventMouseButton
+			action_event = action_event as InputEventMouseButton
+			action_event.button_index = event.button_index
+			updated = true
+			break
+		elif event is InputEventJoypadButton and action_event is InputEventJoypadButton:
+			event = event as InputEventJoypadButton
+			action_event = action_event as InputEventJoypadButton
+			action_event.button_index = event.button_index
+			updated = true
+			break
+		elif event is InputEventJoypadMotion and action_event is InputEventJoypadMotion:
+			event = event as InputEventJoypadMotion
+			action_event = action_event as InputEventJoypadMotion
+			action_event.axis = event.axis
+			# Does axis_value matter here?
+			action_event.axis_value = event.axis_value
+			updated = true
+			break
+		# If no equivalent type, pick similar type (key & mouse or joypad) to replace
+		elif (
+			(event is InputEventKey and action_event is InputEventMouseButton)
+			or (event is InputEventMouseButton and action_event is InputEventKey)
+			or (event is InputEventJoypadButton and action_event is InputEventJoypadMotion)
+			or (event is InputEventJoypadMotion and action_event is InputEventJoypadButton)
+		):
+			InputMap.action_erase_event(action, action_event)
+			InputMap.action_add_event(action, event)
+			updated = true
+			break
+	# If nothing replaced, just add a new action event
+	if not updated:
+		InputMap.action_add_event(action, event)
+	PromptManager.refresh()
+	save_controls()
 
 
 func load_settings() -> void:
