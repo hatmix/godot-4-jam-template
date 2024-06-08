@@ -14,7 +14,7 @@ static var _settings: ConfigFile
 func _ready() -> void:
 	load_controls()
 
-
+#region control remapping
 func load_controls() -> void:
 	if not ResourceLoader.exists(CONTROLS_FILE, &"ControlsData"):
 		print("No saved controls data in ", CONTROLS_FILE)
@@ -42,9 +42,9 @@ func save_controls() -> void:
 		data.controls[action] = InputMap.action_get_events(action)
 	var err: int = ResourceSaver.save(data, CONTROLS_FILE)
 	if err:
-		SignalBus.post_message.emit("Error saving controls '%s'" % str(err), Message.ICON.FAILURE)
+		SignalBus.post_ui_message.emit("Error saving controls '%s'" % str(err), Message.ICON.FAILURE)
 	else:
-		SignalBus.post_message.emit("Controls saved", Message.ICON.SUCCESS)
+		SignalBus.post_ui_message.emit("Controls saved", Message.ICON.SUCCESS)
 
 
 func reset_controls() -> void:
@@ -99,8 +99,9 @@ func update_action_event(action: String, event: InputEvent) -> void:
 		InputMap.action_add_event(action, event)
 	PromptManager.refresh()
 	save_controls()
+#endregion
 
-
+#region settings
 func load_settings() -> void:
 	if _settings != null:
 		return
@@ -108,7 +109,7 @@ func load_settings() -> void:
 	_settings = ConfigFile.new()
 	var err: int = _settings.load(SETTINGS_FILE)
 	if err:
-		SignalBus.post_message.emit("Loading default settings", Message.ICON.SUCCESS)
+		SignalBus.post_ui_message.emit("Loading default settings", Message.ICON.SUCCESS)
 		err = _settings.load(DEFAULT_SETTINGS_FILE)
 		if not err:
 			err = _settings.save(SETTINGS_FILE)
@@ -125,10 +126,10 @@ func save_settings() -> void:
 	var err: int = _settings.save(SETTINGS_FILE)
 	if err:
 		print("post failure message")
-		SignalBus.post_message.emit("Error saving settings '%s'" % str(err), Message.ICON.FAILURE)
+		SignalBus.post_ui_message.emit("Error saving settings '%s'" % str(err), Message.ICON.FAILURE)
 	else:
 		print("post success message")
-		SignalBus.post_message.emit("Settings saved", Message.ICON.SUCCESS)
+		SignalBus.post_ui_message.emit("Settings saved", Message.ICON.SUCCESS)
 
 
 func get_value(section: SECTION, key: String, default: Variant) -> Variant:
@@ -142,3 +143,4 @@ func set_value(section: SECTION, key: String, value: Variant) -> void:
 	var section_name: String = SECTION.keys()[section]
 	_settings.set_value(section_name.to_pascal_case(), key, value)
 	_timer.start(1.0)
+#endregion

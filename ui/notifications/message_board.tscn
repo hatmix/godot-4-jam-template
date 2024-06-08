@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://dtrluvg5ox2vb"]
 
 [ext_resource type="Script" path="res://addons/simple-gui-transitions/transition.gd" id="1_1p75i"]
-[ext_resource type="Script" path="res://ui/notifications/message_queue.gd" id="1_y2nll"]
+[ext_resource type="Script" path="res://ui/notifications/message_board.gd" id="1_y2nll"]
 
 [node name="MessageQueue" type="Control"]
 layout_mode = 3
