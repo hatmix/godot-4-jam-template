@@ -2,35 +2,58 @@ extends Node
 
 enum SECTION { AUDIO }
 
+const CONTROLS_FILE: String = "user://controls.tres"
 const SETTINGS_FILE: String = "user://settings.cfg"
 const DEFAULT_SETTINGS_FILE: String = "res://default_settings.cfg"
-const REMAP_FILE: String = "user://remap.tres"
 
 # Timer is used to prevent fast repeated saving of cfg files
 var _timer: Timer
-static var _remap: ControlsRemap
 static var _settings: ConfigFile
 
 
-func load_remap() -> void:
-	_remap = load(REMAP_FILE)
-	if _remap:
-		_remap.apply()
-	else:
-		_remap = ControlsRemap.new()
+func _ready() -> void:
+	load_controls()
 
 
-func save_remap() -> void:
-	_remap.create_remap()
-	ResourceSaver.save(_remap, REMAP_FILE)
+func load_controls() -> void:
+	if not ResourceLoader.exists(CONTROLS_FILE, &"ControlsData"):
+		print("No saved controls data in ", CONTROLS_FILE)
+		return
+
+	var data: ControlsData = ResourceLoader.load(CONTROLS_FILE, &"ControlsData")
+	if not is_instance_valid(data):
+		printerr("Failed to load controls!")
+		return
+
+	for action: String in data.controls.keys():
+		# TODO: find each mapping to replace, not erase all
+		InputMap.action_erase_events(action)
+		for event: InputEvent in data.controls[action]:
+			InputMap.action_add_event(action, event)
 
 
-func get_action_key(action: String) -> InputEventKey:
-	return _remap.get_action_key(action)
+func save_controls() -> void:
+	var actions: Array = InputMap.get_actions()
+	var data: ControlsData = ControlsData.new()
+	for action: String in actions:
+		if action.begins_with("editor_") or action.begins_with("ui_"):
+			continue
+		data.controls[action] = InputMap.action_get_events(action)
+		var err: int = ResourceSaver.save(data, CONTROLS_FILE)
+		if err:
+			SignalBus.post_message.emit(
+				"Error saving controls '%s'" % str(err), Message.ICON.FAILURE
+			)
+		else:
+			SignalBus.post_message.emit("Controls saved", Message.ICON.SUCCESS)
 
 
-func get_action_button(action: String) -> InputEventJoypadButton:
-	return _remap.get_action_button(action)
+func reset_controls() -> void:
+	InputMap.load_from_project_settings()
+
+
+func remap_control(action: String, event: InputEvent) -> void:
+	print("remap %s event %s" % [action, JSON.stringify(event)])
 
 
 func load_settings() -> void:
