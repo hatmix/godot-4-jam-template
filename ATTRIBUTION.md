@@ -18,11 +18,6 @@ Author: [Daenvil](https://github.com/daenvil)
 Source: [https://github.com/daenvil/MarkdownLabel](https://github.com/daenvil/MarkdownLabel)  
 License: [MIT License](https://github.com/daenvil/MarkdownLabel/tree/main?tab=MIT-1-ov-file#readme)  
 
-### Godot Input Remap
-Author: [Tomek "KoBeWi"](https://github.com/KoBeWi)  
-Source [https://github.com/KoBeWi/Godot-Input-Remap](https://github.com/KoBeWi/Godot-Input-Remap)  
-License: [MIT License](https://github.com/KoBeWi/Godot-Input-Remap?tab=MIT-1-ov-file)  
-
 ### Godot Input Prompts
 Author: [John Pennycook](https://github.com/Pennycook)  
 Source [https://github.com/Pennycook/godot-input-prompts](https://github.com/Pennycook/godot-input-prompts)  

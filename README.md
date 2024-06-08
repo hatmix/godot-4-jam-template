@@ -1,16 +1,18 @@
 # Godot 4 Jam Template
 
-Opinionated quick start template for game jams built on [hatmix/godot-4-ci](https://github.com/hatmix/godot-4-ci).
+Quick start template for game jams built on [hatmix/godot-4-ci](https://github.com/hatmix/godot-4-ci).
 
 Features:
-* Github template repository vs. Addon for simplicity
+* Github template repository vs. addon
 * Web-export & GDScript focused for maximum jam
-* Premade basic UI for main menu, pause menu, settings, controls, and credits
-* UI transition animations with [simple-gui-transitions](https://github.com/murikistudio/simple-gui-transitions)
+* Premade basic UI for main menu, pause menu, credits, settings, and controls with **built-in remapping**
+* Visual representation of controls via [Godot Input Prompts](https://github.com/Pennycook/godot-input-prompts)
+* Keyboard and controller support for all template UI, touchscreen via [Godot's emulate mouse from touch setting](https://docs.godotengine.org/en/stable/classes/class_projectsettings.html#class-projectsettings-property-input-devices-pointing-emulate-mouse-from-touch)
+* UI transition animations with [Simple GUI Transitions](https://github.com/murikistudio/simple-gui-transitions)
 * ATTRIBUTION.md for in-game credits (inspired by [Maaack](https://github.com/Maaack/Godot-Game-Template/blob/main/ATTRIBUTION.md)'s approach)
 * Addon management with [gd-plug](https://github.com/imjp94/gd-plug)
 * CI/CD adapted from [abarichello/godot-ci](https://github.com/abarichello/godot-ci)
-* ...
+
 
 Don't just settle for the first template you find! Compare the alternatives and decide which best fits your desired features, coding style and approach to game development.
 
@@ -26,15 +28,51 @@ After cloning or templating the repo, it's necessary to install plugins. Plugins
 ```
 godot.exe -s plug.gd install
 ```
-It's usually necessary to start Godot twice after installing plugins this way, once to build the import cache and a second time for plugins to load properly.
+Restarting Godot once or twice after installing plugins this way should fix any errors on startup--once to build the import cache and a second time for plugins to load properly.
 
 ## Main
 
 Once plugins are setup, open `res://main.tscn` and `res://main.gd` and create your game!
 
+## UI
+
+Most of this template's work is done in the UI scenes under `res://ui/...`. The [Simple GUI Transitions](https://github.com/murikistudio/simple-gui-transitions) addon uses a "layout" concept for showing and hiding UI elements. A layout might be an entire screen or just a widget in the corner. The main UI scene includes the layouts for all of the template's menus, a skeleton in-game UI, and Maaack's [`ProjectUISoundController`](https://github.com/Maaack/Godot-UI-Sound-Controller).
+
+The intended approach is to keep all UI in `res://ui/ui.tscn` and instantiate it as a child of every other scene. This is just preference and it could be changed any number of ways. Simple GUI Transitions will discover its layouts wherever they are in the scene tree. It's also extremely flexible and much more could be done with its features.
+
+The top-level UI is set `PROCESS_MODE_ALWAYS` with children inheriting the mode. The `InGameMenuOverlay` will appear when `get_tree().paused == true`. In games where pausing the tree should not hide the game area, either remove that node or have the `PauseMenu` show and hide the overaly.
+
+## Folder structure
+
+Each UI layout is contained in its own directory under `res://ui`. The `assets` folder is for non-scene/non-code files used in the UI. The `game` folder and its scene are intended for the UI (HUD) shown in gameplay only and I recommend creating a `res://game` directory to hold other game files. 
+```
+├───autoloads
+├───tests
+└───ui
+    ├───assets
+    │   ├───audio
+    │   ├───fonts
+    │   └───icons
+    │       ├───input_devices
+    │       └───notifications
+    ├───controls
+    ├───credits
+    ├───game
+    ├───main_menu
+    ├───notifications
+    ├───pause_menu
+    └───settings
+```
+
+## Settings and Controls
+
+Actions not starting with "ui_" or "editor_" will be listed in the controls UI. If there are no actions defined, a default set of ui_ actions will be shown. The default set is just for testing and changes to those actions will not persist.
+
+Settings are saved automatically in `user://settings.cfg` and control mappings in `user://controls.tres`. Saving and loading are handled by `res://autoloads/settings.gd`.
+
 ## Tests
 
-[GUT](https://github.com/bitwes/Gut) is used for testing. The `tests/` folder contains the test code.
+[GUT](https://github.com/bitwes/Gut) is used for testing. The `tests/` folder contains the (too little) test code.  One benefit of too little test code is you lose very little if you want to use another framework, like [gdUnit4](https://github.com/MikeSchulze/gdUnit4).
 
 ## CI/CD
 
@@ -46,4 +84,3 @@ On succesful test and export, and if configured, the CI action uses [butler](htt
 * ITCHIO_USERNAME
 * ITCHIO_GAME
 * BUTLER_API_KEY
-
