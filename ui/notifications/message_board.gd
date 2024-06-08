@@ -11,12 +11,12 @@ func _ready() -> void:
 
 func _check_queue() -> void:
 	if %Messages.get_child_count() == 0:
-		GuiTransitions.hide("MessageQueue")
+		GuiTransitions.hide("MessageBoard")
 
 
 func show_message(text: String, icon: Message.ICON = Message.ICON.NONE) -> void:
-	if not GuiTransitions.is_shown("MessageQueue"):
-		GuiTransitions.show("MessageQueue")
+	if not GuiTransitions.is_shown("MessageBoard"):
+		GuiTransitions.show("MessageBoard")
 	var message: Message = message_scene.instantiate()
 	%Messages.add_child(message)
 	message.display(text, icon)
