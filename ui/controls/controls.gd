@@ -30,27 +30,42 @@ func _init_actions() -> void:
 		var action_label: Label = Label.new()
 		action_label.text = action.capitalize()
 		%Actions.add_child(action_label)
-		%Actions.add_child(_build_button(action, InputPrompt.Icons.KEYBOARD))
-		%Actions.add_child(_build_button(action, PromptManager.joy_icons))
+
+		%Actions.add_child(_build_button(action, _get_event_for_action(action)))
+		var joypad_event: InputEvent = _get_event_for_action(action, true)
+		%Actions.add_child(_build_button(action, joypad_event, true))
 
 
-func _build_button(action: String, icon_type: InputPrompt.Icons) -> Button:
-	var prompt: ActionPrompt = ActionPrompt.new()
-	prompt.icon = icon_type  # 1-3 controller families, 4 = Keyboard
-	prompt.action = action
-	prompt.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	prompt.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
+func _get_event_for_action(action: String, for_joypad: bool = false) -> Variant:
+	var events: Array = InputMap.action_get_events(action)
+	for event: InputEvent in events:
+		if for_joypad and (event is InputEventJoypadButton or event is InputEventJoypadMotion):
+			print("for joypad: %s" % JSON.stringify(event))
+			return event
+		if not for_joypad and (event is InputEventKey or event is InputEventMouseButton):
+			return event
+	return
+
+
+func _build_button(action: String, event: InputEvent, for_joypad: bool = false) -> Button:
+	var icon: InputEventIcon = InputEventIcon.new()
+	icon.input_event = event
+	icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	icon.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
 	var button: Button = Button.new()
 	button.flat = true
-	button.pressed.connect(_get_new_input_for_action.bind(action, icon_type))
-	button.add_child(prompt)
+	button.pressed.connect(_get_new_input_for_action.bind(action, icon, for_joypad))
+	button.add_child(icon)
 	return button
 
 
-func _get_new_input_for_action(action: String, type: InputPrompt.Icons) -> void:
-	# TODO: get the new input
-	%InputPanel.type = type
+func _get_new_input_for_action(
+	action: String, icon: InputEventIcon, for_joypad: bool = false
+) -> void:
+	%InputPanel.for_joypad = for_joypad
 	%InputPanel.action = action
 	%InputPanel.visible = true
-
 	print("get new input for action %s" % action)
+
+	await SignalBus.controls_changed
+	icon.input_event = _get_event_for_action(action, for_joypad)

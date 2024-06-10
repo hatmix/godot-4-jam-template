@@ -1,7 +1,7 @@
 extends PopupPanel
 
 var action: String
-var type: InputPrompt.Icons
+var for_joypad: bool = false
 
 
 func _ready() -> void:
@@ -17,19 +17,19 @@ func _notification(what: int) -> void:
 			printerr("InputPanel missing action")
 			visible = false
 			return
-		if type == 4:
-			%KeyboardMouseLabel.visible = true
-			%JoypadLabel.visible = false
-		else:
+		if for_joypad:
 			%KeyboardMouseLabel.visible = false
 			%JoypadLabel.visible = true
+		else:
+			%KeyboardMouseLabel.visible = true
+			%JoypadLabel.visible = false
 
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventAction and event.is_action("ui_cancel"):
 		visible = false
 
-	if type == InputPrompt.Icons.KEYBOARD:
+	if not for_joypad:
 		if event is InputEventKey or event is InputEventMouseButton:
 			if event.is_pressed():
 				Settings.update_action_event(action, event)

@@ -14,8 +14,10 @@ static var _settings: ConfigFile
 func _ready() -> void:
 	load_controls()
 
+
 #region control remapping
 func load_controls() -> void:
+	print("Loading controls from file...")
 	if not ResourceLoader.exists(CONTROLS_FILE, &"ControlsData"):
 		print("No saved controls data in ", CONTROLS_FILE)
 		return
@@ -26,10 +28,11 @@ func load_controls() -> void:
 		return
 
 	for action: String in data.controls.keys():
-		# TODO: find each mapping to replace, not erase all
-		InputMap.action_erase_events(action)
+		if not InputMap.has_action(action):
+			continue
 		for event: InputEvent in data.controls[action]:
-			InputMap.action_add_event(action, event)
+			update_action_event(action, event, false)
+	print("Done loading controls from file...")
 
 
 func save_controls() -> void:
@@ -42,7 +45,9 @@ func save_controls() -> void:
 		data.controls[action] = InputMap.action_get_events(action)
 	var err: int = ResourceSaver.save(data, CONTROLS_FILE)
 	if err:
-		SignalBus.post_ui_message.emit("Error saving controls '%s'" % str(err), Message.ICON.FAILURE)
+		SignalBus.post_ui_message.emit(
+			"Error saving controls '%s'" % str(err), Message.ICON.FAILURE
+		)
 	else:
 		SignalBus.post_ui_message.emit("Controls saved", Message.ICON.SUCCESS)
 
@@ -51,7 +56,7 @@ func reset_controls() -> void:
 	InputMap.load_from_project_settings()
 
 
-func update_action_event(action: String, event: InputEvent) -> void:
+func update_action_event(action: String, event: InputEvent, save: bool = true) -> void:
 	print("remap action %s event %s" % [action, JSON.stringify(event)])
 	var updated: bool = false
 	var action_events: Array = InputMap.action_get_events(action)
@@ -79,7 +84,6 @@ func update_action_event(action: String, event: InputEvent) -> void:
 			event = event as InputEventJoypadMotion
 			action_event = action_event as InputEventJoypadMotion
 			action_event.axis = event.axis
-			# Does axis_value matter here?
 			action_event.axis_value = event.axis_value
 			updated = true
 			break
@@ -97,9 +101,13 @@ func update_action_event(action: String, event: InputEvent) -> void:
 	# If nothing replaced, just add a new action event
 	if not updated:
 		InputMap.action_add_event(action, event)
-	PromptManager.refresh()
-	save_controls()
+	SignalBus.controls_changed.emit()
+	if save:
+		save_controls()
+
+
 #endregion
+
 
 #region settings
 func load_settings() -> void:
@@ -126,7 +134,9 @@ func save_settings() -> void:
 	var err: int = _settings.save(SETTINGS_FILE)
 	if err:
 		print("post failure message")
-		SignalBus.post_ui_message.emit("Error saving settings '%s'" % str(err), Message.ICON.FAILURE)
+		SignalBus.post_ui_message.emit(
+			"Error saving settings '%s'" % str(err), Message.ICON.FAILURE
+		)
 	else:
 		print("post success message")
 		SignalBus.post_ui_message.emit("Settings saved", Message.ICON.SUCCESS)
