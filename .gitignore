@@ -8,5 +8,6 @@ Exports/
 .godot/
 .plugged/
 .justfile
+.build_success.json
 addons/
 !addons/gd-plug/

@@ -18,11 +18,10 @@ Author: [Daenvil](https://github.com/daenvil)
 Source: [https://github.com/daenvil/MarkdownLabel](https://github.com/daenvil/MarkdownLabel)  
 License: [MIT License](https://github.com/daenvil/MarkdownLabel/tree/main?tab=MIT-1-ov-file#readme)  
 
-### Godot Input Prompts
-Author: [John Pennycook](https://github.com/Pennycook)  
-Source [https://github.com/Pennycook/godot-input-prompts](https://github.com/Pennycook/godot-input-prompts)  
-License: [MIT License](https://github.com/Pennycook/godot-input-prompts?tab=MIT-1-ov-file)  
-
+### Godot Input Event Icons
+Author: [hatmix](https://github.com/hatmix)
+Source: [https://github.com/hatmix/godot-input-event-icons](https://github.com/hatmix/godot-input-event-icons)
+License: [MIT License](https://github.com/hatmix/godot-input-event-icons?tab=MIT-1-ov-file)
 
 ## Additional source
 ### Godot CI
