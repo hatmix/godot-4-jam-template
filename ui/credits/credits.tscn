@@ -100,6 +100,8 @@ custom_minimum_size = Vector2(1200, 700)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+focus_neighbor_bottom = NodePath("../../VBoxContainer/Back")
+focus_mode = 2
 bbcode_enabled = true
 script = ExtResource("3_rqcdg")
 h1 = SubResource("Resource_iu550")
@@ -110,12 +112,15 @@ h5 = SubResource("Resource_8meyr")
 h6 = SubResource("Resource_mgj3t")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer"]
-clip_contents = true
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+focus_neighbor_top = NodePath("../ScrollContainer/MarkdownLabel")
+focus_neighbor_right = NodePath("../ScrollContainer")
 
 [node name="Back" type="Button" parent="VBoxContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+focus_neighbor_top = NodePath("../../ScrollContainer/MarkdownLabel")
+focus_neighbor_right = NodePath("../../ScrollContainer")
 text = "Back"
