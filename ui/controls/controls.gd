@@ -16,6 +16,13 @@ func _ready() -> void:
 	_init_actions()
 
 
+func _input(_event: InputEvent) -> void:
+	# $GuiTransition._status is non-zero while transition is active
+	if visible and not $GuiTransition._status and Input.is_action_just_pressed("ui_cancel"):
+		get_viewport().set_input_as_handled()
+		GuiTransitions.go_to("Settings")
+
+
 func _init_actions() -> void:
 	var actions: Array[String] = []
 	for action: String in InputMap.get_actions():
@@ -40,9 +47,10 @@ func _get_event_for_action(action: String, for_joypad: bool = false) -> Variant:
 	var events: Array = InputMap.action_get_events(action)
 	for event: InputEvent in events:
 		if for_joypad and (event is InputEventJoypadButton or event is InputEventJoypadMotion):
-			print("for joypad: %s" % JSON.stringify(event))
+			#print("found action %s event for joypad: %s" % [action, JSON.stringify(event)])
 			return event
 		if not for_joypad and (event is InputEventKey or event is InputEventMouseButton):
+			#print("found action %s event for keyboard/mouse: %s" % [action, JSON.stringify(event)])
 			return event
 	return
 
