@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://ui/controls/controls.gd" id="1_ypuet"]
 [ext_resource type="Script" path="res://addons/simple-gui-transitions/transition.gd" id="2_m5t2f"]
-[ext_resource type="Texture2D" uid="uid://d26kijpqkvxb7" path="res://ui/assets/icons/input_devices/keyboard.svg" id="3_gbh48"]
+[ext_resource type="Texture2D" uid="uid://cln1a2aqaf7t4" path="res://ui/assets/icons/input_devices/keyboard-numpad-mouse.svg" id="3_47prf"]
 [ext_resource type="Texture2D" uid="uid://0jg5joerwgk0" path="res://ui/assets/icons/input_devices/controller_xboxone.svg" id="4_0i1ma"]
 [ext_resource type="Script" path="res://ui/controls/input_panel.gd" id="5_7bxk6"]
 
@@ -43,7 +43,7 @@ layout_mode = 2
 [node name="KeyboardMouse" type="TextureRect" parent="CenterContainer/VBoxContainer/Actions"]
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
-texture = ExtResource("3_gbh48")
+texture = ExtResource("3_47prf")
 stretch_mode = 3
 
 [node name="Controller" type="TextureRect" parent="CenterContainer/VBoxContainer/Actions"]

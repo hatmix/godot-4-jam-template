@@ -65,7 +65,14 @@ func update_action_event(action: String, event: InputEvent, save: bool = true) -
 		if event is InputEventKey and action_event is InputEventKey:
 			event = event as InputEventKey
 			action_event = action_event as InputEventKey
-			action_event.keycode = event.keycode
+			# Clear key code entries to save the one in the event
+			action_event.keycode = KEY_NONE
+			action_event.physical_keycode = KEY_NONE
+			action_event.unicode = 0
+			if event.keycode != KEY_NONE:
+				action_event.keycode = event.keycode
+			else:
+				action_event.physical_keycode = event.physical_keycode
 			updated = true
 			break
 		elif event is InputEventMouseButton and action_event is InputEventMouseButton:

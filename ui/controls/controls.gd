@@ -72,7 +72,7 @@ func _get_new_input_for_action(
 	%InputPanel.for_joypad = for_joypad
 	%InputPanel.action = action
 	%InputPanel.visible = true
-	print("get new input for action %s" % action)
+	#print("get new input for action %s" % action)
 
 	await SignalBus.controls_changed
 	button.input_event = _get_event_for_action(action, for_joypad)
