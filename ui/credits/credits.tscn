@@ -90,7 +90,7 @@ group = NodePath("../VBoxContainer/ScrollContainer")
 layout_mode = 2
 
 [node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer"]
-custom_minimum_size = Vector2(1200, 700)
+custom_minimum_size = Vector2(1200, 600)
 layout_mode = 2
 size_flags_vertical = 3
 
