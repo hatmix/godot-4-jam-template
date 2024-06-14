@@ -32,17 +32,20 @@ func _input(event: InputEvent) -> void:
 	if not for_joypad:
 		if event is InputEventKey or event is InputEventMouseButton:
 			if event.is_pressed():
+				#print("got new key input %s" % JSON.stringify(event))
 				Settings.update_action_event(action, event)
 				visible = false
 				return
 	elif event is InputEventJoypadButton:
 		if event.is_pressed():
+			#print("got new joypad button input %s" % JSON.stringify(event))
 			Settings.update_action_event(action, event)
 			visible = false
 			return
 	elif event is InputEventJoypadMotion:
 		event = event as InputEventJoypadMotion
 		if abs(event.axis_value) > InputMap.action_get_deadzone(action):
+			#print("got new joypad motion input %s" % JSON.stringify(event))
 			Settings.update_action_event(action, event)
 			visible = false
 			return

@@ -36,7 +36,7 @@ func load_controls() -> void:
 
 
 func save_controls() -> void:
-	print("save_controls called")
+	#print("save_controls called")
 	var actions: Array = InputMap.get_actions()
 	var data: ControlsData = ControlsData.new()
 	for action: String in actions:

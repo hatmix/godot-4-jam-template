@@ -9,10 +9,14 @@ const DEFAULT_ACTIONS: Array[String] = [
 	"ui_cancel",
 ]
 
+var web_keyboard_icon: Texture2D = preload("res://ui/assets/icons/input_devices/keyboard.svg")
+
 
 func _ready() -> void:
 	%InputPanel.visible = false
 	%Back.pressed.connect(GuiTransitions.go_to.bind("Settings"))
+	if OS.get_name() == "Web":
+		%KeyboardMouse.texture = web_keyboard_icon
 	_init_actions()
 
 

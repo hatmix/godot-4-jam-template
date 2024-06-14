@@ -41,6 +41,7 @@ custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 
 [node name="KeyboardMouse" type="TextureRect" parent="CenterContainer/VBoxContainer/Actions"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 texture = ExtResource("3_47prf")
