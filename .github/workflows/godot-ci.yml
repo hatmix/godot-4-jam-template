@@ -17,6 +17,10 @@ on:
           - debug
           - release
 
+concurrency:
+  group: there-can-be-only-one
+  cancel-in-progress: true
+
 env:
   GODOT_VERSION: 4.2.2
   PROJECT_NAME: ${{ github.event.repository.name }}
