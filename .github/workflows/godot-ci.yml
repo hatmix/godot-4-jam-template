@@ -78,7 +78,7 @@ jobs:
           godot --headless --path . --export-${EXPORT_TYPE} "Linux" exports/linux/${ITCHIO_GAME}.x86_64
           godot --headless --path . --export-${EXPORT_TYPE} "macOS" exports/macos/${ITCHIO_GAME}.zip
           godot --headless --path . --export-${EXPORT_TYPE} "Windows" exports/windows/${ITCHIO_GAME}.exe
-          find exports -name '*'
+          #find exports -name '*'
 
       - name: Cache butler files
         id: cache-butler
