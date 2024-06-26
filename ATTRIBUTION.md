@@ -19,9 +19,9 @@ Source: [https://github.com/daenvil/MarkdownLabel](https://github.com/daenvil/Ma
 License: [MIT License](https://github.com/daenvil/MarkdownLabel/tree/main?tab=MIT-1-ov-file#readme)  
 
 ### Godot Input Event Icons
-Author: [hatmix](https://github.com/hatmix)
-Source: [https://github.com/hatmix/godot-input-event-icons](https://github.com/hatmix/godot-input-event-icons)
-License: [MIT License](https://github.com/hatmix/godot-input-event-icons?tab=MIT-1-ov-file)
+Author: [hatmix](https://github.com/hatmix) 
+Source: [https://github.com/hatmix/godot-input-event-icons](https://github.com/hatmix/godot-input-event-icons) 
+License: [MIT License](https://github.com/hatmix/godot-input-event-icons?tab=MIT-1-ov-file) 
 
 ### gd-plug
 Author: [imjp94](https://github.com/imjp94)  
