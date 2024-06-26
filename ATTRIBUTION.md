@@ -2,7 +2,7 @@
 
 A thing by [hatmix](https://hatmix.itch.io)
 
-## Game Engine Addons
+## Godot Addons
 ### Simple GUI Transitions
 Author: [murikistudio](https://github.com/murikistudio)  
 Source: [https://github.com/murikistudio/simple-gui-transitions](https://github.com/murikistudio/simple-gui-transitions)  
@@ -40,7 +40,7 @@ Authors: [AUTHORS.md](https://github.com/godotengine/godot/blob/master/AUTHORS.m
 Source: [https://github.com/godotengine/godot](https://github.com/godotengine/godot)  
 License: [MIT License](godotengine.org/license)
 
-### Godot Engine 3rd party licenses
+### [Godot Engine 3rd party licenses](https://docs.godotengine.org/en/stable/about/complying_with_licenses.html)
 #### Freetype
 Portions of this software are copyright ©1996-2023 The FreeType Project (www.freetype.org). All rights reserved.
 
