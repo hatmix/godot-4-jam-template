@@ -49,6 +49,7 @@ func _init_actions() -> void:
 	for action: String in actions:
 		var action_label: Label = Label.new()
 		action_label.custom_minimum_size.x = %HeaderRow.custom_minimum_size.x
+		action_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		action_label.text = action.capitalize()
 		%Actions.add_child(action_label)
 
