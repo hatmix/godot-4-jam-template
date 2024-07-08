@@ -78,7 +78,10 @@ func _build_button(action: String, event: InputEvent, for_joypad: bool = false) 
 	button.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
 	button.set_icon_alignment(HORIZONTAL_ALIGNMENT_CENTER)
 	button.set_vertical_icon_alignment(VERTICAL_ALIGNMENT_CENTER)
-	button.custom_minimum_size.x = %KeyboardMouse.custom_minimum_size.x
+	if for_joypad:
+		button.custom_minimum_size.x = %Controller.size.x
+	else:
+		button.custom_minimum_size.x = %KeyboardMouse.size.x
 	button.flat = true
 	button.pressed.connect(_get_new_input_for_action.bind(action, button, for_joypad))
 	return button

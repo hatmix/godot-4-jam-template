@@ -51,6 +51,7 @@ texture = ExtResource("3_47prf")
 stretch_mode = 3
 
 [node name="Controller" type="TextureRect" parent="CenterContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 texture = ExtResource("4_0i1ma")
