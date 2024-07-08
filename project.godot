@@ -33,8 +33,8 @@ gdscript/warnings/inferred_declaration=1
 
 [display]
 
-window/size/viewport_width=1280
-window/size/viewport_height=720
+window/size/viewport_width=640
+window/size/viewport_height=360
 window/size/mode=3
 window/stretch/mode="canvas_items"
 
@@ -89,6 +89,7 @@ ui_cancel={
 
 [rendering]
 
+textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="gl_compatibility"
 environment/defaults/default_clear_color=Color(0.0784314, 0.133333, 0.25098, 1)
 anti_aliasing/quality/screen_space_aa=1

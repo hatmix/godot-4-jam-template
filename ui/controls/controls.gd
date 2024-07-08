@@ -14,10 +14,12 @@ var web_keyboard_icon: Texture2D = preload("res://ui/assets/icons/input_devices/
 
 func _ready() -> void:
 	%InputPanel.visible = false
-	%Back.pressed.connect(GuiTransitions.go_to.bind("Settings"))
+	%Back.pressed.connect(_on_back)
 	if OS.get_name() == "Web":
 		%KeyboardMouse.texture = web_keyboard_icon
 	_init_actions()
+	# uncomment for working on this scene directly
+	#GuiTransitions.go_to(name)
 
 
 func _input(_event: InputEvent) -> void:
@@ -25,6 +27,13 @@ func _input(_event: InputEvent) -> void:
 	if visible and not $GuiTransition._status and Input.is_action_just_pressed("ui_cancel"):
 		get_viewport().set_input_as_handled()
 		GuiTransitions.go_to("Settings")
+
+
+func _on_back() -> void:
+	if get_tree().paused == true:
+		GuiTransitions.go_to("PauseMenu")
+	else:
+		GuiTransitions.go_to("MainMenu")
 
 
 func _init_actions() -> void:
@@ -39,6 +48,7 @@ func _init_actions() -> void:
 
 	for action: String in actions:
 		var action_label: Label = Label.new()
+		action_label.custom_minimum_size.x = %HeaderRow.custom_minimum_size.x
 		action_label.text = action.capitalize()
 		%Actions.add_child(action_label)
 
@@ -61,10 +71,13 @@ func _get_event_for_action(action: String, for_joypad: bool = false) -> Variant:
 
 func _build_button(action: String, event: InputEvent, for_joypad: bool = false) -> Button:
 	var button: InputEventButton = InputEventButton.new()
+	button.icon_set = EventIconMapping.IconSet.KENNEY_1_BIT
 	button.input_event = event
+	button.expand_icon = true
 	button.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
 	button.set_icon_alignment(HORIZONTAL_ALIGNMENT_CENTER)
 	button.set_vertical_icon_alignment(VERTICAL_ALIGNMENT_CENTER)
+	button.custom_minimum_size.x = %KeyboardMouse.custom_minimum_size.x
 	button.flat = true
 	button.pressed.connect(_get_new_input_for_action.bind(action, button, for_joypad))
 	return button

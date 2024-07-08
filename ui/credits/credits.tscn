@@ -3,15 +3,16 @@
 [ext_resource type="Script" path="res://ui/credits/credits.gd" id="1_0pb5o"]
 [ext_resource type="Script" path="res://addons/simple-gui-transitions/transition.gd" id="2_stnqr"]
 [ext_resource type="Script" path="res://addons/markdownlabel/markdownlabel.gd" id="3_rqcdg"]
-[ext_resource type="Script" path="res://addons/markdownlabel/header_formats/h1_format.gd" id="4_wuulm"]
-[ext_resource type="Script" path="res://addons/markdownlabel/header_formats/h2_format.gd" id="5_n3t0q"]
-[ext_resource type="Script" path="res://addons/markdownlabel/header_formats/h3_format.gd" id="6_fjjyt"]
-[ext_resource type="Script" path="res://addons/markdownlabel/header_formats/h4_format.gd" id="7_tkt54"]
-[ext_resource type="Script" path="res://addons/markdownlabel/header_formats/h5_format.gd" id="8_hemd5"]
-[ext_resource type="Script" path="res://addons/markdownlabel/header_formats/h6_format.gd" id="9_4nj25"]
+[ext_resource type="Script" path="res://addons/markdownlabel/header_formats/h1_format.gd" id="4_h0eqe"]
+[ext_resource type="Script" path="res://addons/markdownlabel/header_formats/h2_format.gd" id="5_xmv6d"]
+[ext_resource type="Script" path="res://addons/markdownlabel/header_formats/h3_format.gd" id="6_6xvi1"]
+[ext_resource type="Script" path="res://addons/markdownlabel/header_formats/h4_format.gd" id="7_ye0td"]
+[ext_resource type="Script" path="res://addons/markdownlabel/header_formats/h5_format.gd" id="8_pq5cp"]
+[ext_resource type="Script" path="res://addons/markdownlabel/header_formats/h6_format.gd" id="9_40fmp"]
 
-[sub_resource type="Resource" id="Resource_iu550"]
-script = ExtResource("4_wuulm")
+[sub_resource type="Resource" id="Resource_olsbt"]
+resource_local_to_scene = true
+script = ExtResource("4_h0eqe")
 font_size = 2.285
 is_bold = false
 is_italic = false
@@ -19,19 +20,19 @@ is_underlined = false
 override_font_color = false
 font_color = Color(1, 1, 1, 1)
 
-[sub_resource type="Resource" id="Resource_uu3wp"]
+[sub_resource type="Resource" id="Resource_vt6jt"]
 resource_local_to_scene = true
-script = ExtResource("5_n3t0q")
+script = ExtResource("5_xmv6d")
 font_size = 1.714
 is_bold = false
 is_italic = false
-is_underlined = true
+is_underlined = false
 override_font_color = false
 font_color = Color(1, 1, 1, 1)
 
-[sub_resource type="Resource" id="Resource_8u7im"]
+[sub_resource type="Resource" id="Resource_1awd4"]
 resource_local_to_scene = true
-script = ExtResource("6_fjjyt")
+script = ExtResource("6_6xvi1")
 font_size = 1.428
 is_bold = false
 is_italic = false
@@ -39,9 +40,9 @@ is_underlined = false
 override_font_color = false
 font_color = Color(1, 1, 1, 1)
 
-[sub_resource type="Resource" id="Resource_qwqmm"]
+[sub_resource type="Resource" id="Resource_cwasd"]
 resource_local_to_scene = true
-script = ExtResource("7_tkt54")
+script = ExtResource("7_ye0td")
 font_size = 1.142
 is_bold = false
 is_italic = false
@@ -49,9 +50,9 @@ is_underlined = false
 override_font_color = false
 font_color = Color(1, 1, 1, 1)
 
-[sub_resource type="Resource" id="Resource_8meyr"]
+[sub_resource type="Resource" id="Resource_gcqir"]
 resource_local_to_scene = true
-script = ExtResource("8_hemd5")
+script = ExtResource("8_pq5cp")
 font_size = 1.0
 is_bold = false
 is_italic = false
@@ -59,17 +60,18 @@ is_underlined = false
 override_font_color = false
 font_color = Color(1, 1, 1, 1)
 
-[sub_resource type="Resource" id="Resource_mgj3t"]
+[sub_resource type="Resource" id="Resource_fec2k"]
 resource_local_to_scene = true
-script = ExtResource("9_4nj25")
+script = ExtResource("9_40fmp")
 font_size = 0.857
-is_bold = true
+is_bold = false
 is_italic = false
 is_underlined = false
 override_font_color = false
 font_color = Color(1, 1, 1, 1)
 
-[node name="Credits" type="CenterContainer"]
+[node name="Credits" type="Control"]
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -84,43 +86,52 @@ fade_layout = 1
 animation_enter = 4
 animation_leave = 4
 layout = NodePath("..")
-group = NodePath("../VBoxContainer/ScrollContainer")
+group = NodePath("../VBoxContainer")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
-layout_mode = 2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer"]
-custom_minimum_size = Vector2(1200, 600)
 layout_mode = 2
 size_flags_vertical = 3
 
 [node name="MarkdownLabel" type="RichTextLabel" parent="VBoxContainer/ScrollContainer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(1200, 700)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-focus_neighbor_bottom = NodePath("../../VBoxContainer/Back")
+focus_neighbor_bottom = NodePath("../../Back")
 focus_mode = 2
 bbcode_enabled = true
 script = ExtResource("3_rqcdg")
-h1 = SubResource("Resource_iu550")
-h2 = SubResource("Resource_uu3wp")
-h3 = SubResource("Resource_8u7im")
-h4 = SubResource("Resource_qwqmm")
-h5 = SubResource("Resource_8meyr")
-h6 = SubResource("Resource_mgj3t")
+h1 = SubResource("Resource_olsbt")
+h2 = SubResource("Resource_vt6jt")
+h3 = SubResource("Resource_1awd4")
+h4 = SubResource("Resource_cwasd")
+h5 = SubResource("Resource_gcqir")
+h6 = SubResource("Resource_fec2k")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 focus_neighbor_top = NodePath("../ScrollContainer/MarkdownLabel")
 focus_neighbor_right = NodePath("../ScrollContainer")
+theme_override_constants/separation = 0
 
-[node name="Back" type="Button" parent="VBoxContainer/VBoxContainer"]
+[node name="Back" type="Button" parent="VBoxContainer/VBoxContainer2"]
 unique_name_in_owner = true
 layout_mode = 2
-focus_neighbor_top = NodePath("../../ScrollContainer/MarkdownLabel")
-focus_neighbor_right = NodePath("../../ScrollContainer")
+focus_neighbor_top = NodePath("../ScrollContainer/MarkdownLabel")
+focus_neighbor_right = NodePath("../ScrollContainer")
 text = "Back"
+
+[node name="TerribleNoGoodMarginHack" type="Label" parent="VBoxContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_stretch_ratio = 0.0
+theme_override_font_sizes/font_size = 1

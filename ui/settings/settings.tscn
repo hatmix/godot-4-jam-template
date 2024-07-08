@@ -3,7 +3,8 @@
 [ext_resource type="Script" path="res://addons/simple-gui-transitions/transition.gd" id="1_7qsrg"]
 [ext_resource type="Script" path="res://ui/settings/settings.gd" id="1_dabjx"]
 
-[node name="Settings" type="CenterContainer"]
+[node name="Settings" type="Control"]
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -14,72 +15,78 @@ script = ExtResource("1_dabjx")
 [node name="GuiTransition" type="Node" parent="."]
 script = ExtResource("1_7qsrg")
 layout = NodePath("..")
-group = NodePath("../MarginContainer/VBoxContainer")
+group = NodePath("../VBoxContainer")
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
-layout_mode = 2
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -269.0
+offset_top = -54.0
+offset_right = 269.0
+offset_bottom = 54.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="VBoxContainer"]
 layout_mode = 2
 text = "Settings"
 horizontal_alignment = 1
 
-[node name="Audio" type="GridContainer" parent="MarginContainer/VBoxContainer"]
+[node name="Audio" type="GridContainer" parent="VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 columns = 2
 
-[node name="MasterLabel" type="Label" parent="MarginContainer/VBoxContainer/Audio"]
+[node name="MasterLabel" type="Label" parent="VBoxContainer/Audio"]
 layout_mode = 2
 text = "Main"
 
-[node name="Master" type="HSlider" parent="MarginContainer/VBoxContainer/Audio"]
+[node name="Master" type="HSlider" parent="VBoxContainer/Audio"]
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 size_flags_vertical = 4
 value = 100.0
-tick_count = 10
-ticks_on_borders = true
 
-[node name="MusicLabel" type="Label" parent="MarginContainer/VBoxContainer/Audio"]
+[node name="MusicLabel" type="Label" parent="VBoxContainer/Audio"]
 layout_mode = 2
 text = "Music"
 
-[node name="Music" type="HSlider" parent="MarginContainer/VBoxContainer/Audio"]
+[node name="Music" type="HSlider" parent="VBoxContainer/Audio"]
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 size_flags_vertical = 4
 value = 100.0
-tick_count = 10
-ticks_on_borders = true
 
-[node name="SfxLabel" type="Label" parent="MarginContainer/VBoxContainer/Audio"]
+[node name="SfxLabel" type="Label" parent="VBoxContainer/Audio"]
 layout_mode = 2
 text = "Effects"
 
-[node name="SFX" type="HSlider" parent="MarginContainer/VBoxContainer/Audio"]
+[node name="SFX" type="HSlider" parent="VBoxContainer/Audio"]
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 size_flags_vertical = 4
 value = 100.0
-tick_count = 10
 ticks_on_borders = true
 
-[node name="CenterContainer" type="CenterContainer" parent="MarginContainer/VBoxContainer"]
-layout_mode = 2
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -32.0
+offset_top = -22.0
+offset_right = 32.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/CenterContainer"]
-layout_mode = 2
-
-[node name="Controls" type="Button" parent="MarginContainer/VBoxContainer/CenterContainer/HBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-text = "Controls"
-
-[node name="Back" type="Button" parent="MarginContainer/VBoxContainer/CenterContainer/HBoxContainer"]
+[node name="Back" type="Button" parent="HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Back"

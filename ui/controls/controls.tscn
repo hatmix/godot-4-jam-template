@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://ui/controls/input_panel.gd" id="5_7bxk6"]
 
 [node name="Controls" type="Control"]
+texture_filter = 1
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -21,6 +22,7 @@ layout = NodePath("..")
 group = NodePath("..")
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
+clip_contents = true
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -31,56 +33,73 @@ grow_vertical = 2
 [node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
 layout_mode = 2
 
-[node name="Actions" type="GridContainer" parent="CenterContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/separation = 2
+
+[node name="HeaderRow" type="Label" parent="CenterContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
-layout_mode = 2
-columns = 3
-
-[node name="HeaderRow" type="Label" parent="CenterContainer/VBoxContainer/Actions"]
-custom_minimum_size = Vector2(400, 0)
+custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 
-[node name="KeyboardMouse" type="TextureRect" parent="CenterContainer/VBoxContainer/Actions"]
+[node name="KeyboardMouse" type="TextureRect" parent="CenterContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 texture = ExtResource("3_47prf")
 stretch_mode = 3
 
-[node name="Controller" type="TextureRect" parent="CenterContainer/VBoxContainer/Actions"]
+[node name="Controller" type="TextureRect" parent="CenterContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 texture = ExtResource("4_0i1ma")
 stretch_mode = 3
 
-[node name="Buttons" type="HBoxContainer" parent="CenterContainer/VBoxContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="CenterContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
-size_flags_horizontal = 4
+size_flags_vertical = 3
+follow_focus = true
 
-[node name="Back" type="Button" parent="CenterContainer/VBoxContainer/Buttons"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Actions" type="GridContainer" parent="CenterContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Back"
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/h_separation = 2
+columns = 3
 
 [node name="InputPanel" type="PopupPanel" parent="."]
 unique_name_in_owner = true
 initial_position = 2
-size = Vector2i(640, 320)
+size = Vector2i(320, 160)
 always_on_top = true
-min_size = Vector2i(640, 320)
+min_size = Vector2i(320, 160)
 script = ExtResource("5_7bxk6")
 
 [node name="MarginContainer" type="MarginContainer" parent="InputPanel"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 offset_left = 4.0
 offset_top = 4.0
-offset_right = 636.0
-offset_bottom = 316.0
+offset_right = 316.0
+offset_bottom = 156.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="KeyboardMouseLabel" type="Label" parent="InputPanel/MarginContainer"]
 unique_name_in_owner = true
 visible = false
-custom_minimum_size = Vector2(300, 0)
+custom_minimum_size = Vector2(280, 0)
 layout_mode = 2
+size_flags_horizontal = 4
 text = "Waiting for keyboard or mouse input"
 horizontal_alignment = 1
 autowrap_mode = 2
@@ -90,6 +109,27 @@ unique_name_in_owner = true
 visible = false
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
+size_flags_horizontal = 4
 text = "Waiting for controller input"
 horizontal_alignment = 1
 autowrap_mode = 2
+
+[node name="Buttons" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -32.0
+offset_top = -22.0
+offset_right = 32.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 4
+
+[node name="Back" type="Button" parent="Buttons"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Back"

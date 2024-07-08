@@ -12,6 +12,8 @@ offset_top = 20.0
 offset_right = 21.5
 offset_bottom = 79.0
 grow_horizontal = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 script = ExtResource("1_pe0jv")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
@@ -22,6 +24,7 @@ alignment = 1
 
 [node name="Icon" type="TextureRect" parent="HBoxContainer"]
 unique_name_in_owner = true
+visible = false
 modulate = Color(0.980392, 0.380392, 0.286275, 1)
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
@@ -35,3 +38,4 @@ unique_name_in_owner = true
 modulate = Color(0.980392, 0.380392, 0.286275, 1)
 layout_mode = 2
 theme_override_font_sizes/font_size = 18
+horizontal_alignment = 1

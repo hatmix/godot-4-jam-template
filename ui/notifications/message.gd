@@ -14,8 +14,12 @@ const MAX_HEIGHT: int = 90
 # Same order as ICON enum
 var icon_files: Array = [
 	null,
-	preload("res://ui/assets/icons/notifications/checkmark-circle-outline-white.png"),
-	preload("res://ui/assets/icons/notifications/cross-circle-outline-white.png"),
+	# use for large res
+	#load("res://ui/assets/icons/notifications/checkmark-circle-outline-white.png"),
+	#load("res://ui/assets/icons/notifications/cross-circle-outline-white.png"),
+	# use for pixel game
+	load("res://ui/assets/icons/notifications/pixel-checkmark.png"),
+	load("res://ui/assets/icons/notifications/pixel-cross.png")
 ]
 
 @onready var icon_node: TextureRect = %Icon
@@ -23,8 +27,9 @@ var icon_files: Array = [
 
 
 func display(text: String, icon: ICON = ICON.NONE) -> void:
-	icon_node.texture = icon_files[icon]
-	icon_node.modulate = message_color
+	#icon_node.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	#icon_node.texture = icon_files[icon]
+	#icon_node.modulate = message_color
 	text_node.text = text
 	text_node.modulate = message_color
 

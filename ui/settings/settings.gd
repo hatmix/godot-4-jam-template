@@ -1,4 +1,4 @@
-extends CenterContainer
+extends Control
 
 var _audio_bus_name_idx_mapping: Dictionary = {}
 
@@ -6,7 +6,6 @@ var _audio_bus_name_idx_mapping: Dictionary = {}
 func _ready() -> void:
 	Settings.load_settings()
 	%Back.pressed.connect(_on_back)
-	%Controls.pressed.connect(GuiTransitions.go_to.bind("Controls"))
 	call_deferred("_update_audio_sliders")
 
 	for idx: int in range(0, AudioServer.bus_count):

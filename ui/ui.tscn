@@ -38,15 +38,6 @@ script = ExtResource("5_n6lj8")
 [node name="Settings" parent="." instance=ExtResource("9_jqbk6")]
 
 [node name="Controls" parent="." instance=ExtResource("11_w3b35")]
-anchors_preset = 0
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_left = 640.0
-offset_top = 400.0
-offset_right = 640.0
-offset_bottom = 400.0
-grow_horizontal = 1
-grow_vertical = 1
 
 [node name="Game" parent="." instance=ExtResource("8_62oa5")]
 
