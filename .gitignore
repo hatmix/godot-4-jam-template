@@ -1,12 +1,12 @@
 .import/
 .DS_Store
-*.import
 *.mkv
 *.mp4
 .godot/*
 .plugged/*
 .justfile
 .build_success.json
+media/
 addons/*
 !addons/gd-plug/
 
