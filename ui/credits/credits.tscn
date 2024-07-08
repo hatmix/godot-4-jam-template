@@ -86,9 +86,9 @@ fade_layout = 1
 animation_enter = 4
 animation_leave = 4
 layout = NodePath("..")
-group = NodePath("../VBoxContainer")
+group = NodePath("../MarginContainer/VBoxContainer")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -96,11 +96,14 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="MarkdownLabel" type="RichTextLabel" parent="VBoxContainer/ScrollContainer"]
+[node name="MarkdownLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer/ScrollContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -116,7 +119,7 @@ h4 = SubResource("Resource_cwasd")
 h5 = SubResource("Resource_gcqir")
 h6 = SubResource("Resource_fec2k")
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -124,14 +127,9 @@ focus_neighbor_top = NodePath("../ScrollContainer/MarkdownLabel")
 focus_neighbor_right = NodePath("../ScrollContainer")
 theme_override_constants/separation = 0
 
-[node name="Back" type="Button" parent="VBoxContainer/VBoxContainer2"]
+[node name="Back" type="Button" parent="MarginContainer/VBoxContainer/VBoxContainer2"]
 unique_name_in_owner = true
 layout_mode = 2
 focus_neighbor_top = NodePath("../ScrollContainer/MarkdownLabel")
 focus_neighbor_right = NodePath("../ScrollContainer")
 text = "Back"
-
-[node name="TerribleNoGoodMarginHack" type="Label" parent="VBoxContainer/VBoxContainer2"]
-layout_mode = 2
-size_flags_stretch_ratio = 0.0
-theme_override_font_sizes/font_size = 1

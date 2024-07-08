@@ -55,8 +55,8 @@ config/default/duration=0.1
 config/default/delay=0.1
 config/default/transition_type="SINE"
 config/default/ease_type="IN_OUT"
-config/default/animation_enter=7
-config/default/animation_leave=7
+config/default/animation_enter=6
+config/default/animation_leave=6
 
 [input]
 
