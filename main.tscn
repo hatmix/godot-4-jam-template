@@ -7,3 +7,5 @@
 script = ExtResource("1_cii0i")
 
 [node name="UI" parent="." instance=ExtResource("2_e2kwd")]
+
+[node name="HTTPRequest" type="HTTPRequest" parent="."]
