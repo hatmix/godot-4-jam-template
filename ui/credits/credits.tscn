@@ -107,7 +107,7 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-focus_neighbor_bottom = NodePath("../../Back")
+focus_neighbor_left = NodePath("../../VBoxContainer2/Back")
 focus_mode = 2
 bbcode_enabled = true
 script = ExtResource("3_rqcdg")
@@ -129,6 +129,6 @@ theme_override_constants/separation = 0
 [node name="Back" type="Button" parent="MarginContainer/VBoxContainer/VBoxContainer2"]
 unique_name_in_owner = true
 layout_mode = 2
-focus_neighbor_top = NodePath("../ScrollContainer/MarkdownLabel")
-focus_neighbor_right = NodePath("../ScrollContainer")
+focus_neighbor_top = NodePath("../../ScrollContainer/MarkdownLabel")
+focus_neighbor_right = NodePath("../../ScrollContainer/MarkdownLabel")
 text = "Back"
