@@ -82,7 +82,6 @@ script = ExtResource("1_0pb5o")
 [node name="GuiTransition" type="Node" parent="."]
 script = ExtResource("2_stnqr")
 auto_start = 0
-fade_layout = 1
 animation_enter = 4
 animation_leave = 4
 layout = NodePath("..")

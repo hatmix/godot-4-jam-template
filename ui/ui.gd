@@ -2,6 +2,7 @@ extends CanvasLayer
 
 
 func _ready() -> void:
+	visible = false
 	GuiTransitions.show_completed.connect(_on_show_completed)
 	GuiTransitions.hide()
 	#GuiTransitions.go_to.bind("show_main_menu").call_deferred()
