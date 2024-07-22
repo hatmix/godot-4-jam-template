@@ -1,6 +1,8 @@
 name: "godot-ci"
 on:
   push:
+    branches:
+      - main
     paths-ignore:
       - '**.md'
       - '!ATTRIBUTION.md'
