@@ -24,7 +24,7 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  GODOT_VERSION: 4.2.2
+  GODOT_VERSION: 4.3
   PROJECT_NAME: ${{ github.event.repository.name }}
 
 jobs:
@@ -32,7 +32,7 @@ jobs:
     name: Test and Export
     runs-on: ubuntu-20.04
     container:
-      image: barichello/godot-ci:4.2.2
+      image: barichello/godot-ci:4.3
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -54,7 +54,7 @@ jobs:
 
       - name: Fix Imports
         run: |
-          godot --headless --path . --export-pack FixImports /dev/null 2>&1 >/dev/null
+          godot --headless --path . --export-pack FixImports tmp.zip 2>&1 >/dev/null
 
       - name: Test
         id: test
