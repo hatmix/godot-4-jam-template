@@ -42,6 +42,10 @@ window/stretch/mode="canvas_items"
 
 enabled=PackedStringArray("res://addons/gdUnit4/plugin.cfg", "res://addons/godot_resource_groups/plugin.cfg", "res://addons/input_event_icons/plugin.cfg", "res://addons/maaacks_ui_sound_controller/plugin.cfg", "res://addons/markdownlabel/plugin.cfg", "res://addons/script-ide/plugin.cfg", "res://addons/simple-gui-transitions/plugin.cfg")
 
+[godot_resource_groups]
+
+auto_rebuild=true
+
 [gui]
 
 theme/custom="res://ui/ui_theme.tres"
