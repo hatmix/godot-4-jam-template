@@ -12,5 +12,3 @@ func show_main_menu() -> void:
 	GuiTransitions.go_to("MainMenu")
 	# not sure why this is needed, but go_to tends to fail on its own in this case
 	GuiTransitions.show("MainMenu")
-
-
