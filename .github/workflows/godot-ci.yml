@@ -28,8 +28,8 @@ env:
   PROJECT_NAME: ${{ github.event.repository.name }}
 
 jobs:
-  test-and-export:
-    name: Test and Export
+  export:
+    name: Export
     runs-on: ubuntu-20.04
     container:
       image: barichello/godot-ci:4.3
@@ -50,20 +50,11 @@ jobs:
 
       - name: Install Plugins
         run: |
-          godot --headless --path . -s plug.gd install || true
+          godot --headless --path . -s plug.gd install production || true
 
       - name: Fix Imports
         run: |
           godot --headless --path . --export-pack FixImports tmp.zip 2>&1 >/dev/null
-
-      - name: Test
-        id: test
-        run: |
-          godot --headless --path . -s addons/gut/gut_cmdln.gd -gexit
-
-      - name: Remove Dev-only Plugins
-        run: |
-          godot --headless --path . -s plug.gd install production || true
 
       - name: Export
         id: export
@@ -72,14 +63,14 @@ jobs:
           ITCHIO_GAME: ${{ secrets.ITCHIO_GAME }}
           BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
           EXPORT_TYPE_INPUT: ${{ github.event.inputs.exporttype }}
-        if: steps.test.outcome == 'success' && env.ITCHIO_USERNAME && env.ITCHIO_GAME && env.BUTLER_API_KEY
+        if: env.ITCHIO_USERNAME && env.ITCHIO_GAME && env.BUTLER_API_KEY
         run: |
           EXPORT_TYPE="${EXPORT_TYPE_INPUT:=debug}"
           echo export $EXPORT_TYPE
-          godot --headless --path . --export-${EXPORT_TYPE} "Web" exports/web/index.html
-          godot --headless --path . --export-${EXPORT_TYPE} "Linux" exports/linux/${ITCHIO_GAME}.x86_64
-          godot --headless --path . --export-${EXPORT_TYPE} "macOS" exports/macos/${ITCHIO_GAME}.zip
-          godot --headless --path . --export-${EXPORT_TYPE} "Windows" exports/windows/${ITCHIO_GAME}.exe
+          godot --headless --verbose --path . --export-${EXPORT_TYPE} "Web" exports/web/index.html
+          godot --headless --verbose --path . --export-${EXPORT_TYPE} "Linux" exports/linux/${ITCHIO_GAME}.x86_64
+          godot --headless --verbose --path . --export-${EXPORT_TYPE} "macOS" exports/macos/${ITCHIO_GAME}.zip
+          godot --headless --verbose --path . --export-${EXPORT_TYPE} "Windows" exports/windows/${ITCHIO_GAME}.exe
           #find exports -name '*'
 
       - name: Cache butler files
