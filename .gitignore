@@ -1,14 +1,24 @@
 .import/
 .DS_Store
-*.mkv
-*.mp4
 .godot/*
 .plugged/*
-.justfile
-.build_success.json
-media/
 addons/*
 !addons/gd-plug/
+
+# Packaging and devlog files
+media
+media/*
+devlog
+devlog/*
+*.mkv
+*.mp4
+
+# Editors
+*.kate-swp
+
+# Personal tooling
+.justfile
+.build_success.json
 
 # Godot export directories based on export_presets.cfg
 exports/*
