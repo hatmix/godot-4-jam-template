@@ -15,7 +15,6 @@ script = ExtResource("1_dabjx")
 [node name="GuiTransition" type="Node" parent="."]
 script = ExtResource("1_7qsrg")
 layout = NodePath("..")
-group = NodePath("../VBoxContainer")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -39,6 +38,7 @@ horizontal_alignment = 1
 [node name="Audio" type="GridContainer" parent="VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 4
 columns = 2
 
 [node name="MasterLabel" type="Label" parent="VBoxContainer/Audio"]
@@ -46,8 +46,9 @@ layout_mode = 2
 text = "Main"
 
 [node name="Master" type="HSlider" parent="VBoxContainer/Audio"]
-custom_minimum_size = Vector2(400, 0)
+custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
+size_flags_horizontal = 3
 size_flags_vertical = 4
 value = 100.0
 
@@ -56,8 +57,8 @@ layout_mode = 2
 text = "Music"
 
 [node name="Music" type="HSlider" parent="VBoxContainer/Audio"]
-custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
+size_flags_horizontal = 3
 size_flags_vertical = 4
 value = 100.0
 
@@ -66,8 +67,8 @@ layout_mode = 2
 text = "Effects"
 
 [node name="SFX" type="HSlider" parent="VBoxContainer/Audio"]
-custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
+size_flags_horizontal = 3
 size_flags_vertical = 4
 value = 100.0
 ticks_on_borders = true

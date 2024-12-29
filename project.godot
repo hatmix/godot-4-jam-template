@@ -55,12 +55,12 @@ theme/custom="res://ui/ui_theme.tres"
 config/default/auto_start=false
 config/default/fade_layout=false
 config/default/center_pivot=true
-config/default/duration=0.1
-config/default/delay=0.1
-config/default/transition_type="CUBIC"
+config/default/duration=0.5
+config/default/animation_enter=0
+config/default/animation_leave=1
+config/default/transition_type="LINEAR"
 config/default/ease_type="IN_OUT"
-config/default/animation_enter=6
-config/default/animation_leave=6
+config/default/delay=0.1
 
 [input]
 
