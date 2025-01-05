@@ -11,7 +11,6 @@ Features:
 * Keyboard and controller support for all template UI, touchscreen via [Godot's emulate mouse from touch setting](https://docs.godotengine.org/en/stable/classes/class_projectsettings.html#class-projectsettings-property-input-devices-pointing-emulate-mouse-from-touch)
 * UI transition animations with [Simple GUI Transitions](https://github.com/murikistudio/simple-gui-transitions)
 * ATTRIBUTION.md for in-game credits (inspired by [Maaack](https://github.com/Maaack/Godot-Game-Template/blob/main/ATTRIBUTION.md)'s approach)
-* Addon management with [gd-plug](https://github.com/imjp94/gd-plug)
 * CI/CD for automatic Itch.io updates adapted from [abarichello/godot-ci](https://github.com/abarichello/godot-ci)
 
 Don't just settle for the first template you find! Compare the alternatives and decide which best fits your desired feature set, coding style, and approach to game development.
@@ -24,15 +23,14 @@ Alternatives:
 
 ## Initial setup
 
-After cloning or templating the repo, it's necessary to install plugins. Plugins are managed with [gd-plug](https://github.com/imjp94/gd-plug). To install plugins from the Godot editor use [gd-plug-ui](https://godotengine.org/asset-library/asset/1926). Or, plugins can be installed with the command line.
-```
-godot.exe -s plug.gd install
-```
-Starting Godot twice after installing plugins this way should fix any errors on startup--once to build the import cache and a second time for plugins to load properly.  Skip saving changes between restarts or plugins may need to be re-enabled.  Run the project and verify everything is working correctly.
+There are a few ways to get started.
+    * "Use this template"
+    * Clone the repository
+    * Download a zip file of the source
 
 ## Main
 
-Once plugins are installed and activated, open `res://main.tscn` and `res://main.gd` and create your game!
+Once the Godot project files are cloned locally, open `res://main.tscn` and `res://main.gd` and create your game!
 
 ## UI
 
@@ -72,15 +70,13 @@ Settings are saved automatically in `user://settings.cfg` and control mappings i
 
 ## Tests
 
-[GUT](https://github.com/bitwes/Gut) is used for testing. The `tests/` folder contains the (too little) test code.  One benefit of too little test code is you lose very little if you want to use another framework, like [gdUnit4](https://github.com/MikeSchulze/gdUnit4).
+GUT testing has been removed. I hope to have [gdUnit4](https://github.com/MikeSchulze/gdUnit4) tests working with CI soon.
 
 ## CI/CD
 
-[Github actions](https://docs.github.com/actions) are used to run the tests on every push to source control. The Github build environment is limited compared to the desktop Godot editor. Tests relying on the following features should use the [`skip_script` variable](https://gut.readthedocs.io/en/latest/New-For-Godot-4.html#what-s-new-changed-in-gut-9-0-0-for-godot-4-0) to avoid tests failing under CI.
-* DisplayServer
-* Input (depends on DisplayServer)
+[Github actions](https://docs.github.com/actions) can be used to publish to itch.io on every push.
 
-On succesful test and export, and if configured, the CI action uses [butler](https://itch.io/docs/butler/) to deploy the game to [itch.io](https://itch.io).  Setup these secrets in your Github repository to enable push:
+On succesful export, and if configured, the CI action uses [butler](https://itch.io/docs/butler/) to deploy the game to [itch.io](https://itch.io).  Setup these secrets in your Github repository to enable push:
 * ITCHIO_USERNAME
 * ITCHIO_GAME
 * BUTLER_API_KEY
