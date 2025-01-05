@@ -24,9 +24,9 @@ Alternatives:
 ## Initial setup
 
 There are a few ways to get started.
-    * "Use this template"
-    * Clone the repository
-    * Download a zip file of the source
+* "Use this template"
+* Clone the repository
+* Download a zip file of the source
 
 ## Main
 
