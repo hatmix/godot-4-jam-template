@@ -1,9 +1,6 @@
 .import/
 .DS_Store
 .godot/*
-.plugged/*
-addons/*
-!addons/gd-plug/
 
 # Packaging and devlog files
 media
