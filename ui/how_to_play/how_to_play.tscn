@@ -1,0 +1,106 @@
+[gd_scene load_steps=15 format=3 uid="uid://dfgowfkuko4ne"]
+
+[ext_resource type="Script" path="res://ui/how_to_play/how_to_play.gd" id="1_qyscc"]
+[ext_resource type="Script" path="res://addons/markdownlabel/markdownlabel.gd" id="2_run12"]
+[ext_resource type="Script" path="res://addons/markdownlabel/header_formats/h1_format.gd" id="3_fjr50"]
+[ext_resource type="Script" path="res://addons/markdownlabel/header_formats/h2_format.gd" id="4_oheqa"]
+[ext_resource type="Script" path="res://addons/markdownlabel/header_formats/h3_format.gd" id="5_7merg"]
+[ext_resource type="Script" path="res://addons/markdownlabel/header_formats/h4_format.gd" id="6_7lue3"]
+[ext_resource type="Script" path="res://addons/markdownlabel/header_formats/h5_format.gd" id="7_alr6f"]
+[ext_resource type="Script" path="res://addons/markdownlabel/header_formats/h6_format.gd" id="8_4vnxd"]
+
+[sub_resource type="Resource" id="Resource_byagm"]
+resource_local_to_scene = true
+script = ExtResource("3_fjr50")
+font_size = 2.285
+is_bold = false
+is_italic = false
+is_underlined = false
+override_font_color = false
+font_color = Color(1, 1, 1, 1)
+
+[sub_resource type="Resource" id="Resource_l1upl"]
+resource_local_to_scene = true
+script = ExtResource("4_oheqa")
+font_size = 1.714
+is_bold = false
+is_italic = false
+is_underlined = false
+override_font_color = false
+font_color = Color(1, 1, 1, 1)
+
+[sub_resource type="Resource" id="Resource_0tw4e"]
+resource_local_to_scene = true
+script = ExtResource("5_7merg")
+font_size = 1.428
+is_bold = false
+is_italic = false
+is_underlined = false
+override_font_color = false
+font_color = Color(1, 1, 1, 1)
+
+[sub_resource type="Resource" id="Resource_dadt8"]
+resource_local_to_scene = true
+script = ExtResource("6_7lue3")
+font_size = 1.142
+is_bold = false
+is_italic = false
+is_underlined = false
+override_font_color = false
+font_color = Color(1, 1, 1, 1)
+
+[sub_resource type="Resource" id="Resource_a05v1"]
+resource_local_to_scene = true
+script = ExtResource("7_alr6f")
+font_size = 1.0
+is_bold = false
+is_italic = false
+is_underlined = false
+override_font_color = false
+font_color = Color(1, 1, 1, 1)
+
+[sub_resource type="Resource" id="Resource_d4keb"]
+resource_local_to_scene = true
+script = ExtResource("8_4vnxd")
+font_size = 0.857
+is_bold = false
+is_italic = false
+is_underlined = false
+override_font_color = false
+font_color = Color(1, 1, 1, 1)
+
+[node name="HowToPlay" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_qyscc")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarkdownLabel" type="RichTextLabel" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+bbcode_enabled = true
+script = ExtResource("2_run12")
+h1 = SubResource("Resource_byagm")
+h2 = SubResource("Resource_l1upl")
+h3 = SubResource("Resource_0tw4e")
+h4 = SubResource("Resource_dadt8")
+h5 = SubResource("Resource_a05v1")
+h6 = SubResource("Resource_d4keb")
+
+[node name="Back" type="Button" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Back"
