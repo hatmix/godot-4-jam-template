@@ -9,7 +9,6 @@ Features:
 * Visualization of controls with built-in remapping
 * Settings persisted across sesssions (where `user://` filesystem is writable)
 * Keyboard and controller support for all template UI, touchscreen via [Godot's emulate mouse from touch setting](https://docs.godotengine.org/en/stable/classes/class_projectsettings.html#class-projectsettings-property-input-devices-pointing-emulate-mouse-from-touch)
-* UI transition animations with [Simple GUI Transitions](https://github.com/murikistudio/simple-gui-transitions)
 * ATTRIBUTION.md for in-game credits (inspired by [Maaack](https://github.com/Maaack/Godot-Game-Template/blob/main/ATTRIBUTION.md)'s approach)
 * CI/CD for automatic Itch.io updates adapted from [abarichello/godot-ci](https://github.com/abarichello/godot-ci)
 
@@ -34,9 +33,9 @@ Once the Godot project files are cloned locally, open `res://main.tscn` and `res
 
 ## UI
 
-Most of this template's work is done in the UI scenes under `res://ui/...`. The [Simple GUI Transitions](https://github.com/murikistudio/simple-gui-transitions) addon uses a "layout" concept for showing and hiding UI elements. A layout might be an entire screen or just a widget in the corner. The main UI scene includes the layouts for all of the template's menus, a skeleton in-game UI, and Maaack's [`ProjectUISoundController`](https://github.com/Maaack/Godot-UI-Sound-Controller).
+Most of this template's work is done in the UI scenes under `res://ui/...`.  The main UI scene treats its direct children as UI pages and components to show or hide. They might be an entire screen or just a widget in the corner. The main UI scene includes basic UI for all of the template's menus, a stub in-game UI with pause screen, and Maaack's [`ProjectUISoundController`](https://github.com/Maaack/Godot-UI-Sound-Controller).
 
-The intended approach is to keep all UI in `res://ui/ui.tscn` and instantiate it as a child of every other scene. This is just preference and it could be changed any number of ways. Simple GUI Transitions will discover its layouts wherever they are in the scene tree. It's also extremely flexible and much more could be done with its features.
+The intended approach is to keep all UI in `res://ui/ui.tscn` and instantiate it as a child of every other scene.
 
 The top-level UI is set `PROCESS_MODE_ALWAYS` with children inheriting the mode. The `InGameMenuOverlay` will appear when `get_tree().paused == true`. In games where pausing the tree should not hide the game area, either remove that node or have the `PauseMenu` show and hide the overaly.
 
@@ -64,7 +63,7 @@ Each UI layout is contained in its own directory under `res://ui`. The `assets` 
 
 ## Settings and Controls
 
-Actions not starting with "ui_" or "editor_" will be listed in the controls UI. If there are no actions defined, a default set of ui_ actions will be shown. The default set is just for testing and changes to those actions will not persist.
+Actions not starting with "ui_" or "editor_" will be listed in the controls (remapping) UI. If there are no actions defined, a default set of ui_ actions will be shown. The default set is just for testing and changes to those actions will not persist.
 
 Settings are saved automatically in `user://settings.cfg` and control mappings in `user://controls.tres`. Saving and loading are handled by `res://autoloads/settings.gd`.
 
