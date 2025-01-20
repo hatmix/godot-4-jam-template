@@ -20,7 +20,6 @@ config/icon="res://icon.png"
 
 [autoload]
 
-GuiTransitions="*res://addons/simple-gui-transitions/singleton.gd"
 Settings="*res://autoloads/settings.gd"
 SignalBus="*res://autoloads/signal_bus.gd"
 ProjectUISoundController="*res://addons/maaacks_ui_sound_controller/base/scenes/Autoloads/ProjectUISoundController.tscn"
@@ -40,7 +39,7 @@ window/stretch/mode="canvas_items"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/godot_resource_groups/plugin.cfg", "res://addons/input_event_icons/plugin.cfg", "res://addons/maaacks_ui_sound_controller/plugin.cfg", "res://addons/markdownlabel/plugin.cfg", "res://addons/simple-gui-transitions/plugin.cfg")
+enabled=PackedStringArray("res://addons/godot_resource_groups/plugin.cfg", "res://addons/input_event_icons/plugin.cfg", "res://addons/maaacks_ui_sound_controller/plugin.cfg", "res://addons/markdownlabel/plugin.cfg")
 
 [godot_resource_groups]
 
@@ -49,18 +48,6 @@ auto_rebuild=true
 [gui]
 
 theme/custom="res://ui/ui_theme.tres"
-
-[gui_transitions]
-
-config/default/auto_start=true
-config/default/fade_layout=true
-config/default/center_pivot=true
-config/default/duration=0.25
-config/default/delay=0.1
-config/default/transition_type="CUBIC"
-config/default/ease_type="IN_OUT"
-config/default/animation_enter=4
-config/default/animation_leave=4
 
 [input]
 

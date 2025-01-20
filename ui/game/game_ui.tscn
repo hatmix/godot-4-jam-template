@@ -1,9 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://bojsla6nqcf03"]
+[gd_scene load_steps=2 format=3 uid="uid://bojsla6nqcf03"]
 
 [ext_resource type="Script" path="res://ui/game/game_ui.gd" id="1_67una"]
-[ext_resource type="Script" path="res://addons/simple-gui-transitions/transition.gd" id="1_nx2qw"]
 
-[node name="Game" type="CenterContainer"]
+[node name="Game" type="Control"]
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -11,14 +11,17 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_67una")
 
-[node name="GuiTransition" type="Node" parent="."]
-script = ExtResource("1_nx2qw")
-auto_start = 0
-animation_enter = 4
-animation_leave = 4
-layout = NodePath("..")
-controls = Array[NodePath]([NodePath("../Label")])
-
 [node name="Label" type="Label" parent="."]
-layout_mode = 2
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -33.5
+offset_top = -11.5
+offset_right = 33.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
 text = "Game UI"

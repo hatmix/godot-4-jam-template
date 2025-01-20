@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://u1vgfeia861q"]
+[gd_scene load_steps=14 format=3 uid="uid://u1vgfeia861q"]
 
 [ext_resource type="PackedScene" uid="uid://cc37235kj4384" path="res://addons/maaacks_ui_sound_controller/base/scenes/Autoloads/ProjectUISoundController.tscn" id="1_v2lrn"]
 [ext_resource type="Script" path="res://ui/ui.gd" id="1_yeoin"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" path="res://ui/overlay.gd" id="5_n6lj8"]
 [ext_resource type="PackedScene" uid="uid://3s7lo7jd53un" path="res://ui/pause_menu/pause_menu.tscn" id="6_2pasj"]
 [ext_resource type="PackedScene" uid="uid://bojsla6nqcf03" path="res://ui/game/game_ui.tscn" id="8_62oa5"]
+[ext_resource type="PackedScene" uid="uid://dfgowfkuko4ne" path="res://ui/how_to_play/how_to_play.tscn" id="8_y2e8e"]
 [ext_resource type="PackedScene" uid="uid://c31bw3nk5ujvg" path="res://ui/settings/settings.tscn" id="9_jqbk6"]
 [ext_resource type="PackedScene" uid="uid://mwbv2jh1ugjq" path="res://ui/controls/controls.tscn" id="11_w3b35"]
 [ext_resource type="PackedScene" uid="uid://dtrluvg5ox2vb" path="res://ui/notifications/message_board.tscn" id="12_hlgii"]
@@ -33,11 +34,13 @@ script = ExtResource("5_n6lj8")
 
 [node name="Credits" parent="." instance=ExtResource("5_hqkqk")]
 
-[node name="MainMenu" parent="." instance=ExtResource("2_7jndn")]
+[node name="HowToPlay" parent="." instance=ExtResource("8_y2e8e")]
 
 [node name="Settings" parent="." instance=ExtResource("9_jqbk6")]
 
 [node name="Controls" parent="." instance=ExtResource("11_w3b35")]
+
+[node name="MainMenu" parent="." instance=ExtResource("2_7jndn")]
 
 [node name="Game" parent="." instance=ExtResource("8_62oa5")]
 

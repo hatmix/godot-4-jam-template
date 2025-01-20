@@ -1,6 +1,7 @@
 extends Control
 
 var _audio_bus_name_idx_mapping: Dictionary = {}
+var ui: Node
 
 
 func _ready() -> void:
@@ -17,17 +18,16 @@ func _ready() -> void:
 
 
 func _input(_event: InputEvent) -> void:
-	# $GuiTransition._status is non-zero while transition is active
-	if visible and not $GuiTransition._status and Input.is_action_just_pressed("ui_cancel"):
+	if visible and Input.is_action_just_pressed("ui_cancel"):
 		get_viewport().set_input_as_handled()
 		_on_back()
 
 
 func _on_back() -> void:
 	if get_tree().paused == true:
-		GuiTransitions.go_to("PauseMenu")
+		ui.go_to("PauseMenu")
 	else:
-		GuiTransitions.go_to("MainMenu")
+		ui.go_to("MainMenu")
 
 
 func _on_audio_hslider_value_changed(value: float, bus_name: String) -> void:

@@ -10,6 +10,7 @@ const DEFAULT_ACTIONS: Array[String] = [
 ]
 
 var web_keyboard_icon: Texture2D = preload("res://ui/assets/icons/input_devices/keyboard.svg")
+var ui: Node
 
 
 func _ready() -> void:
@@ -18,22 +19,19 @@ func _ready() -> void:
 	if OS.get_name() == "Web":
 		%KeyboardMouse.texture = web_keyboard_icon
 	_init_actions()
-	# uncomment for working on this scene directly
-	#GuiTransitions.go_to(name)
 
 
 func _input(_event: InputEvent) -> void:
-	# $GuiTransition._status is non-zero while transition is active
-	if visible and not $GuiTransition._status and Input.is_action_just_pressed("ui_cancel"):
+	if visible and Input.is_action_just_pressed("ui_cancel"):
 		get_viewport().set_input_as_handled()
-		GuiTransitions.go_to("Settings")
+		_on_back()
 
 
 func _on_back() -> void:
 	if get_tree().paused == true:
-		GuiTransitions.go_to("PauseMenu")
+		ui.go_to("PauseMenu")
 	else:
-		GuiTransitions.go_to("MainMenu")
+		ui.go_to("MainMenu")
 
 
 func _init_actions() -> void:

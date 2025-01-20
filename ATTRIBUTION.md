@@ -3,11 +3,6 @@
 A thing by [hatmix](https://hatmix.itch.io)
 
 ## Godot Addons
-### Simple GUI Transitions
-Author: [murikistudio](https://github.com/murikistudio)  
-Source: [https://github.com/murikistudio/simple-gui-transitions](https://github.com/murikistudio/simple-gui-transitions)  
-License: [MIT](https://github.com/murikistudio/simple-gui-transitions/tree/godot-4?tab=MIT-1-ov-file#readme)  
-
 ### Godot UI Sound Controller
 Author: [Marek "Maaack"](https://github.com/Maaack)  
 Source: [https://github.com/Maaack/Godot-UI-Sound-Controller](https://github.com/Maaack/Godot-UI-Sound-Controller)  

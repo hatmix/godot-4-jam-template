@@ -1,7 +1,6 @@
-[gd_scene load_steps=16 format=3 uid="uid://dekllill0y50r"]
+[gd_scene load_steps=15 format=3 uid="uid://dekllill0y50r"]
 
 [ext_resource type="Script" path="res://ui/credits/credits.gd" id="1_0pb5o"]
-[ext_resource type="Script" path="res://addons/simple-gui-transitions/transition.gd" id="2_stnqr"]
 [ext_resource type="Script" path="res://addons/markdownlabel/markdownlabel.gd" id="3_rqcdg"]
 [ext_resource type="Script" path="res://addons/markdownlabel/header_formats/h1_format.gd" id="4_h0eqe"]
 [ext_resource type="Script" path="res://addons/markdownlabel/header_formats/h2_format.gd" id="5_xmv6d"]
@@ -78,12 +77,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_0pb5o")
-
-[node name="GuiTransition" type="Node" parent="."]
-script = ExtResource("2_stnqr")
-auto_start = 0
-layout = NodePath("..")
-group = NodePath("../MarginContainer/VBoxContainer")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1

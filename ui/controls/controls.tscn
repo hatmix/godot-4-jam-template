@@ -1,7 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://mwbv2jh1ugjq"]
+[gd_scene load_steps=5 format=3 uid="uid://mwbv2jh1ugjq"]
 
 [ext_resource type="Script" path="res://ui/controls/controls.gd" id="1_ypuet"]
-[ext_resource type="Script" path="res://addons/simple-gui-transitions/transition.gd" id="2_m5t2f"]
 [ext_resource type="Texture2D" uid="uid://cln1a2aqaf7t4" path="res://ui/assets/icons/input_devices/keyboard-numpad-mouse.svg" id="3_47prf"]
 [ext_resource type="Texture2D" uid="uid://0jg5joerwgk0" path="res://ui/assets/icons/input_devices/controller_xboxone.svg" id="4_0i1ma"]
 [ext_resource type="Script" path="res://ui/controls/input_panel.gd" id="5_7bxk6"]
@@ -15,11 +14,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ypuet")
-
-[node name="GuiTransition" type="Node" parent="."]
-script = ExtResource("2_m5t2f")
-layout = NodePath("..")
-group = NodePath("..")
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 clip_contents = true

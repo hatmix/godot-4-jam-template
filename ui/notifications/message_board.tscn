@@ -1,6 +1,5 @@
-[gd_scene load_steps=3 format=3 uid="uid://dtrluvg5ox2vb"]
+[gd_scene load_steps=2 format=3 uid="uid://dtrluvg5ox2vb"]
 
-[ext_resource type="Script" path="res://addons/simple-gui-transitions/transition.gd" id="1_1p75i"]
 [ext_resource type="Script" path="res://ui/notifications/message_board.gd" id="1_y2nll"]
 
 [node name="MessageQueue" type="Control"]
@@ -12,11 +11,6 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_y2nll")
-
-[node name="GuiTransition" type="Node" parent="."]
-script = ExtResource("1_1p75i")
-layout = NodePath("..")
-controls = Array[NodePath]([NodePath("../Messages")])
 
 [node name="Timer" type="Timer" parent="."]
 autostart = true
