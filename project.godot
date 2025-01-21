@@ -23,6 +23,7 @@ config/icon="res://icon.png"
 Settings="*res://autoloads/settings.gd"
 Globals="*res://autoloads/globals.gd"
 ProjectUISoundController="*res://addons/maaacks_ui_sound_controller/base/scenes/Autoloads/ProjectUISoundController.tscn"
+Utils="*res://autoloads/utils.gd"
 
 [debug]
 
