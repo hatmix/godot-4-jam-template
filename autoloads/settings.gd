@@ -45,11 +45,9 @@ func save_controls() -> void:
 		data.controls[action] = InputMap.action_get_events(action)
 	var err: int = ResourceSaver.save(data, CONTROLS_FILE)
 	if err:
-		SignalBus.post_ui_message.emit(
-			"Error saving controls '%s'" % str(err), Message.ICON.FAILURE
-		)
+		Globals.post_ui_message.emit("Error saving controls '%s'" % str(err), Message.ICON.FAILURE)
 	else:
-		SignalBus.post_ui_message.emit("Controls saved", Message.ICON.SUCCESS)
+		Globals.post_ui_message.emit("Controls saved", Message.ICON.SUCCESS)
 
 
 func reset_controls() -> void:
@@ -108,7 +106,7 @@ func update_action_event(action: String, event: InputEvent, save: bool = true) -
 	# If nothing replaced, just add a new action event
 	if not updated:
 		InputMap.action_add_event(action, event)
-	SignalBus.controls_changed.emit()
+	Globals.controls_changed.emit()
 	if save:
 		save_controls()
 
@@ -124,7 +122,7 @@ func load_settings() -> void:
 	_settings = ConfigFile.new()
 	var err: int = _settings.load(SETTINGS_FILE)
 	if err:
-		SignalBus.post_ui_message.emit("Loading default settings", Message.ICON.SUCCESS)
+		Globals.post_ui_message.emit("Loading default settings", Message.ICON.SUCCESS)
 		err = _settings.load(DEFAULT_SETTINGS_FILE)
 		if not err:
 			err = _settings.save(SETTINGS_FILE)
@@ -141,12 +139,10 @@ func save_settings() -> void:
 	var err: int = _settings.save(SETTINGS_FILE)
 	if err:
 		print("post failure message")
-		SignalBus.post_ui_message.emit(
-			"Error saving settings '%s'" % str(err), Message.ICON.FAILURE
-		)
+		Globals.post_ui_message.emit("Error saving settings '%s'" % str(err), Message.ICON.FAILURE)
 	else:
 		print("post success message")
-		SignalBus.post_ui_message.emit("Settings saved", Message.ICON.SUCCESS)
+		Globals.post_ui_message.emit("Settings saved", Message.ICON.SUCCESS)
 
 
 func get_value(section: SECTION, key: String, default: Variant) -> Variant:

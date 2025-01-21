@@ -7,7 +7,7 @@ var ui: Node
 
 func _ready() -> void:
 	$Timer.timeout.connect(_check_queue)
-	SignalBus.post_ui_message.connect(show_message)
+	Globals.post_ui_message.connect(show_message)
 
 
 func _check_queue() -> void:

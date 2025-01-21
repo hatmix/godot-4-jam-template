@@ -21,7 +21,7 @@ config/icon="res://icon.png"
 [autoload]
 
 Settings="*res://autoloads/settings.gd"
-SignalBus="*res://autoloads/signal_bus.gd"
+Globals="*res://autoloads/globals.gd"
 ProjectUISoundController="*res://addons/maaacks_ui_sound_controller/base/scenes/Autoloads/ProjectUISoundController.tscn"
 
 [debug]
