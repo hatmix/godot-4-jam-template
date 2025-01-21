@@ -19,6 +19,7 @@ func _input(_event: InputEvent) -> void:
 	if visible and Input.is_action_just_pressed("ui_cancel"):
 		accept_event()
 		_resume()
+	ui._input(_event)
 
 
 func _resume() -> void:
