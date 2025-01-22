@@ -55,7 +55,7 @@ func _input(event: InputEvent) -> void:
 		if (
 			event is InputEventJoypadMotion
 			or event is InputEventJoypadButton
-			or event.is_action_pressed("Focus Controls")
+			or event.is_action_pressed("ui_focus_controls")
 		):
 			_focus_something()
 
