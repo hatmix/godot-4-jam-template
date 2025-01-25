@@ -33,7 +33,7 @@ func is_shown(page: Variant) -> bool:
 func _resolve_ui_page(node_or_name: Variant) -> Node:
 	if node_or_name is CanvasItem:
 		return node_or_name
-	elif node_or_name is String:
+	if node_or_name is String:
 		var node: Node = find_child(node_or_name)
 		if node is CanvasItem:
 			return node

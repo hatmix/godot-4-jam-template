@@ -4,7 +4,7 @@ extends ColorRect
 # applies a darkening effect.
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if get_tree().paused == true:
 		visible = true
 	else:

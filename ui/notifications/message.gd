@@ -26,7 +26,7 @@ var icon_files: Array = [
 @onready var text_node: Label = %Text
 
 
-func display(text: String, icon: ICON = ICON.NONE) -> void:
+func display(text: String, _icon: ICON = ICON.NONE) -> void:
 	#icon_node.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 	#icon_node.texture = icon_files[icon]
 	#icon_node.modulate = message_color

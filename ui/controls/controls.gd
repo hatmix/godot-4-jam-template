@@ -1,13 +1,14 @@
 extends Control
 
-const DEFAULT_ACTIONS: Array[String] = [
-	"ui_up",
-	"ui_down",
-	"ui_right",
-	"ui_left",
-	"ui_accept",
-	"ui_cancel",
-]
+const REMAP_INPUT_BUTTON_SCENE: PackedScene = preload("res://ui/controls/remap_input_button.tscn")
+
+@export var remap_mapping_contexts: Array[GUIDEMappingContext]
+
+var _remapper: GUIDERemapper = GUIDERemapper.new()
+var _formatter: GUIDEInputFormatter = GUIDEInputFormatter.new()
+
+## The config we're currently working on
+var _remapping_config: GUIDERemappingConfig
 
 var web_keyboard_icon: Texture2D = preload("res://ui/assets/icons/input_devices/keyboard.svg")
 var ui: Node
@@ -16,13 +17,11 @@ var ui: Node
 func _ready() -> void:
 	%InputPanel.visible = false
 	%Back.pressed.connect(_on_back)
-	if OS.get_name() == "Web":
-		%KeyboardMouse.texture = web_keyboard_icon
 	_init_actions()
 
 
-func _input(_event: InputEvent) -> void:
-	if visible and Input.is_action_just_pressed("ui_cancel"):
+func _input(event: InputEvent) -> void:
+	if event is InputEventAction and (event.is_action("ui_cancel") or event.is_action("ui_back")):
 		get_viewport().set_input_as_handled()
 		_on_back()
 
@@ -35,63 +34,66 @@ func _on_back() -> void:
 
 
 func _init_actions() -> void:
-	var actions: Array[String] = []
-	for action: String in InputMap.get_actions():
-		if action.begins_with("editor_") or action.begins_with("ui_"):
-			continue
-		actions.append(action)
+	_remapping_config = Settings.load_controls()
+	GUIDE.set_remapping_config(_remapping_config)
+	_remapper.initialize(remap_mapping_contexts, _remapping_config)
 
-	if actions.size() == 0:
-		actions.append_array(DEFAULT_ACTIONS)
+	for context: GUIDEMappingContext in remap_mapping_contexts:
+		var items: Array[GUIDERemapper.ConfigItem] = _remapper.get_remappable_items(context)
+		for item: GUIDERemapper.ConfigItem in items:
+			var action_label: Label = Label.new()
+			#action_label.custom_minimum_size.x = %HeaderRow.custom_minimum_size.x
+			action_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+			action_label.text = item.display_name
 
-	for action: String in actions:
-		var action_label: Label = Label.new()
-		action_label.custom_minimum_size.x = %HeaderRow.custom_minimum_size.x
-		action_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-		action_label.text = action.capitalize()
-		%Actions.add_child(action_label)
+			var bound_input: GUIDEInput = _remapper.get_bound_input_or_null(item)
+			var remap_input: Control = REMAP_INPUT_BUTTON_SCENE.instantiate()
+			remap_input.remapper = _remapper
+			remap_input.formatter = _formatter
+			remap_input.item = item
+			if (
+				bound_input is GUIDEInputJoyAxis1D
+				or bound_input is GUIDEInputJoyAxis2D
+				or bound_input is GUIDEInputJoyBase
+				or bound_input is GUIDEInputJoyButton
+			):
+				%ControllerActions.add_child(action_label)
+				%ControllerActions.add_child(remap_input)
+				remap_input.button.pressed.connect(_get_new_input_for_action.bind(item, true))
 
-		%Actions.add_child(_build_button(action, _get_event_for_action(action)))
-		var joypad_event: InputEvent = _get_event_for_action(action, true)
-		%Actions.add_child(_build_button(action, joypad_event, true))
-
-
-func _get_event_for_action(action: String, for_joypad: bool = false) -> Variant:
-	var events: Array = InputMap.action_get_events(action)
-	for event: InputEvent in events:
-		if for_joypad and (event is InputEventJoypadButton or event is InputEventJoypadMotion):
-			#print("found action %s event for joypad: %s" % [action, JSON.stringify(event)])
-			return event
-		if not for_joypad and (event is InputEventKey or event is InputEventMouseButton):
-			#print("found action %s event for keyboard/mouse: %s" % [action, JSON.stringify(event)])
-			return event
-	return
-
-
-func _build_button(action: String, event: InputEvent, for_joypad: bool = false) -> Button:
-	var button: InputEventButton = InputEventButton.new()
-	button.icon_set = EventIconMapping.IconSet.KENNEY_1_BIT
-	button.input_event = event
-	button.expand_icon = true
-	button.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
-	button.set_icon_alignment(HORIZONTAL_ALIGNMENT_CENTER)
-	button.set_vertical_icon_alignment(VERTICAL_ALIGNMENT_CENTER)
-	if for_joypad:
-		button.custom_minimum_size.x = %Controller.size.x
-	else:
-		button.custom_minimum_size.x = %KeyboardMouse.size.x
-	button.flat = true
-	button.pressed.connect(_get_new_input_for_action.bind(action, button, for_joypad))
-	return button
+			else:
+				%KeyboardMouseActions.add_child(action_label)
+				%KeyboardMouseActions.add_child(remap_input)
+				remap_input.button.pressed.connect(_get_new_input_for_action.bind(item))
 
 
-func _get_new_input_for_action(
-	action: String, button: InputEventButton, for_joypad: bool = false
-) -> void:
+func _get_new_input_for_action(item: GUIDERemapper.ConfigItem, for_joypad: bool = false) -> void:
 	%InputPanel.for_joypad = for_joypad
-	%InputPanel.action = action
+	%InputPanel.item = item
 	%InputPanel.visible = true
 	#print("get new input for action %s" % action)
 
-	await Globals.controls_changed
-	button.input_event = _get_event_for_action(action, for_joypad)
+	await %InputPanel.popup_hide
+	var input = %InputPanel.input
+	print(input)
+	if input == null:
+		return
+
+	# check for collisions
+	var collisions := _remapper.get_input_collisions(item, input)
+
+	# if any collision is from a non-bindable mapping, we cannot use this input
+	if collisions.any(func(it: GUIDERemapper.ConfigItem): return not it.is_remappable):
+		return
+
+	# unbind the colliding entries.
+	for collision in collisions:
+		_remapper.set_bound_input(collision, null)
+
+	# now bind the new input
+	_remapper.set_bound_input(item, input)
+
+	# we apply & save at every change
+	var config: GUIDERemappingConfig = _remapper.get_mapping_config()
+	GUIDE.set_remapping_config(config)
+	Globals.controls_changed.emit(config)

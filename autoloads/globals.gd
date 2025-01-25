@@ -8,4 +8,4 @@ extends Node
 signal post_ui_message(text: String, icon: Message.ICON)
 
 ## Emitted by UI/Controls when a action is remapped
-signal controls_changed
+signal controls_changed(config: GUIDERemappingConfig)

@@ -1,9 +1,13 @@
-[gd_scene load_steps=5 format=3 uid="uid://mwbv2jh1ugjq"]
+[gd_scene load_steps=7 format=3 uid="uid://mwbv2jh1ugjq"]
 
 [ext_resource type="Script" path="res://ui/controls/controls.gd" id="1_ypuet"]
-[ext_resource type="Texture2D" uid="uid://cln1a2aqaf7t4" path="res://ui/assets/icons/input_devices/keyboard-numpad-mouse.svg" id="3_47prf"]
-[ext_resource type="Texture2D" uid="uid://0jg5joerwgk0" path="res://ui/assets/icons/input_devices/controller_xboxone.svg" id="4_0i1ma"]
+[ext_resource type="Script" path="res://addons/guide/guide_mapping_context.gd" id="2_v7gdq"]
+[ext_resource type="Resource" uid="uid://v5u0dyabni7e" path="res://input/default_mapping_context.tres" id="3_b2afy"]
 [ext_resource type="Script" path="res://ui/controls/input_panel.gd" id="5_7bxk6"]
+[ext_resource type="Script" path="res://addons/guide/remapping/guide_input_detector.gd" id="5_64hdo"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qy0v7"]
+bg_color = Color(0.162066, 0.162066, 0.162065, 1)
 
 [node name="Controls" type="Control"]
 texture_filter = 1
@@ -14,61 +18,67 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ypuet")
+remap_mapping_contexts = Array[ExtResource("2_v7gdq")]([ExtResource("3_b2afy")])
 
-[node name="CenterContainer" type="CenterContainer" parent="."]
-clip_contents = true
+[node name="TabContainer" type="TabContainer" parent="."]
+custom_minimum_size = Vector2(500, 280)
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_top = -115.5
+offset_bottom = 115.5
 grow_horizontal = 2
 grow_vertical = 2
+tab_alignment = 1
+current_tab = 0
+use_hidden_tabs_for_min_size = true
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
-layout_mode = 2
-
-[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 0
-theme_override_constants/separation = 2
-
-[node name="HeaderRow" type="Label" parent="CenterContainer/VBoxContainer/HBoxContainer"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(250, 0)
-layout_mode = 2
-
-[node name="KeyboardMouse" type="TextureRect" parent="CenterContainer/VBoxContainer/HBoxContainer"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(150, 0)
-layout_mode = 2
-texture = ExtResource("3_47prf")
-stretch_mode = 3
-
-[node name="Controller" type="TextureRect" parent="CenterContainer/VBoxContainer/HBoxContainer"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(150, 0)
-layout_mode = 2
-texture = ExtResource("4_0i1ma")
-stretch_mode = 3
-
-[node name="ScrollContainer" type="ScrollContainer" parent="CenterContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 200)
+[node name="Keyboard" type="ScrollContainer" parent="TabContainer"]
+custom_minimum_size = Vector2(500, 249)
 layout_mode = 2
 size_flags_vertical = 3
 follow_focus = true
+metadata/_tab_index = 0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/VBoxContainer/ScrollContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Keyboard"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Actions" type="GridContainer" parent="CenterContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
+[node name="KeyboardMouseActions" type="GridContainer" parent="TabContainer/Keyboard/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+theme_override_constants/h_separation = 20
+theme_override_constants/v_separation = 4
+columns = 2
+
+[node name="Controller" type="ScrollContainer" parent="TabContainer"]
+visible = false
+custom_minimum_size = Vector2(500, 249)
+layout_mode = 2
+size_flags_vertical = 3
+follow_focus = true
+horizontal_scroll_mode = 0
+metadata/_tab_index = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Controller"]
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme_override_constants/h_separation = 2
-columns = 3
+
+[node name="ControllerActions" type="GridContainer" parent="TabContainer/Controller/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+theme_override_constants/h_separation = 20
+theme_override_constants/v_separation = 4
+columns = 2
 
 [node name="Buttons" type="HBoxContainer" parent="."]
 layout_mode = 1
@@ -96,16 +106,15 @@ initial_position = 2
 size = Vector2i(320, 160)
 always_on_top = true
 min_size = Vector2i(320, 160)
+theme_override_styles/panel = SubResource("StyleBoxFlat_qy0v7")
 script = ExtResource("5_7bxk6")
 
 [node name="MarginContainer" type="MarginContainer" parent="InputPanel"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 4.0
-offset_top = 4.0
-offset_right = 316.0
-offset_bottom = 156.0
+offset_right = 320.0
+offset_bottom = 160.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -128,3 +137,7 @@ size_flags_horizontal = 4
 text = "Waiting for controller input"
 horizontal_alignment = 1
 autowrap_mode = 2
+
+[node name="GUIDEInputDetector" type="Node" parent="InputPanel"]
+unique_name_in_owner = true
+script = ExtResource("5_64hdo")
