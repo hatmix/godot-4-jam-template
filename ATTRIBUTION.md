@@ -13,15 +13,10 @@ Author: [Daenvil](https://github.com/daenvil)
 Source: [https://github.com/daenvil/MarkdownLabel](https://github.com/daenvil/MarkdownLabel)  
 License: [MIT](https://github.com/daenvil/MarkdownLabel/tree/main?tab=MIT-1-ov-file#readme)  
 
-### Godot Resource Groups
-Author: [Jan Thomä "derkork"]()
-Source: [https://github.com/derkork/godot-resource-groups](https://github.com/derkork/godot-resource-groups)
-License: [MIT](https://github.com/derkork/godot-resource-groups?tab=MIT-1-ov-file#readme)
-
-### Godot Input Event Icons
-Author: [hatmix](https://github.com/hatmix)  
-Source: [https://github.com/hatmix/godot-input-event-icons](https://github.com/hatmix/godot-input-event-icons)  
-License: [MIT](https://github.com/hatmix/godot-input-event-icons?tab=MIT-1-ov-file)  
+### G.U.I.D.E Godot Unified Input Detection Engine 
+Author: [Godotneers](https://github.com/godotneers)
+Source: [https://github.com/godotneers/G.U.I.D.E](https://github.com/godotneers/G.U.I.D.E)
+License: [MIT](https://github.com/godotneers/G.U.I.D.E?tab=MIT-1-ov-file#readme)
 
 ### ThemeGen
 Author: [Inspiaaa](https://github.com/Inspiaaa)

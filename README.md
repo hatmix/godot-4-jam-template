@@ -1,12 +1,12 @@
 # Godot 4 Jam Template
 
-Quick start template for game jams built on [hatmix/godot-4-ci](https://github.com/hatmix/godot-4-ci). See the plain template in action at [https://hatmix.itch.io/godot-4-jam-template](https://hatmix.itch.io/godot-4-jam-template) (try password `gwj70`).
+Quick start template for game jams built on [hatmix/godot-4-ci](https://github.com/hatmix/godot-4-ci). See the plain template in action at [https://hatmix.itch.io/godot-4-jam-template](https://hatmix.itch.io/godot-4-jam-template) (password `hatmix`).
 
 Features:
 * Github template repository vs. addon
 * Web, Windows, Linux and macOS exports for maximum jam
 * Premade basic UI for main menu, pause menu, credits, and settings
-* Visualization of controls with built-in remapping
+* G.U.I.D.E for input with remapping
 * Settings persisted across sesssions (where `user://` filesystem is writable)
 * Keyboard and controller support for all template UI, touchscreen via [Godot's emulate mouse from touch setting](https://docs.godotengine.org/en/stable/classes/class_projectsettings.html#class-projectsettings-property-input-devices-pointing-emulate-mouse-from-touch)
 * ATTRIBUTION.md for in-game credits (inspired by [Maaack](https://github.com/Maaack/Godot-Game-Template/blob/main/ATTRIBUTION.md)'s approach)
@@ -63,9 +63,9 @@ Each UI layout is contained in its own directory under `res://ui`. The `assets` 
 
 ## Settings and Controls
 
-Actions not starting with "ui_" or "editor_" will be listed in the controls (remapping) UI. If there are no actions defined, a default set of ui_ actions will be shown. The default set is just for testing and changes to those actions will not persist.
-
 Settings are saved automatically in `user://settings.cfg` and control mappings in `user://controls.tres`. Saving and loading are handled by `res://autoloads/settings.gd`.
+
+See [G.U.I.D.E documentation](https://godotneers.github.io/G.U.I.D.E/) for how to add new actions, etc.
 
 ## Tests
 
