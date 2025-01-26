@@ -15,8 +15,9 @@ var item: GUIDERemapper.ConfigItem:
 # Example input_text value:
 #[img]user://_guide_cache/5514223b7be916319ab4de00586a8b9adf0a96ba957b9ee1ebcb3a30d0a5dc02.res[/img]
 
-@onready var button: Button = $Button
-@onready var _label: RichTextLabel = $Button/RichTextLabel
+#@onready var button: Button = $RichTextLabel/MarginContainer/Button
+@onready var button: Button = $RichTextLabel/Button
+@onready var _label: RichTextLabel = $RichTextLabel
 
 
 func _ready() -> void:

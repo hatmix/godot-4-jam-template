@@ -1,14 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://b10hob2es7ug6"]
+[gd_scene load_steps=3 format=3 uid="uid://b10hob2es7ug6"]
 
+[ext_resource type="Theme" uid="uid://b2wgjvcb5fdym" path="res://ui/controls/remap_input_button_theme.tres" id="1_35cd1"]
 [ext_resource type="Script" path="res://ui/controls/remap_input_button.gd" id="1_85ttg"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5sq0v"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5w7jn"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_taona"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gcy82"]
 
 [node name="RemapInputButton" type="CenterContainer"]
 anchors_preset = 15
@@ -16,22 +9,30 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("1_35cd1")
 script = ExtResource("1_85ttg")
 
-[node name="Button" type="Button" parent="."]
-custom_minimum_size = Vector2(36, 32)
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+clip_contents = false
 layout_mode = 2
+mouse_filter = 2
+bbcode_enabled = true
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+shortcut_keys_enabled = false
+meta_underlined = false
+hint_underlined = false
+drag_and_drop_selection_enabled = false
+
+[node name="Button" type="Button" parent="RichTextLabel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_horizontal = 6
 size_flags_vertical = 4
-
-[node name="RichTextLabel" type="RichTextLabel" parent="Button"]
-custom_minimum_size = Vector2(36, 32)
-layout_mode = 1
-offset_right = 36.0
-offset_bottom = 32.0
-theme_override_styles/fill = SubResource("StyleBoxEmpty_5sq0v")
-theme_override_styles/background = SubResource("StyleBoxEmpty_5w7jn")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_taona")
-theme_override_styles/normal = SubResource("StyleBoxEmpty_gcy82")
-bbcode_enabled = true
-drag_and_drop_selection_enabled = false

@@ -4,14 +4,11 @@ const REMAP_INPUT_BUTTON_SCENE: PackedScene = preload("res://ui/controls/remap_i
 
 @export var remap_mapping_contexts: Array[GUIDEMappingContext]
 
-var _remapper: GUIDERemapper = GUIDERemapper.new()
-var _formatter: GUIDEInputFormatter = GUIDEInputFormatter.new()
-
-## The config we're currently working on
-var _remapping_config: GUIDERemappingConfig
-
-var web_keyboard_icon: Texture2D = preload("res://ui/assets/icons/input_devices/keyboard.svg")
 var ui: Node
+
+var _remapper: GUIDERemapper = GUIDERemapper.new()
+var _formatter: GUIDEInputFormatter = GUIDEInputFormatter.new(32)
+var _remapping_config: GUIDERemappingConfig
 
 
 func _ready() -> void:
@@ -42,7 +39,6 @@ func _init_actions() -> void:
 		var items: Array[GUIDERemapper.ConfigItem] = _remapper.get_remappable_items(context)
 		for item: GUIDERemapper.ConfigItem in items:
 			var action_label: Label = Label.new()
-			#action_label.custom_minimum_size.x = %HeaderRow.custom_minimum_size.x
 			action_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 			action_label.text = item.display_name
 
