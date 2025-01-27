@@ -1,3 +1,3 @@
 # How to Play
 
-A markdown doc with instructions for the player.
+###### TODO: A markdown doc with instructions for the player--see https://github.com/daenvil/MarkdownLabel for formatting

@@ -1,6 +1,7 @@
 extends CanvasLayer
 
 
+# TODO: consider using the hide_ui and show_ui functions to add ui animation
 func hide_ui(page: Variant = null) -> void:
 	if page:
 		var ui_page: CanvasItem = _resolve_ui_page(page)

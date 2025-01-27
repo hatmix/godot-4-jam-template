@@ -1,8 +1,14 @@
 # Godot 4 Jam Template
+###### TODO: Update title above
+###### TODO: Update title in project settings
 
+###### TODO: Update contributors
 A thing by [hatmix](https://hatmix.itch.io)
 
+###### TODO: Add attribution for any assets that require it
+
 ## Godot Addons
+###### TODO: List any additional addons used
 ### Godot UI Sound Controller
 Author: [Marek "Maaack"](https://github.com/Maaack)  
 Source: [https://github.com/Maaack/Godot-UI-Sound-Controller](https://github.com/Maaack/Godot-UI-Sound-Controller)  

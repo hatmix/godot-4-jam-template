@@ -13,6 +13,9 @@ func _ready() -> void:
 
 
 func _connect_buttons() -> void:
+	# TODO: change %Play.pressed connected function to load game scene, e.g.
+	#%Play.pressed.connect(get_tree().change_scene_to_file("..."))
+	# Or to a scene transition function
 	%Play.pressed.connect(ui.go_to.bind("Game"))
 	%HowToPlay.pressed.connect(ui.go_to.bind("HowToPlay"))
 	%Settings.pressed.connect(ui.go_to.bind("Settings"))
