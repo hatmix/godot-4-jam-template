@@ -28,6 +28,7 @@ hint_underlined = false
 drag_and_drop_selection_enabled = false
 
 [node name="Button" type="Button" parent="RichTextLabel"]
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

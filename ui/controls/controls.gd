@@ -3,11 +3,15 @@ extends Control
 const REMAP_INPUT_BUTTON_SCENE: PackedScene = preload("res://ui/controls/remap_input_button.tscn")
 
 @export var remap_mapping_contexts: Array[GUIDEMappingContext]
+@export var icon_size: int:
+	set(value):
+		icon_size = value
+		_formatter = GUIDEInputFormatter.new(icon_size)
 
 var ui: Node
 
 var _remapper: GUIDERemapper = GUIDERemapper.new()
-var _formatter: GUIDEInputFormatter = GUIDEInputFormatter.new(32)
+var _formatter: GUIDEInputFormatter
 var _remapping_config: GUIDERemappingConfig
 
 
@@ -40,7 +44,9 @@ func _init_actions() -> void:
 		for item: GUIDERemapper.ConfigItem in items:
 			var action_label: Label = Label.new()
 			action_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+			action_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 			action_label.text = item.display_name
+			action_label.custom_minimum_size.y = icon_size
 
 			var bound_input: GUIDEInput = _remapper.get_bound_input_or_null(item)
 			var remap_input: Control = REMAP_INPUT_BUTTON_SCENE.instantiate()
@@ -61,6 +67,7 @@ func _init_actions() -> void:
 				%KeyboardMouseActions.add_child(action_label)
 				%KeyboardMouseActions.add_child(remap_input)
 				remap_input.button.pressed.connect(_get_new_input_for_action.bind(item))
+			remap_input.button.custom_minimum_size = Vector2(icon_size, icon_size)
 
 
 func _get_new_input_for_action(item: GUIDERemapper.ConfigItem, for_joypad: bool = false) -> void:

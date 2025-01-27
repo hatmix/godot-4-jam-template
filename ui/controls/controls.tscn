@@ -19,6 +19,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ypuet")
 remap_mapping_contexts = Array[ExtResource("2_v7gdq")]([ExtResource("3_b2afy")])
+icon_size = 48
 
 [node name="TabContainer" type="TabContainer" parent="."]
 custom_minimum_size = Vector2(500, 280)
