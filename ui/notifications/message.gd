@@ -1,9 +1,6 @@
 class_name Message
 extends Control
 
-# TODO: convert to resource for inspector customization
-enum ICON { NONE, SUCCESS, FAILURE }
-
 const MAX_WIDTH: int = 400
 const MAX_HEIGHT: int = 90
 
@@ -11,25 +8,11 @@ const MAX_HEIGHT: int = 90
 @export_color_no_alpha var border_color: Color = Color("FA6149")
 # Panel container color controlled by the ui theme
 
-# Same order as ICON enum
-var icon_files: Array = [
-	null,
-	# use for large res
-	#load("res://ui/assets/icons/notifications/checkmark-circle-outline-white.png"),
-	#load("res://ui/assets/icons/notifications/cross-circle-outline-white.png"),
-	# use for pixel game
-	load("res://ui/assets/icons/notifications/pixel-checkmark.png"),
-	load("res://ui/assets/icons/notifications/pixel-cross.png")
-]
-
 @onready var icon_node: TextureRect = %Icon
 @onready var text_node: Label = %Text
 
 
-func display(text: String, _icon: ICON = ICON.NONE) -> void:
-	#icon_node.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
-	#icon_node.texture = icon_files[icon]
-	#icon_node.modulate = message_color
+func display(text: String) -> void:
 	text_node.text = text
 	text_node.modulate = message_color
 
