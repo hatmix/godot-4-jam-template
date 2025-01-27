@@ -15,9 +15,9 @@ func _check_queue() -> void:
 		ui.hide_ui("MessageBoard")
 
 
-func show_message(text: String, icon: Message.ICON = Message.ICON.NONE) -> void:
+func show_message(text: String) -> void:
 	if not ui.is_shown("MessageBoard"):
 		ui.show_ui("MessageBoard")
 	var message: Message = message_scene.instantiate()
 	%Messages.add_child(message)
-	message.display(text, icon)
+	message.display(text)

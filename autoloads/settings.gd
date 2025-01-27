@@ -34,9 +34,9 @@ func load_controls() -> GUIDERemappingConfig:
 func save_controls(data: GUIDERemappingConfig) -> void:
 	var err: int = ResourceSaver.save(data, CONTROLS_FILE)
 	if err:
-		Globals.post_ui_message.emit("Error saving controls '%s'" % str(err), Message.ICON.FAILURE)
+		Globals.post_ui_message.emit("Error saving controls '%s'" % str(err))
 	else:
-		Globals.post_ui_message.emit("Controls saved", Message.ICON.SUCCESS)
+		Globals.post_ui_message.emit("Controls saved")
 	data.take_over_path(CONTROLS_FILE)
 
 
@@ -55,7 +55,7 @@ func load_settings() -> void:
 	_settings = ConfigFile.new()
 	var err: int = _settings.load(SETTINGS_FILE)
 	if err:
-		Globals.post_ui_message.emit("Loading default settings", Message.ICON.SUCCESS)
+		Globals.post_ui_message.emit("Loading default settings")
 		err = _settings.load(DEFAULT_SETTINGS_FILE)
 		if not err:
 			err = _settings.save(SETTINGS_FILE)
@@ -72,10 +72,10 @@ func save_settings() -> void:
 	var err: int = _settings.save(SETTINGS_FILE)
 	if err:
 		print("post failure message")
-		Globals.post_ui_message.emit("Error saving settings '%s'" % str(err), Message.ICON.FAILURE)
+		Globals.post_ui_message.emit("Error saving settings '%s'" % str(err))
 	else:
 		print("post success message")
-		Globals.post_ui_message.emit("Settings saved", Message.ICON.SUCCESS)
+		Globals.post_ui_message.emit("Settings saved")
 
 
 func get_value(section: SECTION, key: String, default: Variant) -> Variant:

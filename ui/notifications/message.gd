@@ -8,7 +8,6 @@ const MAX_HEIGHT: int = 90
 @export_color_no_alpha var border_color: Color = Color("FA6149")
 # Panel container color controlled by the ui theme
 
-@onready var icon_node: TextureRect = %Icon
 @onready var text_node: Label = %Text
 
 

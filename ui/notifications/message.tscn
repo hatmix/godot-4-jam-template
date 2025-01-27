@@ -1,7 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://udxerxnmw35e"]
+[gd_scene load_steps=2 format=3 uid="uid://udxerxnmw35e"]
 
 [ext_resource type="Script" path="res://ui/notifications/message.gd" id="1_pe0jv"]
-[ext_resource type="Texture2D" uid="uid://dfrj2up44fax" path="res://ui/assets/icons/notifications/checkmark-circle-outline-white.png" id="2_itaa2"]
 
 [node name="Message" type="PanelContainer"]
 anchors_preset = 5
@@ -16,24 +15,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 script = ExtResource("1_pe0jv")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 4
-alignment = 1
-
-[node name="Icon" type="TextureRect" parent="HBoxContainer"]
-unique_name_in_owner = true
-visible = false
-modulate = Color(0.980392, 0.380392, 0.286275, 1)
-custom_minimum_size = Vector2(30, 30)
-layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 4
-texture = ExtResource("2_itaa2")
-expand_mode = 3
-
-[node name="Text" type="Label" parent="HBoxContainer"]
+[node name="Text" type="Label" parent="."]
 unique_name_in_owner = true
 modulate = Color(0.980392, 0.380392, 0.286275, 1)
 layout_mode = 2
