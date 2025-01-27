@@ -142,3 +142,4 @@ autowrap_mode = 2
 [node name="GUIDEInputDetector" type="Node" parent="InputPanel"]
 unique_name_in_owner = true
 script = ExtResource("5_64hdo")
+detection_countdown_seconds = 0.1
