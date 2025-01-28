@@ -1,8 +1,9 @@
-name: "godot-ci"
+name: 'godot-ci'
 on:
   push:
     branches:
       - main
+      - gdunit4
     paths-ignore:
       - '**.md'
       - '!ATTRIBUTION.md'
@@ -24,12 +25,34 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  GODOT_VERSION: 4.3
   PROJECT_NAME: ${{ github.event.repository.name }}
 
 jobs:
+  test:
+    name: 'gdUnit4 Tests'
+    runs-on: 'ubuntu-22.04'
+    timeout-minutes: 10 # The overall timeout
+    permissions:
+      actions: write
+      checks: write
+      contents: write
+    steps:
+      # checkout your repository
+      - uses: actions/checkout@v4
+        with:
+          lfs: true
+      # run tests by using the gdUnit4-action with Godot version 4.2.1 and the latest GdUnit4 release
+      - uses: MikeSchulze/gdUnit4-action@v1.0.2
+        with:
+          godot-version: '4.3'
+          paths: |
+            res://test/
+          timeout: 5
+          report-name: test_report.xml
+
   export:
     name: Export
+    needs: test
     runs-on: ubuntu-20.04
     container:
       image: barichello/godot-ci:4.3
