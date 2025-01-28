@@ -24,10 +24,11 @@ func _input(_event: InputEvent) -> void:
 
 
 func _on_back() -> void:
-	if get_tree().paused == true:
-		ui.go_to("PauseMenu")
-	else:
-		ui.go_to("MainMenu")
+	if ui:
+		if get_tree().paused == true:
+			ui.go_to("PauseMenu")
+		else:
+			ui.go_to("MainMenu")
 
 
 func _on_audio_hslider_value_changed(value: float, bus_name: String) -> void:
