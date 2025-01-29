@@ -1,6 +1,6 @@
 name: Tests
 on:
-  push:
+  - push:
     branches:
       - main
       - gdunit4
@@ -9,16 +9,7 @@ on:
       - '!ATTRIBUTION.md'
       - '.gitignore'
       - '.gitattributes'
-  workflow_dispatch:
-    inputs:
-      exporttype:
-        description: 'Export type (debug/release)'
-        default: debug
-        required: false
-        type: choice
-        options:
-          - debug
-          - release
+  - workflow_dispatch
 
 concurrency:
   group: there-can-be-only-one-test
