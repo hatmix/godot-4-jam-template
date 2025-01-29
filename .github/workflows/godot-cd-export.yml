@@ -11,7 +11,7 @@ on:
           - debug
           - release
   workflow_run:
-    workflows: [godot-ci-test]
+    workflows: ['godot-ci-test']
       type:
         - completed
 
