@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
     inputs:
       exporttype:
-        description: 'Export type (debug/release)'
+        description: Export type (debug/release)
         default: debug
         required: false
         type: choice
