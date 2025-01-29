@@ -19,6 +19,8 @@ func _ready() -> void:
 	%InputPanel.visible = false
 	%Back.pressed.connect(_on_back)
 	_init_actions()
+	# Diagnose source of orphaned nodes
+	#get_tree().create_timer(2.0).timeout.connect(func(): Node.print_orphan_nodes())
 
 
 func _input(event: InputEvent) -> void:
@@ -77,20 +79,19 @@ func _get_new_input_for_action(item: GUIDERemapper.ConfigItem, for_joypad: bool 
 	#print("get new input for action %s" % action)
 
 	await %InputPanel.popup_hide
-	var input = %InputPanel.input
-	print(input)
+	var input: GUIDEInput = %InputPanel.input
 	if input == null:
 		return
 
 	# check for collisions
-	var collisions := _remapper.get_input_collisions(item, input)
+	var collisions: Array[GUIDERemapper.ConfigItem] = _remapper.get_input_collisions(item, input)
 
 	# if any collision is from a non-bindable mapping, we cannot use this input
-	if collisions.any(func(it: GUIDERemapper.ConfigItem): return not it.is_remappable):
+	if collisions.any(func(it: GUIDERemapper.ConfigItem) -> bool: return not it.is_remappable):
 		return
 
 	# unbind the colliding entries.
-	for collision in collisions:
+	for collision: GUIDERemapper.ConfigItem in collisions:
 		_remapper.set_bound_input(collision, null)
 
 	# now bind the new input

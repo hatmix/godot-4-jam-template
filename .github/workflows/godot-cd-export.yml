@@ -1,13 +1,5 @@
-name: "godot-ci"
+name: 'godot-cd-export'
 on:
-  push:
-    branches:
-      - main
-    paths-ignore:
-      - '**.md'
-      - '!ATTRIBUTION.md'
-      - '.gitignore'
-      - '.gitattributes'
   workflow_dispatch:
     inputs:
       exporttype:
@@ -18,9 +10,13 @@ on:
         options:
           - debug
           - release
+  workflow_run:
+    workflows: [godot-ci-test]
+      type:
+        - completed
 
 concurrency:
-  group: there-can-be-only-one
+  group: there-can-be-only-one-export
   cancel-in-progress: true
 
 env:
@@ -51,10 +47,6 @@ jobs:
       - name: Install Plugins
         run: |
           godot --headless --path . -s plug.gd install production || true
-
-      - name: Fix Imports
-        run: |
-          godot --headless --path . --export-pack FixImports tmp.zip 2>&1 >/dev/null
 
       - name: Export
         id: export

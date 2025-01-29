@@ -9,7 +9,8 @@ func _ready() -> void:
 
 
 func _connect_buttons() -> void:
-	%Back.pressed.connect(ui.go_to.bind("MainMenu"))
+	if ui:
+		%Back.pressed.connect(ui.go_to.bind("MainMenu"))
 
 
 func _input(_event: InputEvent) -> void:

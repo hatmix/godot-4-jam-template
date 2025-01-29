@@ -16,12 +16,13 @@ func _connect_buttons() -> void:
 	# TODO: change %Play.pressed connected function to load game scene, e.g.
 	#%Play.pressed.connect(get_tree().change_scene_to_file("..."))
 	# Or to a scene transition function
-	%Play.pressed.connect(ui.go_to.bind("Game"))
-	%HowToPlay.pressed.connect(ui.go_to.bind("HowToPlay"))
-	%Settings.pressed.connect(ui.go_to.bind("Settings"))
-	%Controls.pressed.connect(ui.go_to.bind("Controls"))
-	%Credits.pressed.connect(ui.go_to.bind("Credits"))
-	%Exit.pressed.connect(get_tree().call_deferred.bind("quit"))
+	if ui:
+		%Play.pressed.connect(ui.go_to.bind("Game"))
+		%HowToPlay.pressed.connect(ui.go_to.bind("HowToPlay"))
+		%Settings.pressed.connect(ui.go_to.bind("Settings"))
+		%Controls.pressed.connect(ui.go_to.bind("Controls"))
+		%Credits.pressed.connect(ui.go_to.bind("Credits"))
+		%Exit.pressed.connect(get_tree().call_deferred.bind("quit"))
 
 
 func _on_focus_changed(control: Control) -> void:

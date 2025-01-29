@@ -49,6 +49,11 @@ func _ready() -> void:
 			child.set("ui", self)
 			child.hide()
 	show()
+	tree_exiting.connect(_on_tree_exiting)
+	
+	
+func _on_tree_exiting() -> void:
+	print_orphan_nodes()
 
 
 func _input(event: InputEvent) -> void:

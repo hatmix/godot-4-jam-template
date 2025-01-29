@@ -9,21 +9,24 @@ func _ready() -> void:
 
 
 func _connect_buttons() -> void:
-	%Resume.pressed.connect(_resume)
-	%Settings.pressed.connect(ui.go_to.bind("Settings"))
-	%Controls.pressed.connect(ui.go_to.bind("Controls"))
-	%Quit.pressed.connect(_main_menu)
+	if ui:
+		%Resume.pressed.connect(_resume)
+		%Settings.pressed.connect(ui.go_to.bind("Settings"))
+		%Controls.pressed.connect(ui.go_to.bind("Controls"))
+		%Quit.pressed.connect(_main_menu)
 
 
 func _input(_event: InputEvent) -> void:
 	if visible and Input.is_action_just_pressed("ui_cancel"):
 		accept_event()
 		_resume()
-	ui._input(_event)
+	if ui:
+		ui._input(_event)
 
 
 func _resume() -> void:
-	ui.go_to("Game")
+	if ui:
+		ui.go_to("Game")
 	get_tree().paused = false
 
 
