@@ -1,4 +1,4 @@
-name: 'godot-cd-export'
+name: Deploy
 on:
   workflow_dispatch:
     inputs:
@@ -11,7 +11,7 @@ on:
           - debug
           - release
   workflow_run:
-    workflows: ['godot-ci-test']
+    workflows: [Tests]
       type:
         - completed
 
