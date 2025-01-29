@@ -1,6 +1,7 @@
 name: Tests
 on:
-  - push:
+  workflow_dispatch: {}
+  push:
     branches:
       - main
       - gdunit4
@@ -9,7 +10,6 @@ on:
       - '!ATTRIBUTION.md'
       - '.gitignore'
       - '.gitattributes'
-  - workflow_dispatch
 
 concurrency:
   group: there-can-be-only-one-test
