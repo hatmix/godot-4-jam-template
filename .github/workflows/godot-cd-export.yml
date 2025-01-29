@@ -1,9 +1,12 @@
-name: 'godot-cd-export'
+name: Deploy
 on:
+  push:
+    branches:
+      - main
   workflow_dispatch:
     inputs:
       exporttype:
-        description: 'Export type (debug/release)'
+        description: Export type (debug/release)
         default: debug
         required: false
         type: choice
@@ -11,9 +14,8 @@ on:
           - debug
           - release
   workflow_run:
-    workflows: [godot-ci-test]
-      type:
-        - completed
+    workflows: [Tests]
+    types: [completed]
 
 concurrency:
   group: there-can-be-only-one-export
