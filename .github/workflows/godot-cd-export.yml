@@ -13,7 +13,6 @@ on:
   workflow_run:
     workflows: [Tests]
     types: [completed]
-    branches: [main]
 
 concurrency:
   group: there-can-be-only-one-export
