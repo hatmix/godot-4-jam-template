@@ -1,14 +1,5 @@
-name: 'godot-ci'
+name: "godot-cd-export"
 on:
-  push:
-    branches:
-      - main
-      - gdunit4
-    paths-ignore:
-      - '**.md'
-      - '!ATTRIBUTION.md'
-      - '.gitignore'
-      - '.gitattributes'
   workflow_dispatch:
     inputs:
       exporttype:
@@ -19,40 +10,22 @@ on:
         options:
           - debug
           - release
+  workflow_run:
+    workflows: ["godot-ci-test"]
+      type:
+        - completed
 
 concurrency:
-  group: there-can-be-only-one
+  group: there-can-be-only-one-export
   cancel-in-progress: true
 
 env:
+  GODOT_VERSION: 4.3
   PROJECT_NAME: ${{ github.event.repository.name }}
 
 jobs:
-  test:
-    name: 'gdUnit4 Tests'
-    runs-on: 'ubuntu-22.04'
-    timeout-minutes: 10 # The overall timeout
-    permissions:
-      actions: write
-      checks: write
-      contents: write
-    steps:
-      # checkout your repository
-      - uses: actions/checkout@v4
-        with:
-          lfs: true
-      # run tests by using the gdUnit4-action with Godot version 4.2.1 and the latest GdUnit4 release
-      - uses: MikeSchulze/gdUnit4-action@v1.1.5
-        with:
-          godot-version: '4.3'
-          paths: 'res://test/'
-          timeout: 5
-          report-name: test_report.xml
-          arguments: '--verbose'
-
   export:
     name: Export
-    needs: test
     runs-on: ubuntu-20.04
     container:
       image: barichello/godot-ci:4.3
@@ -74,10 +47,6 @@ jobs:
       - name: Install Plugins
         run: |
           godot --headless --path . -s plug.gd install production || true
-
-      - name: Fix Imports
-        run: |
-          godot --headless --path . --export-pack FixImports tmp.zip 2>&1 >/dev/null
 
       - name: Export
         id: export
