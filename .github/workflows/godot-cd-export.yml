@@ -12,8 +12,8 @@ on:
           - release
   workflow_run:
     workflows: [Tests]
-      type:
-        - completed
+    types: [completed]
+    branches: [main]
 
 concurrency:
   group: there-can-be-only-one-export
