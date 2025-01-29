@@ -54,10 +54,10 @@ jobs:
         run: |
           EXPORT_TYPE="${EXPORT_TYPE_INPUT:=debug}"
           echo export $EXPORT_TYPE
-          godot --headless --verbose --path . --export-${EXPORT_TYPE} "Web" exports/web/index.html
-          godot --headless --verbose --path . --export-${EXPORT_TYPE} "Linux" exports/linux/${ITCHIO_GAME}.x86_64
-          godot --headless --verbose --path . --export-${EXPORT_TYPE} "macOS" exports/macos/${ITCHIO_GAME}.zip
-          godot --headless --verbose --path . --export-${EXPORT_TYPE} "Windows" exports/windows/${ITCHIO_GAME}.exe
+          godot --headless --path . --export-${EXPORT_TYPE} "Web" exports/web/index.html
+          godot --headless --path . --export-${EXPORT_TYPE} "Linux" exports/linux/${ITCHIO_GAME}.x86_64
+          godot --headless --path . --export-${EXPORT_TYPE} "macOS" exports/macos/${ITCHIO_GAME}.zip
+          godot --headless --path . --export-${EXPORT_TYPE} "Windows" exports/windows/${ITCHIO_GAME}.exe
           #find exports -name '*'
 
       - name: Cache butler files
