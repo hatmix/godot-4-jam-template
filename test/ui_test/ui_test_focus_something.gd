@@ -4,14 +4,12 @@ extends GdUnitTestSuite
 @warning_ignore("unused_parameter")
 @warning_ignore("return_value_discarded")
 
-#var runner: GdUnitSceneRunner = scene_runner("res://ui/controls/controls.tscn")
-#var runner: GdUnitSceneRunner = scene_runner("res://ui/credits/credits.tscn")
-#var runner: GdUnitSceneRunner = scene_runner("res://ui/game/game.tscn")
-#var runner: GdUnitSceneRunner = scene_runner("res://ui/how_to_play/how_to_play.tscn")
 
-#var runner: GdUnitSceneRunner = scene_runner("res://ui/notifications/message_board.tscn")
-#var runner: GdUnitSceneRunner = scene_runner("res://ui/pause_menu/pause_menu.tscn")
-#var runner: GdUnitSceneRunner = scene_runner("res://ui/settings/settings.tscn")
+func test_resolution(do_skip = DisplayServer.get_name() == "headless") -> void:
+	# Testing what CI runners have for DisplayServer backend
+	# We know it can't match headless or it would be skipped, so match headless
+	# to get the test failure to tell us the actual name
+	assert_str(DisplayServer.get_name()).is_equal_ignoring_case("headless")
 
 
 # Each ui "page" should have a visible control that can grab focus to support

@@ -17,6 +17,11 @@ func show_ui(page: Variant) -> void:
 	var ui_page: CanvasItem = _resolve_ui_page(page)
 	if ui_page:
 		ui_page.show()
+		# Uncomment to capture screenshots in media/ folder
+		# Must wait for visibility changes and one frame is not enough
+		#await get_tree().create_timer(0.2).timeout
+		#var cap := get_viewport().get_texture().get_image()
+		#cap.save_png("media/%s.png" % ui_page.name)
 
 
 func go_to(page: Variant) -> void:
@@ -50,8 +55,8 @@ func _ready() -> void:
 			child.hide()
 	show()
 	tree_exiting.connect(_on_tree_exiting)
-	
-	
+
+
 func _on_tree_exiting() -> void:
 	print_orphan_nodes()
 
