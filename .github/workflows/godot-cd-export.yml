@@ -48,8 +48,6 @@ jobs:
 
       - name: Check version
         run: |
-          git --version
-          ls -af
           if [ ! -f version.txt ]; then
             git config --global --add safe.directory $(pwd)
             git rev-list -P --count HEAD > version.txt
