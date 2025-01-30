@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://dgxrcxbe8s24d"]
+
+[ext_resource type="Script" path="res://ui/main_menu/git_info.gd" id="1_dlk8a"]
+
+[node name="GitInfo" type="GridContainer"]
+columns = 2
+script = ExtResource("1_dlk8a")
+
+[node name="BuildLabel" type="Label" parent="."]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "Build"
+horizontal_alignment = 2
+
+[node name="BuildValue" type="Label" parent="."]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
