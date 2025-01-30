@@ -1,10 +1,10 @@
 [gd_scene load_steps=2 format=3 uid="uid://dgxrcxbe8s24d"]
 
-[ext_resource type="Script" path="res://ui/main_menu/git_info.gd" id="1_dlk8a"]
+[ext_resource type="Script" path="res://ui/main_menu/build_info.gd" id="1_b4kln"]
 
-[node name="GitInfo" type="GridContainer"]
+[node name="BuildInfo" type="GridContainer"]
 columns = 2
-script = ExtResource("1_dlk8a")
+script = ExtResource("1_b4kln")
 
 [node name="BuildLabel" type="Label" parent="."]
 layout_mode = 2
