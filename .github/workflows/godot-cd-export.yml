@@ -33,6 +33,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
+          depth: 0
           lfs: true
 
       - name: Setup Export Templates
@@ -48,7 +49,6 @@ jobs:
         run: |
           if [ ! -f version.txt ]; then
             git config --add safe.directory $(pwd)
-            git fetch --unshallow origin main
             git rev-list -P --count HEAD > version.txt
           fi
 
