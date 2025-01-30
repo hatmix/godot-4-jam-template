@@ -4,12 +4,11 @@ extends GdUnitTestSuite
 @warning_ignore("unused_parameter")
 @warning_ignore("return_value_discarded")
 
-
-func test_resolution(do_skip = DisplayServer.get_name() == "headless") -> void:
-	# Testing what CI runners have for DisplayServer backend
-	# We know it can't match headless or it would be skipped, so match headless
-	# to get the test failure to tell us the actual name
-	assert_str(DisplayServer.get_name()).is_equal_ignoring_case("headless")
+#func test_resolution(do_skip = DisplayServer.get_name().contains("headless")) -> void:
+# Testing what CI runners have for DisplayServer backend
+# We know it can't match headless or it would be skipped, so match headless
+# to get the test failure to tell us the actual name
+#assert_str(DisplayServer.get_name()).is_equal_ignoring_case("headless")
 
 
 # Each ui "page" should have a visible control that can grab focus to support
