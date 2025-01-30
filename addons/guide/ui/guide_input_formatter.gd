@@ -66,9 +66,20 @@ static func _ensure_readiness():
 	_is_ready = true
 
 
-static func _cleanup():
+## This will clean up the rendering infrastructure used for generating 
+## icons. Note that in a normal game you will have no need to call this
+## as the infrastructure is needed throughout the run of your game.
+## It might be useful in tests though, to get rid of spurious warnings
+## about orphaned nodes.
+static func cleanup():
 	_is_ready = false
+		
+	# free all the nodes to avoid memory leaks
+	for renderer in _icon_renderers:
+		renderer.queue_free()
+		
 	_icon_renderers.clear()
+	
 	_text_providers.clear()
 	if is_instance_valid(_icon_maker):
 		_icon_maker.queue_free()

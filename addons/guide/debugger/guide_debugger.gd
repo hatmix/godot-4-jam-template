@@ -11,6 +11,9 @@ func _ready():
 	_update_priorities()
 
 func _process(delta):
+	if not is_visible_in_tree():
+		return
+		
 	var index:int = 0
 	for mapping in GUIDE._active_action_mappings:
 		var action:GUIDEAction = mapping.action

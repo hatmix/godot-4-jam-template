@@ -18,8 +18,7 @@ func _enter_tree() -> void:
 func _exit_tree() -> void:
 	if is_instance_valid(_main_panel):
 		_main_panel.queue_free()
-		
-	GUIDEInputFormatter._cleanup()
+	GUIDEInputFormatter.cleanup()
 
 func _disable_plugin():
 	remove_autoload_singleton("GUIDE")

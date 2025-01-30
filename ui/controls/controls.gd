@@ -18,9 +18,13 @@ var _remapping_config: GUIDERemappingConfig
 func _ready() -> void:
 	%InputPanel.visible = false
 	%Back.pressed.connect(_on_back)
+	tree_exiting.connect(_cleanup)
 	_init_actions()
-	# Diagnose source of orphaned nodes
-	#get_tree().create_timer(2.0).timeout.connect(func(): Node.print_orphan_nodes())
+	
+
+func _cleanup() -> void:
+	GUIDEInputFormatter.cleanup()
+	await get_tree().process_frame
 
 
 func _input(event: InputEvent) -> void:
