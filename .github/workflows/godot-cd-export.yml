@@ -27,14 +27,15 @@ jobs:
   export:
     name: Export
     runs-on: ubuntu-20.04
+    permissions:
+      contents: read
     container:
       image: barichello/godot-ci:4.3
     steps:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          fetch-depth: '0'
-          lfs: true
+          fetch-depth: 0
 
       - name: Setup Export Templates
         run: |
@@ -47,10 +48,9 @@ jobs:
 
       - name: Check version
         run: |
-          pwd
-          ls
+          git --version
+          ls -af
           if [ ! -f version.txt ]; then
-            git config --add safe.directory $(pwd)
             git rev-list -P --count HEAD > version.txt
           fi
 

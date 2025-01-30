@@ -27,8 +27,6 @@ jobs:
     steps:
       # checkout your repository
       - uses: actions/checkout@v4
-        with:
-          lfs: true
       # run tests by using the gdUnit4-action with Godot version 4.2.1 and the latest GdUnit4 release
       - uses: MikeSchulze/gdUnit4-action@v1.1.5
         with:
