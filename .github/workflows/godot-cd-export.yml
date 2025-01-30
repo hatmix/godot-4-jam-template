@@ -47,7 +47,8 @@ jobs:
       - name: Check version
         run: |
           if [ ! -f version.txt ]; then
-            git config --global --add safe.directory $(pwd)
+            git config --add safe.directory $(pwd)
+            git fetch --unshallow origin main
             git rev-list -P --count HEAD > version.txt
           fi
 
