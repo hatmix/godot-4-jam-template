@@ -54,6 +54,7 @@ jobs:
             git config --global --add safe.directory $(pwd)
             git rev-list -P --count HEAD > version.txt
           fi
+          echo BUILD $(cat version.txt)
 
       - name: Export
         id: export
