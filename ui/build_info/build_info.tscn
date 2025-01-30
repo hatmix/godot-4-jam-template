@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dgxrcxbe8s24d"]
 
-[ext_resource type="Script" path="res://ui/main_menu/build_info.gd" id="1_b4kln"]
+[ext_resource type="Script" path="res://ui/build_info/build_info.gd" id="1_b4kln"]
 
 [node name="BuildInfo" type="GridContainer"]
 columns = 2

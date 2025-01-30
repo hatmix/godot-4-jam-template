@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://3s7lo7jd53un"]
+[gd_scene load_steps=3 format=3 uid="uid://3s7lo7jd53un"]
 
 [ext_resource type="Script" path="res://ui/pause_menu/pause_menu.gd" id="1_fpgrf"]
+[ext_resource type="PackedScene" uid="uid://dgxrcxbe8s24d" path="res://ui/build_info/build_info.tscn" id="2_q2yd3"]
 
 [node name="PauseMenu" type="Control"]
 layout_mode = 3
@@ -44,3 +45,15 @@ text = "Controls"
 unique_name_in_owner = true
 layout_mode = 2
 text = "Quit"
+
+[node name="BuildInfo" parent="." instance=ExtResource("2_q2yd3")]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -25.0
+offset_top = -12.0
+grow_horizontal = 0
+grow_vertical = 0

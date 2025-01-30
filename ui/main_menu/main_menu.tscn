@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://ui/main_menu/main_menu.gd" id="1_px5tl"]
 [ext_resource type="Texture2D" uid="uid://boljenb52sdcf" path="res://ui/assets/icons/finger-point-right.png" id="3_1j602"]
-[ext_resource type="PackedScene" uid="uid://dgxrcxbe8s24d" path="res://ui/main_menu/build_info.tscn" id="3_oraeq"]
+[ext_resource type="PackedScene" uid="uid://dgxrcxbe8s24d" path="res://ui/build_info/build_info.tscn" id="3_oraeq"]
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
