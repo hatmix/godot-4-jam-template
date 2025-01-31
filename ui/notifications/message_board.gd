@@ -1,8 +1,7 @@
 class_name MessageQueue
-extends Control
+extends UiPage
 
 var message_scene: PackedScene = preload("res://ui/notifications/message.tscn")
-var ui: Node
 
 
 func _ready() -> void:

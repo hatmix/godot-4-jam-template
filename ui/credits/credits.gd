@@ -1,6 +1,4 @@
-extends Control
-
-var ui: Node
+extends UiPage
 
 
 func _ready() -> void:
@@ -10,10 +8,12 @@ func _ready() -> void:
 
 func _connect_buttons() -> void:
 	if ui:
-		%Back.pressed.connect(ui.go_to.bind("MainMenu"))
+		%Back.pressed.connect(go_back)
 
 
-func _input(_event: InputEvent) -> void:
-	if visible and Input.is_action_just_pressed("ui_cancel"):
+func _input(event: InputEvent) -> void:
+	if not visible:
+		return
+	if event.is_action_pressed("ui_cancel") or event.is_action_pressed("ui_back"):
 		get_viewport().set_input_as_handled()
-		ui.go_to("MainMenu")
+		go_back()

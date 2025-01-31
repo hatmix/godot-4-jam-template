@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://ui/game/game_ui.gd" id="1_67una"]
 [ext_resource type="PackedScene" uid="uid://dkr80d2pi0d41" path="res://addons/guide/debugger/guide_debugger.tscn" id="2_li4ca"]
 
-[node name="Game" type="Control"]
+[node name="Game" type="Control" node_paths=PackedStringArray("default_focus_control")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -11,6 +11,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_67una")
+prevent_joypad_focus_capture = true
+default_focus_control = NodePath("VBoxContainer/ToggleGuideDebugger")
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 1

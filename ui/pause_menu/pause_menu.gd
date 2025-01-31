@@ -1,6 +1,4 @@
-extends Control
-
-var ui: Node
+extends UiPage
 
 
 # Called when the node enters the scene tree for the first time.
@@ -16,12 +14,12 @@ func _connect_buttons() -> void:
 		%Quit.pressed.connect(_main_menu)
 
 
-func _input(_event: InputEvent) -> void:
-	if visible and Input.is_action_just_pressed("ui_cancel"):
-		accept_event()
+func _input(event: InputEvent) -> void:
+	if not visible:
+		return
+	if event.is_action_pressed("ui_cancel") or event.is_action_pressed("ui_back"):
+		get_viewport().set_input_as_handled()
 		_resume()
-	if ui:
-		ui._input(_event)
 
 
 func _resume() -> void:

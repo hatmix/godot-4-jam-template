@@ -1,12 +1,11 @@
-extends Control
+extends UiPage
 
 var _audio_bus_name_idx_mapping: Dictionary = {}
-var ui: Node
 
 
 func _ready() -> void:
 	Settings.load_settings()
-	%Back.pressed.connect(_on_back)
+	%Back.pressed.connect(go_back)
 	call_deferred("_update_audio_sliders")
 
 	for idx: int in range(0, AudioServer.bus_count):
@@ -17,18 +16,12 @@ func _ready() -> void:
 		control.value_changed.connect(_on_audio_hslider_value_changed.bind(control.name))
 
 
-func _input(_event: InputEvent) -> void:
-	if visible and Input.is_action_just_pressed("ui_cancel"):
+func _input(event: InputEvent) -> void:
+	if not visible:
+		return
+	if event.is_action_pressed("ui_cancel") or event.is_action_pressed("ui_back"):
 		get_viewport().set_input_as_handled()
-		_on_back()
-
-
-func _on_back() -> void:
-	if ui:
-		if get_tree().paused == true:
-			ui.go_to("PauseMenu")
-		else:
-			ui.go_to("MainMenu")
+		go_back()
 
 
 func _on_audio_hslider_value_changed(value: float, bus_name: String) -> void:

@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://ui/pause_menu/pause_menu.gd" id="1_fpgrf"]
 [ext_resource type="PackedScene" uid="uid://dgxrcxbe8s24d" path="res://ui/build_info/build_info.tscn" id="2_q2yd3"]
 
-[node name="PauseMenu" type="Control"]
+[node name="PauseMenu" type="Control" node_paths=PackedStringArray("default_focus_control")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -11,6 +11,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_fpgrf")
+default_focus_control = NodePath("Buttons/Resume")
 
 [node name="Buttons" type="VBoxContainer" parent="."]
 layout_mode = 1

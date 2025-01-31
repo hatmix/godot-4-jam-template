@@ -10,17 +10,18 @@ extends GdUnitTestSuite
 # to get the test failure to tell us the actual name
 #assert_str(DisplayServer.get_name()).is_equal_ignoring_case("headless")
 
+# Each UiPage with a visible control should be able to focus something to support
+# joypad and pure keyboard ui navigation...
 
-# Each ui "page" should have a visible control that can grab focus to support
-# joypad and pure keyboard ui navigation... since this now uses input, the test
-# crashes in CI
-func test__focus_something(do_skip: bool = DisplayServer.get_name().contains("headless")) -> void:
+
+func test__focus_something() -> void:
 	var runner: GdUnitSceneRunner = scene_runner("res://ui/ui.tscn")
 
 	var pages: Array[Node] = runner.scene().get_children()
 	for page: Node in pages:
-		if page is CanvasItem:
-			# Skip pages with no buttons or that don't need to grab focus
+		if page is UiPage:
+			page = page as UiPage
+			# Skip pages with nothing to focus
 			if page.name in ["InGameMenuOverlay", "MessageBoard"]:
 				continue
 			runner.invoke("go_to", page)
@@ -28,22 +29,11 @@ func test__focus_something(do_skip: bool = DisplayServer.get_name().contains("he
 			if focused:
 				focused.release_focus()
 
-			runner.invoke("_focus_something", InputEventJoypadButton.new())
+			runner.invoke("_focus_something")
 			focused = get_viewport().gui_get_focus_owner()
 
-			# Not captured when prevent set
-			if "prevent_joypad_focus_capture" in page and page.prevent_joypad_focus_capture:
-				(
-					assert_object(focused)
-					. override_failure_message(
-						"ui page '%s' with prevent_joypad_focus_capture captured focus" % page.name
-					)
-					. is_null()
-				)
-			# Otherwise captured
-			else:
-				(
-					assert_object(focused)
-					. override_failure_message("ui page '%s' has no focused button" % page.name)
-					. is_instanceof(Button)
-				)
+			(
+				assert_object(focused)
+				. override_failure_message("ui page '%s' has no focused button" % page.name)
+				. is_instanceof(Button)
+			)

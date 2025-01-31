@@ -1,4 +1,4 @@
-extends Control
+extends UiPage
 
 const REMAP_INPUT_BUTTON_SCENE: PackedScene = preload("res://ui/controls/remap_input_button.tscn")
 
@@ -8,8 +8,6 @@ const REMAP_INPUT_BUTTON_SCENE: PackedScene = preload("res://ui/controls/remap_i
 		icon_size = value
 		_formatter = GUIDEInputFormatter.new(icon_size)
 
-var ui: Node
-
 var _remapper: GUIDERemapper = GUIDERemapper.new()
 var _formatter: GUIDEInputFormatter
 var _remapping_config: GUIDERemappingConfig
@@ -17,10 +15,10 @@ var _remapping_config: GUIDERemappingConfig
 
 func _ready() -> void:
 	%InputPanel.visible = false
-	%Back.pressed.connect(_on_back)
+	%Back.pressed.connect(go_back)
 	tree_exiting.connect(_cleanup)
 	_init_actions()
-	
+
 
 func _cleanup() -> void:
 	GUIDEInputFormatter.cleanup()
@@ -28,16 +26,11 @@ func _cleanup() -> void:
 
 
 func _input(event: InputEvent) -> void:
-	if event is InputEventAction and (event.is_action("ui_cancel") or event.is_action("ui_back")):
+	if not visible:
+		return
+	if event.is_action_pressed("ui_cancel") or event.is_action_pressed("ui_back"):
 		get_viewport().set_input_as_handled()
-		_on_back()
-
-
-func _on_back() -> void:
-	if get_tree().paused == true:
-		ui.go_to("PauseMenu")
-	else:
-		ui.go_to("MainMenu")
+		go_back()
 
 
 func _init_actions() -> void:

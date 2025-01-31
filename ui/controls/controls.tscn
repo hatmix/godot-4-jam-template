@@ -9,7 +9,7 @@
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qy0v7"]
 bg_color = Color(0.162066, 0.162066, 0.162065, 1)
 
-[node name="Controls" type="Control"]
+[node name="Controls" type="Control" node_paths=PackedStringArray("default_focus_control")]
 texture_filter = 1
 layout_mode = 3
 anchors_preset = 15
@@ -20,6 +20,7 @@ grow_vertical = 2
 script = ExtResource("1_ypuet")
 remap_mapping_contexts = Array[ExtResource("2_v7gdq")]([ExtResource("3_b2afy")])
 icon_size = 48
+default_focus_control = NodePath("Buttons/Back")
 
 [node name="TabContainer" type="TabContainer" parent="."]
 custom_minimum_size = Vector2(500, 280)
@@ -114,6 +115,8 @@ script = ExtResource("5_7bxk6")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_right = 320.0
+offset_bottom = 160.0
 grow_horizontal = 2
 grow_vertical = 2
 

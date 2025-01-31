@@ -11,6 +11,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_y2nll")
+prevent_joypad_focus_capture = true
 
 [node name="Timer" type="Timer" parent="."]
 autostart = true
