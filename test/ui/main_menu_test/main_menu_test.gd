@@ -13,4 +13,4 @@ func test_as_run_current_scene() -> void:
 
 
 func test__on_focus_changed() -> void:
-	var runner: GdUnitSceneRunner = scene_runner("res://ui/main_menu/main_menu.tscn")
+	var _runner: GdUnitSceneRunner = scene_runner("res://ui/main_menu/main_menu.tscn")
