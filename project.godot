@@ -44,6 +44,17 @@ window/stretch/mode="canvas_items"
 
 enabled=PackedStringArray("res://addons/Todo_Manager/plugin.cfg", "res://addons/gdUnit4/plugin.cfg", "res://addons/guide/plugin.cfg", "res://addons/maaacks_ui_sound_controller/plugin.cfg", "res://addons/markdownlabel/plugin.cfg")
 
+[file_customization]
+
+folder_colors={
+"res://addons/": "red",
+"res://autoloads/": "yellow",
+"res://game/": "green",
+"res://input/": "teal",
+"res://test/": "orange",
+"res://ui/": "blue"
+}
+
 [gdunit4]
 
 report/assert/verbose_warnings=false
