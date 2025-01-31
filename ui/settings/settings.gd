@@ -34,8 +34,8 @@ func _on_back() -> void:
 func _on_audio_hslider_value_changed(value: float, bus_name: String) -> void:
 	#print(bus_name, value / 100)
 	AudioServer.set_bus_volume_db(_audio_bus_name_idx_mapping[bus_name], linear_to_db(value / 100))
-	if Settings.get_value(Settings.SECTION.AUDIO, bus_name, null) != value:
-		Settings.set_value(Settings.SECTION.AUDIO, bus_name, value)
+	if Settings.get_value(Settings.Section.AUDIO, bus_name, null) != value:
+		Settings.set_value(Settings.Section.AUDIO, bus_name, value)
 
 
 func _update_audio_sliders() -> void:
@@ -44,7 +44,7 @@ func _update_audio_sliders() -> void:
 			AudioServer.get_bus_volume_db(_audio_bus_name_idx_mapping[bus_name])
 		)
 		var settings_level: float = Settings.get_value(
-			Settings.SECTION.AUDIO, bus_name, engine_level * 100
+			Settings.Section.AUDIO, bus_name, engine_level * 100
 		)
 		var control: Slider = %Audio.find_child(bus_name)
 		if control:

@@ -1,6 +1,6 @@
 extends Node
 
-enum SECTION { AUDIO }
+enum Section { AUDIO }
 
 const CONTROLS_FILE: String = "user://controls.tres"
 const SETTINGS_FILE: String = "user://settings.cfg"
@@ -78,15 +78,15 @@ func save_settings() -> void:
 		Globals.post_ui_message.emit("Settings saved")
 
 
-func get_value(section: SECTION, key: String, default: Variant) -> Variant:
+func get_value(section: Section, key: String, default: Variant) -> Variant:
 	load_settings()
-	var section_name: String = SECTION.keys()[section]
+	var section_name: String = Section.keys()[section]
 	return _settings.get_value(section_name.to_pascal_case(), key, default)
 
 
-func set_value(section: SECTION, key: String, value: Variant) -> void:
+func set_value(section: Section, key: String, value: Variant) -> void:
 	load_settings()
-	var section_name: String = SECTION.keys()[section]
+	var section_name: String = Section.keys()[section]
 	_settings.set_value(section_name.to_pascal_case(), key, value)
 	_timer.start(1.0)
 #endregion
