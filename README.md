@@ -1,18 +1,18 @@
 # Godot 4 Jam Template
 
-Quick start template for game jams built on [hatmix/godot-4-ci](https://github.com/hatmix/godot-4-ci). See the plain template in action at [https://hatmix.itch.io/godot-4-jam-template](https://hatmix.itch.io/godot-4-jam-template) (password `hatmix`).
+A quick-start template for game jams. See the plain template in action at [https://hatmix.itch.io/godot-4-jam-template](https://hatmix.itch.io/godot-4-jam-template) (password `hatmix`).
 
 Features:
 * Web, Windows, Linux and macOS exports configured for maximum jam
 * Github workflows for automatic uploads to Itch.io
-* Premade basic UI for main menu, pause menu, credits, and settings
-* [G.U.I.D.E](https://godotneers.github.io/G.U.I.D.E/) for input with remapping
+* Premade basic UI for main menu, pause menu, credits, settings, and remapping controls
+* [G.U.I.D.E](https://godotneers.github.io/G.U.I.D.E/) for input and input prompts
 * Settings persisted across sessions (where `user://` filesystem is writable)
-* Keyboard and controller support for all template UI and touchscreen via [Godot's emulate mouse from touch setting](https://docs.godotengine.org/en/stable/classes/class_projectsettings.html#class-projectsettings-property-input-devices-pointing-emulate-mouse-from-touch)
+* Full keyboard and controller support for all template UI
 * ATTRIBUTION.md for in-game credits (inspired by [Maaack](https://github.com/Maaack/Godot-Game-Template/blob/main/ATTRIBUTION.md)'s approach)
 * [TODO Manager](https://github.com/OrigamiDev-Pete/TODO_Manager) included and todos added for setting up a new project
 
-Don't just settle for the first template you find! Compare the alternatives and decide which best fits your desired feature set, coding style, and approach to game development.
+Don't just settle for the first template you find! This template was inspired by many other examples created by the Godot community.  Compare the alternatives and decide which best fits your desired feature set, coding style, and approach to game development.
 
 Alternatives:
 * [https://github.com/Maaack/Godot-Game-Template](https://github.com/Maaack/Godot-Game-Template)
@@ -20,16 +20,14 @@ Alternatives:
 * [https://github.com/nezvers/Godot-GameTemplate](https://github.com/nezvers/Godot-GameTemplate)
 * [And many more...](https://godotengine.org/asset-library/asset?filter=template&category=&godot_version=&cost=&sort=updated)
 
-This template is intended to be used at project start only. While it is possible to apply updates made to the template to projects created from earlier versions of the template, it is not designed for that. There are other templates that make upgrading much simpler--with other trade-offs, perhaps.
+This template is intended to be used at project start. While it is possible to apply updates made to the template to projects created from earlier versions of the template, it is not designed for that. Other templates may be easier to upgrade or add to an existing project.
 
-## Initial setup
+## Getting started
 
 There are a few ways to get started.
 * The "Use this template" link in Github
 * Clone the repository
 * Download a zip file of the source
-
-## Main
 
 Once the Godot project files are saved locally, open `res://main.tscn` and `res://main.gd` and create your game!
 
@@ -73,7 +71,6 @@ Main UI components are contained in directories under `res://ui`. The `assets` f
 	├───pause_menu
 	└───settings
 ```
-
 
 The intended approach is to keep all UI in `res://ui/ui.tscn` and instantiate it as a child of every other scene. This is to allow settings and controls to be called from the pause menu.
 
