@@ -63,16 +63,25 @@ func _input(event: InputEvent) -> void:
 			or event is InputEventJoypadButton
 			or event.is_action_pressed("ui_focus_controls")
 		):
-			_focus_something()
+			_focus_something(event)
 
 
-func _focus_something() -> void:
+func _focus_something(event: InputEvent) -> void:
 	# grab_focus on first button found in visible ui pages
 	for child: Node in get_children():
 		if child is Control and child.visible:
+			if (
+				_has_prevent_focus_capture(child)
+				and not event.is_action_pressed("ui_focus_controls")
+			):
+				continue
 			for button: Button in child.find_children("*", "Button"):
 				# Helpful for discovering focus goes to a hidden button
 				#print("Focus something found button %s" % button.name)
 				button.grab_focus()
 				break
 				break
+
+
+func _has_prevent_focus_capture(ui_page: Control) -> bool:
+	return "prevent_joypad_focus_capture" in ui_page and ui_page.prevent_joypad_focus_capture

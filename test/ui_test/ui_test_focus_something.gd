@@ -20,19 +20,31 @@ func test__focus_something() -> void:
 	for page: Node in pages:
 		if page is CanvasItem:
 			# Skip pages with no buttons or that don't need to grab focus
-			if page.name in ["Game", "InGameMenuOverlay", "MessageBoard"]:
+			if page.name in ["InGameMenuOverlay", "MessageBoard"]:
 				continue
 			runner.invoke("go_to", page)
 			var focused: Variant = get_viewport().gui_get_focus_owner()
 			if focused:
 				focused.release_focus()
 
-			runner.invoke("_focus_something")
+			runner.invoke("_focus_something", InputEventJoypadButton.new())
 			focused = get_viewport().gui_get_focus_owner()
-			(
-				assert_object(focused)
-				. override_failure_message("ui page '%s' has no focused button" % page.name)
-				. is_instanceof(Button)
-			)
-			# Ensure we don't focus a hidden button (but this doesn't test parents)
-			assert_bool(focused.visible).is_true()
+
+			# Not captured when prevent set
+			if runner.get_property("prevent_joypad_focus_capture") == true:
+				(
+					assert_object(focused)
+					. override_failure_message(
+						"ui page '%s' with prevent_joypad_focus_capture captured focus" % page.name
+					)
+					. is_null()
+				)
+			# Otherwise captured
+			else:
+				(
+					assert_object(focused)
+					. override_failure_message("ui page '%s' has no focused button" % page.name)
+					. is_instanceof(Button)
+				)
+				# Ensure we don't focus a hidden button (but this doesn't test parents)
+				assert_bool(focused.visible).is_true()
