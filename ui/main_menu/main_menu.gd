@@ -27,13 +27,8 @@ func _connect_buttons() -> void:
 func _on_focus_changed(control: Control) -> void:
 	if not visible:
 		return
-	if get_viewport().gui_get_focus_owner() is not Control:
-		%FocusLabel.visible = true
-		return
-	else:
-		%FocusLabel.visible = false
-		for button: Button in %Buttons.get_children():
-			if button == control:
-				button.icon = pointer_icon
-			else:
-				button.icon = null
+	for button: Button in %Buttons.get_children():
+		if button == control:
+			button.icon = pointer_icon
+		else:
+			button.icon = null

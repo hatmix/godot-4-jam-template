@@ -57,19 +57,25 @@ func _ready() -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_focus_controls"):
-		# If we have a focus control, clear it
-		if get_viewport().gui_get_focus_owner():
-			get_viewport().gui_get_focus_owner().release_focus()
-		else:
-			_focus_something()
+	# I think this could be simplified somehow, but I'm not getting it just yet
+	# If nothing focused, trying to focus next will focus something
+	var focus_owner: Node = get_viewport().gui_get_focus_owner()
+	print("focus owner is ", focus_owner)
+	if (
+		(event.is_action_pressed("ui_focus_next") or event.is_action_pressed("ui_focus_controls"))
+		and not focus_owner
+	):
+		_focus_something()
 		get_viewport().set_input_as_handled()
 		return
 
-	if (
-		not get_viewport().gui_get_focus_owner() is Control
-		and (event is InputEventJoypadMotion or event is InputEventJoypadButton)
-	):
+	# If something focused, ui_cancel will release focus
+	if event.is_action_pressed("ui_cancel") and focus_owner:
+		focus_owner.release_focus()
+		get_viewport().set_input_as_handled()
+		return
+
+	if (event is InputEventJoypadMotion or event is InputEventJoypadButton) and focus_owner == null:
 		for child: Node in get_children():
 			if not child is UiPage or not child.visible:
 				continue
