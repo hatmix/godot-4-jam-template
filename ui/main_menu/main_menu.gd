@@ -16,12 +16,16 @@ func _connect_buttons() -> void:
 	#%Play.pressed.connect(get_tree().change_scene_to_file("..."))
 	# Or to a scene transition function
 	if ui:
-		%Play.pressed.connect(ui.go_to.bind("Game"))
+		%Play.pressed.connect(_start_game)
 		%HowToPlay.pressed.connect(ui.go_to.bind("HowToPlay"))
 		%Settings.pressed.connect(ui.go_to.bind("Settings"))
 		%Controls.pressed.connect(ui.go_to.bind("Controls"))
 		%Credits.pressed.connect(ui.go_to.bind("Credits"))
 		%Exit.pressed.connect(get_tree().call_deferred.bind("quit"))
+
+
+func _start_game() -> void:
+	get_tree().change_scene_to_file("res://game/game.tscn")
 
 
 func _on_focus_changed(control: Control) -> void:

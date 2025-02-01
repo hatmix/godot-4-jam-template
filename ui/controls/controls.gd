@@ -16,13 +16,7 @@ var _remapping_config: GUIDERemappingConfig
 func _ready() -> void:
 	%InputPanel.visible = false
 	%Back.pressed.connect(go_back)
-	tree_exiting.connect(_cleanup)
 	_init_actions()
-
-
-func _cleanup() -> void:
-	GUIDEInputFormatter.cleanup()
-	await get_tree().process_frame
 
 
 func _input(event: InputEvent) -> void:

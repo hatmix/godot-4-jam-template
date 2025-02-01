@@ -37,3 +37,4 @@ func test__focus_something() -> void:
 				. override_failure_message("ui page '%s' has no focused button" % page.name)
 				. is_instanceof(Button)
 			)
+	GUIDEInputFormatter.cleanup()

@@ -51,6 +51,7 @@ func _ready() -> void:
 	hide()
 	for child: Node in get_children():
 		if child is UiPage:
+			print("injecting ui in ", child.name)
 			child.set("ui", self)
 			child.hide()
 	show()
