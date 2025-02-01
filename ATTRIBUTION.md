@@ -1,6 +1,5 @@
 # Godot 4 Jam Template
 ###### TODO: Update title above
-###### TODO: Update title in project settings
 
 ###### TODO: Update contributors
 A thing by [hatmix](https://hatmix.itch.io)

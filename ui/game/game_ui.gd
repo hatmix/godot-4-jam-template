@@ -1,6 +1,6 @@
 extends UiPage
 
-# TODO: Replace game_ui.tscn and game_ui.gd with your game's UI/HUD
+# TODO: Create your game's UI/HUD beginning here
 
 
 func _ready() -> void:

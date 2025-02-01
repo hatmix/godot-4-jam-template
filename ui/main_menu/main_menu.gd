@@ -1,5 +1,7 @@
 extends UiPage
 
+# TODO: Add a title and/or background art to main_menu.tscn
+
 @export var pointer_icon: Texture2D = load("res://ui/assets/icons/finger-point-right.png")
 
 
@@ -12,9 +14,6 @@ func _ready() -> void:
 
 
 func _connect_buttons() -> void:
-	# TODO: change %Play.pressed connected function to load game scene, e.g.
-	#%Play.pressed.connect(get_tree().change_scene_to_file("..."))
-	# Or to a scene transition function
 	if ui:
 		%Play.pressed.connect(_start_game)
 		%HowToPlay.pressed.connect(ui.go_to.bind("HowToPlay"))
@@ -25,6 +24,7 @@ func _connect_buttons() -> void:
 
 
 func _start_game() -> void:
+	# TODO: Consider adding some kind of scene transition
 	get_tree().change_scene_to_file("res://game/game.tscn")
 
 

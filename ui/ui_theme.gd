@@ -9,7 +9,7 @@ func setup() -> void:
 	set_save_path("res://ui/ui_theme.tres")
 
 
-# TODO: define UI theme below with ThemeGen (or manually edit res://ui/ui_theme.tres)
+# TODO: Consider defining the UI theme below with ThemeGen or manually edit res://ui/ui_theme.tres
 func define_theme() -> void:
 	#define_default_font(ResourceLoader.load("res://ui/assets/fonts/Sixtyfour-Regular.ttf"))
 	#define_default_font_size(16)
