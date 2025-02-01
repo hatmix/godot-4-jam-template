@@ -52,7 +52,7 @@ Once the Godot project files are saved locally, open `res://game/game.tscn` and 
 It's up to your preference and the type of project whether the separation of `res://ui/game` and `res://game` makes sense.
 
 >[!Tip]
-> Save a some time while developing the game by changing Project Settings: application/run/main_scene to `res://game/game.tscn`. Then, change it back to `res://main.tscn` when the game is done. Or maybe don't. Follow your heart.`
+> Save a some time while developing the game by changing Project Settings: application/run/main_scene to `res://game/game.tscn`. Then, change it back to `res://main.tscn` when the game is done. Or maybe don't. Follow your heart.
 
 ## UI
 
