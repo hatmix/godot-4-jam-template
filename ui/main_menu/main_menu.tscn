@@ -124,6 +124,7 @@ theme_override_constants/separation = 4
 
 [node name="Play" type="Button" parent="Buttons"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 30
