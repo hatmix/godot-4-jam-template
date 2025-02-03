@@ -1,6 +1,8 @@
 extends CanvasLayer
 
 @onready var background: TextureRect = $Background
+@onready var bgm: AudioStreamPlayer = $Bgm
+@onready var focus_bowler: Sprite2D = $FocusBowler
 
 
 # TODO: consider using the hide_ui and show_ui functions to add ui animation
@@ -27,6 +29,7 @@ func show_ui(page: Variant) -> void:
 		if ui_page.has_method("show_ui"):
 			await ui_page.show_ui()
 		else:
+			play_pop_in_sfx()
 			ui_page.show()
 		# Uncomment to capture screenshots in media/ folder
 		# Must wait for visibility changes and one frame is not enough
@@ -36,6 +39,7 @@ func show_ui(page: Variant) -> void:
 
 
 func go_to(page: Variant) -> void:
+	focus_bowler.fade_out()
 	await hide_ui()
 	show_ui(page)
 
@@ -58,13 +62,35 @@ func _resolve_ui_page(node_or_name: Variant) -> Node:
 	return
 
 
+func play_pop_in_sfx() -> void:
+	%PopInSfx.pitch_scale = randf_range(0.9, 1.1)
+	%PopInSfx.play()
+
+
+func _on_focus_changed(control: Control) -> void:
+	#print("focused control is ", control.name)
+	var position: Vector2 = control.global_position + control.size
+	#position.x += control.size.x
+	position.y -= control.size.y + 5
+	if not focus_bowler.visible:
+		%PopInSfx.play()
+		focus_bowler.reset_behavior()
+		focus_bowler.global_position = position
+		focus_bowler.visible = true
+	else:
+		focus_bowler.go_to(position)
+
+
 func _ready() -> void:
+	get_viewport().gui_focus_changed.connect(_on_focus_changed)
 	hide()
+	background.self_modulate = Color.BLACK
 	for child: Node in get_children():
 		if child is UiPage:
 			child.set("ui", self)
 			child.hide()
 	show()
+	create_tween().tween_property(background, "self_modulate", Color.WHITE, 2.0)
 
 
 func _unhandled_input(event: InputEvent) -> void:

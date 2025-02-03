@@ -12,63 +12,6 @@ grow_vertical = 2
 script = ExtResource("1_dabjx")
 default_focus_control = NodePath("HBoxContainer/Back")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -269.0
-offset_top = -54.0
-offset_right = 269.0
-offset_bottom = 54.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Label" type="Label" parent="VBoxContainer"]
-layout_mode = 2
-text = "Settings"
-horizontal_alignment = 1
-
-[node name="Audio" type="GridContainer" parent="VBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 4
-columns = 2
-
-[node name="MasterLabel" type="Label" parent="VBoxContainer/Audio"]
-layout_mode = 2
-text = "Main"
-
-[node name="Master" type="HSlider" parent="VBoxContainer/Audio"]
-custom_minimum_size = Vector2(300, 0)
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 4
-value = 100.0
-
-[node name="MusicLabel" type="Label" parent="VBoxContainer/Audio"]
-layout_mode = 2
-text = "Music"
-
-[node name="Music" type="HSlider" parent="VBoxContainer/Audio"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 4
-value = 100.0
-
-[node name="SfxLabel" type="Label" parent="VBoxContainer/Audio"]
-layout_mode = 2
-text = "Effects"
-
-[node name="SFX" type="HSlider" parent="VBoxContainer/Audio"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 4
-value = 100.0
-ticks_on_borders = true
-
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 7
@@ -87,3 +30,71 @@ grow_vertical = 0
 unique_name_in_owner = true
 layout_mode = 2
 text = "Back"
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -202.5
+offset_top = -61.5
+offset_right = 202.5
+offset_bottom = 61.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Volume Settings"
+horizontal_alignment = 1
+
+[node name="Audio" type="GridContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+columns = 2
+
+[node name="MasterLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/Audio"]
+layout_mode = 2
+text = "Main"
+
+[node name="Master" type="HSlider" parent="PanelContainer/MarginContainer/VBoxContainer/Audio"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+value = 100.0
+
+[node name="MusicLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/Audio"]
+layout_mode = 2
+text = "Music"
+
+[node name="Music" type="HSlider" parent="PanelContainer/MarginContainer/VBoxContainer/Audio"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+value = 100.0
+
+[node name="SfxLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/Audio"]
+layout_mode = 2
+text = "Effects"
+
+[node name="SFX" type="HSlider" parent="PanelContainer/MarginContainer/VBoxContainer/Audio"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+value = 100.0
+ticks_on_borders = true

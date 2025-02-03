@@ -9,7 +9,7 @@
 [ext_resource type="Script" path="res://addons/markdownlabel/header_formats/h5_format.gd" id="8_pq5cp"]
 [ext_resource type="Script" path="res://addons/markdownlabel/header_formats/h6_format.gd" id="9_40fmp"]
 
-[sub_resource type="Resource" id="Resource_olsbt"]
+[sub_resource type="Resource" id="Resource_m08ii"]
 resource_local_to_scene = true
 script = ExtResource("4_h0eqe")
 font_size = 2.285
@@ -19,7 +19,7 @@ is_underlined = false
 override_font_color = false
 font_color = Color(1, 1, 1, 1)
 
-[sub_resource type="Resource" id="Resource_vt6jt"]
+[sub_resource type="Resource" id="Resource_1bdms"]
 resource_local_to_scene = true
 script = ExtResource("5_xmv6d")
 font_size = 1.714
@@ -29,7 +29,7 @@ is_underlined = false
 override_font_color = false
 font_color = Color(1, 1, 1, 1)
 
-[sub_resource type="Resource" id="Resource_1awd4"]
+[sub_resource type="Resource" id="Resource_qcrsi"]
 resource_local_to_scene = true
 script = ExtResource("6_6xvi1")
 font_size = 1.428
@@ -39,7 +39,7 @@ is_underlined = false
 override_font_color = false
 font_color = Color(1, 1, 1, 1)
 
-[sub_resource type="Resource" id="Resource_cwasd"]
+[sub_resource type="Resource" id="Resource_jr11a"]
 resource_local_to_scene = true
 script = ExtResource("7_ye0td")
 font_size = 1.142
@@ -49,7 +49,7 @@ is_underlined = false
 override_font_color = false
 font_color = Color(1, 1, 1, 1)
 
-[sub_resource type="Resource" id="Resource_gcqir"]
+[sub_resource type="Resource" id="Resource_pwhej"]
 resource_local_to_scene = true
 script = ExtResource("8_pq5cp")
 font_size = 1.0
@@ -59,7 +59,7 @@ is_underlined = false
 override_font_color = false
 font_color = Color(1, 1, 1, 1)
 
-[sub_resource type="Resource" id="Resource_fec2k"]
+[sub_resource type="Resource" id="Resource_b21m4"]
 resource_local_to_scene = true
 script = ExtResource("9_40fmp")
 font_size = 0.857
@@ -77,7 +77,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_0pb5o")
-default_focus_control = NodePath("MarginContainer/VBoxContainer/VBoxContainer2/Back")
+default_focus_control = NodePath("MarginContainer/VBoxContainer/Back")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -103,28 +103,21 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-focus_neighbor_left = NodePath("../../VBoxContainer2/Back")
+focus_neighbor_left = NodePath("../../Back")
 focus_mode = 2
 bbcode_enabled = true
 script = ExtResource("3_rqcdg")
-h1 = SubResource("Resource_olsbt")
-h2 = SubResource("Resource_vt6jt")
-h3 = SubResource("Resource_1awd4")
-h4 = SubResource("Resource_cwasd")
-h5 = SubResource("Resource_gcqir")
-h6 = SubResource("Resource_fec2k")
+h1 = SubResource("Resource_m08ii")
+h2 = SubResource("Resource_1bdms")
+h3 = SubResource("Resource_qcrsi")
+h4 = SubResource("Resource_jr11a")
+h5 = SubResource("Resource_pwhej")
+h6 = SubResource("Resource_b21m4")
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-focus_neighbor_top = NodePath("../ScrollContainer/MarkdownLabel")
-focus_neighbor_right = NodePath("../ScrollContainer")
-theme_override_constants/separation = 0
-
-[node name="Back" type="Button" parent="MarginContainer/VBoxContainer/VBoxContainer2"]
+[node name="Back" type="Button" parent="MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-focus_neighbor_top = NodePath("../../ScrollContainer/MarkdownLabel")
-focus_neighbor_right = NodePath("../../ScrollContainer/MarkdownLabel")
+size_flags_horizontal = 4
+focus_neighbor_top = NodePath("../ScrollContainer/MarkdownLabel")
+focus_neighbor_right = NodePath("../ScrollContainer/MarkdownLabel")
 text = "Back"

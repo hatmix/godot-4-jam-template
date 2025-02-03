@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c30tmfc0n0nd3"
-path="res://.godot/imported/slider_highlight.png-879b9f35d3ea4f6a32a042c6a7af2bfc.ctex"
+uid="uid://i3qnr088ib3p"
+path="res://.godot/imported/focus-bowler.png-1d0da6cc4e500423e3de2698922967e6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ui/assets/slider_highlight.png"
-dest_files=["res://.godot/imported/slider_highlight.png-879b9f35d3ea4f6a32a042c6a7af2bfc.ctex"]
+source_file="res://ui/assets/icons/focus-bowler.png"
+dest_files=["res://.godot/imported/focus-bowler.png-1d0da6cc4e500423e3de2698922967e6.ctex"]
 
 [params]
 
