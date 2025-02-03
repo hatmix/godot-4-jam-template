@@ -6,17 +6,26 @@ func hide_ui(page: Variant = null) -> void:
 	if page:
 		var ui_page: UiPage = _resolve_ui_page(page)
 		if ui_page:
-			ui_page.hide()
+			if ui_page.has_method("hide_ui"):
+				ui_page.hide_ui()
+			else:
+				ui_page.hide()
 	else:
 		for child: Node in get_children():
-			if child is UiPage:
-				child.hide()
+			if child is UiPage and child.visible:
+				if child.has_method("hide_ui"):
+					child.hide_ui()
+				else:
+					child.hide()
 
 
 func show_ui(page: Variant) -> void:
 	var ui_page: UiPage = _resolve_ui_page(page)
 	if ui_page:
-		ui_page.show()
+		if ui_page.has_method("show_ui"):
+			ui_page.show_ui()
+		else:
+			ui_page.show()
 		# Uncomment to capture screenshots in media/ folder
 		# Must wait for visibility changes and one frame is not enough
 		#await get_tree().create_timer(0.2).timeout
@@ -51,7 +60,6 @@ func _ready() -> void:
 	hide()
 	for child: Node in get_children():
 		if child is UiPage:
-			print("injecting ui in ", child.name)
 			child.set("ui", self)
 			child.hide()
 	show()
@@ -61,7 +69,6 @@ func _unhandled_input(event: InputEvent) -> void:
 	# I think this could be simplified somehow, but I'm not getting it just yet
 	# If nothing focused, trying to focus next will focus something
 	var focus_owner: Node = get_viewport().gui_get_focus_owner()
-	print("focus owner is ", focus_owner)
 	if (
 		(event.is_action_pressed("ui_focus_next") or event.is_action_pressed("ui_focus_controls"))
 		and not focus_owner
