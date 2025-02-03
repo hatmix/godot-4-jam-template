@@ -6,17 +6,26 @@ func hide_ui(page: Variant = null) -> void:
 	if page:
 		var ui_page: UiPage = _resolve_ui_page(page)
 		if ui_page:
-			ui_page.hide()
+			if ui_page.has_method("hide_ui"):
+				await ui_page.hide_ui()
+			else:
+				ui_page.hide()
 	else:
 		for child: Node in get_children():
-			if child is UiPage:
-				child.hide()
+			if child is UiPage and child.visible:
+				if child.has_method("hide_ui"):
+					await child.hide_ui()
+				else:
+					child.hide()
 
 
 func show_ui(page: Variant) -> void:
 	var ui_page: UiPage = _resolve_ui_page(page)
 	if ui_page:
-		ui_page.show()
+		if ui_page.has_method("show_ui"):
+			await ui_page.show_ui()
+		else:
+			ui_page.show()
 		# Uncomment to capture screenshots in media/ folder
 		# Must wait for visibility changes and one frame is not enough
 		#await get_tree().create_timer(0.2).timeout
@@ -48,6 +57,7 @@ func _resolve_ui_page(node_or_name: Variant) -> Node:
 
 
 func _ready() -> void:
+	get_viewport().gui_focus_changed.connect(_on_focus_changed)
 	hide()
 	for child: Node in get_children():
 		if child is UiPage:
@@ -103,3 +113,7 @@ func _focus_something() -> void:
 			if button.visible:
 				button.grab_focus()
 				break
+
+func _on_focus_changed(control: Control) -> void:
+	# Can do something interesting with focus here...
+	pass

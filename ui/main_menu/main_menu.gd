@@ -2,13 +2,8 @@ extends UiPage
 
 # TODO: Add a title and/or background art to main_menu.tscn
 
-@export var pointer_icon: Texture2D = load("res://ui/assets/icons/finger-point-right.png")
-
-
 func _ready() -> void:
 	call_deferred("_connect_buttons")
-	get_viewport().gui_focus_changed.connect(_on_focus_changed)
-
 	if OS.get_name() == "Web":
 		%Exit.hide()
 
@@ -26,13 +21,3 @@ func _connect_buttons() -> void:
 func _start_game() -> void:
 	# TODO: Consider adding some kind of scene transition
 	get_tree().change_scene_to_file("res://game/game.tscn")
-
-
-func _on_focus_changed(control: Control) -> void:
-	if not visible:
-		return
-	for button: Button in %Buttons.get_children():
-		if button == control:
-			button.icon = pointer_icon
-		else:
-			button.icon = null
