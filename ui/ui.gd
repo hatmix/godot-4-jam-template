@@ -1,5 +1,7 @@
 extends CanvasLayer
 
+@onready var background: TextureRect = $Background
+
 
 # TODO: consider using the hide_ui and show_ui functions to add ui animation
 func hide_ui(page: Variant = null) -> void:
@@ -7,14 +9,14 @@ func hide_ui(page: Variant = null) -> void:
 		var ui_page: UiPage = _resolve_ui_page(page)
 		if ui_page:
 			if ui_page.has_method("hide_ui"):
-				ui_page.hide_ui()
+				await ui_page.hide_ui()
 			else:
 				ui_page.hide()
 	else:
 		for child: Node in get_children():
 			if child is UiPage and child.visible:
 				if child.has_method("hide_ui"):
-					child.hide_ui()
+					await child.hide_ui()
 				else:
 					child.hide()
 
@@ -23,7 +25,7 @@ func show_ui(page: Variant) -> void:
 	var ui_page: UiPage = _resolve_ui_page(page)
 	if ui_page:
 		if ui_page.has_method("show_ui"):
-			ui_page.show_ui()
+			await ui_page.show_ui()
 		else:
 			ui_page.show()
 		# Uncomment to capture screenshots in media/ folder
@@ -34,7 +36,7 @@ func show_ui(page: Variant) -> void:
 
 
 func go_to(page: Variant) -> void:
-	hide_ui()
+	await hide_ui()
 	show_ui(page)
 
 
