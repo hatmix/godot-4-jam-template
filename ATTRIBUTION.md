@@ -5,6 +5,7 @@
 [center]Assets provided by[/center]
 [center][MintoDog](https://opengameart.org/content/8bit-action-stage-select)[/center]
 [center][Google Fonts](https://fonts.google.com/specimen/Black+Han+Sans/license)[/center]
+<<<<<<< HEAD
 [center][SoundsDotZip](https://lospec.com/palette-list/ice-cream-spice)[/center]
 
 #### Godot Addons
