@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c6ygf0h8x7788"
-path="res://.godot/imported/slider.png-49afeb9584ed94e92cafa1f5378bb8a5.ctex"
+uid="uid://dfqun5myjnpat"
+path="res://.godot/imported/bowler-outline.png-4993234e4c389d67a20d89664a0b54b9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ui/assets/slider.png"
-dest_files=["res://.godot/imported/slider.png-49afeb9584ed94e92cafa1f5378bb8a5.ctex"]
+source_file="res://ui/assets/icons/bowler-outline.png"
+dest_files=["res://.godot/imported/bowler-outline.png-4993234e4c389d67a20d89664a0b54b9.ctex"]
 
 [params]
 

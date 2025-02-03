@@ -16,6 +16,7 @@ var _remapping_config: GUIDERemappingConfig
 func _ready() -> void:
 	%InputPanel.visible = false
 	%Back.pressed.connect(go_back)
+	%TabContainer.tab_clicked.connect(_release_tab_focus)
 	_init_actions()
 
 
@@ -25,6 +26,10 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel") or event.is_action_pressed("ui_back"):
 		get_viewport().set_input_as_handled()
 		go_back()
+
+
+func _release_tab_focus(tab: int) -> void:
+	get_viewport().gui_get_focus_owner().release_focus()
 
 
 func _init_actions() -> void:

@@ -12,8 +12,8 @@ dest_files=["res://.godot/imported/select_plains_bpm100.ogg-964e124a7b5d98c9f129
 
 [params]
 
-loop=false
+loop=true
 loop_offset=0
-bpm=0
+bpm=100.0
 beat_count=0
 bar_beats=4

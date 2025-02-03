@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://boljenb52sdcf"
-path="res://.godot/imported/finger-point-right.png-daac86968dfd4ed92fab08275acc9f06.ctex"
+uid="uid://dw4ax842jab16"
+path="res://.godot/imported/bowler-selected.png-f5998a4e71680a9b43a8ae368c8b832b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ui/assets/icons/finger-point-right.png"
-dest_files=["res://.godot/imported/finger-point-right.png-daac86968dfd4ed92fab08275acc9f06.ctex"]
+source_file="res://ui/assets/icons/bowler-selected.png"
+dest_files=["res://.godot/imported/bowler-selected.png-f5998a4e71680a9b43a8ae368c8b832b.ctex"]
 
 [params]
 

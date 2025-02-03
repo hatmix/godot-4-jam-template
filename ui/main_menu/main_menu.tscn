@@ -30,7 +30,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 1, 2, 3),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [0.0, -0.0872665, 0.0, 0.0872665]
+"values": [0.0, -0.0523599, 0.0, 0.0523599]
 }
 
 [sub_resource type="Animation" id="Animation_wkgxx"]
@@ -106,7 +106,7 @@ grow_vertical = 0
 
 [node name="Buttons" type="VBoxContainer" parent="."]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(140, 150)
+custom_minimum_size = Vector2(0, 150)
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -125,36 +125,42 @@ theme_override_constants/separation = 4
 [node name="Play" type="Button" parent="Buttons"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_font_sizes/font_size = 32
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 30
 text = "Play"
 icon_alignment = 2
 
 [node name="HowToPlay" type="Button" parent="Buttons"]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 4
 text = "How to Play"
 icon_alignment = 2
 
 [node name="Settings" type="Button" parent="Buttons"]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 4
 text = "Settings"
 icon_alignment = 2
 
 [node name="Controls" type="Button" parent="Buttons"]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 4
 text = "Controls"
 icon_alignment = 2
 
 [node name="Credits" type="Button" parent="Buttons"]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 4
 text = "Credits"
 icon_alignment = 2
 
 [node name="Exit" type="Button" parent="Buttons"]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 4
 text = "Exit"
 icon_alignment = 2

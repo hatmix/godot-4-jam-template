@@ -1,6 +1,13 @@
 @tool
 extends ProgrammaticTheme
 
+const OUTLINE: Color = Color("341a1a")
+const SHADOW: Color = Color("563d4d")
+const BACKGROUND: Color = Color("64739c")
+const PANEL: Color = Color("57aab6")
+const SELECTED: Color = Color("90d8b4")
+const TEXT: Color = Color("fff1da")
+
 
 func setup() -> void:
 	set_save_path("res://ui/controls/remap_input_button_theme.tres")
@@ -16,6 +23,8 @@ func define_theme() -> void:
 			bg_color = Color.TRANSPARENT,
 		}
 	)
+
+	define_style("RichTextLabel", {normal = stylebox_empty({})})
 
 	define_style(
 		"Button",

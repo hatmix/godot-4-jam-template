@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bekhchbgbs2bc"
-path="res://.godot/imported/bowler-for-focus.png-5ca6301db12c276604c62725686007a3.ctex"
+path="res://.godot/imported/bowler.png-ace2b9af1b6ae40d45b7134ae8123b89.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ui/assets/icons/bowler-for-focus.png"
-dest_files=["res://.godot/imported/bowler-for-focus.png-5ca6301db12c276604c62725686007a3.ctex"]
+source_file="res://ui/assets/icons/bowler.png"
+dest_files=["res://.godot/imported/bowler.png-ace2b9af1b6ae40d45b7134ae8123b89.ctex"]
 
 [params]
 

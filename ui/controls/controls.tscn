@@ -6,8 +6,12 @@
 [ext_resource type="Script" path="res://ui/controls/input_panel.gd" id="5_7bxk6"]
 [ext_resource type="Script" path="res://addons/guide/remapping/guide_input_detector.gd" id="5_64hdo"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qy0v7"]
-bg_color = Color(0.162066, 0.162066, 0.162065, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_evjnu"]
+bg_color = Color(0, 0, 0, 0.501961)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
 
 [node name="Controls" type="Control" node_paths=PackedStringArray("default_focus_control")]
 texture_filter = 1
@@ -23,6 +27,7 @@ icon_size = 48
 default_focus_control = NodePath("Buttons/Back")
 
 [node name="TabContainer" type="TabContainer" parent="."]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(500, 280)
 layout_mode = 1
 anchors_preset = 8
@@ -30,13 +35,14 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_top = -115.5
-offset_bottom = 115.5
+offset_left = -250.0
+offset_top = -140.0
+offset_right = 258.0
+offset_bottom = 140.0
 grow_horizontal = 2
 grow_vertical = 2
 tab_alignment = 1
 current_tab = 0
-use_hidden_tabs_for_min_size = true
 
 [node name="Keyboard" type="ScrollContainer" parent="TabContainer"]
 custom_minimum_size = Vector2(500, 249)
@@ -106,17 +112,16 @@ text = "Back"
 unique_name_in_owner = true
 initial_position = 2
 size = Vector2i(320, 160)
+visible = true
 always_on_top = true
 min_size = Vector2i(320, 160)
-theme_override_styles/panel = SubResource("StyleBoxFlat_qy0v7")
+theme_override_styles/panel = SubResource("StyleBoxFlat_evjnu")
 script = ExtResource("5_7bxk6")
 
 [node name="MarginContainer" type="MarginContainer" parent="InputPanel"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = 320.0
-offset_bottom = 160.0
 grow_horizontal = 2
 grow_vertical = 2
 
