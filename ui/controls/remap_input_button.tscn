@@ -1,6 +1,5 @@
-[gd_scene load_steps=3 format=3 uid="uid://b10hob2es7ug6"]
+[gd_scene load_steps=2 format=3 uid="uid://b10hob2es7ug6"]
 
-[ext_resource type="Theme" uid="uid://b2wgjvcb5fdym" path="res://ui/controls/remap_input_button_theme.tres" id="1_35cd1"]
 [ext_resource type="Script" path="res://ui/controls/remap_input_button.gd" id="1_85ttg"]
 
 [node name="RemapInputButton" type="CenterContainer"]
@@ -11,13 +10,13 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme = ExtResource("1_35cd1")
 script = ExtResource("1_85ttg")
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
 clip_contents = false
 layout_mode = 2
 mouse_filter = 2
+theme_type_variation = &"RemapRichTextLabel"
 bbcode_enabled = true
 fit_content = true
 scroll_active = false
@@ -37,3 +36,4 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 6
 size_flags_vertical = 4
+theme_type_variation = &"RemapButton"

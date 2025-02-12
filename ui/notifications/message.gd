@@ -1,5 +1,5 @@
 class_name Message
-extends Control
+extends PanelContainer
 
 const MAX_WIDTH: int = 400
 const MAX_HEIGHT: int = 90
