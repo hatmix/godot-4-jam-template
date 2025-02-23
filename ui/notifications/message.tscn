@@ -13,6 +13,7 @@ offset_bottom = 79.0
 grow_horizontal = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+mouse_filter = 1
 theme_type_variation = &"MessagePanelContainer"
 script = ExtResource("1_pe0jv")
 
