@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://u1vgfeia861q"]
+[gd_scene load_steps=14 format=3 uid="uid://u1vgfeia861q"]
 
 [ext_resource type="PackedScene" uid="uid://cc37235kj4384" path="res://addons/maaacks_ui_sound_controller/base/scenes/Autoloads/ProjectUISoundController.tscn" id="1_v2lrn"]
 [ext_resource type="Script" path="res://ui/ui.gd" id="1_yeoin"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://c31bw3nk5ujvg" path="res://ui/settings/settings.tscn" id="9_jqbk6"]
 [ext_resource type="PackedScene" uid="uid://mwbv2jh1ugjq" path="res://ui/controls/controls.tscn" id="11_w3b35"]
 [ext_resource type="PackedScene" uid="uid://dtrluvg5ox2vb" path="res://ui/notifications/message_board.tscn" id="12_hlgii"]
+[ext_resource type="PackedScene" uid="uid://xyqp4vhj6251" path="res://ui/thanks_for_playing/thank_for_playing.tscn" id="13_0pgbw"]
 
 [node name="UI" type="CanvasLayer"]
 process_mode = 3
@@ -46,3 +47,5 @@ script = ExtResource("5_n6lj8")
 [node name="PauseMenu" parent="." instance=ExtResource("6_2pasj")]
 
 [node name="MessageBoard" parent="." instance=ExtResource("12_hlgii")]
+
+[node name="ThanksForPlaying" parent="." instance=ExtResource("13_0pgbw")]
