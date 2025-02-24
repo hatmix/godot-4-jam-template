@@ -61,7 +61,7 @@ func _ready() -> void:
 	hide()
 	for child: Node in get_children():
 		if child is UiPage:
-			print("injecting ui in ", child.name)
+			#print("injecting ui in ", child.name)
 			child.set("ui", self)
 			child.hide()
 	show()
@@ -71,7 +71,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	# I think this could be simplified somehow, but I'm not getting it just yet
 	# If nothing focused, trying to focus next will focus something
 	var focus_owner: Node = get_viewport().gui_get_focus_owner()
-	print("focus owner is ", focus_owner)
+	#print("focus owner is ", focus_owner)
 	if (
 		(event.is_action_pressed("ui_focus_next") or event.is_action_pressed("ui_focus_controls"))
 		and not focus_owner
