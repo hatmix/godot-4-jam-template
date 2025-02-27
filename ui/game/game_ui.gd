@@ -2,6 +2,9 @@ extends UiPage
 
 # TODO: Create your game's UI/HUD beginning here
 
+# Note for aligning control in UI canvas layer to node in world:
+# ui.control.global_position = get_tree().current_scene.get_canvas_transform() * node.global_position
+
 
 func _ready() -> void:
 	%ToggleGuideDebugger.toggled.connect(_toggle_guide_debugger)
