@@ -20,31 +20,47 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  GODOT_VERSION: 4.3
+  GODOT_VERSION: 4.4
   PROJECT_NAME: ${{ github.event.repository.name }}
 
 jobs:
   export:
     name: Export
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     permissions:
       contents: read
-    container:
-      image: barichello/godot-ci:4.3
     steps:
       - name: Checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: Setup Export Templates
+      - name: Cache Godot files
+        id: cache-godot
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.local/share/godot/**
+            /usr/local/bin/godot
+          key: ${{ runner.os }}-godot-${{ env.GODOT_VERSION }}
+
+      - name: Setup Godot
+        if: steps.cache-godot.outputs.cache-hit != 'true'
         run: |
+          curl -LO https://github.com/godotengine/godot/releases/download/$GODOT_VERSION-stable/Godot_v$GODOT_VERSION-stable_linux.x86_64.zip
+          unzip Godot_v$GODOT_VERSION-stable_linux.x86_64.zip
+          mv Godot_v$GODOT_VERSION-stable_linux.x86_64 /usr/local/bin/godot
+          rm Godot_v$GODOT_VERSION-stable_linux.x86_64.zip
+          godot --version
+
+      - name: Setup Export Templates
+        if: steps.cache-godot.outputs.cache-hit != 'true'
+        run: |
+          curl -LO https://github.com/godotengine/godot/releases/download/$GODOT_VERSION-stable/Godot_v$GODOT_VERSION-stable_export_templates.tpz
           mkdir -v -p ~/.local/share/godot/export_templates
-          # 4.2
-          mv /root/.local/share/godot/export_templates/${GODOT_VERSION}.stable ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable
-          # 4.1
-          #ls /root/.local/share/godot/templates/
-          #mv /root/.local/share/godot/templates/${GODOT_VERSION}.stable ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable
+          unzip Godot_v$GODOT_VERSION-stable_export_templates.tpz
+          rm Godot_v$GODOT_VERSION-stable_export_templates.tpz
+          mv templates ~/.local/share/godot/export_templates/$GODOT_VERSION.stable
 
       - name: Check version
         run: |
