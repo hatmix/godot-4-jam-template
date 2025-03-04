@@ -1,8 +1,8 @@
 # Godot 4 Jam Template
 
-A quick-start template for game jams. See the plain template in action at [https://hatmix.itch.io/godot-4-jam-template](https://hatmix.itch.io/godot-4-jam-template) (password `hatmix`).
+A quick-start Godot 4.4+ template for game jams. See the plain template in action at [https://hatmix.itch.io/godot-4-jam-template](https://hatmix.itch.io/godot-4-jam-template) (password `hatmix`).
 
-A styled and modified example can be found at [https://hatmix.itch.io/game-jam-starter-template](https://hatmix.itch.io/game-jam-starter-template). This is an example of what the template can look like with customization. The code can be found in the release-promo branch.
+A styled and modified example (for Godot 4.3) can be found at [https://hatmix.itch.io/game-jam-starter-template](https://hatmix.itch.io/game-jam-starter-template). This is an example of what the template can look like with customization. The code can be found in the release-promo branch.
 
 Features:
 * Web, Windows, Linux and macOS exports configured for maximum jam
