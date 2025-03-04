@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://toty2e3yx26l"]
 
-[ext_resource type="Script" path="res://addons/guide/ui/renderers/keyboard/key_renderer.gd" id="1_tm2sd"]
+[ext_resource type="Script" uid="uid://cuk0w3piwmo61" path="res://addons/guide/ui/renderers/keyboard/key_renderer.gd" id="1_tm2sd"]
 [ext_resource type="Texture2D" uid="uid://b3x586os8uuwb" path="res://addons/guide/ui/renderers/keyboard/icons/Blank_White_Normal.png" id="2_myc15"]
 [ext_resource type="FontFile" uid="uid://cu8bvod6tnnwr" path="res://addons/guide/ui/renderers/keyboard/Lato-Black.ttf" id="3_d3uds"]
 

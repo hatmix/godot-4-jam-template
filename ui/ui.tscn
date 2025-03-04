@@ -1,11 +1,11 @@
 [gd_scene load_steps=14 format=3 uid="uid://u1vgfeia861q"]
 
 [ext_resource type="PackedScene" uid="uid://cc37235kj4384" path="res://addons/maaacks_ui_sound_controller/base/scenes/Autoloads/ProjectUISoundController.tscn" id="1_v2lrn"]
-[ext_resource type="Script" path="res://ui/ui.gd" id="1_yeoin"]
+[ext_resource type="Script" uid="uid://bau08qsdeicv2" path="res://ui/ui.gd" id="1_yeoin"]
 [ext_resource type="PackedScene" uid="uid://2vrf5v6tmuk7" path="res://ui/main_menu/main_menu.tscn" id="2_7jndn"]
 [ext_resource type="AudioStream" uid="uid://5kc55ftsdrvt" path="res://ui/assets/audio/rollover5.ogg" id="2_xhe7v"]
 [ext_resource type="PackedScene" uid="uid://dekllill0y50r" path="res://ui/credits/credits.tscn" id="5_hqkqk"]
-[ext_resource type="Script" path="res://ui/overlay.gd" id="5_n6lj8"]
+[ext_resource type="Script" uid="uid://c6m4qusnrw1ah" path="res://ui/overlay.gd" id="5_n6lj8"]
 [ext_resource type="PackedScene" uid="uid://3s7lo7jd53un" path="res://ui/pause_menu/pause_menu.tscn" id="6_2pasj"]
 [ext_resource type="PackedScene" uid="uid://bojsla6nqcf03" path="res://ui/game/game_ui.tscn" id="8_62oa5"]
 [ext_resource type="PackedScene" uid="uid://dfgowfkuko4ne" path="res://ui/how_to_play/how_to_play.tscn" id="8_y2e8e"]

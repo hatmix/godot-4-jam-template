@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://3s7lo7jd53un"]
 
-[ext_resource type="Script" path="res://ui/pause_menu/pause_menu.gd" id="1_fpgrf"]
+[ext_resource type="Script" uid="uid://cigybgnutbecy" path="res://ui/pause_menu/pause_menu.gd" id="1_fpgrf"]
 [ext_resource type="PackedScene" uid="uid://dgxrcxbe8s24d" path="res://ui/build_info/build_info.tscn" id="2_q2yd3"]
 
 [node name="PauseMenu" type="Control" node_paths=PackedStringArray("default_focus_control")]

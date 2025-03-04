@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bojsla6nqcf03"]
 
-[ext_resource type="Script" path="res://ui/game/game_ui.gd" id="1_67una"]
+[ext_resource type="Script" uid="uid://c54tgk2t02l5" path="res://ui/game/game_ui.gd" id="1_67una"]
 [ext_resource type="PackedScene" uid="uid://dkr80d2pi0d41" path="res://addons/guide/debugger/guide_debugger.tscn" id="2_li4ca"]
 
 [node name="Game" type="Control" node_paths=PackedStringArray("default_focus_control")]

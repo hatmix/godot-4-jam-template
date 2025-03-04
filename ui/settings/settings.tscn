@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://c31bw3nk5ujvg"]
 
-[ext_resource type="Script" path="res://ui/settings/settings.gd" id="1_dabjx"]
+[ext_resource type="Script" uid="uid://de7x8mivrhisn" path="res://ui/settings/settings.gd" id="1_dabjx"]
 
 [node name="Settings" type="Control" node_paths=PackedStringArray("default_focus_control")]
 layout_mode = 3

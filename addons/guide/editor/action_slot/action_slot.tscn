@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://du4x7ng6ntuk4"]
 
-[ext_resource type="Script" path="res://addons/guide/editor/action_slot/action_slot.gd" id="1_w5nxd"]
+[ext_resource type="Script" uid="uid://ode3v7fmpcfg" path="res://addons/guide/editor/action_slot/action_slot.gd" id="1_w5nxd"]
 
 [node name="ActionSlot" type="LineEdit"]
 anchors_preset = 15

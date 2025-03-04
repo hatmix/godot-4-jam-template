@@ -1,13 +1,13 @@
 [gd_scene load_steps=15 format=3 uid="uid://dfgowfkuko4ne"]
 
-[ext_resource type="Script" path="res://ui/how_to_play/how_to_play.gd" id="1_qyscc"]
-[ext_resource type="Script" path="res://addons/markdownlabel/markdownlabel.gd" id="2_run12"]
-[ext_resource type="Script" path="res://addons/markdownlabel/header_formats/h1_format.gd" id="3_fjr50"]
-[ext_resource type="Script" path="res://addons/markdownlabel/header_formats/h2_format.gd" id="4_oheqa"]
-[ext_resource type="Script" path="res://addons/markdownlabel/header_formats/h3_format.gd" id="5_7merg"]
-[ext_resource type="Script" path="res://addons/markdownlabel/header_formats/h4_format.gd" id="6_7lue3"]
-[ext_resource type="Script" path="res://addons/markdownlabel/header_formats/h5_format.gd" id="7_alr6f"]
-[ext_resource type="Script" path="res://addons/markdownlabel/header_formats/h6_format.gd" id="8_4vnxd"]
+[ext_resource type="Script" uid="uid://bcrmkt6ctmi10" path="res://ui/how_to_play/how_to_play.gd" id="1_qyscc"]
+[ext_resource type="Script" uid="uid://0v310ifpj0qr" path="res://addons/markdownlabel/markdownlabel.gd" id="2_run12"]
+[ext_resource type="Script" uid="uid://cxkvktbousofh" path="res://addons/markdownlabel/header_formats/h1_format.gd" id="3_fjr50"]
+[ext_resource type="Script" uid="uid://o7mk1lbee6g1" path="res://addons/markdownlabel/header_formats/h2_format.gd" id="4_oheqa"]
+[ext_resource type="Script" uid="uid://bv2yf3brrie5" path="res://addons/markdownlabel/header_formats/h3_format.gd" id="5_7merg"]
+[ext_resource type="Script" uid="uid://d10a5abrxj1py" path="res://addons/markdownlabel/header_formats/h4_format.gd" id="6_7lue3"]
+[ext_resource type="Script" uid="uid://bpx18mrvf4wba" path="res://addons/markdownlabel/header_formats/h5_format.gd" id="7_alr6f"]
+[ext_resource type="Script" uid="uid://cvjdkoe4obkxp" path="res://addons/markdownlabel/header_formats/h6_format.gd" id="8_4vnxd"]
 
 [sub_resource type="Resource" id="Resource_byagm"]
 resource_local_to_scene = true

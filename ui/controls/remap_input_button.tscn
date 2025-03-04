@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://b10hob2es7ug6"]
 
-[ext_resource type="Script" path="res://ui/controls/remap_input_button.gd" id="1_85ttg"]
+[ext_resource type="Script" uid="uid://dsd8h4p4u4lkb" path="res://ui/controls/remap_input_button.gd" id="1_85ttg"]
 
 [node name="RemapInputButton" type="CenterContainer"]
 anchors_preset = 15

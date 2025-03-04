@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://udxerxnmw35e"]
 
-[ext_resource type="Script" path="res://ui/notifications/message.gd" id="1_pe0jv"]
+[ext_resource type="Script" uid="uid://bcecg7aq0mloi" path="res://ui/notifications/message.gd" id="1_pe0jv"]
 
 [node name="Message" type="PanelContainer"]
 anchors_preset = 5

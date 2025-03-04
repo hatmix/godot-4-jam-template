@@ -1,10 +1,10 @@
 [gd_scene load_steps=7 format=3 uid="uid://mwbv2jh1ugjq"]
 
-[ext_resource type="Script" path="res://ui/controls/controls.gd" id="1_ypuet"]
-[ext_resource type="Script" path="res://addons/guide/guide_mapping_context.gd" id="2_v7gdq"]
+[ext_resource type="Script" uid="uid://crli6jbg5fenn" path="res://ui/controls/controls.gd" id="1_ypuet"]
+[ext_resource type="Script" uid="uid://c0om5e30gjs47" path="res://addons/guide/guide_mapping_context.gd" id="2_v7gdq"]
 [ext_resource type="Resource" uid="uid://v5u0dyabni7e" path="res://input/default_mapping_context.tres" id="3_b2afy"]
-[ext_resource type="Script" path="res://ui/controls/input_panel.gd" id="5_7bxk6"]
-[ext_resource type="Script" path="res://addons/guide/remapping/guide_input_detector.gd" id="5_64hdo"]
+[ext_resource type="Script" uid="uid://cejoahrxsimnx" path="res://ui/controls/input_panel.gd" id="5_7bxk6"]
+[ext_resource type="Script" uid="uid://du85fx4qrn44e" path="res://addons/guide/remapping/guide_input_detector.gd" id="5_64hdo"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qy0v7"]
 bg_color = Color(0.162066, 0.162066, 0.162065, 1)
