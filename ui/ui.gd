@@ -110,7 +110,7 @@ func _focus_something() -> void:
 		for button: Button in child.find_children("*", "Button"):
 			# Helpful for discovering focus going to a button hidden by a parent
 			#print("Focus something found button %s" % button.name)
-			if button.visible:
+			if button.visible and button.focus_mode != Control.FOCUS_NONE:
 				button.grab_focus()
 				break
 
