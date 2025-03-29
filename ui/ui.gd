@@ -114,6 +114,7 @@ func _focus_something() -> void:
 				button.grab_focus()
 				break
 
+
 func _on_focus_changed(control: Control) -> void:
 	# Can do something interesting with focus here...
 	pass

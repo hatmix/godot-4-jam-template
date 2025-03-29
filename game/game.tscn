@@ -1,11 +1,13 @@
 [gd_scene load_steps=4 format=3 uid="uid://bhsiyh7htemxt"]
 
 [ext_resource type="Script" uid="uid://cji1c3mocoxqn" path="res://game/game.gd" id="1_bub6j"]
-[ext_resource type="Resource" uid="uid://v5u0dyabni7e" path="res://input/default_mapping_context.tres" id="2_let6s"]
 [ext_resource type="PackedScene" uid="uid://u1vgfeia861q" path="res://ui/ui.tscn" id="2_rtcyu"]
+[ext_resource type="Script" uid="uid://d0fcmj00sjndm" path="res://input/input.gd" id="4_4fuuu"]
 
 [node name="Game_tscn" type="Node2D"]
 script = ExtResource("1_bub6j")
-default_mapping_context = ExtResource("2_let6s")
 
 [node name="UI" parent="." instance=ExtResource("2_rtcyu")]
+
+[node name="Input" type="Node2D" parent="."]
+script = ExtResource("4_4fuuu")
