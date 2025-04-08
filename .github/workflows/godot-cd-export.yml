@@ -20,7 +20,7 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  GODOT_VERSION: 4.4
+  GODOT_VERSION: 4.4.1
   PROJECT_NAME: ${{ github.event.repository.name }}
 
 jobs:
