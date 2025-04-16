@@ -118,10 +118,10 @@ jobs:
             ./butler push exports/web/ ${ITCHIO_USERNAME}/${ITCHIO_GAME}:HTML5
           fi
           if [ -f exports/linux/${ITCHIO_GAME}.x86_64 ]; then
-            ./butler push exports/windows/ ${ITCHIO_USERNAME}/${ITCHIO_GAME}:linux
+            ./butler push exports/linux/ ${ITCHIO_USERNAME}/${ITCHIO_GAME}:linux
           fi
           if [ -f exports/macos/${ITCHIO_GAME}.zip ]; then
-            ./butler push exports/windows/ ${ITCHIO_USERNAME}/${ITCHIO_GAME}:macos
+            ./butler push exports/macos/ ${ITCHIO_USERNAME}/${ITCHIO_GAME}:macos
           fi
           if [ -f exports/windows/${ITCHIO_GAME}.exe ]; then
             ./butler push exports/windows/ ${ITCHIO_USERNAME}/${ITCHIO_GAME}:windows
