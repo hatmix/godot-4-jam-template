@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dkr80d2pi0d41"]
 
-[ext_resource type="Script" uid="uid://cb4cmxwi1xg7y" path="res://addons/guide/debugger/guide_debugger.gd" id="1_ckdvj"]
+[ext_resource type="Script" path="res://addons/guide/debugger/guide_debugger.gd" id="1_ckdvj"]
 
 [node name="GuideDebugger" type="MarginContainer"]
 anchors_preset = 15

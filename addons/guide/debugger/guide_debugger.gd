@@ -7,6 +7,7 @@ extends MarginContainer
 
 
 func _ready():
+	process_mode = Node.PROCESS_MODE_ALWAYS
 	GUIDE.input_mappings_changed.connect(_update_priorities)
 	_update_priorities()
 

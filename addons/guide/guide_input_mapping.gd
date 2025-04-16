@@ -71,6 +71,10 @@ extends Resource
 		triggers = value
 		emit_changed()
 
+## Hint for how long the input must remain actuated (in seconds) before the mapping triggers.
+## If the mapping has no hold trigger it will be -1. If it has multiple hold triggers
+## the shortest hold time will be used.
+var _trigger_hold_threshold:float = -1.0
 
 var _state:GUIDETrigger.GUIDETriggerState = GUIDETrigger.GUIDETriggerState.NONE
 var _value:Vector3 = Vector3.ZERO
@@ -87,6 +91,7 @@ func _initialize() -> void :
 	
 	_implicit_count = 0
 	_explicit_count = 0
+	_trigger_hold_threshold = -1.0
 	
 	if triggers.is_empty():
 		# make a default trigger and use that
@@ -103,6 +108,15 @@ func _initialize() -> void :
 			GUIDETrigger.GUIDETriggerType.IMPLICIT:
 				_implicit_count += 1
 		_trigger_list.append(trigger)
+		
+		# collect the hold threshold for hinting the UI about how long
+		# the input must be held down. This is only relevant for hold triggers
+		if trigger is GUIDETriggerHold:
+			if _trigger_hold_threshold == -1:
+				_trigger_hold_threshold = trigger.hold_treshold
+			else:
+				_trigger_hold_threshold = min(_trigger_hold_threshold, trigger.hold_treshold)
+		
 		
 
 func _update_state(delta:float, value_type:GUIDEAction.GUIDEActionValueType):

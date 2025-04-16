@@ -41,6 +41,10 @@ enum JoyIndex {
 ## Which joy index should be returned for detected joy events.
 @export var use_joy_index:JoyIndex = JoyIndex.ANY
 
+## Whether trigger buttons on controllers should be detected when 
+## then action value type is limited to boolean.
+@export var allow_triggers_for_boolean_actions:bool = true
+
 ## Emitted when the detection has started (e.g. countdown has elapsed).
 ## Can be used to signal this to the player.
 signal detection_started()
@@ -191,6 +195,20 @@ func _try_detect_bool(event:InputEvent) -> void:
 		result.button = event.button_index
 		result.joy_index = _find_joy_index(event.device)
 		_deliver(result)
+		
+	if allow_triggers_for_boolean_actions:
+		# only allow joypad trigger buttons
+		if not (event is InputEventJoypadMotion):
+			return
+		if event.axis != JOY_AXIS_TRIGGER_LEFT and \
+				event.axis != JOY_AXIS_TRIGGER_RIGHT:
+			return
+			
+		var result := GUIDEInputJoyAxis1D.new()
+		result.axis = event.axis
+		result.joy_index =  _find_joy_index(event.device)
+		_deliver(result)
+					
 		
 		
 func _try_detect_axis_1d(event:InputEvent) -> void:

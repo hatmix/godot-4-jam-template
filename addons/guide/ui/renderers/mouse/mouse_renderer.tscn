@@ -1,6 +1,6 @@
 [gd_scene load_steps=15 format=3 uid="uid://bfl6dbw21xqs1"]
 
-[ext_resource type="Script" uid="uid://bf6p754yoqjgy" path="res://addons/guide/ui/renderers/mouse/mouse_renderer.gd" id="1_amutf"]
+[ext_resource type="Script" path="res://addons/guide/ui/renderers/mouse/mouse_renderer.gd" id="1_amutf"]
 [ext_resource type="Texture2D" uid="uid://vvgpheda22ew" path="res://addons/guide/ui/renderers/mouse/icons/Mouse_Left_Key_Light.png" id="2_6vk7n"]
 [ext_resource type="Texture2D" uid="uid://b8bsyguf4qw6f" path="res://addons/guide/ui/renderers/mouse/icons/Mouse_Right_Key_Light.png" id="3_aaqrj"]
 [ext_resource type="Texture2D" uid="uid://bmj244x0jn7v2" path="res://addons/guide/ui/renderers/mouse/icons/Mouse_Middle_Key_Light.png" id="4_gprek"]

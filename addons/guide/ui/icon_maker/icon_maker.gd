@@ -12,6 +12,8 @@ var _current_request:Job = null
 var _fetch_image:bool = false
 
 func _ready():
+	# keep working when game is paused
+	process_mode = Node.PROCESS_MODE_ALWAYS
 	# don't needlessly eat performance
 	if _pending_requests.is_empty():
 		set_process(false)

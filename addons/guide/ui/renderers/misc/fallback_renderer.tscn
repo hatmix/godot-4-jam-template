@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bqf4yoind3a82"]
 
-[ext_resource type="Script" uid="uid://b7rqgj8q0spxs" path="res://addons/guide/ui/renderers/misc/fallback_renderer.gd" id="1_mgm3k"]
+[ext_resource type="Script" path="res://addons/guide/ui/renderers/misc/fallback_renderer.gd" id="1_mgm3k"]
 [ext_resource type="FontFile" uid="uid://cu8bvod6tnnwr" path="res://addons/guide/ui/renderers/keyboard/Lato-Black.ttf" id="2_5hk8u"]
 
 [node name="FallbackRenderer" type="MarginContainer"]

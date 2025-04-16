@@ -27,6 +27,14 @@ extends GUIDEModifier
 ## Apply modifier to Z axis
 @export var z:bool = true
 
+var _omin:float
+var _omax:float
+
+func _begin_usage():
+	# we calculate the min and max of the output range here, so we can use them later and don't have to
+	# recalculate them every time the modifier is used
+	_omin = min(output_min, output_max)
+	_omax = max(output_min, output_max)
 
 func _modify_input(input:Vector3, delta:float, value_type:GUIDEAction.GUIDEActionValueType) -> Vector3:
 	if not input.is_finite():
@@ -37,9 +45,11 @@ func _modify_input(input:Vector3, delta:float, value_type:GUIDEAction.GUIDEActio
 	var z_value:float = remap(input.z, input_min, input_max, output_min, output_max)
 	
 	if apply_clamp:
-		x_value = clamp(x_value, output_min, output_max)
-		y_value = clamp(y_value, output_min, output_max)
-		z_value = clamp(z_value, output_min, output_max)
+		# clamp doesn't handle reverse ranges, so we need to use our calculated normalized output range
+		# to clamp the output values
+		x_value = clamp(x_value, _omin, _omax)
+		y_value = clamp(y_value, _omin, _omax)
+		z_value = clamp(z_value, _omin, _omax)
 
 	# Return vector with enabled axes set, others unchanged
 	return Vector3(

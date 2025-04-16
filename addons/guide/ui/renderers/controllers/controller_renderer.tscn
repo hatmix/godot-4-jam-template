@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://bsaylcb5ixjxk"]
 
-[ext_resource type="Script" uid="uid://bc2gsw4u6pkbc" path="res://addons/guide/ui/renderers/controllers/controller_renderer.gd" id="1_yt13e"]
+[ext_resource type="Script" path="res://addons/guide/ui/renderers/controllers/controller_renderer.gd" id="1_yt13e"]
 [ext_resource type="Texture2D" uid="uid://bmgxqbypegjxh" path="res://addons/guide/ui/renderers/textures/arrow_horizontal.svg" id="2_nv2ob"]
 [ext_resource type="Texture2D" uid="uid://bu5nlug6uf03w" path="res://addons/guide/ui/renderers/textures/arrow_vertical.svg" id="3_ejti1"]
 

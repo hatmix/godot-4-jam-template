@@ -10,9 +10,13 @@ static func clear(node:Node):
 ## Checks if the given resource is an inline resource. If so, returns a shallow copy,
 ## otherwise returns the resource. If the resource is null, returns null.
 static func duplicate_if_inline(resource:Resource) -> Resource:
-	if resource == null:
-		return null
-		
-	if resource.resource_path.contains("::") or resource.resource_path == "":
+	if is_inline(resource):
 		return resource.duplicate()
 	return resource
+	
+
+## Checks if the given resource is an inline resource.
+static func is_inline(resource:Resource) -> bool:
+	if resource == null:
+		return false
+	return resource.resource_path.contains("::") or resource.resource_path == ""

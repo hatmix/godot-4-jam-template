@@ -25,5 +25,6 @@ func cache_key(input:GUIDEInput) -> String:
 	push_error("Custom renderers must override the cache_key function to ensure proper caching.")
 	return "i-forgot-the-cache-key"
 
-
+func _ready():
+	process_mode = Node.PROCESS_MODE_ALWAYS
 

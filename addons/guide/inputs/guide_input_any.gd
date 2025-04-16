@@ -26,11 +26,19 @@ var joy:bool:
 ## Should input from mouse movement be considered?
 @export var mouse_movement:bool = false
 
+## Minimum movement distance of the mouse before it is considered
+## moving.
+@export var minimum_mouse_movement_distance:float = 1.0
+
 ## Should input from gamepad/joystick buttons be considered?
 @export var joy_buttons:bool = false
 
 ## Should input from gamepad/joystick axes be considered?
 @export var joy_axes:bool = false 
+
+## Minimum strength of a single joy axis actuation before it is considered
+## as actuated.
+@export var minimum_joy_axis_actuation_strength:float = 0.2
 
 ## Should input from the keyboard be considered?
 @export var keyboard:bool = false
@@ -48,7 +56,8 @@ func _input(event:InputEvent):
 		_value = Vector3.RIGHT
 		return
 		
-	if mouse_movement and event is InputEventMouseMotion:
+	if mouse_movement and event is InputEventMouseMotion \
+			and event.relative.length() >= minimum_mouse_movement_distance:
 		_value = Vector3.RIGHT
 		return
 			
@@ -56,7 +65,8 @@ func _input(event:InputEvent):
 		_value = Vector3.RIGHT
 		return 
 		
-	if joy_axes and event is InputEventJoypadMotion:
+	if joy_axes and event is InputEventJoypadMotion \
+			and abs(event.axis_value) >= minimum_joy_axis_actuation_strength:
 		_value = Vector3.RIGHT
 		return
 			

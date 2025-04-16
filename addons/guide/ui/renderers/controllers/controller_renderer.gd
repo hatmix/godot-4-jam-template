@@ -49,6 +49,7 @@ extends GUIDEIconRenderer
 
 
 func _ready():
+	super()
 	_a_button.texture = a_button 
 	_b_button.texture = b_button 
 	_x_button.texture = x_button 

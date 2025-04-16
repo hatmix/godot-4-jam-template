@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://dic27bm4pfw3q"]
 
-[ext_resource type="Script" uid="uid://nuw6ffiq7gbp" path="res://addons/guide/editor/binding_dialog/binding_dialog.gd" id="1_tknjd"]
+[ext_resource type="Script" path="res://addons/guide/editor/binding_dialog/binding_dialog.gd" id="1_tknjd"]
 [ext_resource type="PackedScene" uid="uid://dsv7s6tfmnsrs" path="res://addons/guide/editor/input_display/input_display.tscn" id="2_83ieu"]
-[ext_resource type="Script" uid="uid://du85fx4qrn44e" path="res://addons/guide/remapping/guide_input_detector.gd" id="3_c6q6r"]
+[ext_resource type="Script" path="res://addons/guide/remapping/guide_input_detector.gd" id="3_c6q6r"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3e874"]
 content_margin_left = 4.0

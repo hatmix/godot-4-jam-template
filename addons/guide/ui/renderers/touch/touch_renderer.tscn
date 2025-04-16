@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=3 uid="uid://ykuou1deo5ub"]
 
-[ext_resource type="Script" uid="uid://bdy85dg31o7ij" path="res://addons/guide/ui/renderers/touch/touch_renderer.gd" id="1_heixj"]
+[ext_resource type="Script" path="res://addons/guide/ui/renderers/touch/touch_renderer.gd" id="1_heixj"]
 [ext_resource type="Texture2D" uid="uid://c5nwnp5cjny7m" path="res://addons/guide/ui/renderers/touch/icons/touch_1_finger.png" id="2_4mplc"]
 [ext_resource type="Texture2D" uid="uid://bllhe78a1yo6" path="res://addons/guide/ui/renderers/touch/icons/touch_2_fingers.png" id="3_0dcqu"]
 [ext_resource type="Texture2D" uid="uid://bwhqf2nmm5q1w" path="res://addons/guide/ui/renderers/touch/icons/touch_3_fingers.png" id="4_mgq0v"]

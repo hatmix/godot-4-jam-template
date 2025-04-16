@@ -88,7 +88,6 @@ static func cleanup():
 func _init(icon_size:int = 32, resolver:Callable = func(action) -> GUIDEActionMapping: return null ):
 	_icon_size = icon_size
 	_action_resolver = resolver
-	_ensure_readiness()
 
 
 ## Adds an icon renderer for rendering icons.
@@ -159,6 +158,7 @@ func input_as_text(input:GUIDEInput, materialize_actions:bool = true) -> String:
 
 ## Renders materialized input as text.
 func _materialized_as_text(input:MaterializedInput) -> String:
+	_ensure_readiness()
 	if input is MaterializedSimpleInput:
 		var text:String = ""
 		for provider in _text_providers:
@@ -183,6 +183,7 @@ func _materialized_as_text(input:MaterializedInput) -> String:
 			
 ## Renders materialized input as rich text.
 func _materialized_as_richtext_async(input:MaterializedInput) -> String:
+	_ensure_readiness()	
 	if input is MaterializedSimpleInput:
 		var icon:Texture2D = null
 		for renderer in _icon_renderers:

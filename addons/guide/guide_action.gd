@@ -128,6 +128,13 @@ var _elapsed_seconds:float
 var elapsed_seconds:float:
 	get: return _elapsed_seconds
 
+var _elapsed_ratio:float
+## The ratio of the elapsed time to the hold time. This is a percentage
+## of the hold time that has passed. If the action has no hold time, this will
+## be 0 when the action is not triggered and 1 when the action is triggered.
+## Otherwise, this will be a value between 0 and 1.
+var elapsed_ratio:float:
+	get: return _elapsed_ratio
 
 var _triggered_seconds:float
 ## The amount of seconds elapsed since the action triggered.
@@ -135,14 +142,22 @@ var triggered_seconds:float:
 	get: return _triggered_seconds
 
 
+## This is a hint for how long the input must remain actuated (in seconds) before the action triggers.
+## It depends on the mapping in which this action is used. If the mapping has no hold trigger it will be -1.
+## In general, you should not access this variable directly, but rather the `elapsed_ratio` property of the action
+## which is a percentage of the hold time that has passed.
+var _trigger_hold_threshold:float = -1.0
+
 func _triggered(value:Vector3, delta:float) -> void:
 	_triggered_seconds += delta
+	_elapsed_ratio = 1.0
 	_update_value(value)
 	_last_state = GUIDEActionState.TRIGGERED
 	triggered.emit()
 	_emit_godot_action_maybe(true)
 		
 func _started(value:Vector3) -> void:
+	_elapsed_ratio = 0.0
 	_update_value(value)
 	_last_state = GUIDEActionState.ONGOING
 	started.emit()
@@ -150,6 +165,8 @@ func _started(value:Vector3) -> void:
 
 func _ongoing(value:Vector3, delta:float) -> void:
 	_elapsed_seconds += delta
+	if _trigger_hold_threshold > 0:
+		_elapsed_ratio = _elapsed_seconds / _trigger_hold_threshold
 	_update_value(value)
 	var was_triggered:bool = _last_state == GUIDEActionState.TRIGGERED
 	_last_state = GUIDEActionState.ONGOING
@@ -162,6 +179,7 @@ func _ongoing(value:Vector3, delta:float) -> void:
 
 func _cancelled(value:Vector3) -> void:
 	_elapsed_seconds = 0
+	_elapsed_ratio = 0
 	_update_value(value)
 	_last_state = GUIDEActionState.COMPLETED
 	cancelled.emit()
@@ -169,6 +187,7 @@ func _cancelled(value:Vector3) -> void:
 
 func _completed(value:Vector3) -> void:
 	_elapsed_seconds = 0
+	_elapsed_ratio = 0
 	_triggered_seconds = 0
 	_update_value(value)
 	_last_state = GUIDEActionState.COMPLETED

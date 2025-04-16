@@ -81,19 +81,20 @@ func _input(event:InputEvent):
 		return
 		
 	# unless additional modifiers are allowed, every
-	# unselected modifier must not be pressed
+	# unselected modifier must not be pressed (except if the 
+	# bound key is actually the modifier itself)
 	
 	if not allow_additional_modifiers:
-		if not shift and Input.is_physical_key_pressed(KEY_SHIFT):
+		if not shift and key != KEY_SHIFT and Input.is_physical_key_pressed(KEY_SHIFT):
 			return
 		
-		if not control and Input.is_physical_key_pressed(KEY_CTRL):
+		if not control and key != KEY_CTRL and Input.is_physical_key_pressed(KEY_CTRL):
 			return
 		
-		if not alt and Input.is_physical_key_pressed(KEY_ALT):
+		if not alt and key != KEY_ALT and Input.is_physical_key_pressed(KEY_ALT):
 			return
 		
-		if not meta and  Input.is_physical_key_pressed(KEY_META):
+		if not meta and key != KEY_META and Input.is_physical_key_pressed(KEY_META):
 			return
 		
 	# we're still here, so all required keys are pressed and 

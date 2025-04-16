@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://ortn6jb3wljf"]
 
-[ext_resource type="Script" uid="uid://bbbtkhbekhifu" path="res://addons/guide/ui/renderers/misc/action_renderer.gd" id="1_140q4"]
+[ext_resource type="Script" path="res://addons/guide/ui/renderers/misc/action_renderer.gd" id="1_140q4"]
 [ext_resource type="Texture2D" uid="uid://diwkvjkss2ie" path="res://addons/guide/ui/renderers/textures/action.svg" id="2_uqvia"]
 
 [node name="ActionRenderer" type="MarginContainer"]
