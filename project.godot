@@ -22,7 +22,6 @@ config/icon="res://icon.png"
 
 Settings="*res://autoloads/settings.gd"
 Globals="*res://autoloads/globals.gd"
-ProjectUISoundController="*res://addons/maaacks_ui_sound_controller/base/scenes/Autoloads/ProjectUISoundController.tscn"
 Utils="*res://autoloads/utils.gd"
 GUIDE="*res://addons/guide/guide.gd"
 
@@ -46,7 +45,7 @@ naming/script_name_casing=2
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/Todo_Manager/plugin.cfg", "res://addons/gdUnit4/plugin.cfg", "res://addons/guide/plugin.cfg", "res://addons/maaacks_ui_sound_controller/plugin.cfg", "res://addons/markdownlabel/plugin.cfg")
+enabled=PackedStringArray("res://addons/Todo_Manager/plugin.cfg", "res://addons/gdUnit4/plugin.cfg", "res://addons/guide/plugin.cfg", "res://addons/markdownlabel/plugin.cfg")
 
 [file_customization]
 
