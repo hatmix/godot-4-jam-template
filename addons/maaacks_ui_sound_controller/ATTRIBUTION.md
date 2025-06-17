@@ -2,7 +2,7 @@
 ## Collaborators
 
 ### Godot UI Sound Controller
-Author: [Marek Belski](https://github.com/Maaack/Godot-UI-Sound-Controller/graphs/contributors)  
+Author: [Marek Belski and contributors](https://github.com/Maaack/Godot-UI-Sound-Controller/graphs/contributors)  
 Source: [github: Godot-UI-Sound-Controller](https://github.com/Maaack/Godot-UI-Sound-Controller)  
 License: [MIT License](LICENSE.txt)  
 
@@ -11,6 +11,11 @@ License: [MIT License](LICENSE.txt)
 Author: [Juan Linietsky, Ariel Manzur, and contributors](https://godotengine.org/contact)  
 Source: [godotengine.org](https://godotengine.org/)  
 License: [MIT License](https://github.com/godotengine/godot/blob/master/LICENSE.txt) 
+
+#### Visual Studio Code
+Author: [Microsoft](https://opensource.microsoft.com/)  
+Source: [github: vscode](https://github.com/microsoft/vscode)  
+License: [MIT License](https://github.com/microsoft/vscode/blob/main/LICENSE.txt)
 
 #### Git
 Author: [Linus Torvalds](https://github.com/torvalds)  

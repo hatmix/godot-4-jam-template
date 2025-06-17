@@ -19,13 +19,18 @@ For adding SFX to all your project's UI elements from one node.
 
 ### How it Works
 - The `UISoundController` node automatically attaches sounds to buttons, tab bars, sliders, and line edits in the scene. `ProjectUISoundController.tscn` is an autload used to apply UI sounds project-wide.
+
+### Extras or Components
+
+Users that want additional features can try [Maaack's Game Template](https://github.com/Maaack/Godot-Game-Template) or other options from the [plugin suite](/addons/maaacks_ui_sound_controller/docs/PluginSuite.md).  
+
   
 ## Installation
 
 ### Godot Asset Library
 This package is available as a plugin, meaning it can be added to an existing project. 
 
-![Package Icon](/addons/maaacks_ui_sound_controller/media/UISoundController-Icon-black-transparent-256x256.png)  
+![Package Icon](/addons/maaacks_ui_sound_controller/media/ui_sound_controller-icon-black-transparent-256x256.png)  
 
 When editing an existing project:
 
@@ -58,7 +63,22 @@ Attach the `UISoundController.gd` script to a node that is in your UI scene, und
 
 Alternatively, open `ProjectUISoundController.tscn`, select the root node, and assign audio streams to UI events project-wide.
 
+## Featured Games
+
+| Spud Customs | Rent Seek Kill  | A Darkness Like Gravity  |  
+| :-------:| :-------: | :-------: |
+![Spud Customs](/addons/maaacks_ui_sound_controller/media/screenshot-game-spud-customs.png)  |  ![Rent-Seek-Kill](/addons/maaacks_ui_sound_controller/media/screenshot-game-rent-seek-kill.png)  |  ![A Darkness Like Gravity](/addons/maaacks_ui_sound_controller/media/screenshot-game-a-darkness-like-gravity.png)  |
+[Find on Steam](https://store.steampowered.com/app/3291880/Spud_Customs/) | [Play on itch.io](https://xandruher.itch.io/rent-seek-kill)  |  [Play on itch.io](https://maaack.itch.io/a-darkness-like-gravity)  |
+
+
+[All Shared Games](/addons/maaacks_ui_sound_controller/docs/GamesMade.md)  
+
+
+## Community
+
+Join the [Discord server](https://discord.gg/AyZrJh5AMp ) and share your work with others. It's also a space for getting or giving feedback, and asking for help. 
+
 ## Links
 [Attribution](ATTRIBUTION.md)  
 [License](LICENSE.txt)  
-
+[Godot Asset Library](https://godotengine.org/asset-library/asset/2897)  
