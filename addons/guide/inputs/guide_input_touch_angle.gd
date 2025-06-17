@@ -3,8 +3,6 @@
 class_name GUIDEInputTouchAngle
 extends GUIDEInput
 
-const GUIDETouchState = preload("guide_touch_state.gd")
-
 ## Unit in which the angle should be provided
 enum AngleUnit {
 	## Angle is provided in radians
@@ -29,11 +27,16 @@ func _reset():
 	if is_finite(_initial_angle) != is_finite(angle):
 		_initial_angle = angle
 
-func _input(event:InputEvent) -> void:
-	if not GUIDETouchState.process_input_event(event):
-		# not touch-related
-		return
-		
+func _begin_usage() -> void:
+	# subscribe to relevant input events
+	_state.touch_state_changed.connect(_refresh)
+	_refresh()
+	
+func _end_usage() -> void:
+	# unsubscribe from input events
+	_state.touch_state_changed.disconnect(_refresh)
+	
+func _refresh():
 	var angle := _calculate_angle()
 	# if either current angle or initial angle is not set,
 	# we are zero
@@ -43,17 +46,22 @@ func _input(event:InputEvent) -> void:
 		
 	# we assume that _initial_distance is never 0 because
 	# you cannot have two fingers physically at the same place
-	# on a touch screen
-	_value = Vector3(angle - _initial_angle, 0, 0)
+	# on a touch screen (unless you're a ghost, which raises
+	# the question how you are using a touch screen in the first place)
+	var final_angle:float = angle - _initial_angle
+	if unit == AngleUnit.DEGREES:
+		final_angle = rad_to_deg(final_angle)
+	
+	_value = Vector3(final_angle, 0, 0)
 		
 	
 func _calculate_angle() -> float:
-	var pos1:Vector2 = GUIDETouchState.get_finger_position(0, 2)
+	var pos1:Vector2 = _state.get_finger_position(0, 2)
 	# if we have no position for first finger, we can immediately abort
 	if not pos1.is_finite():
 		return INF
 		
-	var pos2:Vector2 = GUIDETouchState.get_finger_position(1, 2)
+	var pos2:Vector2 = _state.get_finger_position(1, 2)
 	# if there is no second finger, we can abort as well
 	if not pos2.is_finite():
 		return INF

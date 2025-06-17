@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://bwv1638hcrfni"]
+[gd_scene load_steps=22 format=3 uid="uid://bwv1638hcrfni"]
 
 [ext_resource type="PackedScene" uid="uid://bsaylcb5ixjxk" path="res://addons/guide/ui/renderers/controllers/controller_renderer.tscn" id="1_bq6gh"]
 [ext_resource type="Texture2D" uid="uid://cfy1rx4d4wjdh" path="res://addons/guide/ui/renderers/controllers/playstation/icons/PS5_Cross.png" id="2_oqi6t"]
@@ -20,6 +20,7 @@
 [ext_resource type="Texture2D" uid="uid://bkttgyeuecjw" path="res://addons/guide/ui/renderers/controllers/playstation/icons/PS5_Options.png" id="18_eabm3"]
 [ext_resource type="Texture2D" uid="uid://eljpu2rrb3k4" path="res://addons/guide/ui/renderers/controllers/playstation/icons/PS5_Microphone.png" id="19_oj5w7"]
 [ext_resource type="Texture2D" uid="uid://bw2h7xxdtp31i" path="res://addons/guide/ui/renderers/controllers/playstation/icons/PS5_Share.png" id="20_p3s2m"]
+[ext_resource type="Texture2D" uid="uid://bxxkjsl2u83mp" path="res://addons/guide/ui/renderers/controllers/playstation/icons/PS5_Touch_Pad.png" id="21_nht85"]
 
 [node name="ControllerRenderer" instance=ExtResource("1_bq6gh")]
 controller_name_matches = Array[String](["DualSense", "DualShock", "PlayStation", "PS3", "PS4", "PS5"])
@@ -42,6 +43,7 @@ dpad_down = ExtResource("17_wm4fj")
 start = ExtResource("18_eabm3")
 misc1 = ExtResource("19_oj5w7")
 back = ExtResource("20_p3s2m")
+touch_pad = ExtResource("21_nht85")
 
 [node name="AButton" parent="HBoxContainer/Controls" index="0"]
 texture = ExtResource("2_oqi6t")

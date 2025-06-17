@@ -1,6 +1,5 @@
 ## Input that triggers if any input from the given device class
-## is given. Only looks for button inputs, not axis inputs as axes
-## have a tendency to accidentally trigger.
+## is given.
 @tool
 class_name GUIDEInputAny
 extends GUIDEInput
@@ -51,30 +50,66 @@ func _needs_reset() -> bool:
 	# Needs reset because we cannot detect the absence of input.
 	return true
 
-func _input(event:InputEvent):
-	if mouse_buttons and event is InputEventMouseButton:
+func _begin_usage() -> void:
+	# subscribe to relevant input events
+	if mouse_movement:
+		_state.mouse_position_changed.connect(_refresh)
+	if mouse_buttons:
+		_state.mouse_button_state_changed.connect(_refresh)
+	if keyboard:
+		_state.keyboard_state_changed.connect(_refresh)
+	if joy_buttons:
+		_state.joy_button_state_changed.connect(_refresh)
+	if joy_axes:
+		_state.joy_axis_state_changed.connect(_refresh)
+	if touch:
+		_state.touch_state_changed.connect(_refresh)
+		
+	_refresh()
+	
+func _end_usage() -> void:
+	# unsubscribe from input events
+	if mouse_movement:
+		_state.mouse_position_changed.disconnect(_refresh)
+	if mouse_buttons:
+		_state.mouse_button_state_changed.disconnect(_refresh)
+	if keyboard:
+		_state.keyboard_state_changed.disconnect(_refresh)
+	if joy_buttons:
+		_state.joy_button_state_changed.disconnect(_refresh)
+	if joy_axes:
+		_state.joy_axis_state_changed.disconnect(_refresh)
+	if touch:
+		_state.touch_state_changed.disconnect(_refresh)
+
+func _refresh() -> void:
+	# if the input was already actuated this frame, remain
+	# actuated, even if more input events come in. Input will
+	# reset at the end of the frame.
+	if not _value.is_zero_approx():
+		return
+	
+	if keyboard and _state.is_any_key_pressed():		
+		_value = Vector3.RIGHT
+		return
+
+	if mouse_buttons and _state.is_any_mouse_button_pressed():
+		_value = Vector3.RIGHT
+		return
+	
+	if mouse_movement and _state.get_mouse_delta_since_last_frame().length() >= minimum_mouse_movement_distance:
 		_value = Vector3.RIGHT
 		return
 		
-	if mouse_movement and event is InputEventMouseMotion \
-			and event.relative.length() >= minimum_mouse_movement_distance:
+	if joy_buttons and _state.is_any_joy_button_pressed():
 		_value = Vector3.RIGHT
 		return
-			
-	if joy_buttons and event is InputEventJoypadButton:
-		_value = Vector3.RIGHT
-		return 
-		
-	if joy_axes and event is InputEventJoypadMotion \
-			and abs(event.axis_value) >= minimum_joy_axis_actuation_strength:
-		_value = Vector3.RIGHT
-		return
-			
-	if keyboard and event is InputEventKey:
+
+	if joy_axes and _state.is_any_joy_axis_actuated(minimum_joy_axis_actuation_strength):
 		_value = Vector3.RIGHT
 		return
 		
-	if touch and (event is InputEventScreenTouch or event is InputEventScreenDrag):
+	if touch and _state.is_any_finger_down():
 		_value = Vector3.RIGHT
 		return
 		

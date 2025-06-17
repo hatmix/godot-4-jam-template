@@ -8,6 +8,9 @@ extends Resource
 ## returned vector may be relevant.
 var _value:Vector3 = Vector3.ZERO
 
+## The current input state. This will be set by GUIDE when the input is used.
+var _state:GUIDEInputState = null
+
 ## Whether this input needs a reset per frame. _input is only called when
 ## there is input happening, but some GUIDE inputs may need to be reset
 ## in the absence of input.
@@ -19,17 +22,13 @@ func _needs_reset() -> bool:
 func _reset() -> void:
 	_value = Vector3.ZERO
 
-## Called when an input event happens. Should update the 
-## the input value of this input.
-func _input(event:InputEvent):
-	pass
-	
 ## Returns whether this input is the same input as the other input.
 func is_same_as(other:GUIDEInput) -> bool:
 	return false
 	
 ## Called when the input is started to be used by GUIDE. Can be used to perform
-## initializations.
+## initializations. The state object can be used to subscribe to input events
+## and to get the current input state.
 func _begin_usage() -> void :
 	pass
 	

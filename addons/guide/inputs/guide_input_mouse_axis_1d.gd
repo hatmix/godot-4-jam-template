@@ -19,13 +19,23 @@ enum GUIDEInputMouseAxis {
 func _needs_reset() -> bool:
 	return true
 
-func _input(event:InputEvent) -> void:
-	if event is InputEventMouseMotion:
-		match axis:
-			GUIDEInputMouseAxis.X:
-				_value.x = event.relative.x
-			GUIDEInputMouseAxis.Y:
-				_value.x = event.relative.y
+
+func _begin_usage() -> void:
+	# subscribe to mouse movement events
+	_state.mouse_position_changed.connect(_refresh)
+	_refresh()
+	
+func _end_usage() -> void:
+	# unsubscribe from mouse movement events
+	_state.mouse_position_changed.disconnect(_refresh)
+
+func _refresh() -> void:
+	var delta:Vector2 = _state.get_mouse_delta_since_last_frame()	
+	match axis:
+		GUIDEInputMouseAxis.X:
+			_value.x = delta.x
+		GUIDEInputMouseAxis.Y:
+			_value.x = delta.y
 
 		
 func is_same_as(other:GUIDEInput):

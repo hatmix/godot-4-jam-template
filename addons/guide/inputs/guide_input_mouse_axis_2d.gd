@@ -8,12 +8,19 @@ extends GUIDEInput
 func _needs_reset() -> bool:
 	return true
 
-func _input(event:InputEvent) -> void:
-	if not event is InputEventMouseMotion:
-		return
+func _begin_usage() -> void:
+	# subscribe to mouse movement events
+	_state.mouse_position_changed.connect(_refresh)
+	_refresh()
 
-	_value.x = event.relative.x
-	_value.y = event.relative.y
+func _end_usage() -> void:
+	# unsubscribe from mouse movement events
+	_state.mouse_position_changed.disconnect(_refresh)
+
+func _refresh() -> void:
+	var delta:Vector2 = _state.get_mouse_delta_since_last_frame()
+	_value.x = delta.x
+	_value.y = delta.y
 		
 func is_same_as(other:GUIDEInput):
 	return other is GUIDEInputMouseAxis2D

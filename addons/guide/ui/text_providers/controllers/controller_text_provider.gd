@@ -110,6 +110,8 @@ func get_text(input:GUIDEInput) -> String:
 			JOY_BUTTON_MISC1:
 				return _format(tr(_misc_1_button_name()))
 			JOY_BUTTON_START:
-				return _format(tr(_start_button_name()))		
+				return _format(tr(_start_button_name()))	
+			JOY_BUTTON_TOUCHPAD:
+				return _format(tr("Touch Pad"))	
 
 	return _format("??")

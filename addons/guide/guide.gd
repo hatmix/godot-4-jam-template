@@ -31,10 +31,15 @@ var _actions_sharing_input:Dictionary = {}
 ## before new input is processed at the beginning of the frame.
 var _reset_node:GUIDEReset
 
+## The current input state. This is used to track the state of the inputs
+## and serves as a basis for the GUIDEInputs.
+var _input_state:GUIDEInputState
+
 
 func _ready():
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	_reset_node = GUIDEReset.new()
+	_input_state = GUIDEInputState.new()
 	add_child(_reset_node)
 	# attach to the current viewport to get input events
 	GUIDEInputTracker._instrument.call_deferred(get_viewport())
@@ -60,9 +65,12 @@ func _on_node_added(node:Node) -> void:
 func inject_input(event:InputEvent) -> void:
 	if event is InputEventAction:
 		return  # we don't react to Godot's built-in events
-	
-	for input:GUIDEInput in _active_inputs:
-		input._input(event)
+
+	# The input state is the sole consumer of input events. It will notify
+	# GUIDEInputs when relevant input events happen. This way we don't need
+	# to process input events multiple times and at the same time always have
+	# the full picture of the input state.
+	_input_state._input(event)
 
 
 ## Applies an input remapping config. This will override all input bindings in the 
@@ -207,8 +215,17 @@ func _update_caches():
 
 	for entry:Dictionary in sorted_contexts:
 		var context:GUIDEMappingContext = entry.context
+		var position:int = 0
 		for action_mapping:GUIDEActionMapping in context.mappings:
+			position += 1
 			var action := action_mapping.action
+			
+			# Mapping may be misconfigured, so we need to handle the case
+			# that the action is missing.
+			if action == null:
+				push_warning("Mapping at position %s in context %s has no action set. This mapping will be ignored." % [position, context.resource_path])
+				continue
+			
 			# If the action was already configured in a higher priority context,
 			# we'll skip it.
 			if processed_actions.has(action):
@@ -277,6 +294,8 @@ func _update_caches():
 			if not effective_mapping.input_mappings.is_empty():
 				_active_action_mappings.append(effective_mapping)
 
+	# INVARIANT: all _active_action_mappings now have actions.
+
 	# now we have a new set of active inputs		
 	for input:GUIDEInput in consolidated_inputs.values():
 		_active_inputs.append(input)
@@ -342,11 +361,14 @@ func _update_caches():
 			if not blocked_actions.is_empty():
 				_actions_sharing_input[mapping.action] = blocked_actions.values()
 				
-	# finally collect which inputs we need to reset per frame
 	_reset_node._inputs_to_reset.clear()
 	for input:GUIDEInput in _active_inputs:
+		# finally collect which inputs we need to reset per frame
 		if input._needs_reset():
 			_reset_node._inputs_to_reset.append(input)
+
+		# Give the state to the input
+		input._state = _input_state		
 		# Notify inputs that GUIDE is about to use them
 		input._begin_usage()
 	

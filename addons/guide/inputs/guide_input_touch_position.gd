@@ -2,21 +2,19 @@
 class_name GUIDEInputTouchPosition
 extends GUIDEInputTouchBase
 
-const GUIDETouchState = preload("guide_touch_state.gd")
-
 
 func _begin_usage():
-	_value = Vector3.INF
+	# subscribe to touch events
+	_state.touch_state_changed.connect(_refresh)
+	_refresh()
 	
+func _end_usage():
+	# unsubscribe from touch events
+	_state.touch_state_changed.disconnect(_refresh)
 
-func _input(event:InputEvent) -> void:
-	# update touch state
-	if not GUIDETouchState.process_input_event(event):
-	 	# not touch-related
-		return
-		
+func _refresh() -> void:
 	# update finger position
-	var position := GUIDETouchState.get_finger_position(finger_index, finger_count)
+	var position:Vector2 = _state.get_finger_position(finger_index, finger_count)
 	if not position.is_finite():
 		_value = Vector3.INF
 		return

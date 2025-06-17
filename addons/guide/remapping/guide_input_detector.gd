@@ -24,6 +24,17 @@ enum JoyIndex {
 	DETECTED = 1
 }
 
+enum DetectionState {
+	# The detector is currently idle.
+	IDLE = 0,
+	# The detector is currently counting down before starting the detection.
+	COUNTDOWN = 3,
+	# The detector is currently detecting input.
+	DETECTING = 1,
+	# The detector has finished detecting but is waiting for input to be released.
+	WAITING_FOR_INPUT_CLEAR = 2,
+}
+
 ## A countdown between initiating a dection and the actual start of the 
 ## detection. This is useful because when the user clicks a button to
 ## start a detection, we want to make sure that the player is actually
@@ -56,19 +67,30 @@ signal input_detected(input:GUIDEInput)
 # The timer for the detection countdown.
 var _timer:Timer
 
+# Our copy of the input state
+var _input_state:GUIDEInputState
+# The current state of the detection.
+var _status:DetectionState = DetectionState.IDLE
+# Mapping contexts that were active when the detection started. We need to restore these once the detection is
+# finished or aborted.
+var _saved_mapping_contexts:Array[GUIDEMappingContext] = []
 
+# The last detected input.
+var _last_detected_input:GUIDEInput = null
 
 func _ready():
+	# don't run the process function if we are not detecting to not waste resources
+	set_process(false)
 	_timer = Timer.new()
+	_input_state = GUIDEInputState.new()
 	_timer.one_shot = true
 	add_child(_timer, false, Node.INTERNAL_MODE_FRONT)
 	_timer.timeout.connect(_begin_detection)
-
-var _is_detecting:bool
+	
 
 ## Whether the input detector is currently detecting input.
 var is_detecting:bool:
-	get: return _is_detecting
+	get: return _status != DetectionState.IDLE
 
 var _value_type:GUIDEAction.GUIDEActionValueType
 var _device_types:Array[DeviceType] = []
@@ -93,14 +115,6 @@ func detect_axis_3d(device_types:Array[DeviceType] = []) -> void:
 	detect(GUIDEAction.GUIDEActionValueType.AXIS_3D, device_types)
 
 
-## Aborts a running detection. If no detection currently runs
-## does nothing.
-func abort_detection() -> void:
-	_timer.stop()
-	if _is_detecting:
-		_is_detecting = false
-		input_detected.emit(null)
-
 ## Detects the given input type. If device types are given
 ## will only detect inputs from the given device types. 
 ## Otherwise will detect inputs from all supported device types.
@@ -110,51 +124,132 @@ func detect(value_type:GUIDEAction.GUIDEActionValueType,
 		push_error("Device types must not be null. Supply an empty array if you want to detect input from all devices.")
 		return
 	
-	# reset all abort inputs
-	for input in abort_detection_on:
-		input._reset()
+
+	# If we are already detecting, abort this.
+	if _status == DetectionState.DETECTING or _status == DetectionState.WAITING_FOR_INPUT_CLEAR:
+		for input in abort_detection_on:
+			input._end_usage()
 	
-	abort_detection()
+	# and start a new detection.
+	_status = DetectionState.COUNTDOWN
+	
 	_value_type = value_type
 	_device_types = device_types
+	_timer.stop()
 	_timer.start(detection_countdown_seconds)
 
-
+## This is called by the timer when the countdown has elapsed.
 func _begin_detection():
-	_is_detecting = true
+	# set status to detecting
+	_status = DetectionState.DETECTING
+	# reset and clear the input state
+	_input_state._clear()
+	_input_state._reset()
+
+	# enable all abort detection inputs
+	for input in abort_detection_on:
+		input._state = _input_state
+		input._begin_usage()
+
+	# we also use this inside the editor where the GUIDE
+	# singleton is not active. Here we don't need to enable
+	# and disable the mapping contexts.		
+	if not Engine.is_editor_hint():	
+		# save currently active mapping contexts
+		_saved_mapping_contexts = GUIDE.get_enabled_mapping_contexts()
+		
+		# disable all mapping contexts
+		for context in _saved_mapping_contexts:
+			GUIDE.disable_mapping_context(context)
+		
 	detection_started.emit()
 
 
-func _input(event:InputEvent) -> void:
-	if not _is_detecting:
+## Aborts a running detection. If no detection currently runs
+## does nothing.
+func abort_detection() -> void:
+	_timer.stop()
+	# if we are currently detecting, deliver the null result
+	# which will gracefully shut down everything
+	if _status == DetectionState.DETECTING:
+		_deliver(null)
+
+	# in any other state we don't need to do anything
+
+## This is called while we are waiting for input to be released.
+func _process(delta: float) -> void:
+	# if we are not detecting, we don't need to do anything
+	if _status != DetectionState.WAITING_FOR_INPUT_CLEAR:
+		set_process(false)
 		return
-		
-	# feed the event into the abort inputs
+
+	# check if the input is still actuated. We do this to avoid the problem
+	# of this input accidentally triggering something in the mapping contexts
+	# when we enable them again.
 	for input in abort_detection_on:
-		input._input(event)
-		# if it triggers, we abort
 		if input._value.is_finite() and input._value.length() > 0:
-			# eat the input so it doesn't accidentally trigger something else
-			get_viewport().set_input_as_handled()
-			abort_detection()
-			return	
-		
-	# check if the event matches the device type we are
-	# looking for	
-	if not _matches_device_types(event):
-		return
+			# we still have input, so we are still waiting
+			# retry next frame
+			return
+			
+	# if we are here, the input is no longer actuated
 	
-	# then check if it can be mapped to the desired 
-	# value type	
-	match _value_type:
-		GUIDEAction.GUIDEActionValueType.BOOL:
-			_try_detect_bool(event)
-		GUIDEAction.GUIDEActionValueType.AXIS_1D:
-			_try_detect_axis_1d(event)
-		GUIDEAction.GUIDEActionValueType.AXIS_2D:
-			_try_detect_axis_2d(event)
-		GUIDEAction.GUIDEActionValueType.AXIS_3D:
-			_try_detect_axis_3d(event)
+	# tear down the inputs
+	for input in abort_detection_on:
+		input._end_usage()
+	
+	# restore the mapping contexts
+	# but only when not running in the editor
+	if not Engine.is_editor_hint():
+		for context in _saved_mapping_contexts:
+			GUIDE.enable_mapping_context(context)
+		
+	# set status to idle
+	_status = DetectionState.IDLE
+	# and deliver the detected input
+	input_detected.emit(_last_detected_input)
+
+## This is called in any state when input is received.
+func _input(event:InputEvent) -> void:
+	if _status == DetectionState.IDLE:
+		return
+		
+	# feed the event into the state
+	_input_state._input(event)
+
+	# while detecting, we're the only ones consuming input and we eat this input
+	# to not accidentally trigger built-in Godot mappings (e.g. UI stuff)
+	get_viewport().set_input_as_handled()
+	# but we still feed it into GUIDE's global state so this state stays 
+	# up to date. This should have no effect because we disabled all mapping
+	# contexts.
+	if not Engine.is_editor_hint():
+		GUIDE.inject_input(event)	
+
+	if _status == DetectionState.DETECTING:
+		# check if any abort input will trigger
+		for input in abort_detection_on:
+			# if it triggers, we abort
+			if input._value.is_finite() and input._value.length() > 0:
+				abort_detection()
+				return	
+			
+		# check if the event matches the device type we are
+		# looking for	
+		if not _matches_device_types(event):
+			return
+		
+		# then check if it can be mapped to the desired 
+		# value type	
+		match _value_type:
+			GUIDEAction.GUIDEActionValueType.BOOL:
+				_try_detect_bool(event)
+			GUIDEAction.GUIDEActionValueType.AXIS_1D:
+				_try_detect_axis_1d(event)
+			GUIDEAction.GUIDEActionValueType.AXIS_2D:
+				_try_detect_axis_2d(event)
+			GUIDEAction.GUIDEActionValueType.AXIS_3D:
+				_try_detect_axis_3d(event)
 
 
 func _matches_device_types(event:InputEvent) -> bool:
@@ -275,7 +370,7 @@ func _find_joy_index(device_id:int) -> int:
 	return -1
 
 func _deliver(input:GUIDEInput) -> void:
-	_is_detecting = false
-	# eat the input so it doesn't accidentally trigger something else
-	get_viewport().set_input_as_handled()
-	input_detected.emit(input)
+	_last_detected_input = input
+	_status = DetectionState.WAITING_FOR_INPUT_CLEAR
+	# enable processing so we can check if the input is released before we re-enable GUIDE's mapping contexts
+	set_process(true)
