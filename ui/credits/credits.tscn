@@ -1,13 +1,13 @@
 [gd_scene load_steps=15 format=3 uid="uid://dekllill0y50r"]
 
 [ext_resource type="Script" uid="uid://uhd4t7cl345s" path="res://ui/credits/credits.gd" id="1_0pb5o"]
-[ext_resource type="Script" uid="uid://0v310ifpj0qr" path="res://addons/markdownlabel/markdownlabel.gd" id="3_rqcdg"]
-[ext_resource type="Script" uid="uid://cxkvktbousofh" path="res://addons/markdownlabel/header_formats/h1_format.gd" id="4_h0eqe"]
-[ext_resource type="Script" uid="uid://o7mk1lbee6g1" path="res://addons/markdownlabel/header_formats/h2_format.gd" id="5_xmv6d"]
-[ext_resource type="Script" uid="uid://bv2yf3brrie5" path="res://addons/markdownlabel/header_formats/h3_format.gd" id="6_6xvi1"]
-[ext_resource type="Script" uid="uid://d10a5abrxj1py" path="res://addons/markdownlabel/header_formats/h4_format.gd" id="7_ye0td"]
-[ext_resource type="Script" uid="uid://bpx18mrvf4wba" path="res://addons/markdownlabel/header_formats/h5_format.gd" id="8_pq5cp"]
-[ext_resource type="Script" uid="uid://cvjdkoe4obkxp" path="res://addons/markdownlabel/header_formats/h6_format.gd" id="9_40fmp"]
+[ext_resource type="Script" uid="uid://dbap0gqox0ty1" path="res://addons/markdownlabel/markdownlabel.gd" id="3_rqcdg"]
+[ext_resource type="Script" uid="uid://dcx7crs23nf4" path="res://addons/markdownlabel/header_formats/h1_format.gd" id="4_h0eqe"]
+[ext_resource type="Script" uid="uid://d0sin64i4v3op" path="res://addons/markdownlabel/header_formats/h2_format.gd" id="5_xmv6d"]
+[ext_resource type="Script" uid="uid://dlok0dv1tq2bf" path="res://addons/markdownlabel/header_formats/h3_format.gd" id="6_6xvi1"]
+[ext_resource type="Script" uid="uid://bayuh2vafablg" path="res://addons/markdownlabel/header_formats/h4_format.gd" id="7_ye0td"]
+[ext_resource type="Script" uid="uid://dfr1w7u3jgni3" path="res://addons/markdownlabel/header_formats/h5_format.gd" id="8_pq5cp"]
+[ext_resource type="Script" uid="uid://bsi6dexoofpe6" path="res://addons/markdownlabel/header_formats/h6_format.gd" id="9_40fmp"]
 
 [sub_resource type="Resource" id="Resource_olsbt"]
 resource_local_to_scene = true
