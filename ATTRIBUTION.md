@@ -8,11 +8,6 @@ A thing by [hatmix](https://hatmix.itch.io)
 
 ## Godot Addons
 ###### TODO: List any additional addons used
-### Godot UI Sound Controller
-Author: [Marek "Maaack"](https://github.com/Maaack)  
-Source: [https://github.com/Maaack/Godot-UI-Sound-Controller](https://github.com/Maaack/Godot-UI-Sound-Controller)  
-License: [MIT](https://github.com/Maaack/Godot-UI-Sound-Controller?tab=MIT-1-ov-file#readme)  
-
 ### Markdown Label
 Author: [Daenvil](https://github.com/daenvil)  
 Source: [https://github.com/daenvil/MarkdownLabel](https://github.com/daenvil/MarkdownLabel)  
