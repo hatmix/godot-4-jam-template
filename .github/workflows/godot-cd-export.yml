@@ -20,11 +20,11 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  GODOT_VERSION: 4.4.1
+  GODOT_VERSION: 4.5
   PROJECT_NAME: ${{ github.event.repository.name }}
 
 jobs:
-  export:
+  on-success:
     name: Export
     runs-on: ubuntu-22.04
     permissions:
