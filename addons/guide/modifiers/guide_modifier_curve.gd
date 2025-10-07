@@ -25,6 +25,13 @@ static func default_curve() -> Curve:
 
 	return curve
 
+	
+func is_same_as(other: GUIDEModifier) -> bool:
+	return other is GUIDEModifierCurve and \
+		curve == other.curve and \
+		x == other.x and \
+		y == other.y and \
+		z == other.z
 
 func _modify_input(input: Vector3, delta: float, value_type: GUIDEAction.GUIDEActionValueType) -> Vector3:
 	# Curve should never be null

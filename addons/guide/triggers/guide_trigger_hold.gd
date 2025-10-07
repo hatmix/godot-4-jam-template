@@ -11,6 +11,11 @@ extends GUIDETrigger
 var _accumulated_time:float = 0
 var _did_shoot:bool = false
 
+func is_same_as(other:GUIDETrigger) -> bool:
+	return other is GUIDETriggerHold and \
+			is_one_shot == other.is_one_shot and \
+			is_equal_approx(hold_treshold, other.hold_treshold)
+
 func _update_state(input:Vector3, delta:float, value_type:GUIDEAction.GUIDEActionValueType) -> GUIDETriggerState:
 	# if the input is actuated, accumulate time and check if the hold threshold has been reached
 	if _is_actuated(input, value_type):

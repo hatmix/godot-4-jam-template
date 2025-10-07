@@ -47,6 +47,13 @@ var scale:Vector3:
 ## Cursor offset in pixels.
 var _offset:Vector3 = Vector3.ZERO
 
+func is_same_as(other:GUIDEModifier) -> bool:
+	return other is GUIDEModifierVirtualCursor and \
+		screen_scale == other.screen_scale and \
+		apply_delta_time == other.apply_delta_time and \
+		initial_position.is_equal_approx(other.initial_position) and \
+		speed.is_equal_approx(other.speed)
+
 ## Returns the scaled screen size. This takes Godot's scaling factor for windows into account.
 func _get_scaled_screen_size():
 	# Get window size, including scaling factor

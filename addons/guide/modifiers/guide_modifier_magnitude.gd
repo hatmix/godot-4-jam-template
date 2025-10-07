@@ -1,20 +1,20 @@
-## Normalizes the input vector.
+## Returns the magnitude of the input value.
 @tool
-class_name GUIDEModifierNormalize
+class_name GUIDEModifierMagnitude
 extends GUIDEModifier
 
 func is_same_as(other:GUIDEModifier) -> bool:
-	return other is GUIDEModifierNormalize
+	return other is GUIDEModifierMagnitude
 
 func _modify_input(input:Vector3, delta:float, value_type:GUIDEAction.GUIDEActionValueType) -> Vector3:
 	if not input.is_finite():
 		return Vector3.INF
 		
-	return input.normalized()
+	return Vector3(input.length(), 0, 0)
 
 func _editor_name() -> String:
-	return "Normalize"	
+	return "Magnitude"	
 
 
 func _editor_description() -> String:
-	return "Normalizes the input vector."
+	return "Returns the magnitude of the input vector."

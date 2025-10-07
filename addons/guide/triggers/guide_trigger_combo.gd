@@ -19,6 +19,24 @@ enum ActionEventType {
 var _current_step:int = -1
 var _remaining_time:float = 0
 
+func is_same_as(other:GUIDETrigger) -> bool:
+	if not other is GUIDETriggerCombo:
+		return false
+	if steps.size() != other.steps.size():
+		return false
+	if cancellation_actions.size() != other.cancellation_actions.size():
+		return false
+		
+	for i in range(steps.size()):
+		if not steps[i].is_same_as(other.steps[i]):
+			return false
+			
+	for i in range(cancellation_actions.size()):
+		if not cancellation_actions[i].is_same_as(other.cancellation_actions[i]):
+			return false
+			
+	return true
+
 func _update_state(input:Vector3, delta:float, value_type:GUIDEAction.GUIDEActionValueType) -> GUIDETriggerState:
 	if steps.is_empty():
 		push_warning("Combo with no steps will never fire.")

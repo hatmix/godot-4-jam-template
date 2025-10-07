@@ -136,8 +136,12 @@ func detect(value_type:GUIDEAction.GUIDEActionValueType,
 	_value_type = value_type
 	_device_types = device_types
 	_timer.stop()
-	_timer.start(detection_countdown_seconds)
-
+	
+	if detection_countdown_seconds > 0:
+		_timer.start(detection_countdown_seconds)
+	else:
+		_begin_detection.call_deferred()
+		
 ## This is called by the timer when the countdown has elapsed.
 func _begin_detection():
 	# set status to detecting
@@ -182,6 +186,9 @@ func _process(delta: float) -> void:
 	if _status != DetectionState.WAITING_FOR_INPUT_CLEAR:
 		set_process(false)
 		return
+
+	# Call end of frame handler to process the abortion input
+	_input_state._reset()
 
 	# check if the input is still actuated. We do this to avoid the problem
 	# of this input accidentally triggering something in the mapping contexts

@@ -11,6 +11,10 @@ extends GUIDEModifier
 		relative_input = value
 		emit_changed()
 
+func is_same_as(other:GUIDEModifier) -> bool:
+	return other is GUIDEModifierCanvasCoordinates and \
+		relative_input == other.relative_input
+
 func _modify_input(input:Vector3, delta:float, value_type:GUIDEAction.GUIDEActionValueType) -> Vector3:
 	if not input.is_finite():
 		return Vector3.INF

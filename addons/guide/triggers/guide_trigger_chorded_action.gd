@@ -6,6 +6,10 @@ extends GUIDETrigger
 
 @export var action:GUIDEAction
 
+func is_same_as(other:GUIDETrigger) -> bool:
+	if not other is GUIDETriggerChordedAction:
+		return false
+	return action == other.action
 
 func _get_trigger_type() -> GUIDETriggerType: 
 	return GUIDETriggerType.IMPLICIT

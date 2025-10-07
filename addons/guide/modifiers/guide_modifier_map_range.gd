@@ -30,6 +30,17 @@ extends GUIDEModifier
 var _omin:float
 var _omax:float
 
+func is_same_as(other:GUIDEModifier) -> bool:
+	return other is GUIDEModifierMapRange and \
+		apply_clamp == other.apply_clamp and \
+		x == other.x and \
+		y == other.y and \
+		z == other.z and \
+		is_equal_approx(input_min, other.input_min) and \
+		is_equal_approx(input_max, other.input_max) and \
+		is_equal_approx(output_min, other.output_min) and \
+		is_equal_approx(output_max, other.output_max)
+
 func _begin_usage():
 	# we calculate the min and max of the output range here, so we can use them later and don't have to
 	# recalculate them every time the modifier is used

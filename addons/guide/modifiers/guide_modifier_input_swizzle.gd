@@ -19,6 +19,9 @@ enum GUIDEInputSwizzleOperation {
 ## The new order into which the input should be brought.
 @export var order:GUIDEInputSwizzleOperation = GUIDEInputSwizzleOperation.YXZ
 
+func is_same_as(other:GUIDEModifier) -> bool:
+	return other is GUIDEModifierInputSwizzle and \
+		order == other.order
 
 func _modify_input(input:Vector3, delta:float, value_type:GUIDEAction.GUIDEActionValueType) -> Vector3:
 	match order:

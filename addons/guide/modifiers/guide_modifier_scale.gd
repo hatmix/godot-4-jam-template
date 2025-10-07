@@ -16,6 +16,10 @@ extends GUIDEModifier
 		apply_delta_time = value
 		emit_changed()
 
+func is_same_as(other:GUIDEModifier) -> bool:
+	return other is GUIDEModifierScale and \
+		apply_delta_time == other.apply_delta_time and \
+		scale.is_equal_approx(other.scale)
 
 func _modify_input(input:Vector3, delta:float, value_type:GUIDEAction.GUIDEActionValueType) -> Vector3:
 	if not input.is_finite():

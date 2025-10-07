@@ -85,12 +85,12 @@ func _update():
 
 func _on_modifiers_add_requested():
 	_fill_popup(_add_modifier_popup, "GUIDEModifier")
-	_add_modifier_popup.popup(Rect2(get_global_mouse_position(), Vector2.ZERO))
+	_add_modifier_popup.popup(Rect2(get_screen_position() + get_local_mouse_position(), Vector2.ZERO))
 
 
 func _on_triggers_add_requested():
 	_fill_popup(_add_trigger_popup, "GUIDETrigger")
-	_add_trigger_popup.popup(Rect2(get_global_mouse_position(), Vector2.ZERO))
+	_add_trigger_popup.popup(Rect2(get_screen_position() + get_local_mouse_position(), Vector2.ZERO))
 	
 	
 func _fill_popup(popup:PopupMenu, base_clazz:StringName):

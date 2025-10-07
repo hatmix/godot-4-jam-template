@@ -4,12 +4,15 @@
 class_name GUIDETriggerReleased
 extends GUIDETrigger
 
+func is_same_as(other: GUIDETrigger) -> bool:
+	return other is GUIDETriggerReleased
 
-func _update_state(input:Vector3, delta:float, value_type:GUIDEAction.GUIDEActionValueType) -> GUIDETriggerState:
+
+func _update_state(input: Vector3, delta: float, value_type: GUIDEAction.GUIDEActionValueType) -> GUIDETriggerState:
 	if not _is_actuated(input, value_type):
 		if _is_actuated(_last_value, value_type):
 			return GUIDETriggerState.TRIGGERED
-		
+	
 	return GUIDETriggerState.NONE
 
 

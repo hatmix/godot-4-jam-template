@@ -8,6 +8,11 @@ var completion_events:int = GUIDETriggerCombo.ActionEventType.TRIGGERED
 @export var time_to_actuate:float = 0.5
 
 
+func is_same_as(other:GUIDETriggerComboStep) -> bool:
+	return action == other.action and \
+		completion_events == other.completion_events and \
+		is_equal_approx(time_to_actuate, other.time_to_actuate)
+
 var _has_fired:bool = false
 
 func _prepare():

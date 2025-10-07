@@ -3,6 +3,11 @@
 class_name GUIDEModifier
 extends Resource
 
+## Returns whether this modifier is the same as the other modifier.
+## This is used to determine if a modifier can be reused during context switching.
+func is_same_as(other:GUIDEModifier) -> bool:
+	return self == other
+
 ## Called when the modifier is started to be used by GUIDE. Can be used to perform
 ## initializations.
 func _begin_usage() -> void :
@@ -13,11 +18,14 @@ func _begin_usage() -> void :
 func _end_usage() -> void:
 	pass
 
+## Called to modify the input value before it is passed to the triggers.
 func _modify_input(input:Vector3, delta:float, value_type:GUIDEAction.GUIDEActionValueType) -> Vector3:
 	return input
 
+## The name as it should be displayed in the editor.
 func _editor_name() -> String:
 	return ""
 
+## The description as it should be displayed in the editor.
 func _editor_description() -> String:
 	return ""

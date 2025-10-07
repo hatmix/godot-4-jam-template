@@ -118,9 +118,14 @@ func _refresh() -> void:
 
 func is_same_as(other:GUIDEInput) -> bool:
 	return other is GUIDEInputAny and \
-		other.mouse == mouse and \
-		other.joy == joy and \
-		other.keyboard == keyboard 
+		mouse_buttons == other.mouse_buttons and \
+		mouse_movement == other.mouse_movement and \
+		joy_buttons == other.joy_buttons and \
+		joy_axes == other.joy_axes and \
+		keyboard == other.keyboard and \
+		touch == other.touch and \
+		is_equal_approx(minimum_mouse_movement_distance, other.minimum_mouse_movement_distance) and \
+		is_equal_approx(minimum_joy_axis_actuation_strength, other.minimum_joy_axis_actuation_strength)
 
 func _editor_name() -> String:
 	return "Any Input"

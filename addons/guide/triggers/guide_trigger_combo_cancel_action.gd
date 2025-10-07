@@ -8,6 +8,10 @@ var completion_events:int = GUIDETriggerCombo.ActionEventType.TRIGGERED
 
 var _has_fired:bool = false
 
+func is_same_as(other:GUIDETriggerComboCancelAction) -> bool:
+	return action == other.action and \
+		completion_events == other.completion_events
+
 func _prepare():
 	if completion_events & GUIDETriggerCombo.ActionEventType.TRIGGERED:
 		action.triggered.connect(_fired)

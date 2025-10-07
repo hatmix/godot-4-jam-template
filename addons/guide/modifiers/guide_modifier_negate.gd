@@ -32,6 +32,12 @@ extends GUIDEModifier
 
 var _multiplier:Vector3 = Vector3.ONE * -1
 
+func is_same_as(other:GUIDEModifier) -> bool:
+	return other is GUIDEModifierNegate and \
+		x == other.x and \
+		y == other.y and \
+		z == other.z
+
 func _update_caches():
 	_multiplier.x = -1 if x else 1
 	_multiplier.y = -1 if y else 1

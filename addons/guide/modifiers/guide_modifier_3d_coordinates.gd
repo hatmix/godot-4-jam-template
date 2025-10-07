@@ -14,6 +14,12 @@ extends GUIDEModifier
 ## Collision mask to use for the ray cast.
 @export_flags_3d_physics var collision_mask:int
 
+func is_same_as(other:GUIDEModifier) -> bool:
+	return other is GUIDEModifier3DCoordinates and \
+		collide_with_areas == other.collide_with_areas and \
+		collision_mask == other.collision_mask and \
+		is_equal_approx(max_depth, other.max_depth)
+
 
 func _modify_input(input:Vector3, delta:float, value_type:GUIDEAction.GUIDEActionValueType) -> Vector3:
 	# if we collide with nothing, no need to even try
