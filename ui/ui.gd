@@ -1,31 +1,29 @@
 extends CanvasLayer
 
+signal preset_ready
+
+var is_preset_ready: bool = false
 
 # TODO: consider using the hide_ui and show_ui functions to add ui animation
 func hide_ui(page: Variant = null) -> void:
 	if page:
 		var ui_page: UiPage = _resolve_ui_page(page)
-		if ui_page:
-			if ui_page.has_method("hide_ui"):
-				await ui_page.hide_ui()
-			else:
-				ui_page.hide()
+		if ui_page and ui_page.visible:
+			await ui_page.hide_ui()
 	else:
 		for child: Node in get_children():
 			if child is UiPage and child.visible:
-				if child.has_method("hide_ui"):
-					await child.hide_ui()
-				else:
-					child.hide()
+				await child.hide_ui()
+				child.hide()
 
 
 func show_ui(page: Variant) -> void:
+	print("show_ui ", page)
 	var ui_page: UiPage = _resolve_ui_page(page)
 	if ui_page:
+		ui_page.show()
 		if ui_page.has_method("show_ui"):
 			await ui_page.show_ui()
-		else:
-			ui_page.show()
 		# Uncomment to capture screenshots in media/ folder
 		# Must wait for visibility changes and one frame is not enough
 		#await get_tree().create_timer(0.2).timeout
@@ -34,7 +32,7 @@ func show_ui(page: Variant) -> void:
 
 
 func go_to(page: Variant) -> void:
-	hide_ui()
+	await hide_ui()
 	show_ui(page)
 
 
@@ -58,13 +56,21 @@ func _resolve_ui_page(node_or_name: Variant) -> Node:
 
 func _ready() -> void:
 	get_viewport().gui_focus_changed.connect(_on_focus_changed)
-	hide()
+	visible = false
 	for child: Node in get_children():
 		if child is UiPage:
 			#print("injecting ui in ", child.name)
 			child.set("ui", self)
-			child.hide()
-	show()
+	_preset_all_at_ready.call_deferred()
+
+
+func _preset_all_at_ready() -> void:
+	for child: Node in get_children():
+		if child is UiPage:
+			await child.preset_ui()
+	visible = true
+	is_preset_ready = true
+	preset_ready.emit()
 
 
 func _unhandled_input(event: InputEvent) -> void:

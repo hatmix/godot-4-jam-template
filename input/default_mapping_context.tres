@@ -14,114 +14,68 @@
 [sub_resource type="Resource" id="Resource_sd0dg"]
 script = ExtResource("4_w8q5f")
 key = 87
-shift = false
-control = false
-alt = false
-meta = false
-allow_additional_modifiers = true
 
 [sub_resource type="Resource" id="Resource_hwg04"]
 script = ExtResource("6_mm7up")
-x = true
-y = true
-z = true
 
 [sub_resource type="Resource" id="Resource_x42ip"]
 script = ExtResource("7_31sda")
-order = 0
 
 [sub_resource type="Resource" id="Resource_5hqld"]
 script = ExtResource("3_mbp6c")
 override_action_settings = true
 is_remappable = true
 display_name = "Move Up"
-display_category = ""
 input = SubResource("Resource_sd0dg")
 modifiers = Array[ExtResource("5_irygv")]([SubResource("Resource_hwg04"), SubResource("Resource_x42ip")])
-triggers = Array[ExtResource("7_7eb4v")]([])
 
 [sub_resource type="Resource" id="Resource_go01m"]
 script = ExtResource("4_w8q5f")
 key = 65
-shift = false
-control = false
-alt = false
-meta = false
-allow_additional_modifiers = true
 
 [sub_resource type="Resource" id="Resource_r1ke3"]
 script = ExtResource("6_mm7up")
-x = true
-y = true
-z = true
 
 [sub_resource type="Resource" id="Resource_7wj6h"]
 script = ExtResource("3_mbp6c")
 override_action_settings = true
 is_remappable = true
 display_name = "Move Left"
-display_category = ""
 input = SubResource("Resource_go01m")
 modifiers = Array[ExtResource("5_irygv")]([SubResource("Resource_r1ke3")])
-triggers = Array[ExtResource("7_7eb4v")]([])
 
 [sub_resource type="Resource" id="Resource_jh3mp"]
 script = ExtResource("4_w8q5f")
 key = 83
-shift = false
-control = false
-alt = false
-meta = false
-allow_additional_modifiers = true
 
 [sub_resource type="Resource" id="Resource_wv2l4"]
 script = ExtResource("7_31sda")
-order = 0
 
 [sub_resource type="Resource" id="Resource_q7ccb"]
 script = ExtResource("3_mbp6c")
 override_action_settings = true
 is_remappable = true
 display_name = "Move Down"
-display_category = ""
 input = SubResource("Resource_jh3mp")
 modifiers = Array[ExtResource("5_irygv")]([SubResource("Resource_wv2l4")])
-triggers = Array[ExtResource("7_7eb4v")]([])
 
 [sub_resource type="Resource" id="Resource_vkgdo"]
 script = ExtResource("4_w8q5f")
 key = 68
-shift = false
-control = false
-alt = false
-meta = false
-allow_additional_modifiers = true
 
 [sub_resource type="Resource" id="Resource_ei4s7"]
 script = ExtResource("3_mbp6c")
 override_action_settings = true
 is_remappable = true
 display_name = "Move Right"
-display_category = ""
 input = SubResource("Resource_vkgdo")
-modifiers = Array[ExtResource("5_irygv")]([])
-triggers = Array[ExtResource("7_7eb4v")]([])
 
 [sub_resource type="Resource" id="Resource_4telq"]
 script = ExtResource("9_e7dyu")
-x = 0
-y = 1
-joy_index = -1
 
 [sub_resource type="Resource" id="Resource_qk04t"]
 script = ExtResource("3_mbp6c")
-override_action_settings = false
-is_remappable = false
-display_name = ""
-display_category = ""
 input = SubResource("Resource_4telq")
-modifiers = Array[ExtResource("5_irygv")]([])
-triggers = Array[ExtResource("7_7eb4v")]([])
 
 [sub_resource type="Resource" id="Resource_g4jrb"]
 script = ExtResource("1_40pm3")
@@ -130,5 +84,4 @@ input_mappings = Array[ExtResource("3_mbp6c")]([SubResource("Resource_5hqld"), S
 
 [resource]
 script = ExtResource("2_qam70")
-display_name = ""
 mappings = Array[ExtResource("1_40pm3")]([SubResource("Resource_g4jrb")])

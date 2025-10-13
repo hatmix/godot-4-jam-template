@@ -6,7 +6,7 @@ func _ready() -> void:
 	call_deferred("_connect_buttons")
 	if OS.get_name() == "Web":
 		%Exit.hide()
-
+	
 
 func _connect_buttons() -> void:
 	if ui:

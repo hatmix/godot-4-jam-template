@@ -6,4 +6,6 @@ extends Node2D
 
 
 func _ready() -> void:
+	if not $UI.is_preset_ready:
+		await $UI.preset_ready
 	$UI.show_ui("Game")

@@ -10,5 +10,6 @@ func _ready() -> void:
 
 
 func show_main_menu() -> void:
-	await get_tree().create_timer(0.5).timeout
+	if not $UI.is_preset_ready:
+		await $UI.preset_ready
 	$UI.show_ui("MainMenu")
