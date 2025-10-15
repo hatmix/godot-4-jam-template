@@ -15,21 +15,10 @@ func display(text: String) -> void:
 	text_node.text = text
 	text_node.modulate = message_color
 
-	scale = Vector2.ZERO
 	visible = true
 
-	var tween: Tween = get_tree().create_tween().set_trans(Tween.TRANS_EXPO).set_ease(
-		Tween.EASE_IN_OUT
-	)
-	tween.tween_property(self, "scale", Vector2.ONE, 0.4)
-	await get_tree().create_timer(2.0).timeout
-	tween = (
-		get_tree()
-		. create_tween()
-		. set_trans(Tween.TRANS_EXPO)
-		. set_ease(Tween.EASE_IN_OUT)
-		. set_parallel(true)
-	)
+	var tween: Tween = get_tree().create_tween()
+	tween.tween_interval(2.0)
 	tween.tween_property(self, "modulate", Color(Color.WHITE, 0.0), 1.0)
 	await tween.finished
 	queue_free()
