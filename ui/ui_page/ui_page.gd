@@ -1,3 +1,4 @@
+@icon("res://ui/ui_page/ui-page-icon.svg")
 class_name UiPage
 extends Control
 
