@@ -1,0 +1,89 @@
+[gd_scene load_steps=2 format=3 uid="uid://c31bw3nk5ujvg"]
+
+[ext_resource type="Script" uid="uid://de7x8mivrhisn" path="res://src/ui/settings/settings.gd" id="1_dabjx"]
+
+[node name="Settings" type="Control" node_paths=PackedStringArray("default_focus_control")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_dabjx")
+default_focus_control = NodePath("HBoxContainer/Back")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -269.0
+offset_top = -54.0
+offset_right = 269.0
+offset_bottom = 54.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Settings"
+horizontal_alignment = 1
+
+[node name="Audio" type="GridContainer" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+columns = 2
+
+[node name="MasterLabel" type="Label" parent="VBoxContainer/Audio"]
+layout_mode = 2
+text = "Main"
+
+[node name="Master" type="HSlider" parent="VBoxContainer/Audio"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+value = 100.0
+
+[node name="MusicLabel" type="Label" parent="VBoxContainer/Audio"]
+layout_mode = 2
+text = "Music"
+
+[node name="Music" type="HSlider" parent="VBoxContainer/Audio"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+value = 100.0
+
+[node name="SfxLabel" type="Label" parent="VBoxContainer/Audio"]
+layout_mode = 2
+text = "Effects"
+
+[node name="SFX" type="HSlider" parent="VBoxContainer/Audio"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+value = 100.0
+ticks_on_borders = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -32.0
+offset_top = -22.0
+offset_right = 32.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Back" type="Button" parent="HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Back"

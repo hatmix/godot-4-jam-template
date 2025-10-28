@@ -7,6 +7,6 @@ extends GdUnitTestSuite
 
 # Ensure the UI "page" can be run directly for development convenience
 func test_as_run_current_scene() -> void:
-	var runner: GdUnitSceneRunner = scene_runner("res://ui/credits/credits.tscn")
+	var runner: GdUnitSceneRunner = scene_runner("res://src/ui/credits/credits.tscn")
 	# Since we use string names when connecting buttons
 	assert_str(runner.scene().name).is_equal("Credits")

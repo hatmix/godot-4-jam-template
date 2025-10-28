@@ -1,0 +1,21 @@
+[gd_scene load_steps=2 format=3 uid="uid://xyqp4vhj6251"]
+
+[ext_resource type="Script" uid="uid://cb47qntox38p8" path="res://src/ui/thanks_for_playing/thanks_for_playing.gd" id="1_fjjl0"]
+
+[node name="ThanksForPlaying" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_fjjl0")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 2

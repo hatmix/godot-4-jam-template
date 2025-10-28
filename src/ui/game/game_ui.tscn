@@ -1,0 +1,46 @@
+[gd_scene load_steps=3 format=3 uid="uid://bojsla6nqcf03"]
+
+[ext_resource type="Script" uid="uid://c54tgk2t02l5" path="res://src/ui/game/game_ui.gd" id="1_67una"]
+[ext_resource type="PackedScene" uid="uid://dkr80d2pi0d41" path="res://addons/guide/debugger/guide_debugger.tscn" id="2_li4ca"]
+
+[node name="Game" type="Control" node_paths=PackedStringArray("default_focus_control")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("1_67una")
+prevent_joypad_focus_capture = true
+default_focus_control = NodePath("VBoxContainer/ToggleGuideDebugger")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -33.5
+offset_right = 33.5
+offset_bottom = 23.0
+grow_horizontal = 2
+text = "Game UI"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 285.0
+grow_vertical = 2
+
+[node name="ToggleGuideDebugger" type="CheckButton" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "GUIDE Debugger"
+
+[node name="GuideDebugger" parent="VBoxContainer" instance=ExtResource("2_li4ca")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3

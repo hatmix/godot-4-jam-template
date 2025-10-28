@@ -1,0 +1,31 @@
+[gd_scene load_steps=2 format=3 uid="uid://dtrluvg5ox2vb"]
+
+[ext_resource type="Script" uid="uid://bxt32pijs8kgg" path="res://src/ui/notifications/message_board.gd" id="1_y2nll"]
+
+[node name="MessageQueue" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_y2nll")
+prevent_joypad_focus_capture = true
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[node name="Messages" type="VBoxContainer" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(320, 100)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -160.0
+offset_top = 4.0
+offset_right = 160.0
+offset_bottom = 104.0
+grow_horizontal = 2
+mouse_filter = 2

@@ -1,0 +1,60 @@
+[gd_scene load_steps=3 format=3 uid="uid://3s7lo7jd53un"]
+
+[ext_resource type="Script" uid="uid://cigybgnutbecy" path="res://src/ui/pause_menu/pause_menu.gd" id="1_fpgrf"]
+[ext_resource type="PackedScene" uid="uid://dgxrcxbe8s24d" path="res://src/ui/build_info/build_info.tscn" id="2_q2yd3"]
+
+[node name="PauseMenu" type="Control" node_paths=PackedStringArray("default_focus_control")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_fpgrf")
+default_focus_control = NodePath("Buttons/Resume")
+
+[node name="Buttons" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -35.0
+offset_top = -50.5
+offset_right = 35.0
+offset_bottom = 50.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Resume" type="Button" parent="Buttons"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Resume"
+
+[node name="Settings" type="Button" parent="Buttons"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Settings"
+
+[node name="Controls" type="Button" parent="Buttons"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Controls"
+
+[node name="Quit" type="Button" parent="Buttons"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Quit"
+
+[node name="BuildInfo" parent="." instance=ExtResource("2_q2yd3")]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -25.0
+offset_top = -12.0
+grow_horizontal = 0
+grow_vertical = 0

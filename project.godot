@@ -12,7 +12,7 @@ config_version=5
 
 config/name="Godot-4-Jam-Template"
 config/description="Godot 4 template project for game jams"
-run/main_scene="res://main.tscn"
+run/main_scene="res://src/main.tscn"
 config/features=PackedStringArray("4.5")
 boot_splash/bg_color=Color(0.0784314, 0.133333, 0.25098, 1)
 boot_splash/show_image=false
@@ -20,9 +20,9 @@ config/icon="res://icon.png"
 
 [autoload]
 
-Settings="*res://autoloads/settings.gd"
-Globals="*res://autoloads/globals.gd"
-Utils="*res://autoloads/utils.gd"
+Settings="*res://src/autoloads/settings.gd"
+Globals="*res://src/autoloads/globals.gd"
+Utils="*res://src/autoloads/utils.gd"
 GUIDE="*res://addons/guide/guide.gd"
 
 [debug]
@@ -51,12 +51,15 @@ enabled=PackedStringArray("res://addons/Todo_Manager/plugin.cfg", "res://addons/
 
 folder_colors={
 "res://addons/": "red",
-"res://autoloads/": "yellow",
 "res://exports/": "gray",
-"res://game/": "green",
-"res://input/": "teal",
-"res://test/": "orange",
-"res://ui/": "blue"
+"res://src/": "orange",
+"res://src/autoloads/": "yellow",
+"res://src/game/": "green",
+"res://src/input/": "teal",
+"res://src/ui/": "blue",
+"res://test/": "purple",
+"res://test/ui/": "purple",
+"res://test/ui_test/": "purple"
 }
 
 [gdunit4]
@@ -71,7 +74,7 @@ auto_rebuild=true
 
 [gui]
 
-theme/custom="res://ui/ui_theme.tres"
+theme/custom="res://src/ui/ui_theme.tres"
 
 [input]
 

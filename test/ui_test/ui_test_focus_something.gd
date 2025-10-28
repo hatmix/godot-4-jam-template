@@ -15,7 +15,7 @@ extends GdUnitTestSuite
 
 
 func test__focus_something() -> void:
-	var runner: GdUnitSceneRunner = scene_runner("res://ui/ui.tscn")
+	var runner: GdUnitSceneRunner = scene_runner("res://src/ui/ui.tscn")
 
 	var pages: Array[Node] = runner.scene().get_children()
 	for page: Node in pages:
