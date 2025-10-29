@@ -1,6 +1,6 @@
 extends Node
 
-enum Section { AUDIO }
+enum Section { AUDIO, DISPLAY }
 
 const CONTROLS_FILE: String = "user://controls.tres"
 const SETTINGS_FILE: String = "user://settings.cfg"
