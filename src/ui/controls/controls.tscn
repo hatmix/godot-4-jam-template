@@ -19,65 +19,59 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ypuet")
 remap_mapping_contexts = Array[ExtResource("2_v7gdq")]([ExtResource("3_b2afy")])
-icon_size = 48
+icon_size = 32
 default_focus_control = NodePath("Buttons/Back")
 
-[node name="TabContainer" type="TabContainer" parent="."]
-custom_minimum_size = Vector2(500, 280)
+[node name="BoxContainer" type="BoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_top = -115.5
-offset_bottom = 115.5
+offset_left = -96.5
+offset_top = -13.5
+offset_right = 96.5
+offset_bottom = 13.5
 grow_horizontal = 2
 grow_vertical = 2
-tab_alignment = 1
-current_tab = 0
-use_hidden_tabs_for_min_size = true
+theme_override_constants/separation = 40
+alignment = 1
 
-[node name="Keyboard" type="ScrollContainer" parent="TabContainer"]
-custom_minimum_size = Vector2(500, 249)
+[node name="VBoxContainer" type="VBoxContainer" parent="BoxContainer"]
 layout_mode = 2
-size_flags_vertical = 3
-follow_focus = true
-metadata/_tab_index = 0
+size_flags_horizontal = 4
+size_flags_vertical = 0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Keyboard"]
+[node name="Label" type="Label" parent="BoxContainer/VBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
+text = "Keyboard"
+horizontal_alignment = 1
 
-[node name="KeyboardMouseActions" type="GridContainer" parent="TabContainer/Keyboard/VBoxContainer"]
+[node name="KeyboardMouseActions" type="GridContainer" parent="BoxContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
-size_flags_vertical = 6
+size_flags_vertical = 3
 theme_override_constants/h_separation = 20
 theme_override_constants/v_separation = 4
 columns = 2
 
-[node name="Controller" type="ScrollContainer" parent="TabContainer"]
-visible = false
-custom_minimum_size = Vector2(500, 249)
+[node name="VBoxContainer2" type="VBoxContainer" parent="BoxContainer"]
 layout_mode = 2
-size_flags_vertical = 3
-follow_focus = true
-horizontal_scroll_mode = 0
-metadata/_tab_index = 1
+size_flags_horizontal = 4
+size_flags_vertical = 0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Controller"]
+[node name="Label" type="Label" parent="BoxContainer/VBoxContainer2"]
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
+text = "Controller"
+horizontal_alignment = 1
 
-[node name="ControllerActions" type="GridContainer" parent="TabContainer/Controller/VBoxContainer"]
+[node name="ControllerActions" type="GridContainer" parent="BoxContainer/VBoxContainer2"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
-size_flags_vertical = 6
+size_flags_vertical = 3
 theme_override_constants/h_separation = 20
 theme_override_constants/v_separation = 4
 columns = 2

@@ -19,16 +19,25 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -269.0
-offset_top = -54.0
-offset_right = 269.0
-offset_bottom = 54.0
+offset_left = -182.5
+offset_top = -118.5
+offset_right = 182.5
+offset_bottom = 118.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Label" type="Label" parent="VBoxContainer"]
+[node name="SettingsLabel" type="Label" parent="VBoxContainer"]
 layout_mode = 2
 text = "Settings"
+horizontal_alignment = 1
+
+[node name="Spacer" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+horizontal_alignment = 1
+
+[node name="VolumeLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Volume"
 horizontal_alignment = 1
 
 [node name="Audio" type="GridContainer" parent="VBoxContainer"]
@@ -69,6 +78,40 @@ size_flags_vertical = 4
 value = 100.0
 ticks_on_borders = true
 
+[node name="Spacer2" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+horizontal_alignment = 1
+
+[node name="DisplayLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Display"
+horizontal_alignment = 1
+
+[node name="GridContainer" type="GridContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+columns = 2
+
+[node name="UiScaleLabel" type="Label" parent="VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "UI Scale"
+
+[node name="UiScale" type="HSlider" parent="VBoxContainer/GridContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+min_value = 0.5
+max_value = 1.25
+step = 0.01
+value = 1.0
+ticks_on_borders = true
+
+[node name="Spacer3" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+horizontal_alignment = 1
+
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 7
@@ -76,12 +119,12 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -32.0
-offset_top = -22.0
-offset_right = 32.0
-offset_bottom = -4.0
+offset_left = -22.5
+offset_top = -31.0
+offset_right = 22.5
 grow_horizontal = 2
 grow_vertical = 0
+size_flags_horizontal = 4
 
 [node name="Back" type="Button" parent="HBoxContainer"]
 unique_name_in_owner = true

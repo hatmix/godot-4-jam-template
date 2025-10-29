@@ -15,6 +15,8 @@ func _ready() -> void:
 	for control: HSlider in %Audio.find_children("*", "HSlider"):
 		control.value_changed.connect(_on_audio_hslider_value_changed.bind(control.name))
 
+	%UiScale.value_changed.connect(_on_ui_scale_value_changed)
+
 
 func _input(event: InputEvent) -> void:
 	if not visible:
@@ -42,3 +44,7 @@ func _update_audio_sliders() -> void:
 		var control: Slider = %Audio.find_child(bus_name)
 		if control:
 			control.value = int(settings_level)
+
+
+func _on_ui_scale_value_changed(v: float) -> void:
+	get_viewport().content_scale_factor = v
