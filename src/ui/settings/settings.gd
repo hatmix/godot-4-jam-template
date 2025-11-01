@@ -53,7 +53,7 @@ func _update_audio_sliders() -> void:
 
 func _on_ui_scale_value_changed(value: float) -> void:
 	get_viewport().content_scale_factor = value
-	if Settings.get_value(Settings.Section.DISPLAY, "ui_scale", null) != value:
+	if Settings.get_value(Settings.Section.DISPLAY, "ui_scale", 1.0) != value:
 		Settings.set_value(Settings.Section.DISPLAY, "ui_scale", value)
 
 

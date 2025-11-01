@@ -35,6 +35,7 @@ script = ExtResource("5_n6lj8")
 [node name="Settings" parent="." instance=ExtResource("9_jqbk6")]
 
 [node name="Controls" parent="." instance=ExtResource("11_w3b35")]
+icon_size = 64
 
 [node name="MainMenu" parent="." instance=ExtResource("2_7jndn")]
 

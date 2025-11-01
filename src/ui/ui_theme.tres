@@ -1,6 +1,6 @@
 [gd_resource type="Theme" load_steps=5 format=3 uid="uid://douptobb2vwx8"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1eq05"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cjtra"]
 bg_color = Color(1, 1, 1, 0)
 border_width_left = 2
 border_width_top = 2
@@ -12,21 +12,21 @@ corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_udl1o"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wksio"]
 bg_color = Color(1, 1, 1, 0)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
-border_color = Color(0.411765, 0.411765, 0.411765, 1)
+border_color = Color(0.4117647, 0.4117647, 0.4117647, 1)
 corner_radius_top_left = 2
 corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4mq11"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lupir"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vuqvt"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xm6e3"]
 bg_color = Color(1, 1, 1, 0)
 border_width_left = 2
 border_width_top = 2
@@ -39,12 +39,13 @@ corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 
 [resource]
-Button/colors/font_color = Color(0.87451, 0.87451, 0.87451, 1)
+default_font_size = 48
+Button/colors/font_color = Color(0.8745098, 0.8745098, 0.8745098, 1)
 MessageLabel/base_type = &"Label"
 MessagePanelContainer/base_type = &"PanelContainer"
 RemapButton/base_type = &"Button"
-RemapButton/styles/focus = SubResource("StyleBoxFlat_1eq05")
-RemapButton/styles/hover = SubResource("StyleBoxFlat_udl1o")
-RemapButton/styles/normal = SubResource("StyleBoxEmpty_4mq11")
-RemapButton/styles/pressed = SubResource("StyleBoxFlat_vuqvt")
+RemapButton/styles/focus = SubResource("StyleBoxFlat_cjtra")
+RemapButton/styles/hover = SubResource("StyleBoxFlat_wksio")
+RemapButton/styles/normal = SubResource("StyleBoxEmpty_lupir")
+RemapButton/styles/pressed = SubResource("StyleBoxFlat_xm6e3")
 RemapRichTextLabel/base_type = &"RichTextLabel"
