@@ -4,6 +4,7 @@ signal preset_ready
 
 var is_preset_ready: bool = false
 
+
 # TODO: consider using the hide_ui and show_ui functions to add ui animation
 func hide_ui(page: Variant = null) -> void:
 	if page:
@@ -59,7 +60,7 @@ func _ready() -> void:
 	visible = false
 	for child: Node in get_children():
 		if child is UiPage:
-			#print("injecting ui in ", child.name)
+			# inject ui in child page
 			child.set("ui", self)
 	_preset_all_at_ready.call_deferred()
 
