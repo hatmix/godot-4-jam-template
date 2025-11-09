@@ -63,6 +63,7 @@ func load_settings() -> void:
 
 func _init_timer() -> void:
 	_timer = Timer.new()
+	_timer.process_mode = Node.PROCESS_MODE_ALWAYS
 	_timer.one_shot = true
 	_timer.timeout.connect(save_settings)
 	add_child(_timer)

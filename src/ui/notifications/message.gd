@@ -18,6 +18,7 @@ func display(text: String) -> void:
 	visible = true
 
 	var tween: Tween = get_tree().create_tween()
+	tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
 	tween.tween_interval(2.0)
 	tween.tween_property(self, "modulate", Color(Color.WHITE, 0.0), 1.0)
 	await tween.finished
