@@ -1,5 +1,10 @@
 extends Node
 
+@warning_ignore("unused_signal")
+# For 2D games, camera zoom must be divided by scale_factor to keep the same
+# view of the game area as the UI is scaled up/down
+signal ui_scale_changed(scale_factor: float)
+
 enum Section { AUDIO, DISPLAY }
 
 const CONTROLS_FILE: String = "user://controls.tres"

@@ -51,15 +51,15 @@ func _update_audio_sliders() -> void:
 #endregion
 
 
+func _init_display() -> void:
+	%UiScale.value_changed.connect(_on_ui_scale_value_changed)
+
+
 func _on_ui_scale_value_changed(value: float) -> void:
 	get_viewport().content_scale_factor = value
 	if Settings.get_value(Settings.Section.DISPLAY, "ui_scale", 1.0) != value:
 		Settings.set_value(Settings.Section.DISPLAY, "ui_scale", value)
-
-
-func _init_display() -> void:
-	%UiScale.value_changed.connect(_on_ui_scale_value_changed)
-
+		Settings.ui_scale_changed.emit(value)
 	
 func _update_display() -> void:
 	var settings_level: Variant = Settings.get_value(
