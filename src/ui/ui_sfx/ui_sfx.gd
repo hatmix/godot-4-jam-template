@@ -1,5 +1,6 @@
 extends Node
 
+# TODO: Change or remove UI sound effects in code here, or in the scene with the inspector
 @export var sfx_button_click: AudioStream = preload("res://src/ui/assets/audio/click1.ogg"):
 	set(v):
 		sfx_button_click = v

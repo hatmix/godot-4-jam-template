@@ -15,10 +15,13 @@ func preset_ui() -> void:
 	#scale = Vector2.ZERO
 	visible = false
 
-
+# TODO: consider using the hide_ui and show_ui to add ui animation
+# The commented example here adds a scaling pop in effect to every UiPage
+# Each UiPage can provide its own animation by extending the script and 
+# overiding the methods (Note that template UiPages already have extended
+# scripts attached)
 func hide_ui() -> void:
 	#var tween: Tween = create_tween()
-	#tween.tween_property(self, "position:x", -640, 0.2)
 	#tween.tween_property(self, "scale", Vector2.ZERO, 0.15).set_trans(Tween.TRANS_SINE)
 	#await tween.finished
 	visible = false
@@ -27,7 +30,6 @@ func hide_ui() -> void:
 func show_ui() -> void:
 	visible = true
 	#var tween: Tween = create_tween()
-	#tween.tween_property(self, "position:x", 0, 0.2)
 	#tween.tween_property(self, "scale", Vector2.ONE, 0.15).set_trans(Tween.TRANS_SINE)
 	#await tween.finished
 

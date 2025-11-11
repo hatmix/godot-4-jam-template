@@ -1,7 +1,11 @@
 extends UiPage
 
 
-# Called when the node enters the scene tree for the first time.
+func show_ui() -> void:
+	ui.pause_move_to_front()
+	visible = true
+
+
 func _ready() -> void:
 	call_deferred("_connect_buttons")
 
