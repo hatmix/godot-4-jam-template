@@ -22,7 +22,6 @@ config/icon="res://icon.png"
 
 Settings="*res://src/autoloads/settings.gd"
 Globals="*res://src/autoloads/globals.gd"
-Utils="*res://src/autoloads/utils.gd"
 GUIDE="*res://addons/guide/guide.gd"
 
 [debug]
