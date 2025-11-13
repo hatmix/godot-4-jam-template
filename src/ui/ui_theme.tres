@@ -39,7 +39,7 @@ corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 
 [resource]
-default_font_size = 48
+default_font_size = 24
 Button/colors/font_color = Color(0.8745098, 0.8745098, 0.8745098, 1)
 MessageLabel/base_type = &"Label"
 MessagePanelContainer/base_type = &"PanelContainer"

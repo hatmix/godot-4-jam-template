@@ -6,6 +6,7 @@ var _audio_bus_name_idx_mapping: Dictionary = {}
 func _ready() -> void:
 	Settings.load_settings()
 	%Back.pressed.connect(go_back)
+	%ResetScale.pressed.connect(func() -> void: %UiScale.value = 1)
 	_init_audio_sliders()
 	_update_audio_sliders.call_deferred()
 	_init_display()

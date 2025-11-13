@@ -19,5 +19,5 @@ func _connect_buttons() -> void:
 
 
 func _start_game() -> void:
-	# TODO: Consider adding some kind of scene transition
+	# TODO: Consider adding scene transition
 	get_tree().change_scene_to_file("res://src/game/game.tscn")
