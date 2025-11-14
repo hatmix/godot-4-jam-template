@@ -10,6 +10,14 @@ func _ready() -> void:
 	if OS.has_feature("web_android") or OS.has_feature("web_ios") or \
 		(Globals.show_virtual_controls and OS.has_feature("debug")):
 			should_show = true
+			_connect_signal.call_deferred()
+
+
+func _connect_signal() -> void:
+	if not is_instance_valid(ui):
+		push_error("%s UiPage could not get reference to UI parent", name)
+		return
+	ui.ui_back_guide_action.triggered.connect(ui.go_to.bind("PauseMenu"))
 
 
 func show_ui() -> void:

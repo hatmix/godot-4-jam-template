@@ -5,5 +5,4 @@
 [resource]
 script = ExtResource("1_6vvou")
 name = &"ui_back"
-emit_as_godot_actions = true
 display_name = "ui_back"
