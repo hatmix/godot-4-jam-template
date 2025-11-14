@@ -3,10 +3,12 @@ extends CanvasLayer
 
 signal preset_ready
 
+var browser_on_mobile: bool = false
 var ui_back_guide_action: GUIDEAction = load("res://src/input/ui_back.tres")
+
 var is_preset_ready: bool = false
 var page_lookup: Dictionary[String, UiPage] = {}
-var saved_state: Array[UiPage]
+var saved_state: Array[Array] = []
 
 # Order matters b/c move_to_front called in this order
 @onready var pause_menus: Array[CanvasItem] = [
@@ -63,16 +65,17 @@ func get_showing() -> Array[UiPage]:
 	return shown
 
 
-func save_state() -> void:
-	saved_state = get_showing()
+func push_state() -> void:
+	saved_state.append(get_showing())
 	
 
-func restore_saved_state() -> void:
-	if not saved_state:
-		push_warning("No saved_state found. Call save_state() before restore_saved_state()")
+func pop_state() -> void:
+	if saved_state.size() == 0:
+		push_warning("No saved_state found. Call push_state() before pop_state()")
 		return
+	var state: Array[UiPage] = saved_state.pop_front()
 	for page: UiPage in page_lookup.values():
-		if page in saved_state:
+		if page in state:
 			show_ui(page)
 		else:
 			hide_ui(page)
@@ -99,6 +102,12 @@ func _resolve_ui_page(node_or_name: Variant) -> Node:
 func _ready() -> void:
 	get_viewport().gui_focus_changed.connect(_on_focus_changed)
 	visible = false
+	
+	# Detect browser on mobile
+	if OS.has_feature("web_android") or OS.has_feature("web_ios") or \
+		(Globals.show_virtual_controls and OS.has_feature("debug")):
+			browser_on_mobile = true
+	
 	for child: Node in get_children():
 		if child is UiPage:
 			# inject ui in child page
