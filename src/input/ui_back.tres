@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="GUIDEAction" load_steps=2 format=3 uid="uid://cwqw88swj6s7x"]
+
+[ext_resource type="Script" uid="uid://cluhc11vixkf1" path="res://addons/guide/guide_action.gd" id="1_6vvou"]
+
+[resource]
+script = ExtResource("1_6vvou")
+name = &"ui_back"
+emit_as_godot_actions = true
+display_name = "ui_back"

@@ -1,7 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://1oybadbf4td"]
+[gd_scene load_steps=7 format=3 uid="uid://1oybadbf4td"]
 
 [ext_resource type="Script" uid="uid://dcljkfrkqnhsp" path="res://src/ui/virtual_joysticks/virtual_joysticks.gd" id="1_eq2ww"]
 [ext_resource type="Script" uid="uid://nrxpuvak5oc6" path="res://addons/guide/ui/virtual_joy/virtual_stick/guide_virtual_stick.gd" id="2_qm77i"]
+[ext_resource type="Script" uid="uid://mtww7c1tlwt7" path="res://addons/guide/ui/virtual_joy/virtual_button/guide_virtual_button.gd" id="3_utgsp"]
+[ext_resource type="Script" uid="uid://cnsqwchlb1blg" path="res://addons/guide/ui/virtual_joy/virtual_button/texture_renderer/guide_virtual_button_texture_renderer.gd" id="4_280y8"]
+[ext_resource type="Texture2D" uid="uid://xpmfm2t6uiwq" path="res://src/ui/assets/icons/hamburgericon_gray.png" id="5_i62o5"]
+[ext_resource type="Texture2D" uid="uid://b4mvsqqk4qltf" path="res://src/ui/assets/icons/hamburgericon_white.png" id="6_kx6n4"]
 
 [node name="VirtualJoysticks" type="Control"]
 layout_mode = 3
@@ -52,6 +56,27 @@ stick_position = 1
 position_mode = 1
 draw_debug = true
 metadata/_custom_type_script = "uid://nrxpuvak5oc6"
+
+[node name="GUIDEVirtualButton" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -70.0
+offset_top = 70.0
+mouse_filter = 2
+use_top_left = true
+script = ExtResource("3_utgsp")
+button_radius = 30.0
+button_index = 6
+metadata/_custom_type_script = "uid://mtww7c1tlwt7"
+
+[node name="GUIDEVirtualButtonTextureRenderer" type="Control" parent="GUIDEVirtualButton"]
+layout_mode = 2
+script = ExtResource("4_280y8")
+idle_texture = ExtResource("5_i62o5")
+actuated_texture = ExtResource("6_kx6n4")
+metadata/_custom_type_script = "uid://cnsqwchlb1blg"
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 1
