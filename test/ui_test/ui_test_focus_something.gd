@@ -22,7 +22,7 @@ func test__focus_something() -> void:
 		if page is UiPage:
 			page = page as UiPage
 			# Skip pages with nothing to focus
-			if page.name in ["InGameMenuOverlay", "MessageBoard", "ThanksForPlaying"]:
+			if page.name in ["InGameMenuOverlay", "MessageBoard", "ThanksForPlaying", "VirtualJoysticks"]:
 				continue
 			runner.invoke("go_to", page)
 			var focused: Variant = get_viewport().gui_get_focus_owner()

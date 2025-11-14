@@ -1,5 +1,6 @@
 extends UiPage
 
+@onready var label: Label = $Label
 
 # TODO: actions & mapping context?
 func _ready() -> void:
@@ -12,6 +13,8 @@ func _ready() -> void:
 
 
 func show_ui() -> void:
-	await ui.preset_ready
+	if not ui.is_preset_ready:
+		await ui.preset_ready
+	label.text = "resolution: %v" % get_viewport_rect().size
 	move_to_front()
 	visible = true
