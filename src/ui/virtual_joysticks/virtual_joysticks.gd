@@ -17,7 +17,12 @@ func _connect_signal() -> void:
 	if not is_instance_valid(ui):
 		push_error("%s UiPage could not get reference to UI parent", name)
 		return
-	ui.ui_back_guide_action.triggered.connect(ui.go_to.bind("PauseMenu"))
+	ui.ui_back_guide_action.triggered.connect(_on_ui_back)
+		
+
+func _on_ui_back() -> void:
+	get_tree().paused = true
+	ui.go_to("PauseMenu")
 
 
 func show_ui() -> void:

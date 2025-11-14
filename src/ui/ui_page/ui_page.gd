@@ -10,6 +10,11 @@ extends Control
 var ui: UI
 
 
+func _enter_tree() -> void:
+	mouse_filter = Control.MOUSE_FILTER_IGNORE
+	process_mode = Node.PROCESS_MODE_ALWAYS
+	
+
 func preset_ui() -> void:
 	pivot_offset = size / 2
 	#scale = Vector2.ZERO
