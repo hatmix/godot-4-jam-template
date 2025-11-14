@@ -4,7 +4,6 @@ extends CanvasLayer
 signal preset_ready
 
 var browser_on_mobile: bool = false
-var ui_back_guide_action: GUIDEAction = load("res://src/input/ui_back.tres")
 
 var is_preset_ready: bool = false
 var page_lookup: Dictionary[String, UiPage] = {}
