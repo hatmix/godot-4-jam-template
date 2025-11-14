@@ -35,10 +35,15 @@ var _reset_node:GUIDEReset
 ## and serves as a basis for the GUIDEInputs.
 var _input_state:GUIDEInputState
 
+## A lock, preventing a mapping context change while a mapping
+## context change is currently in progress.
+var _locked:bool = false
+
 func _ready():
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	_reset_node = GUIDEReset.new()
 	_input_state = GUIDEInputState.new()
+	_input_state._reset()
 	add_child(_reset_node)
 	# attach to the current viewport to get input events
 	GUIDEInputTracker._instrument.call_deferred(get_viewport())
@@ -93,6 +98,8 @@ func enable_mapping_context(context:GUIDEMappingContext, disable_others:bool = f
 	
 	_active_contexts[context] = priority
 	_update_caches()
+	# notify listeners that the context was enabled
+	context.enabled.emit()
 	
 	
 ## Disables the given mapping context.
@@ -103,6 +110,8 @@ func disable_mapping_context(context:GUIDEMappingContext):
 
 	_active_contexts.erase(context)
 	_update_caches()
+	# notify listeners that the context was disabled
+	context.disabled.emit()
 
 
 ## Checks whether the given mapping context is currently enabled.
@@ -135,6 +144,7 @@ func _process(delta:float) -> void:
 			input_mapping._update_state(delta, action.action_value_type)
 			consolidated_value += input_mapping._value
 			consolidated_trigger_state = max(consolidated_trigger_state, input_mapping._state)
+			# print("%s - %s -> %s" % [Engine.get_process_frames(), consolidated_value, consolidated_trigger_state])
 		
 		# we do the blocking check only here because triggers may need to run anyways
 		# (e.g. to collect hold times).
@@ -185,6 +195,12 @@ func _process(delta:float) -> void:
 ## code as all the rules for how inputs, actions and modifiers are consolidated are already applied here.
 ## This is called automatically when contexts are enabled/disabled or remapping configs are applied.
 func _update_caches():
+	if _locked:
+		push_error("Mapping context changed again while processing a change. Ignoring to avoid endless loop.")
+		return
+	
+	_locked = true	
+	
 	var sorted_contexts:Array[GUIDEMappingContext] = []
 	sorted_contexts.assign(_active_contexts.keys())
 	sorted_contexts.sort_custom( func(a,b): return _active_contexts[a] < _active_contexts[b] )
@@ -470,6 +486,13 @@ func _update_caches():
 		if input._needs_reset():
 			_reset_node._inputs_to_reset.append(input)
 		
+	# run a round of _process so we can be sure our actions are 
+	# up-to-date
+	_process(0.0)
+	
+	# unlock
+	_locked = false
+	
 	# and notify interested parties that the input mappings have changed
 	input_mappings_changed.emit()
 

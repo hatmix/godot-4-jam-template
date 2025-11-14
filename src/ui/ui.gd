@@ -1,9 +1,11 @@
+class_name UI
 extends CanvasLayer
 
 signal preset_ready
 
 var is_preset_ready: bool = false
 var page_lookup: Dictionary[String, UiPage] = {}
+var saved_state: Array[UiPage]
 
 # Order matters b/c move_to_front called in this order
 @onready var pause_menus: Array[CanvasItem] = [
@@ -50,6 +52,30 @@ func is_shown(page: Variant) -> bool:
 	if ui_page:
 		return ui_page.visible
 	return false
+
+
+func get_showing() -> Array[UiPage]:
+	var shown: Array[UiPage] = []
+	for child: Node in get_children():
+		if child is UiPage and child.visible:
+			shown.append(child)
+	return shown
+
+
+func save_state() -> void:
+	saved_state = get_showing()
+	
+
+func restore_saved_state() -> void:
+	if not saved_state:
+		push_warning("No saved_state found. Call save_state() before restore_saved_state()")
+		return
+	for page: UiPage in page_lookup.values():
+		if page in saved_state:
+			show_ui(page)
+		else:
+			hide_ui(page)
+
 
 # ensures the pause menu UiPages are in front of any other elements in the
 # UI canvas layer

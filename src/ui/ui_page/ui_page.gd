@@ -7,7 +7,7 @@ extends Control
 @export var prevent_joypad_focus_capture: bool = false
 @export var default_focus_control: Control
 
-var ui: CanvasLayer
+var ui: UI
 
 
 func preset_ui() -> void:

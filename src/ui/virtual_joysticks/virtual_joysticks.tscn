@@ -1,0 +1,58 @@
+[gd_scene load_steps=3 format=3 uid="uid://1oybadbf4td"]
+
+[ext_resource type="Script" uid="uid://dcljkfrkqnhsp" path="res://src/ui/virtual_joysticks/virtual_joysticks.gd" id="1_eq2ww"]
+[ext_resource type="Script" uid="uid://nrxpuvak5oc6" path="res://addons/guide/ui/virtual_joy/virtual_stick/guide_virtual_stick.gd" id="2_qm77i"]
+
+[node name="VirtualJoysticks" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_eq2ww")
+metadata/_custom_type_script = "uid://qrnhiju8ifst"
+
+[node name="GUIDEVirtualStickLeft" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 120.0
+offset_top = -120.0
+grow_vertical = 0
+size_flags_horizontal = 8
+mouse_filter = 2
+use_top_left = true
+script = ExtResource("2_qm77i")
+interaction_zone_radius = 100.0
+stick_radius = 50.0
+max_actuation_radius = 50.0
+position_mode = 1
+draw_debug = true
+metadata/_custom_type_script = "uid://nrxpuvak5oc6"
+
+[node name="GUIDEVirtualStickRight" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -120.0
+offset_top = -120.0
+offset_right = -120.0
+offset_bottom = -120.0
+grow_vertical = 0
+size_flags_horizontal = 8
+mouse_filter = 2
+use_top_left = true
+script = ExtResource("2_qm77i")
+interaction_zone_radius = 100.0
+stick_radius = 50.0
+max_actuation_radius = 50.0
+stick_position = 1
+position_mode = 1
+draw_debug = true
+metadata/_custom_type_script = "uid://nrxpuvak5oc6"
