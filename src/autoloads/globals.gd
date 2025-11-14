@@ -8,5 +8,5 @@ signal post_ui_message(text: String)
 @warning_ignore("unused_signal")
 signal controls_changed(config: GUIDERemappingConfig)
 
-
-var show_virtual_controls: bool = true
+## Set true to force display of virtual joysticks ui page for debug/development
+var show_virtual_controls: bool = false
