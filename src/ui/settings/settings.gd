@@ -4,6 +4,9 @@ var _audio_bus_name_idx_mapping: Dictionary = {}
 
 
 func _ready() -> void:
+	# mobile can have very different aspect ratio, so allow larger UI scale
+	if OS.has_feature("web_android") or OS.has_feature("web_ios"):
+		%UiScale.max_value += 1.0
 	Settings.load_settings()
 	%Back.pressed.connect(go_back)
 	%ResetScale.pressed.connect(func() -> void: %UiScale.value = 1)
