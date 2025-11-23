@@ -29,7 +29,7 @@ func _ready() -> void:
 
 
 func _input(event: InputEvent) -> void:
-	if visible and event.is_action_pressed("ui_cancel"):
+	if visible and (event.is_action_pressed("ui_cancel") or event.is_action_pressed("ui_back")):
 		accept_event()
 		_pause()
 		
