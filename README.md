@@ -8,7 +8,7 @@ Features:
 * Web, Windows, Linux and macOS exports configured for maximum jam
 * Github workflows for automatic uploads to Itch.io
 * Premade basic UI for main menu, pause menu, credits, settings, and remapping controls
-* [G.U.I.D.E](https://godotneers.github.io/G.U.I.D.E/) for input and input prompts
+* [G.U.I.D.E](https://godotneers.github.io/G.U.I.D.E/) for input, input prompts, and virtual controls for touchscreens
 * Settings persisted across sessions (where `user://` filesystem is writable)
 * Full keyboard and controller support for all template UI
 * ATTRIBUTION.md for in-game credits (inspired by [Maaack](https://github.com/Maaack/Godot-Game-Template/blob/main/ATTRIBUTION.md)'s approach)
