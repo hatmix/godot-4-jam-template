@@ -1,9 +1,10 @@
 @icon("ui-page-icon.svg")
 class_name UiPage
 extends Control
-
 # Base control for grouping UI elements to show & hide together
 
+## Wheter ui_fx will apply to controls on this UiPage
+@export var connect_fx: bool = true
 @export var prevent_joypad_focus_capture: bool = false
 @export var default_focus_control: Control
 
@@ -22,16 +23,19 @@ func _enter_tree() -> void:
 # scripts attached)
 # When overriding hide_ui ensure visible=false at end (contract)
 func hide_ui() -> void:
+	#pivot_offset = size / 2
 	#var tween: Tween = create_tween()
-	#tween.tween_property(self, "scale", Vector2.ZERO, 0.15).set_trans(Tween.TRANS_SINE)
+	#tween.tween_property(self, "scale", Vector2.ZERO, 0.2).set_trans(Tween.TRANS_SINE)
 	#await tween.finished
 	visible = false
 	
 # When overriding show_ui ensure visible=true at end (contract)
 func show_ui() -> void:
+	#pivot_offset = size / 2
+	#scale = Vector2.ZERO
 	visible = true
 	#var tween: Tween = create_tween()
-	#tween.tween_property(self, "scale", Vector2.ONE, 0.15).set_trans(Tween.TRANS_SINE)
+	#tween.tween_property(self, "scale", Vector2.ONE, 0.2).set_trans(Tween.TRANS_SINE)
 	#await tween.finished
 
 
@@ -45,6 +49,6 @@ func preset_ui() -> void:
 # Convenience function for page "back" buttons to return either to main_menu or pause_menu
 func go_back() -> void:
 	if get_tree().paused == true:
-		ui.go_to("PauseMenu")
+		ui.show_ui("PauseMenu")
 	else:
 		ui.go_to("MainMenu")
