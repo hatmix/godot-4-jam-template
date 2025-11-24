@@ -16,7 +16,7 @@ func show_ui() -> void:
 	if _pushed_state:
 		_pushed_state = false
 		ui.pop_state()
-	
+	super()
 	# put this here so it shows in "game ui" and not "main menu"
 	if is_instance_valid(ui) and ui.browser_on_mobile:
 		ui.show_ui("VirtualJoysticks")
