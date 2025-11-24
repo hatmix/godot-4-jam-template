@@ -32,7 +32,7 @@ func hide_ui(page: Variant = null) -> void:
 func show_ui(page: Variant) -> void:
 	print("show_ui ", page)
 	var ui_page: UiPage = _resolve_ui_page(page)
-	if ui_page:
+	if ui_page and not ui_page.visible:
 		ui_page.show()
 		if ui_page.has_method("show_ui"):
 			@warning_ignore("redundant_await")
@@ -122,6 +122,7 @@ func _preset_all_at_ready() -> void:
 			await child.preset_ui()
 	visible = true
 	is_preset_ready = true
+	#print("UI preset ready")
 	preset_ready.emit()
 
 
