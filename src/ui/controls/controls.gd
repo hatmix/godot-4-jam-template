@@ -81,6 +81,7 @@ func _init_actions() -> void:
 func _get_new_input_for_action(item: GUIDERemapper.ConfigItem, for_joypad: bool = false) -> void:
 	%InputPanel.for_joypad = for_joypad
 	%InputPanel.item = item
+	%InputPanel.size = get_viewport().get_visible_rect().size / 2
 	%InputPanel.visible = true
 	#print("get new input for action %s" % action)
 

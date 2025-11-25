@@ -2,12 +2,26 @@ class_name UI
 extends CanvasLayer
 
 signal preset_ready
+signal scale_changed
 
 var browser_on_mobile: bool = false
 
 var is_preset_ready: bool = false
 var page_lookup: Dictionary[String, UiPage] = {}
 var saved_state: Array[Array] = []
+var ui_scale: Vector2 = Vector2.ONE:
+	set(v):
+		if ui_scale.is_equal_approx(v):
+			return
+		ui_scale = v
+		scale = v
+		var base_size_x: int = ProjectSettings.get_setting("display/window/size/viewport_width")
+		var base_size_y: int = ProjectSettings.get_setting("display/window/size/viewport_height")
+		var margin_x: int = int(0.5 * base_size_x * (scale.x - 1))
+		var margin_y: int = int(0.5 * base_size_y * (scale.y - 1))
+		offset = Vector2(-margin_x, -margin_y)
+		print(offset)
+		scale_changed.emit()
 
 # Order matters b/c move_to_front called in this order
 @onready var pause_menus: Array[CanvasItem] = [
@@ -177,3 +191,9 @@ func _focus_something() -> void:
 func _on_focus_changed(control: Control) -> void:
 	# Can do something interesting with focus here...
 	pass
+
+
+func _process(_delta: float) -> void:
+	if not scale.is_equal_approx(ui_scale):
+		scale = ui_scale
+		scale_changed.emit()

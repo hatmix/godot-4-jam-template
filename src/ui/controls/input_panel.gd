@@ -14,7 +14,7 @@ func _ready() -> void:
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_VISIBILITY_CHANGED:
 		var devices: Array[GUIDEInputDetector.DeviceType]
-		if not visible:
+		if not visible and is_instance_valid(_input_detector):
 			_input_detector.abort_detection()
 			return
 		if not item:

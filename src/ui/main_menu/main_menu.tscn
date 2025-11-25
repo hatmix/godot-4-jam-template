@@ -3,8 +3,7 @@
 [ext_resource type="Script" uid="uid://k3andar72og3" path="res://src/ui/main_menu/main_menu.gd" id="1_px5tl"]
 [ext_resource type="PackedScene" uid="uid://dgxrcxbe8s24d" path="res://src/ui/build_info/build_info.tscn" id="3_oraeq"]
 
-[node name="MainMenu" type="Control" node_paths=PackedStringArray("default_focus_control")]
-layout_mode = 3
+[node name="MainMenu" type="MarginContainer" node_paths=PackedStringArray("default_focus_control")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -15,40 +14,18 @@ default_focus_control = NodePath("Buttons/Play")
 
 [node name="Background" type="TextureRect" parent="."]
 texture_repeat = 2
-layout_mode = 0
-offset_left = 320.0
-offset_top = 180.0
-offset_right = 320.0
-offset_bottom = 180.0
+layout_mode = 2
 stretch_mode = 1
 
 [node name="GitInfo" parent="." instance=ExtResource("3_oraeq")]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -45.0
-offset_top = -23.0
-grow_horizontal = 0
-grow_vertical = 0
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
 
 [node name="Buttons" type="VBoxContainer" parent="."]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(130, 0)
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -65.0
-offset_top = -114.0
-offset_right = 65.0
-offset_bottom = 114.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_constants/separation = 4

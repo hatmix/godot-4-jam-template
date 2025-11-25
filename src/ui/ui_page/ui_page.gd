@@ -1,6 +1,6 @@
 @icon("ui-page-icon.svg")
 class_name UiPage
-extends Control
+extends MarginContainer
 # Base control for grouping UI elements to show & hide together
 
 ## Wheter ui_fx will apply to controls on this UiPage
@@ -10,11 +10,11 @@ extends Control
 
 var ui: UI
 
-
+# Using enter tree so extended scripts don't need to call super() in ready
 func _enter_tree() -> void:
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	process_mode = Node.PROCESS_MODE_ALWAYS
-	
+	_hook_ui_scale_changed.call_deferred()
 
 # TODO: consider using the hide_ui and show_ui to add ui animation
 # The commented example here adds a scaling pop in effect to every UiPage
@@ -49,6 +49,20 @@ func preset_ui() -> void:
 # Convenience function for page "back" buttons to return either to main_menu or pause_menu
 func go_back() -> void:
 	if get_tree().paused == true:
+		hide_ui()
 		ui.show_ui("PauseMenu")
 	else:
 		ui.go_to("MainMenu")
+
+
+func _hook_ui_scale_changed() -> void:
+	if is_instance_valid(ui):
+		ui.scale_changed.connect(_on_ui_scale_changed)
+
+
+func _on_ui_scale_changed() -> void:
+	pass
+	add_theme_constant_override("margin_top", int(-ui.offset.y / ui.scale.y))
+	add_theme_constant_override("margin_left", int(-ui.offset.x / ui.scale.x))
+	add_theme_constant_override("margin_bottom", int(-ui.offset.y / ui.scale.y))
+	add_theme_constant_override("margin_right", int(-ui.offset.x / ui.scale.x))

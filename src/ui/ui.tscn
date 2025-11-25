@@ -26,6 +26,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 color = Color(0, 0, 0, 0.784314)
 script = ExtResource("5_n6lj8")
 
@@ -45,7 +47,9 @@ icon_size = 64
 [node name="PauseMenu" parent="." instance=ExtResource("6_2pasj")]
 
 [node name="MessageBoard" parent="." instance=ExtResource("12_hlgii")]
+connect_fx = false
 
 [node name="ThanksForPlaying" parent="." instance=ExtResource("13_0pgbw")]
 
 [node name="VirtualJoysticks" parent="." instance=ExtResource("13_wwjrv")]
+connect_fx = false

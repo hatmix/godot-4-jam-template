@@ -33,44 +33,31 @@ script = ExtResource("8_pq5cp")
 resource_local_to_scene = true
 script = ExtResource("9_40fmp")
 
-[node name="Credits" type="Control" node_paths=PackedStringArray("default_focus_control")]
-layout_mode = 3
+[node name="Credits" type="MarginContainer" node_paths=PackedStringArray("default_focus_control")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_0pb5o")
-default_focus_control = NodePath("HBoxContainer/Back")
+default_focus_control = NodePath("VBoxContainer/HBoxContainer/Back")
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
-
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 2
 
-[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 11.65
 scroll_vertical_custom_step = 5.0
 horizontal_scroll_mode = 0
 
-[node name="MarkdownLabel" type="RichTextLabel" parent="MarginContainer/ScrollContainer"]
+[node name="MarkdownLabel" type="RichTextLabel" parent="VBoxContainer/ScrollContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-focus_neighbor_left = NodePath("../../../HBoxContainer/Back")
+focus_neighbor_left = NodePath("../../HBoxContainer/Back")
 focus_mode = 2
 bbcode_enabled = true
 script = ExtResource("3_rqcdg")
@@ -81,28 +68,18 @@ h4 = SubResource("Resource_cwasd")
 h5 = SubResource("Resource_gcqir")
 h6 = SubResource("Resource_fec2k")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -22.5
-offset_top = -31.0
-offset_right = 22.5
-grow_horizontal = 2
-grow_vertical = 0
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
-focus_neighbor_top = NodePath("../MarginContainer/ScrollContainer/MarkdownLabel")
-focus_neighbor_right = NodePath("../MarginContainer/ScrollContainer")
+focus_neighbor_top = NodePath("../ScrollContainer/MarkdownLabel")
+focus_neighbor_right = NodePath("../ScrollContainer")
 theme_override_constants/separation = 0
 alignment = 1
 
-[node name="Back" type="Button" parent="HBoxContainer"]
+[node name="Back" type="Button" parent="VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-focus_neighbor_top = NodePath("../../MarginContainer/ScrollContainer/MarkdownLabel")
-focus_neighbor_right = NodePath("../../MarginContainer/ScrollContainer/MarkdownLabel")
+focus_neighbor_top = NodePath("../../ScrollContainer/MarkdownLabel")
+focus_neighbor_right = NodePath("../../ScrollContainer/MarkdownLabel")
 text = "Back"

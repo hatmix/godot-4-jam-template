@@ -7,8 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://xpmfm2t6uiwq" path="res://src/ui/assets/icons/hamburgericon_gray.png" id="5_i62o5"]
 [ext_resource type="Texture2D" uid="uid://b4mvsqqk4qltf" path="res://src/ui/assets/icons/hamburgericon_white.png" id="6_kx6n4"]
 
-[node name="VirtualJoysticks" type="Control"]
-layout_mode = 3
+[node name="VirtualJoysticks" type="MarginContainer"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -16,15 +15,17 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_eq2ww")
-metadata/_custom_type_script = "uid://qrnhiju8ifst"
 
-[node name="GUIDEVirtualStickLeft" type="CenterContainer" parent="."]
+[node name="Control" type="Control" parent="."]
+layout_mode = 2
+
+[node name="GUIDEVirtualStickLeft" type="CenterContainer" parent="Control"]
 layout_mode = 1
 anchors_preset = -1
+anchor_left = 0.1
 anchor_top = 0.5
+anchor_right = 0.1
 anchor_bottom = 0.5
-offset_left = 120.0
-offset_right = 120.0
 size_flags_horizontal = 8
 mouse_filter = 2
 use_top_left = true
@@ -32,19 +33,16 @@ script = ExtResource("2_qm77i")
 interaction_zone_radius = 100.0
 stick_radius = 50.0
 max_actuation_radius = 50.0
-position_mode = 1
 draw_debug = true
 metadata/_custom_type_script = "uid://nrxpuvak5oc6"
 
-[node name="GUIDEVirtualStickRight" type="CenterContainer" parent="."]
+[node name="GUIDEVirtualStickRight" type="CenterContainer" parent="Control"]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 1.0
+anchor_left = 0.9
 anchor_top = 0.5
-anchor_right = 1.0
+anchor_right = 0.9
 anchor_bottom = 0.5
-offset_left = -120.0
-offset_right = -120.0
 grow_horizontal = 0
 size_flags_horizontal = 8
 mouse_filter = 2
@@ -54,27 +52,26 @@ interaction_zone_radius = 100.0
 stick_radius = 50.0
 max_actuation_radius = 50.0
 stick_position = 1
-position_mode = 1
 draw_debug = true
 metadata/_custom_type_script = "uid://nrxpuvak5oc6"
 
-[node name="GUIDEVirtualButton" type="CenterContainer" parent="."]
+[node name="GUIDEVirtualButton" type="CenterContainer" parent="Control"]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -70.0
-offset_top = 70.0
-offset_right = -70.0
-offset_bottom = 70.0
+anchor_left = 0.95
+anchor_top = 0.1
+anchor_right = 0.95
+anchor_bottom = 0.1
+grow_horizontal = 0
 mouse_filter = 2
 use_top_left = true
 script = ExtResource("3_utgsp")
-button_radius = 30.0
+button_radius = 40.0
 button_index = 6
+draw_debug = true
 metadata/_custom_type_script = "uid://mtww7c1tlwt7"
 
-[node name="GUIDEVirtualButtonTextureRenderer" type="Control" parent="GUIDEVirtualButton"]
+[node name="GUIDEVirtualButtonTextureRenderer" type="Control" parent="Control/GUIDEVirtualButton"]
 layout_mode = 2
 script = ExtResource("4_280y8")
 idle_texture = ExtResource("5_i62o5")

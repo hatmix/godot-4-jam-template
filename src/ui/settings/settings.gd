@@ -56,19 +56,24 @@ func _update_audio_sliders() -> void:
 
 
 func _init_display() -> void:
+	#%UiScale.drag_ended.connect(_on_ui_scale_value_changed)
 	%UiScale.value_changed.connect(_on_ui_scale_value_changed)
 
 
 func _on_ui_scale_value_changed(value: float) -> void:
-	get_viewport().content_scale_factor = value
-	if Settings.get_value(Settings.Section.DISPLAY, "ui_scale", 1.0) != value:
-		Settings.set_value(Settings.Section.DISPLAY, "ui_scale", value)
-		Settings.ui_scale_changed.emit(value)
+#func _on_ui_scale_value_changed(changed: bool) -> void:
+	#get_viewport().content_scale_factor = value
+	ui.ui_scale = Vector2.ONE * %UiScale.value
+	if Settings.get_value(Settings.Section.DISPLAY, "ui_scale", 1.0) != %UiScale.value:
+		Settings.set_value(Settings.Section.DISPLAY, "ui_scale", %UiScale.value)
+		Settings.ui_scale_changed.emit(%UiScale.value)
 	
 func _update_display() -> void:
 	var settings_level: Variant = Settings.get_value(
 		Settings.Section.DISPLAY, "ui_scale", null
 	)
 	if settings_level:
-		get_viewport().content_scale_factor = settings_level
-	%UiScale.value = get_viewport().content_scale_factor
+		#get_viewport().content_scale_factor = settings_level
+		ui.ui_scale = Vector2.ONE * settings_level
+	#%UiScale.value = get_viewport().content_scale_factor
+	%UiScale.value = ui.ui_scale.x

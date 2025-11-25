@@ -11,8 +11,8 @@ func setup() -> void:
 
 # TODO: Consider defining the UI theme below with ThemeGen or manually edit res://ui/ui_theme.tres
 func define_theme() -> void:
-	#define_default_font(ResourceLoader.load("res://src/ui/assets/fonts/fake_receipt.otf"))
-	define_default_font_size(24)
+	define_default_font(load("res://src/ui/assets/fonts/Signika-SemiBold.ttf"))
+	define_default_font_size(48)
 
 	define_style(
 		"Button",
