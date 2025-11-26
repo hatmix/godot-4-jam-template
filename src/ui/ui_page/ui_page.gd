@@ -10,15 +10,17 @@ extends MarginContainer
 
 var ui: UI
 
+
 # Using enter tree so extended scripts don't need to call super() in ready
 func _enter_tree() -> void:
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	_hook_ui_scale_changed.call_deferred()
 
+
 # TODO: consider using the hide_ui and show_ui to add ui animation
 # The commented example here adds a scaling pop in effect to every UiPage
-# Each UiPage can provide its own animation by extending the script and 
+# Each UiPage can provide its own animation by extending the script and
 # overiding the methods (Note that template UiPages already have extended
 # scripts attached)
 # When overriding hide_ui ensure visible=false at end (contract)
@@ -28,7 +30,8 @@ func hide_ui() -> void:
 	#tween.tween_property(self, "scale", Vector2.ZERO, 0.2).set_trans(Tween.TRANS_SINE)
 	#await tween.finished
 	visible = false
-	
+
+
 # When overriding show_ui ensure visible=true at end (contract)
 func show_ui() -> void:
 	#pivot_offset = size / 2

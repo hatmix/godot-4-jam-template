@@ -2,8 +2,6 @@
 extends ProgrammaticTheme
 
 @warning_ignore("integer_division")
-
-
 # The project's default theme is set to res://ui/ui_theme.tres
 func setup() -> void:
 	set_save_path("res://src/ui/ui_theme.tres")

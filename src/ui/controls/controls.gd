@@ -28,10 +28,14 @@ func _handle_resize() -> void:
 	var rect: Rect2 = get_viewport_rect()
 	if rect.size.x > rect.size.y:
 		box_container.vertical = false
-		box_container.add_theme_constant_override("separation", int(get_viewport_rect().size.x / 10))
+		box_container.add_theme_constant_override(
+			"separation", int(get_viewport_rect().size.x / 10)
+		)
 	else:
 		box_container.vertical = true
-		box_container.add_theme_constant_override("separation", int(get_viewport_rect().size.y / 20))
+		box_container.add_theme_constant_override(
+			"separation", int(get_viewport_rect().size.y / 20)
+		)
 
 
 func _input(event: InputEvent) -> void:

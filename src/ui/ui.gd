@@ -24,8 +24,7 @@ var ui_scale: Vector2 = Vector2.ONE:
 
 # Order matters b/c move_to_front called in this order
 @onready var pause_menus: Array[CanvasItem] = [
-	$InGameMenuOverlay, $HowToPlay, $Settings, $Controls, $MessageBoard,
-	$PauseMenu
+	$InGameMenuOverlay, $HowToPlay, $Settings, $Controls, $MessageBoard, $PauseMenu
 ]
 
 
@@ -79,7 +78,7 @@ func get_showing() -> Array[UiPage]:
 
 func push_state() -> void:
 	saved_state.append(get_showing())
-	
+
 
 func pop_state() -> void:
 	if saved_state.size() == 0:
@@ -114,12 +113,15 @@ func _resolve_ui_page(node_or_name: Variant) -> Node:
 func _ready() -> void:
 	get_viewport().gui_focus_changed.connect(_on_focus_changed)
 	visible = false
-	
+
 	# Detect browser on mobile
-	if OS.has_feature("web_android") or OS.has_feature("web_ios") or \
-		(Globals.show_virtual_controls and OS.has_feature("debug")):
-			browser_on_mobile = true
-	
+	if (
+		OS.has_feature("web_android")
+		or OS.has_feature("web_ios")
+		or (Globals.show_virtual_controls and OS.has_feature("debug"))
+	):
+		browser_on_mobile = true
+
 	for child: Node in get_children():
 		if child is UiPage:
 			# inject ui in child page
@@ -187,7 +189,7 @@ func _focus_something() -> void:
 				break
 
 
-func _on_focus_changed(control: Control) -> void:
+func _on_focus_changed(_control: Control) -> void:
 	# Can do something interesting with focus here...
 	pass
 
