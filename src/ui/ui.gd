@@ -15,12 +15,7 @@ var ui_scale: Vector2 = Vector2.ONE:
 			return
 		ui_scale = v
 		scale = v
-		var vp_rect: Rect2i = get_viewport().get_visible_rect()
-		var margin_x: int = int(0.5 * vp_rect.size.x * (scale.x - 1))
-		var margin_y: int = int(0.5 * vp_rect.size.y * (scale.y - 1))
-		offset = Vector2(-margin_x, -margin_y)
-		#prints(get_viewport().get_visible_rect(), offset)
-		scale_changed.emit()
+		_handle_scaled_or_resized()
 
 # Order matters b/c move_to_front called in this order
 @onready var pause_menus: Array[CanvasItem] = [
@@ -112,6 +107,7 @@ func _resolve_ui_page(node_or_name: Variant) -> Node:
 
 func _ready() -> void:
 	get_viewport().gui_focus_changed.connect(_on_focus_changed)
+	get_viewport().size_changed.connect(_handle_scaled_or_resized)
 	visible = false
 
 	# Detect browser on mobile
@@ -198,3 +194,12 @@ func _process(_delta: float) -> void:
 	if not scale.is_equal_approx(ui_scale):
 		scale = ui_scale
 		scale_changed.emit()
+
+
+func _handle_scaled_or_resized() -> void:
+	var vp_rect: Rect2i = get_viewport().get_visible_rect()
+	var margin_x: int = int(0.5 * vp_rect.size.x * (scale.x - 1))
+	var margin_y: int = int(0.5 * vp_rect.size.y * (scale.y - 1))
+	offset = Vector2(-margin_x, -margin_y)
+	#prints(get_viewport().get_visible_rect(), offset)
+	scale_changed.emit()
