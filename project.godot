@@ -58,8 +58,7 @@ folder_colors={
 "res://src/input/": "teal",
 "res://src/ui/": "blue",
 "res://test/": "purple",
-"res://test/ui/": "purple",
-"res://test/ui_test/": "purple"
+"res://test/ui/": "purple"
 }
 
 [gdunit4]
