@@ -52,6 +52,8 @@ func _update_audio_sliders() -> void:
 		var control: Slider = %Audio.find_child(bus_name)
 		if control:
 			control.value = int(settings_level)
+
+
 #endregion
 
 
@@ -67,13 +69,11 @@ func _on_ui_scale_value_changed(value: float) -> void:
 	if Settings.get_value(Settings.Section.DISPLAY, "ui_scale", 1.0) != %UiScale.value:
 		Settings.set_value(Settings.Section.DISPLAY, "ui_scale", %UiScale.value)
 		Settings.ui_scale_changed.emit(%UiScale.value)
-	
+
+
 func _update_display() -> void:
-	var settings_level: Variant = Settings.get_value(
-		Settings.Section.DISPLAY, "ui_scale", null
-	)
-	if settings_level:
-		#get_viewport().content_scale_factor = settings_level
+	var settings_level: Variant = Settings.get_value(Settings.Section.DISPLAY, "ui_scale", null)
+	if settings_level and is_instance_valid(ui):
 		ui.ui_scale = Vector2.ONE * settings_level
-	#%UiScale.value = get_viewport().content_scale_factor
-	%UiScale.value = ui.ui_scale.x
+	elif is_instance_valid(ui):
+		%UiScale.value = ui.ui_scale.x
