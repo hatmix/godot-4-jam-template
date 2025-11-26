@@ -10,6 +10,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_67una")
+connect_fx = false
 prevent_joypad_focus_capture = true
 default_focus_control = NodePath("VBoxContainer/ToggleGuideDebugger")
 

@@ -3,12 +3,12 @@
 importer="font_data_dynamic"
 type="FontFile"
 uid="uid://sirdb7nqg4ne"
-path="res://.godot/imported/Signika-SemiBold.ttf-c47a8ea9024da867694c6372f7c703f1.fontdata"
+path="res://.godot/imported/Signika-SemiBold.ttf-f2d752f18ecda15bdc2eeabb8b2de401.fontdata"
 
 [deps]
 
-source_file="res://src/ui/assets/fonts/Signika-SemiBold.ttf"
-dest_files=["res://.godot/imported/Signika-SemiBold.ttf-c47a8ea9024da867694c6372f7c703f1.fontdata"]
+source_file="res://src/ui/assets/fonts/signika/Signika-SemiBold.ttf"
+dest_files=["res://.godot/imported/Signika-SemiBold.ttf-f2d752f18ecda15bdc2eeabb8b2de401.fontdata"]
 
 [params]
 
