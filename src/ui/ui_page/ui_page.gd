@@ -61,7 +61,6 @@ func _hook_ui_scale_changed() -> void:
 
 
 func _on_ui_scale_changed() -> void:
-	pass
 	add_theme_constant_override("margin_top", int(-ui.offset.y / ui.scale.y))
 	add_theme_constant_override("margin_left", int(-ui.offset.x / ui.scale.x))
 	add_theme_constant_override("margin_bottom", int(-ui.offset.y / ui.scale.y))

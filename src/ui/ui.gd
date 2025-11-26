@@ -19,7 +19,7 @@ var ui_scale: Vector2 = Vector2.ONE:
 		var margin_x: int = int(0.5 * vp_rect.size.x * (scale.x - 1))
 		var margin_y: int = int(0.5 * vp_rect.size.y * (scale.y - 1))
 		offset = Vector2(-margin_x, -margin_y)
-		prints(get_viewport().get_visible_rect(), offset)
+		#prints(get_viewport().get_visible_rect(), offset)
 		scale_changed.emit()
 
 # Order matters b/c move_to_front called in this order

@@ -26,4 +26,3 @@ func _on_ui_scale_changed() -> void:
 	if is_instance_valid(ui) and ui is UI:
 		scale = Vector2.ONE / ui.scale
 		position = -ui.offset / ui.scale
-		print(position)
