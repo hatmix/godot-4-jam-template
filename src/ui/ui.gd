@@ -15,12 +15,11 @@ var ui_scale: Vector2 = Vector2.ONE:
 			return
 		ui_scale = v
 		scale = v
-		var base_size_x: int = ProjectSettings.get_setting("display/window/size/viewport_width")
-		var base_size_y: int = ProjectSettings.get_setting("display/window/size/viewport_height")
-		var margin_x: int = int(0.5 * base_size_x * (scale.x - 1))
-		var margin_y: int = int(0.5 * base_size_y * (scale.y - 1))
+		var vp_rect: Rect2i = get_viewport().get_visible_rect()
+		var margin_x: int = int(0.5 * vp_rect.size.x * (scale.x - 1))
+		var margin_y: int = int(0.5 * vp_rect.size.y * (scale.y - 1))
 		offset = Vector2(-margin_x, -margin_y)
-		print(offset)
+		prints(get_viewport().get_visible_rect(), offset)
 		scale_changed.emit()
 
 # Order matters b/c move_to_front called in this order
