@@ -7,12 +7,17 @@ A styled and modified example (for Godot 4.3) can be found at [https://hatmix.it
 Features:
 * Web, Windows, Linux and macOS exports configured for maximum jam
 * Github workflows for automatic uploads to Itch.io
-* Premade basic UI for main menu, pause menu, credits, settings, and remapping controls
+* Premade basic UI for main menu, pause menu, settings, remapping controls, credits, instructions and thank you screens
+* User-controlled UI scaling with support for resizing the game (e.g. fullscreen button on Itch)
+* Simple control audio effects and animation example (animation only on buttons, but extendable in `ui_fx.gd`)
 * [G.U.I.D.E](https://godotneers.github.io/G.U.I.D.E/) for input, input prompts, and virtual controls for touchscreens
 * Settings persisted across sessions (where `user://` filesystem is writable)
 * Full keyboard and controller support for all template UI
 * ATTRIBUTION.md for in-game credits (inspired by [Maaack](https://github.com/Maaack/Godot-Game-Template/blob/main/ATTRIBUTION.md)'s approach)
 * [TODO Manager](https://github.com/OrigamiDev-Pete/TODO_Manager) included and todos added for setting up a new project
+
+> [!CAUTION]
+> Note that G.U.I.D.E's approach to input handling can complicate using other addons that also deal with input!
 
 Don't just settle for the first template you find! This template was inspired by many other examples created by the Godot community.  Compare the alternatives and decide which best fits your desired feature set, coding style, and approach to game development.
 
@@ -82,6 +87,7 @@ Main UI components are contained in directories under `res://src/ui`. The intend
 │       ├───pause_menu
 │       ├───settings
 │       ├───thanks_for_playing
+│       ├───ui_fx
 │       └───ui_page
 ```
 
@@ -127,4 +133,3 @@ The file `res://version.txt` is used as a version or build identifier in the mai
 ## Publishing on Itch.io
 
 Publishing your game on Itch.io is not the end of your jam journey. A good looking game page will create a strong first impression before your game is played. Jannik Boysen's Easy-Releasy .png templates are included in the `media` folder to simplify making a great looking page for your game.
-
