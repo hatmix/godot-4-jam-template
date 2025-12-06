@@ -72,8 +72,10 @@ func _on_ui_scale_value_changed(value: float) -> void:
 
 
 func _update_display() -> void:
+	if not is_inside_tree():
+		await ready
 	var settings_level: Variant = Settings.get_value(Settings.Section.DISPLAY, "ui_scale", null)
 	if settings_level and is_instance_valid(ui):
 		ui.ui_scale = Vector2.ONE * settings_level
-	elif is_instance_valid(ui):
+	if is_instance_valid(ui):
 		%UiScale.value = ui.ui_scale.x
