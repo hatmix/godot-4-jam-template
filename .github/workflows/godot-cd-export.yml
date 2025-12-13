@@ -102,7 +102,7 @@ jobs:
           BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
         if: steps.cache-butler.outputs.cache-hit != 'true' && steps.export.outcome == 'success'
         run: |
-          wget -O butler.zip https://broth.itch.ovh/butler/linux-amd64/LATEST/archive/default
+          wget -O butler.zip https://broth.itch.zone/butler/linux-amd64/LATEST/archive/default
           unzip butler.zip
           chmod +x butler
           ./butler -V
