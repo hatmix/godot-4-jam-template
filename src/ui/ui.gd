@@ -5,7 +5,6 @@ signal preset_ready
 signal scale_changed
 
 var browser_on_mobile: bool = false
-
 var is_preset_ready: bool = false
 var page_lookup: Dictionary[String, UiPage] = {}
 var saved_state: Array[Array] = []
@@ -109,6 +108,8 @@ func _ready() -> void:
 	get_viewport().gui_focus_changed.connect(_on_focus_changed)
 	get_viewport().size_changed.connect(_handle_scaled_or_resized)
 	visible = false
+	# Called to setup @export margins in each page
+	_handle_scaled_or_resized.call_deferred()
 
 	# Detect browser on mobile
 	if (

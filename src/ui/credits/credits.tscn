@@ -40,19 +40,26 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_0pb5o")
-default_focus_control = NodePath("VBoxContainer/HBoxContainer/Back")
+default_focus_control = NodePath("ContentMarginContainer/VBoxContainer/HBoxContainer/Back")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="ContentMarginContainer" type="MarginContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_right = 30
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ContentMarginContainer"]
 layout_mode = 2
 
-[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="ContentMarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(400, 400)
 layout_mode = 2
 size_flags_vertical = 3
-size_flags_stretch_ratio = 11.65
 scroll_vertical_custom_step = 5.0
 horizontal_scroll_mode = 0
 
-[node name="MarkdownLabel" type="RichTextLabel" parent="VBoxContainer/ScrollContainer"]
+[node name="MarkdownLabel" type="RichTextLabel" parent="ContentMarginContainer/VBoxContainer/ScrollContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -68,7 +75,7 @@ h4 = SubResource("Resource_cwasd")
 h5 = SubResource("Resource_gcqir")
 h6 = SubResource("Resource_fec2k")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="ContentMarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
@@ -77,7 +84,7 @@ focus_neighbor_right = NodePath("../ScrollContainer")
 theme_override_constants/separation = 0
 alignment = 1
 
-[node name="Back" type="Button" parent="VBoxContainer/HBoxContainer"]
+[node name="Back" type="Button" parent="ContentMarginContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 focus_neighbor_top = NodePath("../../ScrollContainer/MarkdownLabel")

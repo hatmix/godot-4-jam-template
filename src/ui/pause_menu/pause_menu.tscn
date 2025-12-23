@@ -10,34 +10,38 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_fpgrf")
-default_focus_control = NodePath("Buttons/Resume")
+default_focus_control = NodePath("ContentMarginContainer/Buttons/Resume")
 
-[node name="Buttons" type="VBoxContainer" parent="."]
+[node name="ContentMarginContainer" type="MarginContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="BuildInfo" parent="ContentMarginContainer" instance=ExtResource("2_q2yd3")]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+
+[node name="Buttons" type="VBoxContainer" parent="ContentMarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="Resume" type="Button" parent="Buttons"]
+[node name="Resume" type="Button" parent="ContentMarginContainer/Buttons"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Resume"
 
-[node name="Settings" type="Button" parent="Buttons"]
+[node name="Settings" type="Button" parent="ContentMarginContainer/Buttons"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Settings"
 
-[node name="Controls" type="Button" parent="Buttons"]
+[node name="Controls" type="Button" parent="ContentMarginContainer/Buttons"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Controls"
 
-[node name="Quit" type="Button" parent="Buttons"]
+[node name="Quit" type="Button" parent="ContentMarginContainer/Buttons"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Quit"
-
-[node name="BuildInfo" parent="." instance=ExtResource("2_q2yd3")]
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 8

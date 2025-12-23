@@ -8,6 +8,23 @@ extends MarginContainer
 @export var prevent_joypad_focus_capture: bool = false
 @export var default_focus_control: Control
 
+@export var ui_margin_left: int = 0:
+	set(v):
+		ui_margin_left = v
+		update_margins()
+@export var ui_margin_top: int = 0:
+	set(v):
+		ui_margin_top = v
+		update_margins()
+@export var ui_margin_right: int = 0:
+	set(v):
+		ui_margin_right = v
+		update_margins()
+@export var ui_margin_bottom: int = 0:
+	set(v):
+		ui_margin_bottom = v
+		update_margins()
+
 var ui: UI
 
 
@@ -47,6 +64,16 @@ func preset_ui() -> void:
 	#pivot_offset = size / 2
 	#scale = Vector2.ZERO
 	visible = false
+
+
+# If the node %ContentMarginContainer is present in the UiPage, its margins will
+# be set to the exported value
+func update_margins() -> void:
+	if is_instance_valid(%ContentMarginContainer):
+		%ContentMarginContainer.add_theme_constant_override("margin_left", ui_margin_left)
+		%ContentMarginContainer.add_theme_constant_override("margin_top", ui_margin_top)
+		%ContentMarginContainer.add_theme_constant_override("margin_right", ui_margin_right)
+		%ContentMarginContainer.add_theme_constant_override("margin_bottom", ui_margin_bottom)
 
 
 # Convenience function for page "back" buttons to return either to main_menu or pause_menu

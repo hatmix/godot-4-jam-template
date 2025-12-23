@@ -12,7 +12,7 @@ var _remapper: GUIDERemapper = GUIDERemapper.new()
 var _formatter: GUIDEInputFormatter
 var _remapping_config: GUIDERemappingConfig
 
-@onready var box_container: BoxContainer = $BoxContainer
+@onready var box_container: BoxContainer = %BoxContainer
 
 
 func _ready() -> void:

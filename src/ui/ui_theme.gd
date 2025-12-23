@@ -1,5 +1,6 @@
 @tool
 extends ProgrammaticTheme
+# Note that ProgrammaticTheme stylebox_ functions return Dictionary objects, not StyleBox
 
 @warning_ignore("integer_division")
 # The project's default theme is set to res://ui/ui_theme.tres
@@ -9,7 +10,7 @@ func setup() -> void:
 
 # TODO: Consider defining the UI theme below with ThemeGen or manually edit res://ui/ui_theme.tres
 func define_theme() -> void:
-	define_default_font(load("res://src/ui/assets/fonts/signika/Signika-SemiBold.ttf"))
+	define_default_font(load("res://src/ui/assets/fonts/Lato-Black.ttf"))
 	define_default_font_size(48)
 
 	define_style(
@@ -26,7 +27,7 @@ func define_theme() -> void:
 
 #region Remapping controls styling
 	# Buttons used for remapping controls are styled to have just a border for hover and focus
-	var sb_remap_button_focused = stylebox_flat(
+	var sb_remap_button_focused: Dictionary = stylebox_flat(
 		{
 			border_ = border_width(2),
 			border_color = Color.WHITE,

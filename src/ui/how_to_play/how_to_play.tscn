@@ -40,14 +40,24 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_qyscc")
-default_focus_control = NodePath("VBoxContainer/HBoxContainer/Back")
+default_focus_control = NodePath("ContentMarginContainer/VBoxContainer/HBoxContainer/Back")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
-layout_mode = 2
-
-[node name="MarkdownLabel" type="RichTextLabel" parent="VBoxContainer"]
+[node name="ContentMarginContainer" type="MarginContainer" parent="."]
 unique_name_in_owner = true
 layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ContentMarginContainer"]
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="ContentMarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="MarkdownLabel" type="RichTextLabel" parent="ContentMarginContainer/VBoxContainer/ScrollContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
 size_flags_vertical = 3
 bbcode_enabled = true
 script = ExtResource("2_run12")
@@ -58,11 +68,11 @@ h4 = SubResource("Resource_dadt8")
 h5 = SubResource("Resource_a05v1")
 h6 = SubResource("Resource_d4keb")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="ContentMarginContainer/VBoxContainer"]
 layout_mode = 2
 alignment = 1
 
-[node name="Back" type="Button" parent="VBoxContainer/HBoxContainer"]
+[node name="Back" type="Button" parent="ContentMarginContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4

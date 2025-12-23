@@ -19,26 +19,31 @@ grow_vertical = 2
 script = ExtResource("1_ypuet")
 remap_mapping_contexts = Array[ExtResource("2_v7gdq")]([ExtResource("3_b2afy")])
 icon_size = 32
-default_focus_control = NodePath("Buttons/Back")
+default_focus_control = NodePath("ContentMarginContainer/Buttons/Back")
 
-[node name="BoxContainer" type="BoxContainer" parent="."]
+[node name="ContentMarginContainer" type="MarginContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="BoxContainer" type="BoxContainer" parent="ContentMarginContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_constants/separation = 40
 alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="BoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="ContentMarginContainer/BoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
 
-[node name="Label" type="Label" parent="BoxContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="ContentMarginContainer/BoxContainer/VBoxContainer"]
 layout_mode = 2
 text = "Keyboard"
 horizontal_alignment = 1
 
-[node name="KeyboardMouseActions" type="GridContainer" parent="BoxContainer/VBoxContainer"]
+[node name="KeyboardMouseActions" type="GridContainer" parent="ContentMarginContainer/BoxContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
@@ -47,17 +52,17 @@ theme_override_constants/h_separation = 20
 theme_override_constants/v_separation = 4
 columns = 2
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="BoxContainer"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="ContentMarginContainer/BoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
 
-[node name="Label" type="Label" parent="BoxContainer/VBoxContainer2"]
+[node name="Label" type="Label" parent="ContentMarginContainer/BoxContainer/VBoxContainer2"]
 layout_mode = 2
 text = "Controller"
 horizontal_alignment = 1
 
-[node name="ControllerActions" type="GridContainer" parent="BoxContainer/VBoxContainer2"]
+[node name="ControllerActions" type="GridContainer" parent="ContentMarginContainer/BoxContainer/VBoxContainer2"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
@@ -66,12 +71,12 @@ theme_override_constants/h_separation = 20
 theme_override_constants/v_separation = 4
 columns = 2
 
-[node name="Buttons" type="HBoxContainer" parent="."]
+[node name="Buttons" type="HBoxContainer" parent="ContentMarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
 
-[node name="Back" type="Button" parent="Buttons"]
+[node name="Back" type="Button" parent="ContentMarginContainer/Buttons"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Back"
@@ -90,6 +95,8 @@ script = ExtResource("5_7bxk6")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_right = 320.0
+offset_bottom = 160.0
 grow_horizontal = 2
 grow_vertical = 2
 
