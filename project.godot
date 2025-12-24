@@ -14,7 +14,7 @@ config/name="Godot-4-Jam-Template"
 config/description="Godot 4 template project for game jams"
 run/main_scene="res://src/main.tscn"
 config/features=PackedStringArray("4.5")
-boot_splash/bg_color=Color(0.0784314, 0.133333, 0.25098, 1)
+boot_splash/bg_color=Color(0.050980393, 0.16862746, 0.27058825, 1)
 boot_splash/show_image=false
 config/icon="res://icon.png"
 
@@ -74,7 +74,7 @@ auto_rebuild=true
 [gui]
 
 theme/default_font_generate_mipmaps=true
-theme/custom="res://src/ui/ui_theme.tres"
+theme/custom="uid://c3w4awv5348yw"
 
 [input]
 
@@ -110,4 +110,4 @@ renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
 textures/vram_compression/import_etc2_astc=true
 textures/default_filters/use_nearest_mipmap_filter=true
-environment/defaults/default_clear_color=Color(0.0784314, 0.133333, 0.25098, 1)
+environment/defaults/default_clear_color=Color(0.050980393, 0.16862746, 0.27058825, 1)
