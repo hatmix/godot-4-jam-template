@@ -1,0 +1,20 @@
+[gd_scene load_steps=2 format=3 uid="uid://ddsnqq0wec0ab"]
+
+[ext_resource type="Script" uid="uid://b2imyjr6yv05q" path="res://src/ui/confirmation/confirmation.gd" id="1_x3ulu"]
+
+[node name="Confirmation" type="MarginContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_x3ulu")
+metadata/_custom_type_script = "uid://qrnhiju8ifst"
+
+[node name="ConfirmationDialog" type="ConfirmationDialog" parent="."]
+oversampling_override = 1.0
+initial_position = 2
+size = Vector2i(640, 360)
+borderless = true
+popup_window = true
+dialog_text = "Exit?"

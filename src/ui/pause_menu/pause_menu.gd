@@ -33,5 +33,8 @@ func _resume() -> void:
 
 
 func _main_menu() -> void:
+	var result: bool = await ui.show_popup_dialog("Quit to main menu?")
+	if not result:
+		return
 	get_tree().set_deferred("paused", false)
 	get_tree().change_scene_to_file("res://src/main.tscn")
