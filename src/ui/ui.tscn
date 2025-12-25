@@ -33,27 +33,37 @@ color = Color(0, 0, 0, 0.784314)
 script = ExtResource("5_n6lj8")
 
 [node name="Credits" parent="." instance=ExtResource("5_hqkqk")]
+process_mode = 3
+mouse_filter = 2
 ui_margin_left = 30
 ui_margin_top = 10
 ui_margin_bottom = 10
 
 [node name="HowToPlay" parent="." instance=ExtResource("8_y2e8e")]
+process_mode = 3
+mouse_filter = 2
 ui_margin_left = 30
 ui_margin_top = 10
 ui_margin_bottom = 10
 
 [node name="Settings" parent="." instance=ExtResource("9_jqbk6")]
+process_mode = 3
+mouse_filter = 2
 ui_margin_left = 30
 ui_margin_top = 10
 ui_margin_bottom = 10
 
 [node name="Controls" parent="." instance=ExtResource("11_w3b35")]
+process_mode = 3
+mouse_filter = 2
 icon_size = 64
 ui_margin_left = 30
 ui_margin_top = 10
 ui_margin_bottom = 10
 
 [node name="MainMenu" parent="." instance=ExtResource("2_7jndn")]
+process_mode = 3
+mouse_filter = 2
 
 [node name="Game" parent="." instance=ExtResource("8_62oa5")]
 ui_margin_left = 30
@@ -62,13 +72,21 @@ ui_margin_right = 30
 ui_margin_bottom = 10
 
 [node name="PauseMenu" parent="." instance=ExtResource("6_2pasj")]
+process_mode = 3
+mouse_filter = 2
 
 [node name="MessageBoard" parent="." instance=ExtResource("12_hlgii")]
+process_mode = 3
 connect_fx = false
 
 [node name="Confirmation" parent="." instance=ExtResource("12_ri2wq")]
+process_mode = 3
+mouse_filter = 2
 
 [node name="ThanksForPlaying" parent="." instance=ExtResource("13_0pgbw")]
+process_mode = 3
+mouse_filter = 2
 
 [node name="VirtualJoysticks" parent="." instance=ExtResource("13_wwjrv")]
+process_mode = 3
 connect_fx = false

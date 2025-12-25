@@ -10,6 +10,6 @@ extends UiPage
 
 
 func _process(_delta: float) -> void:
-	if visible and Input.is_anything_pressed():
+	if visible and Input.is_anything_pressed() and is_instance_valid(ui):
 		await ui.hide_ui(self)
 		get_tree().change_scene_to_file("res://main.tscn")

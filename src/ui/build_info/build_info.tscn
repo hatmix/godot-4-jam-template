@@ -8,8 +8,10 @@ script = ExtResource("1_b4kln")
 
 [node name="BuildLabel" type="Label" parent="."]
 layout_mode = 2
+theme_type_variation = &"BuildInfoLabel"
 text = "Build"
 horizontal_alignment = 2
 
 [node name="BuildValue" type="Label" parent="."]
 layout_mode = 2
+theme_type_variation = &"BuildInfoLabel"
