@@ -12,6 +12,6 @@ const VERSION_FILE: String = "res://version.txt"
 func _ready() -> void:
 	var version: String = FileAccess.get_file_as_string(VERSION_FILE)
 	if version:
-		build_value.text = version
+		build_value.text = version.trim_suffix("\n").trim_suffix("\r").trim_suffix("\n")
 	else:
 		self.hide()
