@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://dwy5oysceevc"]
+
+[ext_resource type="Script" uid="uid://d0fcmj00sjndm" path="res://src/autoloads/input_manager.gd" id="1_8i7fu"]
+[ext_resource type="Resource" uid="uid://v5u0dyabni7e" path="res://src/input/default_mapping_context.tres" id="2_8yre0"]
+
+[node name="InputManager" type="Node"]
+script = ExtResource("1_8i7fu")
+default_mapping_context = ExtResource("2_8yre0")
+metadata/_custom_type_script = "uid://d0fcmj00sjndm"

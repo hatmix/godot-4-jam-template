@@ -23,6 +23,7 @@ config/icon="res://icon.png"
 Settings="*res://src/autoloads/settings.gd"
 Globals="*res://src/autoloads/globals.gd"
 GUIDE="*res://addons/guide/guide.gd"
+InputManager="*res://src/autoloads/input_manager.tscn"
 
 [debug]
 

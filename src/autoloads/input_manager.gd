@@ -1,4 +1,3 @@
-class_name InputManager
 extends Node
 
 signal input_device_changed(device: InputDevice)
