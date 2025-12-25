@@ -8,7 +8,7 @@ extends UiPage
 #		get_tree().current_scene.get_canvas_transform() * node.global_position
 
 # The action used by virtual controls to pause game
-const UI_BACK_GUIDE_ACTION: GUIDEAction = preload("res://src/input/ui_back.tres")
+const UI_BACK_GUIDE_ACTION: GUIDEAction = preload("res://src/input/_template/ui_back.tres")
 
 var _pushed_state: bool = false
 

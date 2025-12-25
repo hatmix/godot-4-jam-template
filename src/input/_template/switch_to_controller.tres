@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="GUIDEAction" load_steps=2 format=3 uid="uid://olbohnj0dey3"]
+
+[ext_resource type="Script" uid="uid://cluhc11vixkf1" path="res://addons/guide/guide_action.gd" id="1_8kfsq"]
+
+[resource]
+script = ExtResource("1_8kfsq")
+name = &"Any Controller"
+block_lower_priority_actions = false
+display_name = "Switch to Controller"
