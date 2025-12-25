@@ -11,6 +11,10 @@ grow_vertical = 2
 script = ExtResource("1_x3ulu")
 metadata/_custom_type_script = "uid://qrnhiju8ifst"
 
+[node name="ContentMarginContainer" type="MarginContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+
 [node name="ConfirmationDialog" type="ConfirmationDialog" parent="."]
 oversampling_override = 1.0
 initial_position = 2

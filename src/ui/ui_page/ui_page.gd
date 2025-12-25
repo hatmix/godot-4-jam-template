@@ -1,3 +1,4 @@
+@tool
 @icon("ui-page-icon.svg")
 class_name UiPage
 extends MarginContainer
@@ -26,6 +27,8 @@ extends MarginContainer
 		update_margins()
 
 var ui: UI
+
+@onready var content_margin_container: MarginContainer = %ContentMarginContainer
 
 
 # Using enter tree so extended scripts don't need to call super() in ready
@@ -69,11 +72,11 @@ func preset_ui() -> void:
 # If the node %ContentMarginContainer is present in the UiPage, its margins will
 # be set to the exported value
 func update_margins() -> void:
-	if is_instance_valid(%ContentMarginContainer):
-		%ContentMarginContainer.add_theme_constant_override("margin_left", ui_margin_left)
-		%ContentMarginContainer.add_theme_constant_override("margin_top", ui_margin_top)
-		%ContentMarginContainer.add_theme_constant_override("margin_right", ui_margin_right)
-		%ContentMarginContainer.add_theme_constant_override("margin_bottom", ui_margin_bottom)
+	if is_instance_valid(content_margin_container):
+		content_margin_container.add_theme_constant_override("margin_left", ui_margin_left)
+		content_margin_container.add_theme_constant_override("margin_top", ui_margin_top)
+		content_margin_container.add_theme_constant_override("margin_right", ui_margin_right)
+		content_margin_container.add_theme_constant_override("margin_bottom", ui_margin_bottom)
 
 
 # Convenience function for page "back" buttons to return either to main_menu or pause_menu

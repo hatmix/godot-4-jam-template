@@ -16,10 +16,14 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_eq2ww")
 
-[node name="Control" type="Control" parent="."]
+[node name="ContentMarginContainer" type="MarginContainer" parent="."]
+unique_name_in_owner = true
 layout_mode = 2
 
-[node name="GUIDEVirtualStickLeft" type="CenterContainer" parent="Control"]
+[node name="Control" type="Control" parent="ContentMarginContainer"]
+layout_mode = 2
+
+[node name="GUIDEVirtualStickLeft" type="CenterContainer" parent="ContentMarginContainer/Control"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.1
@@ -36,7 +40,7 @@ max_actuation_radius = 50.0
 draw_debug = true
 metadata/_custom_type_script = "uid://nrxpuvak5oc6"
 
-[node name="GUIDEVirtualStickRight" type="CenterContainer" parent="Control"]
+[node name="GUIDEVirtualStickRight" type="CenterContainer" parent="ContentMarginContainer/Control"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.9
@@ -55,7 +59,7 @@ stick_position = 1
 draw_debug = true
 metadata/_custom_type_script = "uid://nrxpuvak5oc6"
 
-[node name="GUIDEVirtualButton" type="CenterContainer" parent="Control"]
+[node name="GUIDEVirtualButton" type="CenterContainer" parent="ContentMarginContainer/Control"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.95
@@ -71,7 +75,7 @@ button_index = 6
 draw_debug = true
 metadata/_custom_type_script = "uid://mtww7c1tlwt7"
 
-[node name="GUIDEVirtualButtonTextureRenderer" type="Control" parent="Control/GUIDEVirtualButton"]
+[node name="GUIDEVirtualButtonTextureRenderer" type="Control" parent="ContentMarginContainer/Control/GUIDEVirtualButton"]
 layout_mode = 2
 script = ExtResource("4_280y8")
 idle_texture = ExtResource("5_i62o5")

@@ -15,7 +15,11 @@ prevent_joypad_focus_capture = true
 [node name="Timer" type="Timer" parent="."]
 autostart = true
 
-[node name="Messages" type="VBoxContainer" parent="."]
+[node name="ContentMarginContainer" type="MarginContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Messages" type="VBoxContainer" parent="ContentMarginContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(320, 100)
 layout_mode = 2
