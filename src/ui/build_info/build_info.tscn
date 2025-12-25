@@ -8,10 +8,8 @@ script = ExtResource("1_b4kln")
 
 [node name="BuildLabel" type="Label" parent="."]
 layout_mode = 2
-theme_override_font_sizes/font_size = 8
 text = "Build"
 horizontal_alignment = 2
 
 [node name="BuildValue" type="Label" parent="."]
 layout_mode = 2
-theme_override_font_sizes/font_size = 8

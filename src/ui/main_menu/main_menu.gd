@@ -1,9 +1,12 @@
+@tool
 extends UiPage
 
 # TODO: Add a title and/or background art to main_menu.tscn
 
 
 func _ready() -> void:
+	if Engine.is_editor_hint():
+		return
 	call_deferred("_connect_buttons")
 	if OS.get_name() == "Web":
 		%Exit.hide()

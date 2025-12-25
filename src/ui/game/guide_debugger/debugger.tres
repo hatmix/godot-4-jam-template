@@ -1,0 +1,7 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://q28m8w8roi5r"]
+
+[ext_resource type="FontFile" uid="uid://bg0c1tlup760h" path="res://src/ui/assets/fonts/Lato-Black.ttf" id="1_pewhb"]
+
+[resource]
+default_font = ExtResource("1_pewhb")
+default_font_size = 24

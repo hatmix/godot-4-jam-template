@@ -2,6 +2,9 @@
 extends ProgrammaticTheme
 # Note that ProgrammaticTheme stylebox_ functions return Dictionary objects, not StyleBox
 
+const DEFAULT_FONT_SIZE: int = 48
+
+
 @warning_ignore("integer_division")
 # The project's default theme is set to res://ui/ui_theme.tres
 func setup() -> void:
@@ -11,7 +14,7 @@ func setup() -> void:
 # TODO: Consider defining the UI theme below with ThemeGen or manually edit res://ui/ui_theme.tres
 func define_theme() -> void:
 	define_default_font(load("res://src/ui/assets/fonts/Lato-Black.ttf"))
-	define_default_font_size(48)
+	define_default_font_size(DEFAULT_FONT_SIZE)
 
 	# Uncomment to set splash and clear colors in settings.
 	# Not technically part of the theme, but usually changed together
@@ -82,6 +85,13 @@ func define_theme() -> void:
 	#define_style("PopupMenu", {})
 	#define_style("PopupPanel", {})
 	#define_style("Window", {})
+#endregion
+
+#region Build info styling
+	@warning_ignore("integer_division")
+	define_variant_style("BuildInfoLabel", "Label", {
+		font_size = DEFAULT_FONT_SIZE / 2,
+	})
 #endregion
 
 #region Template message (notifications) styling

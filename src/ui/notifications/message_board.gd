@@ -1,3 +1,4 @@
+@tool
 class_name MessageQueue
 extends UiPage
 
@@ -5,6 +6,8 @@ var message_scene: PackedScene = preload("message.tscn")
 
 
 func _ready() -> void:
+	if Engine.is_editor_hint():
+		return
 	$Timer.timeout.connect(_check_queue)
 	Globals.post_ui_message.connect(show_message)
 

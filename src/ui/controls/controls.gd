@@ -1,3 +1,4 @@
+@tool
 extends UiPage
 
 const REMAP_INPUT_BUTTON_SCENE: PackedScene = preload("remap_input_button.tscn")
@@ -17,9 +18,10 @@ var _remapping_config: GUIDERemappingConfig
 
 func _ready() -> void:
 	%InputPanel.visible = false
+	if Engine.is_editor_hint():
+		return
 	%Back.pressed.connect(go_back)
 	_init_actions()
-
 	resized.connect(_handle_resize)
 	_handle_resize.call_deferred()
 

@@ -1,3 +1,4 @@
+@tool
 extends UiPage
 
 @export var thank_you_image: Texture2D:

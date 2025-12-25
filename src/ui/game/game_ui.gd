@@ -1,3 +1,4 @@
+@tool
 extends UiPage
 
 # TODO: Create your game's UI/HUD beginning here

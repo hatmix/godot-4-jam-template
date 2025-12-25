@@ -1,9 +1,12 @@
+@tool
 extends UiPage
 
 var _audio_bus_name_idx_mapping: Dictionary = {}
 
 
 func _ready() -> void:
+	if Engine.is_editor_hint():
+		return
 	# mobile can have very different aspect ratio, so allow larger UI scale
 	if OS.has_feature("web_android") or OS.has_feature("web_ios"):
 		%UiScale.max_value += 1.0

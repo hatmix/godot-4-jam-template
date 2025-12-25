@@ -36,6 +36,7 @@ func _enter_tree() -> void:
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	_hook_ui_scale_changed.call_deferred()
+	update_margins.call_deferred()
 
 
 # TODO: consider using the hide_ui and show_ui to add ui animation
