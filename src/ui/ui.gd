@@ -18,8 +18,15 @@ var ui_scale: Vector2 = Vector2.ONE:
 
 # Order matters b/c move_to_front called in this order
 @onready var pause_menus: Array[CanvasItem] = [
-	$InGameMenuOverlay, $HowToPlay, $Settings, $Controls, $MessageBoard, $PauseMenu
+	$InGameMenuOverlay, $HowToPlay, $Settings, $Controls,
+	$MessageBoard, $PauseMenu, $Confirmation
 ]
+@onready var confirmation: MarginContainer = $Confirmation
+
+
+func show_popup_dialog(message: String, cancel_button_text: String = "Cancel", ok_button_text: String = "OK") -> bool:
+	var result: bool = await confirmation.show_popup_dialog(message, cancel_button_text, ok_button_text)
+	return result
 
 
 func hide_ui(page: Variant = null) -> void:
