@@ -89,6 +89,9 @@ enum GUIDEActionState {
 ## Emitted every frame while the action is triggered.
 signal triggered()
 
+## Emitted the first frame that the action is triggered.
+signal just_triggered()
+
 ## Emitted when the action started evaluating.
 signal started()
 
@@ -152,6 +155,8 @@ func _triggered(value:Vector3, delta:float) -> void:
 	_triggered_seconds += delta
 	_elapsed_ratio = 1.0
 	_update_value(value)
+	if _last_state != GUIDEActionState.TRIGGERED:
+		just_triggered.emit()
 	_last_state = GUIDEActionState.TRIGGERED
 	triggered.emit()
 	_emit_godot_action_maybe(true)
@@ -202,7 +207,7 @@ func _emit_godot_action_maybe(pressed:bool) -> void:
 		push_error("Cannot emit action into Godot's system because name is empty.")
 		return
 		
-	var godot_action = InputEventAction.new()
+	var godot_action := InputEventAction.new()
 	godot_action.action = name
 	godot_action.strength = _value.x
 	godot_action.pressed = pressed

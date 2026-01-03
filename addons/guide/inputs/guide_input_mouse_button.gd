@@ -58,7 +58,7 @@ func is_same_as(other: GUIDEInput) -> bool:
 	return other is GUIDEInputMouseButton and other.button == button
 
 
-func _to_string():
+func _to_string() -> String:
 	return "(GUIDEInputMouseButton: button=" + str(button) + ")"
 
 
@@ -72,3 +72,6 @@ func _editor_description() -> String:
 
 func _native_value_type() -> GUIDEAction.GUIDEActionValueType:
 	return GUIDEAction.GUIDEActionValueType.BOOL
+
+func _device_type() -> DeviceType:
+	return DeviceType.MOUSE

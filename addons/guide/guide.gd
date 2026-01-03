@@ -21,6 +21,9 @@ var _active_remapping_config:GUIDERemappingConfig
 ## All currently active inputs as collected from the active input mappings
 var _active_inputs:GUIDESet = GUIDESet.new()
 
+## All currently active modifiers as collected from the active input mappings
+var _active_modifiers: GUIDESet = GUIDESet.new()
+
 ## A dictionary of actions sharing input. Key is the action, value
 ## is an array of lower-priority actions that share input with the 
 ## key action.
@@ -88,7 +91,7 @@ func set_remapping_config(config:GUIDERemappingConfig) -> void:
 	
 ## Enables the given context with the given priority. Lower numbers have higher priority. If 
 ## disable_others is set to true, all other currently enabled mapping contexts will be disabled.
-func enable_mapping_context(context:GUIDEMappingContext, disable_others:bool = false,  priority:int = 0):
+func enable_mapping_context(context:GUIDEMappingContext, disable_others:bool = false,  priority:int = 0) -> void:
 	if not is_instance_valid(context):
 		push_error("Null context given. Ignoring.")
 		return
@@ -103,7 +106,7 @@ func enable_mapping_context(context:GUIDEMappingContext, disable_others:bool = f
 	
 	
 ## Disables the given mapping context.
-func disable_mapping_context(context:GUIDEMappingContext):
+func disable_mapping_context(context:GUIDEMappingContext) -> void:
 	if not is_instance_valid(context):
 		push_error("Null context given. Ignoring.")
 		return
@@ -126,6 +129,10 @@ func get_enabled_mapping_contexts() -> Array[GUIDEMappingContext]:
 		result.append(key)
 	return result
 
+## Updates all currently active modifiers
+func _physics_process(delta: float) -> void:
+	for modifier: GUIDEModifier in _active_modifiers.values():
+		modifier._physics_process(delta)
 
 ## Processes all currently active actions
 func _process(delta:float) -> void:
@@ -194,7 +201,7 @@ func _process(delta:float) -> void:
 ## a lot of processing time during the actual input processing. It also simplifies the input processing
 ## code as all the rules for how inputs, actions and modifiers are consolidated are already applied here.
 ## This is called automatically when contexts are enabled/disabled or remapping configs are applied.
-func _update_caches():
+func _update_caches() -> void:
 	if _locked:
 		push_error("Mapping context changed again while processing a change. Ignoring to avoid endless loop.")
 		return
@@ -288,8 +295,9 @@ func _update_caches():
 			# - we make sure nobody shares triggers as they are stateful and
 			#   should not be shared.
 			
-			var effective_mapping  = GUIDEActionMapping.new()
+			var effective_mapping := GUIDEActionMapping.new()
 			effective_mapping.action = action
+			_copy_meta(action_mapping, effective_mapping)
 		
 			# the trigger hold threshold is the minimum time that the input must be held
 			# down before the action triggers. This is used to hint the UI about
@@ -299,8 +307,9 @@ func _update_caches():
 
 			# now update the action and input mappings
 			for index in action_mapping.input_mappings.size():
+				var input_mapping:GUIDEInputMapping = action_mapping.input_mappings[index]
 				# get the input that is assigned to this action mapping
-				var bound_input:GUIDEInput = action_mapping.input_mappings[index].input
+				var bound_input:GUIDEInput = input_mapping.input
 				
 				# if the re-mapping has an override for the input (e.g. the player has changed
 				# the default binding to something else), apply it.
@@ -333,11 +342,18 @@ func _update_caches():
 
 					new_inputs.add(bound_input)
 					
+				# copy metadata as this may be important for formatting	
 				new_input_mapping.input = bound_input
+				new_input_mapping.display_name = input_mapping.display_name
+				new_input_mapping.display_category = input_mapping.display_category
+				new_input_mapping.override_action_settings = input_mapping.override_action_settings
+				new_input_mapping.is_remappable = input_mapping.is_remappable
+				_copy_meta(input_mapping, new_input_mapping)
+				
 				# modifiers cannot be re-bound so we can just use the one
 				# from the original configuration. this is also needed for shared
 				# modifiers to work.
-				new_input_mapping.modifiers = action_mapping.input_mappings[index].modifiers
+				new_input_mapping.modifiers = input_mapping.modifiers
 				# track the modifiers, so we can later only disable the ones we don't need anymore.
 				for modifier:GUIDEModifier in new_input_mapping.modifiers:
 					# new_modifiers is a set so we can just add the modifier,
@@ -353,7 +369,7 @@ func _update_caches():
 				# to ensure that no shared triggers exist.
 				new_input_mapping.triggers = []
 				
-				for trigger in action_mapping.input_mappings[index].triggers:
+				for trigger in input_mapping.triggers:
 					new_input_mapping.triggers.append(trigger.duplicate())
 
 				# now initialize the input mapping
@@ -392,6 +408,10 @@ func _update_caches():
 		
 	# and now the consolidated inputs are the new active inputs.
 	_active_inputs = new_inputs
+	# only modifiers that require physics processing are considered "active" modifiers
+	_active_modifiers = new_modifiers.filter(func(it:GUIDEModifier) -> bool: return it._needs_physics_process())
+	# only enable physics_processing if we actually have an active modifiers
+	set_physics_process(not _active_modifiers.is_empty())
 	
 	# Now action mappings and their modifiers.
 	for mapping:GUIDEActionMapping in _active_action_mappings:
@@ -422,7 +442,7 @@ func _update_caches():
 	_actions_sharing_input.clear()
 	for i:int in _active_action_mappings.size():
 		
-		var mapping = _active_action_mappings[i]
+		var mapping := _active_action_mappings[i]
 		
 		if mapping.action.block_lower_priority_actions:
 			# first find out if the action uses any chorded actions and 
@@ -445,7 +465,7 @@ func _update_caches():
 			# chain unblocked. In addition we need to add the inputs of all
 			# these chorded actions to the list of blocked inputs.
 			for j:int in range(i+1, _active_action_mappings.size()):
-				var inner_mapping = _active_action_mappings[j]
+				var inner_mapping := _active_action_mappings[j]
 				# this is a chorded action that is used by one other action
 				# in the chain.
 				if chorded_actions.has(inner_mapping.action):
@@ -462,7 +482,7 @@ func _update_caches():
 			
 			# now find lower priority actions that share input
 			for j:int in range(i+1, _active_action_mappings.size()):
-				var inner_mapping = _active_action_mappings[j]
+				var inner_mapping := _active_action_mappings[j]
 				if chorded_actions.has(inner_mapping.action):
 					continue
 					
@@ -573,3 +593,8 @@ static func _mark_used(object: Object, value:bool) -> void:
 static func _is_used(object: Object) -> bool:
 	return object.has_meta("__guide_in_use")
 	
+
+static func _copy_meta(source:Object, target:Object) -> void:
+	var keys:Array[StringName] = source.get_meta_list()
+	for key:StringName in keys:
+		target.set_meta(key, source.get_meta(key))

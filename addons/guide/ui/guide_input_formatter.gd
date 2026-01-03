@@ -3,25 +3,24 @@
 class_name GUIDEInputFormatter
 
 const IconMaker = preload("icon_maker/icon_maker.gd")
-const KeyRenderer = preload("renderers/keyboard/key_renderer.tscn")
-const MouseRenderer = preload("renderers/mouse/mouse_renderer.tscn")
-const TouchRenderer = preload("renderers/touch/touch_renderer.tscn")
-const JoyRenderer = preload("renderers/joy/joy_renderer.tscn")
-const XboxRenderer = preload("renderers/controllers/xbox/xbox_controller_renderer.tscn")
-const PlayStationRenderer = preload("renderers/controllers/playstation/playstation_controller_renderer.tscn")
-const SwitchRenderer = preload("renderers/controllers/switch/switch_controller_renderer.tscn")
-const ActionRenderer = preload("renderers/misc/action_renderer.tscn")
-const FallbackRenderer = preload("renderers/misc/fallback_renderer.tscn")
+const KeyRenderer:PackedScene = preload("renderers/keyboard/guide_key_renderer.tscn")
+const MouseRenderer:PackedScene = preload("renderers/mouse/guide_mouse_renderer.tscn")
+const TouchRenderer:PackedScene = preload("renderers/touch/guide_touch_renderer.tscn")
+const JoyRenderer:PackedScene = preload("renderers/joy/guide_joy_renderer.tscn")
+const ControllerRenderer:PackedScene = preload("renderers/controllers/guide_controller_renderer.tscn")
+const ActionRenderer:PackedScene = preload("renderers/misc/guide_action_renderer.tscn")
+const FallbackRenderer:PackedScene = preload("renderers/misc/guide_fallback_renderer.tscn")
 const DefaultTextProvider = preload("text_providers/default_text_provider.gd")
-const XboxTextProvider = preload("text_providers/controllers/xbox/xbox_controller_text_provider.gd")
-const PlayStationTextProvider = preload("text_providers/controllers/playstation/playstation_controller_text_provider.gd")
-const SwitchTextProvider = preload("text_providers/controllers/switch/switch_controller_text_provider.gd")
+const ControllerTextProvider = preload("text_providers/controllers/guide_controller_text_provider.gd")
+
 
 # These are shared across all instances
 static var _icon_maker:IconMaker
 static var _icon_renderers:Array[GUIDEIconRenderer] = []
 static var _text_providers:Array[GUIDETextProvider] = []
 static var _is_ready:bool = false
+
+
 
 ## Separator to separate mixed input. 
 static var mixed_input_separator:String = ", "
@@ -34,7 +33,10 @@ static var combo_input_separator:String = " > "
 var _action_resolver:Callable
 var _icon_size:int
 
-static func _ensure_readiness():
+## The formatting options that this renderer uses. See [GUIDEInputFormattingOptions].
+var formatting_options:GUIDEInputFormattingOptions = GUIDEInputFormattingOptions.new()
+
+static func _ensure_readiness() -> void:
 	if _is_ready:
 		return
 		
@@ -53,15 +55,11 @@ static func _ensure_readiness():
 	add_icon_renderer(TouchRenderer.instantiate())
 	add_icon_renderer(ActionRenderer.instantiate())
 	add_icon_renderer(JoyRenderer.instantiate())
-	add_icon_renderer(XboxRenderer.instantiate())
-	add_icon_renderer(PlayStationRenderer.instantiate())
-	add_icon_renderer(SwitchRenderer.instantiate())
+	add_icon_renderer(ControllerRenderer.instantiate())
 	add_icon_renderer(FallbackRenderer.instantiate())
 	
 	add_text_provider(DefaultTextProvider.new())
-	add_text_provider(XboxTextProvider.new())
-	add_text_provider(PlayStationTextProvider.new())
-	add_text_provider(SwitchTextProvider.new())
+	add_text_provider(ControllerTextProvider.new())
 	
 	_is_ready = true
 
@@ -112,7 +110,7 @@ static func remove_text_provider(provider:GUIDETextProvider) -> void:
 
 ## Returns an input formatter that can format actions using the currently active inputs.
 static func for_active_contexts(icon_size:int = 32) -> GUIDEInputFormatter:
-	var resolver = func(action:GUIDEAction) -> GUIDEActionMapping:
+	var resolver := func(action:GUIDEAction) -> GUIDEActionMapping:
 		for mapping in GUIDE._active_action_mappings:
 			if mapping.action == action:
 				return mapping
@@ -147,13 +145,17 @@ func action_as_text(action:GUIDEAction) -> String:
 ## is async as icons may need to be rendered in the background which can take a few frames, so 
 ## you will need to await on it.
 func input_as_richtext_async(input:GUIDEInput, materialize_actions:bool = true) -> String:
-	return await _materialized_as_richtext_async(_materialize_input(input, materialize_actions))
+	return await _materialized_as_richtext_async( 
+		_materialize_input(FormattingContext.for_input(input), materialize_actions) 
+	)
 
 
 ## Formats the input as plain text which can be used in any UI component. This is a bit
 ## more light-weight than formatting as icons and returns immediately.
 func input_as_text(input:GUIDEInput, materialize_actions:bool = true) -> String:
-	return _materialized_as_text(_materialize_input(input, materialize_actions))	
+	return _materialized_as_text(
+		_materialize_input(FormattingContext.for_input(input), materialize_actions)
+	)	
 	
 
 ## Renders materialized input as text.
@@ -162,8 +164,8 @@ func _materialized_as_text(input:MaterializedInput) -> String:
 	if input is MaterializedSimpleInput:
 		var text:String = ""
 		for provider in _text_providers:
-			if provider.supports(input.input):
-				text = provider.get_text(input.input)
+			if provider.supports(input.input, formatting_options):
+				text = provider.get_text(input.input, formatting_options)
 				# first provider wins
 				break
 		if text == "":
@@ -171,13 +173,16 @@ func _materialized_as_text(input:MaterializedInput) -> String:
 			## push_warning("No formatter found for input ", input)
 		return text
 
-	var separator = _separator_for_input(input)
+	var separator := _separator_for_input(input)
 	if separator == "" or input.parts.is_empty():
 		return ""
 		
 	var parts:Array[String] = []
 	for part in input.parts:
-		parts.append(_materialized_as_text(part))	
+		var result := _materialized_as_text(part)
+		# strip out empty parts (e.g. from devices we ignore)
+		if not result.is_empty(): 
+			parts.append(result)	
 		
 	return separator.join(parts)
 			
@@ -186,9 +191,9 @@ func _materialized_as_richtext_async(input:MaterializedInput) -> String:
 	_ensure_readiness()	
 	if input is MaterializedSimpleInput:
 		var icon:Texture2D = null
-		for renderer in _icon_renderers:
-			if renderer.supports(input.input):
-				icon = await _icon_maker.make_icon(input.input, renderer, _icon_size)
+		for renderer:GUIDEIconRenderer in _icon_renderers:
+			if renderer.supports(input.input, formatting_options):
+				icon = await _icon_maker.make_icon(input.input, renderer, _icon_size, formatting_options)
 				# first renderer wins
 				break
 		if icon == null:
@@ -198,13 +203,16 @@ func _materialized_as_richtext_async(input:MaterializedInput) -> String:
 		return "[img]%s[/img]" % [icon.resource_path]
 	
 
-	var separator = _separator_for_input(input)
+	var separator := _separator_for_input(input)
 	if separator == "" or input.parts.is_empty():
 		return ""
 		
 	var parts:Array[String] = []
 	for part in input.parts:
-		parts.append(await _materialized_as_richtext_async(part))	
+		var result := await _materialized_as_richtext_async(part)
+		# strip out any empty part (e.g. from devices we skip)
+		if not result.is_empty():
+			parts.append(result)	
 		
 	return separator.join(parts)
 		
@@ -261,59 +269,69 @@ func _materialize_action_input(action:GUIDEAction) -> MaterializedInput:
 				chord.parts.append(combo)
 			if combos.is_empty():
 				if input_mapping.input != null:
-					chord.parts.append(_materialize_input(input_mapping.input))					
+					chord.parts.append(
+						_materialize_input(FormattingContext.for_action(input_mapping.input, input_mapping, action))
+					)					
 			result.parts.append(chord)
 		else:
 			for combo in combos:
 				result.parts.append(combo)
 			if combos.is_empty():
 				if input_mapping.input != null:
-					result.parts.append(_materialize_input(input_mapping.input))			
+					result.parts.append(
+						_materialize_input(FormattingContext.for_action(input_mapping.input, input_mapping, action))
+					)
 	return result
 	
 ## Materializes direct input.
-func _materialize_input(input:GUIDEInput, materialize_actions:bool = true) -> MaterializedInput:
-	if input == null:
+func _materialize_input(context:FormattingContext, materialize_actions:bool = true) -> MaterializedInput:
+	if context.input == null:
 		push_warning("Trying to materialize a null input.")
 		return MaterializedMixedInput.new()
 	
+	# if the formatting options exclude this input, return an empty input.
+	if not formatting_options.input_filter.call(context):
+		return MaterializedMixedInput.new()
+		
+	
 	# if its an action input, get its parts
-	if input is GUIDEInputAction:
+	if context.input is GUIDEInputAction:
 		if materialize_actions:
-			return _materialize_action_input(input.action)
+			return _materialize_action_input(context.input.action)
 		else:
-			return MaterializedSimpleInput.new(input)
+			return MaterializedSimpleInput.new(context.input)
 	
 	# if its a key input, split out the modifiers
-	if input is GUIDEInputKey:
+	if context.input is GUIDEInputKey:
 		var chord := MaterializedChordedInput.new()
-		if input.control:
-			var ctrl = GUIDEInputKey.new()
+		if context.input.control:
+			var ctrl := GUIDEInputKey.new()
 			ctrl.key = KEY_CTRL
 			chord.parts.append(MaterializedSimpleInput.new(ctrl))
-		if input.alt:
-			var alt = GUIDEInputKey.new()
+		if context.input.alt:
+			var alt := GUIDEInputKey.new()
 			alt.key = KEY_ALT
 			chord.parts.append(MaterializedSimpleInput.new(alt))
-		if input.shift:
-			var shift = GUIDEInputKey.new()
+		if context.input.shift:
+			var shift := GUIDEInputKey.new()
 			shift.key = KEY_SHIFT
 			chord.parts.append(MaterializedSimpleInput.new(shift))
-		if input.meta:
-			var meta = GUIDEInputKey.new()
+		if context.input.meta:
+			var meta := GUIDEInputKey.new()
 			meta.key = KEY_META
 			chord.parts.append(MaterializedSimpleInput.new(meta))
 	
 		# got no modifiers?
 		if chord.parts.is_empty():
-			return MaterializedSimpleInput.new(input)
+			return MaterializedSimpleInput.new(context.input)
 			
-		chord.parts.append(MaterializedSimpleInput.new(input))	
+		chord.parts.append(MaterializedSimpleInput.new(context.input))	
 		return chord
 
 	# everything else is just a simple input
-	return MaterializedSimpleInput.new(input)
-			
+	return MaterializedSimpleInput.new(context.input)
+	
+	
 class MaterializedInput:
 	pass
 	
@@ -336,23 +354,26 @@ class MaterializedComboInput:
 	extends MaterializedInput
 	var parts:Array[MaterializedInput] = []
 
-
-## Returns the name of the associated joystick/pad of the given input.
-## If the input is no joy input or the device name cannot be determined
-## returns an empty string. 
-static func _joy_name_for_input(input:GUIDEInput) -> String:
-	if not input is GUIDEInputJoyBase:
-		return ""
+## A formatting context.
+class FormattingContext:
+	## The input we'd like to format.
+	var input:GUIDEInput
+	## The input mapping from which this input originates.
+	## Can be null, if this is a raw input.
+	var input_mapping:GUIDEInputMapping
+	## The action to which the input mapping is bound.
+	## Can be null, if there is no input mapping. 
+	var action:GUIDEAction
 	
-	var joypads:Array[int] = Input.get_connected_joypads()
-	var joy_index = input.joy_index
-	if joy_index < 0:
-		# pick the first one
-		joy_index = 0
-	
-	# We don't have such a controller, so bail out.
-	if joypads.size() <= joy_index:
-		return "" 
+	static func for_input(input:GUIDEInput) -> FormattingContext:
+		var result = FormattingContext.new()
+		result.input = input
+		return result
 		
-	var id = joypads[joy_index]
-	return Input.get_joy_name(id)	
+	static func for_action(input:GUIDEInput, input_mapping:GUIDEInputMapping, action:GUIDEAction) -> FormattingContext:
+		var result = FormattingContext.new()
+		result.input = input
+		result.input_mapping = input_mapping
+		result.action = action
+		return result
+		

@@ -21,8 +21,8 @@ var _initial_angle:float = INF
 func _needs_reset() -> bool:
 	return true
 
-func _reset():
-	var angle = _calculate_angle()
+func _reset() -> void:
+	var angle := _calculate_angle()
 	# update initial angle when input is actuated or stops being actuated
 	if is_finite(_initial_angle) != is_finite(angle):
 		_initial_angle = angle
@@ -89,3 +89,6 @@ func _editor_description() -> String:
 
 func _native_value_type() -> GUIDEAction.GUIDEActionValueType:
 	return GUIDEAction.GUIDEActionValueType.AXIS_1D
+
+func _device_type() -> DeviceType:
+	return DeviceType.TOUCH

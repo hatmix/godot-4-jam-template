@@ -1,17 +1,20 @@
 @tool
 extends EditorPlugin
-const MainPanel = preload("editor/mapping_context_editor/mapping_context_editor.tscn")
+
+const GUIDEProjectSettings = preload("editor/guide_project_settings.gd")
+const MainPanel:PackedScene = preload("editor/mapping_context_editor/mapping_context_editor.tscn")
 
 var _main_panel:Control
 
 
-func _enable_plugin():
+func _enable_plugin() -> void:
 	add_autoload_singleton("GUIDE", "res://addons/guide/guide.gd")
 	
 func _enter_tree() -> void:
 	_main_panel = MainPanel.instantiate()
 	_main_panel.initialize(self)
 	EditorInterface.get_editor_main_screen().add_child(_main_panel)
+	GUIDEProjectSettings.initialize()
 	# Hide the main panel. Very much required.
 	_make_visible(false)
 
@@ -20,11 +23,11 @@ func _exit_tree() -> void:
 		_main_panel.queue_free()
 	GUIDEInputFormatter.cleanup()
 
-func _disable_plugin():
+func _disable_plugin() -> void:
 	remove_autoload_singleton("GUIDE")
 	
 
-func _edit(object):
+func _edit(object) -> void:
 	if object is GUIDEMappingContext:
 		_main_panel.edit(object)
 
@@ -40,6 +43,6 @@ func _has_main_screen() -> bool:
 func _handles(object:Variant) -> bool:
 	return object is GUIDEMappingContext
 
-func _make_visible(visible):
+func _make_visible(visible) -> void:
 	if is_instance_valid(_main_panel):
 		_main_panel.visible = visible
