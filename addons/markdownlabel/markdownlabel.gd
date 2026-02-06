@@ -20,9 +20,10 @@ const _ESCAPE_PLACEHOLDER := ";$\uFFFD:%s$;"
 const _ESCAPEABLE_CHARACTERS := "\\*_~`[]()\"<>#-+.!"
 const _ESCAPEABLE_CHARACTERS_REGEX := "[\\\\\\*\\_\\~`\\[\\]\\(\\)\\\"\\<\\>#\\-\\+\\.\\!]"
 const _CHECKBOX_KEY := "markdownlabel-checkbox"
+const _FRONTMATTER_REGEX := r"^(?:(?:---|\+\+\+)\r?\n([\s\S]*?)\r?\n(?:---|\+\+\+)\r?\n)?(?:\r?\n)?([\s\S]*)$"
 
 #region Public:
-## Emitted when the node does not handle a click on a link. Can be used to execute custom functions when a link is clicked. [code]meta[/code] is the link metadata (in a regular link, it would be the URL).
+## Emitted when the node does not handle a click on a link. Can be used to execute custom functions when a link is clicked. [param meta] is the link metadata (in a regular link, it would be the URL).
 signal unhandled_link_clicked(meta: Variant)
 ## Emitted when a task list checkbox is clicked. Arguments are:
 ## the id of the checkbox (used internally),
@@ -31,12 +32,13 @@ signal unhandled_link_clicked(meta: Variant)
 ## and a string containing the text after the checkbox (within the same line).
 signal task_checkbox_clicked(id: int, line: int, checked: bool, task_string: String)
 
-## The text to be displayed in Markdown format.
+## The text to be displayed in Markdown format.[br][br]
+## [i]Note: the [member RichTextLabel.text] property is overridden so modifying it through code has the same effect as modifying [member markdown_text].[/i]
 @export_multiline var markdown_text: String : set = _set_markdown_text
 
 ## If enabled, links will be automatically handled by this node, without needing to manually connect them. Valid header anchors will make the label scroll to that header's position. Valid URLs and e-mails will be opened according to the user's default settings.
 @export var automatic_links := true
-## If enabled, unrecognized links will be opened as HTTPS URLs (e.g. "example.com" will be opened as "https://example.com"). If disabled, unrecognized links will be left unhandled (emitting the [code]unhandled_link_clicked[/code] signal). Ignored if [code]automatic_links[/code] is disabled.
+## If enabled, unrecognized links will be opened as HTTPS URLs (e.g. "example.com" will be opened as "https://example.com"). If disabled, unrecognized links will be left unhandled (emitting the [signal unhandled_link_clicked] signal). Ignored if [member automatic_links] is disabled.
 @export var assume_https_links := true
 
 @export_group("Header formats")
@@ -58,20 +60,44 @@ signal task_checkbox_clicked(id: int, line: int, checked: bool, task_string: Str
 @export var enable_checkbox_clicks := true :
 	set(new_value):
 		enable_checkbox_clicks = new_value
-		_update()
+		queue_update()
 ## String that will be displayed for unchecked task list items. Accepts BBCode and Markdown.
 @export var unchecked_item_character := "☐" :
 	set(new_value):
 		unchecked_item_character = new_value
-		_update()
+		queue_update()
 ## String that will be displayed for checked task list items. Accepts BBCode and Markdown.
 @export var checked_item_character := "☑" :
 	set(new_value):
 		checked_item_character = new_value
-		_update()
+		queue_update()
+
+@export_group("Horizontal rules", "hr_")
+## Height of horizontal rules. Only for Godot 4.5+.
+@export_range(0, 99, 1, "suffix:px") var hr_height: int = 2 :
+	set(new_value):
+		hr_height = new_value
+		queue_update()
+## Width of horizontal rules, as a percentage of the label's width. Only for Godot 4.5+.
+@export_range(0, 100, 1, "suffix:%") var hr_width: float = 90 :
+	set(new_value):
+		hr_width = new_value
+		queue_update()
+## Alignment of horizontal rules. Only for Godot 4.5+.
+@export_enum("left", "center", "right") var hr_alignment: String = "center" :
+	set(new_value):
+		hr_alignment = new_value
+		queue_update()
+## Color of horizontal rules. Only for Godot 4.5+.
+@export var hr_color: Color = Color.WHITE :
+	set(new_value):
+		hr_color = new_value
+		queue_update()
+
 #endregion
 
 #region Private:
+var _dirty: bool = false
 var _converted_text: String
 var _indent_level: int
 var _escaped_characters_map := {}
@@ -85,6 +111,7 @@ var _checkbox_id: int = 0
 var _current_line: int = 0
 var _checkbox_record := {}
 var _debug_mode := false
+var _frontmatter := ""
 #endregion
 
 #region Built-in methods:
@@ -96,16 +123,18 @@ func _init(markdown_text: String = "") -> void:
 		meta_clicked.connect(_on_meta_clicked)
 
 func _ready() -> void:
-	h1.changed.connect(_update)
-	h2.changed.connect(_update)
-	h3.changed.connect(_update)
-	h4.changed.connect(_update)
-	h5.changed.connect(_update)
-	h6.changed.connect(_update)
+	h1.changed.connect(queue_update)
+	h2.changed.connect(queue_update)
+	h3.changed.connect(queue_update)
+	h4.changed.connect(queue_update)
+	h5.changed.connect(queue_update)
+	h6.changed.connect(queue_update)
 	if Engine.is_editor_hint():
 		bbcode_enabled = true
-	#else:
-		#pass
+
+func _process(_delta: float) -> void:
+	if _dirty:
+		_update()
 
 func _on_meta_clicked(meta: Variant) -> void:
 	if typeof(meta) != TYPE_STRING:
@@ -136,50 +165,107 @@ func _on_meta_clicked(meta: Variant) -> void:
 		unhandled_link_clicked.emit(meta)
 
 func _validate_property(property: Dictionary) -> void:
-	# Hide these properties in the editor:
-	if property.name in ["bbcode_enabled", "text"]:
+	if property.name == "bbcode_enabled":
 		property.usage = PROPERTY_USAGE_NO_EDITOR
+	elif property.name == "text":
+		property.usage = PROPERTY_USAGE_NONE # Don't store in scene file (markdown_text is already stored) nor show in editor
+
+func _set(property: StringName, value: Variant) -> bool:
+	if property == "text":
+		_set_text(value)
+		return true
+	return false
+
+func _get(property: StringName) -> Variant:
+	if property == "text":
+		return markdown_text
+	return null
+
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_TRANSLATION_CHANGED:
+		queue_update()
 
 #endregion
 
 #region Public methods:
-## Reads the specified file and displays it as markdown.
-func display_file(file_path: String) -> void:
-	markdown_text = FileAccess.get_file_as_string(file_path)
+## Reads the specified file and displays it as markdown.[br][br]
+## If [param handle_frontmatter] is [code]true[/code] (default), any valid YAML or TOML front-matter won't be displayed
+## and will be saved to optionally be later retrieved using [method get_frontmatter].
+## Otherwise, the document will be displayed as-is.
+## Returns a [enum @GlobalScope.Error].
+func display_file(file_path: String, handle_frontmatter: bool = true) -> Error:
+	var result: Error = OK
+	var content: String = FileAccess.get_file_as_string(file_path)
+	if not content:
+		result = FileAccess.get_open_error()
+	if handle_frontmatter and result == OK:
+		var regex := RegEx.create_from_string(_FRONTMATTER_REGEX)
+		var regex_match := regex.search(content)
+		if regex_match:
+			_frontmatter = regex_match.get_string(1).strip_edges()
+			markdown_text = regex_match.get_string(2)
+			return OK
+		else:
+			result = ERR_BUG
+	_frontmatter = ""
+	markdown_text = content
+	return result
+
+## Returns the stored front-matter of the last file that was displayed using [method display_file], or an empty string otherwise.
+func get_frontmatter() -> String:
+	return _frontmatter
+
+## Requests a redraw of the label, reprocessing the Markdown text.
+func queue_update() -> void:
+	_dirty = true
+	queue_redraw()
+
 #endregion
 
 #region Private methods:
-func _update() -> void:
-	text = _convert_markdown(markdown_text)
-	queue_redraw()
+func _set_text(new_text: String) -> void:
+	markdown_text = new_text
+	queue_update()
 
 func _set_markdown_text(new_text: String) -> void:
 	markdown_text = new_text
-	_update()
+	queue_update()
+
+func _update() -> void:
+	_dirty = false
+	super.clear()
+	var bbcode_text: String = _convert_markdown(TranslationServer.translate(markdown_text) as String if _can_auto_translate() else markdown_text)
+	super.parse_bbcode(bbcode_text)
+
+func _can_auto_translate() -> bool:
+	var version := Engine.get_version_info()
+	if version.hex >= 0x040300 and has_method("can_auto_translate"):
+		return call("can_auto_translate")
+	return auto_translate
 
 func _set_h1_format(new_format: H1Format) -> void:
 	h1 = new_format
-	_update()
+	queue_update()
 
 func _set_h2_format(new_format: H2Format) -> void:
 	h2 = new_format
-	_update()
+	queue_update()
 
 func _set_h3_format(new_format: H3Format) -> void:
 	h3 = new_format
-	_update()
+	queue_update()
 
 func _set_h4_format(new_format: H4Format) -> void:
 	h4 = new_format
-	_update()
+	queue_update()
 
 func _set_h5_format(new_format: H5Format) -> void:
 	h5 = new_format
-	_update()
+	queue_update()
 
 func _set_h6_format(new_format: H6Format) -> void:
 	h6 = new_format
-	_update()
+	queue_update()
 
 func _convert_markdown(source_text: String = "") -> String:
 	if not bbcode_enabled:
@@ -257,6 +343,7 @@ func _convert_markdown(source_text: String = "") -> String:
 		_processed_line = _process_inline_code_syntax(_processed_line)
 		_processed_line = _process_image_syntax(_processed_line)
 		_processed_line = _process_link_syntax(_processed_line)
+		_processed_line = _process_hr_syntax(_processed_line)
 		_processed_line = _process_text_formatting_syntax(_processed_line)
 		_processed_line = _process_header_syntax(_processed_line)
 		_processed_line = _process_custom_syntax(_processed_line)
@@ -450,6 +537,7 @@ func _process_image_syntax(line: String) -> String:
 			if result.get_string()[_text.get_end()] != "(":
 				continue
 			found_proper_match = true
+			var alt_text := result.get_string(1)
 			# Check if link has a title:
 			regex.compile("\\\"(.*?)\\\"")
 			var title_result := regex.search(result.get_string(2))
@@ -459,10 +547,12 @@ func _process_image_syntax(line: String) -> String:
 				title = title_result.get_string(1)
 				url = url.rstrip(" ").trim_suffix(title_result.get_string()).rstrip(" ")
 			url = _escape_chars(url)
-			processed_line = processed_line.erase(_start, _end - _start).insert(_start, "[img]%s[/img]" % url)
-			if title_result and title:
-				processed_line = processed_line.insert(_start + 12 + url.length() + _text.get_string(1).length(), "[/hint]").insert(_start, "[hint=%s]" % title)
-			_debug("... hyperlink: " + result.get_string())
+			processed_line = processed_line.erase(_start, _end - _start).insert(_start, "[img%s%s]%s[/img]" % [
+				" alt=\"%s\"" % alt_text if alt_text else "",
+				" tooltip=\"%s\"" % title if title_result and title else "",
+				url,
+			])
+			_debug("... image: " + result.get_string())
 			break
 		if not found_proper_match:
 			break
@@ -612,6 +702,33 @@ func _process_header_syntax(line: String) -> String:
 		processed_line = processed_line.insert(_end - (n + n_spaces) + opening_tags.length(), _get_header_tags(header_format, true))
 		_debug("... header level %d" % n)
 		_header_anchor_paragraph[_get_header_reference(result.get_string())] = _current_paragraph
+		if header_format.get("draw_horizontal_rule"):
+			var version := Engine.get_version_info()
+			if version.hex >= 0x040500:
+				processed_line += "\n[hr height=%d width=%d%% align=left color=%s]" % [
+					hr_height,
+					hr_width,
+					hr_color.to_html(),
+				]
+				_current_line += 1
+				_current_paragraph += 1
+	return processed_line
+
+func _process_hr_syntax(line: String) -> String:
+	var version := Engine.get_version_info()
+	if version.hex < 0x040500:
+		return line
+	var processed_line := line
+	var regex := RegEx.create_from_string(r"^[ ]{0,3}([\-_*])\1{2,}\s*$")
+	var result := regex.search(processed_line)
+	if result:
+		processed_line = "[hr height=%d width=%d%% align=%s color=%s]" % [
+			hr_height,
+			hr_width,
+			hr_alignment,
+			hr_color.to_html(),
+		]
+		_debug("... horizontal rule")
 	return processed_line
 
 func _escape_bbcode(source: String) -> String:
@@ -754,6 +871,6 @@ func _on_checkbox_clicked(id: int, was_checked: bool) -> void:
 		push_error("Couldn't find the clicked task list checkbox (id=%d, line=%d)" % [id, iline]) # Shouldn't happen. Please report the bug if it happens.
 		return
 	lines[iline] = lines[iline].erase(i, old_string.length()).insert(i, new_string)
-	markdown_text = "\n".join(lines)
+	_set("text", "\n".join(lines)) #calling [text] directly from this class does not use [_set()].
 	task_checkbox_clicked.emit(id, iline, !was_checked, lines[iline].substr(i + 4))
 #endregion

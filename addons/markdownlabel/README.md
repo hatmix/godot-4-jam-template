@@ -13,11 +13,13 @@ Compatible with **Godot 4.2+**. Contains uid files for Godot 4.4+.
   - [Code](#code)
   - [Headers](#headers)
   - [Links](#links)
+  - [Horizontal rules](#horizontal-rules)
   - [Images](#images)
   - [Lists](#lists)
     - [Task list items (checkboxes)](#task-list-items)
   - [Tables](#tables)
   - [Escaping characters](#escaping-characters)
+  - [Internationalization](#internationalization)
   - [Advanced usage](#advanced-usage)
 - [Limitations](#limitations)
   - [Unsupported syntax elements](#unsupported-syntax-elements)
@@ -56,13 +58,16 @@ You might need to reload the project.
 
 ## Usage
 
-Simply add a MarkdownLabel to the scene and write its `markdown_text` field in Markdown format. Alternatively, you can use the ``display_file`` method to automatically import the contents of a Markdown file.
+Simply add a MarkdownLabel to the scene and write its `markdown_text` field in Markdown format. Alternatively, you can use the `display_file` method to automatically import the contents of a Markdown file.
 
 In the RichTextLabel properties:
-- Do not touch neither the `bbcode_enabled` nor the `text` property, since they are internally used by MarkdownLabel to properly format its text. Both properties are hidden from the editor to prevent mistakenly editing them.
+- Do not touch the `bbcode_enabled` property, since it's automatically set to `true` by MarkdownLabel to properly format its text. It's hidden from the editor to prevent misusage.
+- Editing the `text` property has the same effect as editing `markdown_text`. It's hidden from the editor to prevent misusage.
 - You can use the rest of its properties as normal.
 
 You can still use BBCode tags that don't have a Markdown equivalent, such as `[color=green]underlined text[/color]`, allowing you to have the full functionality of RichTextLabel with the simplicity and readibility of Markdown.
+
+You can access the in-editor documentation in Godot by going to "Help" > "Search Help" and search for MarkdownLabel.
 
 ![An example of the node being used to display this Markdown file](addons/markdownlabel/assets/screenshot.png "An example of the node being used to display this Markdown file")
 *An example of the node being used to display this Markdown file.*
@@ -88,7 +93,7 @@ Examples:
 Markdown text ................. -> BBCode equivalent
 --------------------------------||------------------
 The following is `in-line code` -> The following is [code]in-line code[/code]
-This is also ``in-line code`` -> The following is [code]in-line code[/code]
+This is also ``in-line code``   -> The is also [code]in-line code[/code]
 
 ~~~                  .......... -> [code]
 This is a            .......... -> This is a
@@ -97,7 +102,7 @@ multiline codeblock  .......... -> multiline codeblock
 
 ```
 
-**Important**: note that in-line code and code blocks won't do anything with Godot's default font, since it doesn't have a monospace variant. As described in [Godot's BBCode reference](https://docs.godotengine.org/en/stable/tutorials/ui/bbcode_in_richtextlabel.html#reference): "The monospaced (`[code]`) tag only works if a custom font is set up in the RichTextLabel node's theme overrides. Otherwise, monospaced text will use the regular font".
+**Important**: note that in-line code and code blocks **won't do anything with Godot's default font**, since it doesn't have a monospace variant. As described in [Godot's BBCode reference](https://docs.godotengine.org/en/stable/tutorials/ui/bbcode_in_richtextlabel.html#reference): *"The monospaced (`[code]`) tag only works if a custom font is set up in the RichTextLabel node's theme overrides. Otherwise, monospaced text will use the regular font"*.
 
 ### Headers
 
@@ -141,12 +146,28 @@ This behavior can be disabled using the `automatic_links` property (enabled by d
 The ``unhandled_link_clicked`` signal can be used to implement custom behavior when clicking a link. It passes the clicked link metadata (which usually would be the URL) as an argument.
 
 ```
-Markdown text .............................. -> BBCode equivalent
----------------------------------------------||------------------
+Markdown text ...................................... -> BBCode equivalent
+-----------------------------------------------------||------------------
 [this is a link](https://example.com) .............. -> [url=https://example.com]this is a link[/url]
 [this is a link](https://example.com "Example page") -> [hint=Example url][url=https://example.com]this is a link[/url][/hint]
 <https://example.com> .............................. -> [url]https://example.com[/url]
 <mail@example.com> ................................. -> [url=mailto:mail@example.com]mail@example.com[/url]
+```
+
+### Horizontal rules
+
+_**Note:** this feature is exclusive for **Godot 4.5+.**_
+
+Write a line with just three (or more) matching ``-``, ``_``, or ``*`` to form a horizontal rule (also called a thematic break).
+
+You can customize the height, width, alignment, and color of all horizontal rules in the label by modifying its ``hr_height``, ``hr_width``, ``hr_alignment``, and ``hr_color`` properties (by default they are 2 px high, 90% wide, center-aligned, and white). If you need to customize these properties individually for each rule, then you can just use the ``[hr]`` BBCode tag.
+
+```
+Markdown text  -> BBCode equivalent
+---------------||------------------
+---            -> [hr height=2 width=90% align=center color=ffffffff]
+ ____          -> [hr height=2 width=90% align=center color=ffffffff]
+***            -> [hr height=2 width=90% align=center color=ffffffff]
 ```
 
 ### Images
@@ -156,10 +177,11 @@ Images use the same syntax as links but preceded by an exclamation mark (!):
 ```
 Markdown text .............................................. -> BBCode equivalent
 -------------------------------------------------------------||------------------
-![This is an image](res://some/path.png) ................... -> [img]res://some/path.png[/img]
-![This is an image](res://some/path.png "This is a tooltip") -> [hint=This is a tooltip][img]res://some/path.png[/img][/hint]
+![This is an image](res://some/path.png) ................... -> [img alt="This is an image"]res://some/path.png[/img]
+![This is an image](res://some/path.png "This is a tooltip") -> [img alt="This is an image" tooltip="This is a tooltip"]res://some/path.png[/img]
+![](res://some/path.png) ................................... -> [img]res://some/path.png[/img]
 ```
-However, Godot's BBCode doesn't support alt text for images, so what you put inside the square brackets doesn't affect the end result. You can use it for your own clarity, though.
+What you put inside the square brackets will be the image's alt text.
 
 For advanced usage (setting width, height, and other options), use the BBCode `[img]` tag instead, as described in [Godot's BBCode reference](https://docs.godotengine.org/en/stable/tutorials/ui/bbcode_in_richtextlabel.html#reference).
 
@@ -272,7 +294,17 @@ Keep in mind that, if you are writing text inside a script, you will have to "do
 - In-editor: `\*`, `\"`
 - Result: `*`, `"`
 
+### Internationalization
+
+By default, if ``markdown_text`` is set to a translation key, the label will automatically show the corresponding localized text. This is the same behavior as in other control nodes such as ``Label`` and ``RichTextLabel``. This can be disabled by modifying the node's [``auto_translate_mode``](https://docs.godotengine.org/en/stable/classes/class_node.html#class-node-property-auto-translate-mode) property (Godot 4.3+) or the ``auto_translate`` property (Godot 4.2). Read [the official docs on game internationalization](https://docs.godotengine.org/en/stable/tutorials/i18n/internationalizing_games.html) for more information.
+
 ### Advanced usage
+
+#### Front-matter
+
+By default, the ``display_file()`` method separates YAML/TOML front-matter (if present) and actual Markdown content, only displaying the Markdown content. The front-matter is stored internally as a string and can be retrieved using the ``get_frontmatter()`` method afterwards.
+
+#### Custom syntax
 
 MarkdownLabel can be customized to handle custom syntax if desired. There are two methods which are meant to support this use case: ``_preprocess_line()`` and ``_process_custom_syntax()``. These are called line by line and do nothing by default. ``_preprocess_line()`` is called before any syntax in the line is processed by the node, while ``_process_custom_syntax()`` is called after all syntax has been processed. These methods take a line as argument and return a processed line. This way, you can create a node that inherits from MarkdownLabel and override these methods in order to implement your custom syntax.
 
@@ -288,7 +320,6 @@ If encountering any unreported bug or unexpected bahaviour, please ensure that y
 
 The following Markdown syntax elements are not supported because Godot's BBCode does not support them:
 - Quotes
-- Horizontal rules
 - Reference links
 
 ### Performance
