@@ -79,6 +79,7 @@ script = ExtResource("9_e7dyu")
 
 [sub_resource type="Resource" id="Resource_2cqaq"]
 script = ExtResource("10_00wtc")
+lower_threshold = 0.3
 
 [sub_resource type="Resource" id="Resource_qk04t"]
 script = ExtResource("3_mbp6c")
