@@ -27,7 +27,7 @@ jobs:
       contents: write
     steps:
       # checkout your repository
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       # run tests by using the gdUnit4-action with Godot version 4.x and the latest GdUnit4 release
       - name: "Run Tests"
         uses: MikeSchulze/gdUnit4-action@v1.3.2
