@@ -3,7 +3,7 @@ extends RefCounted
 
 const TABLE_RECORD_TESTSUITE = """
 								<tr class="${report_state}">
-									<td><a href=${report_link}>${testsuite_name}</a></td>
+									<td><a href="${report_link}">${testsuite_name}</a></td>
 									<td><span class="status status-${report_state}">${report_state_label}</span></td>
 									<td>${test_count}</td>
 									<td>${skipped_count}</td>
@@ -78,10 +78,6 @@ ${failure-report}
 								</tr>
 """
 
-const CHARACTERS_TO_ENCODE := {
-	'<' : '&lt;',
-	'>' : '&gt;'
-}
 
 const TABLE_BY_PATHS = "${report_table_paths}"
 const TABLE_BY_TESTSUITES = "${report_table_testsuites}"
@@ -121,12 +117,12 @@ static func current_date() -> String:
 	return Time.get_datetime_string_from_system(true, true)
 
 
-static func build(template: String, report: GdUnitReportSummary, report_link: String) -> String:
+static func build(template: String, report: GdUnitReportSummary, report_link: String, breadcrumb_path_link := "") -> String:
 	return template\
 		.replace(PATH, get_report_path(report))\
-		.replace(BREADCRUMP_PATH_LINK, get_path_as_link(report))\
+		.replace(BREADCRUMP_PATH_LINK, breadcrumb_path_link)\
 		.replace(RESOURCE_PATH, report.get_resource_path())\
-		.replace(TESTSUITE_NAME, html_encoded(report.name()))\
+		.replace(TESTSUITE_NAME, GdUnitHtmlEncoder.encode(report.name()))\
 		.replace(TESTSUITE_COUNT, str(report.suite_count()))\
 		.replace(TESTCASE_COUNT, str(report.test_count()))\
 		.replace(FAILURE_COUNT, str(report.error_count() + report.failure_count()))\
@@ -147,12 +143,32 @@ static func build(template: String, report: GdUnitReportSummary, report_link: St
 		.replace(BUILD_DATE, current_date())
 
 
-static func load_template(template_name :String) -> String:
+static func load_template(template_name: String) -> String:
 	return FileAccess.open(template_name, FileAccess.READ).get_as_text()
 
 
+static func normalize_path(path: String) -> String:
+	return path.replace("/", ".").replace(" ", "_")
+
+
+static func create_suite_output_path(report_dir: String, path: String, name: String) -> String:
+	return "%s/test_suites/%s.%s.html" % [report_dir, normalize_path(path), name]
+
+
+static func create_path_output_path(report_dir: String, path: String) -> String:
+	return "%s/path/%s.html" % [report_dir, normalize_path(path)]
+
+
+static func write_html_file(output_path: String, content: String) -> void:
+	var dir := output_path.get_base_dir()
+	if not DirAccess.dir_exists_absolute(dir):
+		@warning_ignore("return_value_discarded")
+		DirAccess.make_dir_recursive_absolute(dir)
+	FileAccess.open(output_path, FileAccess.WRITE).store_string(content)
+
+
 static func get_path_as_link(report: GdUnitReportSummary) -> String:
-	return "../path/%s.html" % report.path().replace("/", ".")
+	return "../path/%s.html" % normalize_path(report.path())
 
 
 static func get_report_path(report: GdUnitReportSummary) -> String:
@@ -168,18 +184,12 @@ static func calculate_percentage(p_test_count: int, count: int) -> String:
 	return "%d" % (( 0 if count < 0 else count) * 100.0 / p_test_count) + "%"
 
 
-static func html_encoded(value: String) -> String:
-	for key: String in CHARACTERS_TO_ENCODE.keys():
-		@warning_ignore("unsafe_cast")
-		value = value.replace(key, CHARACTERS_TO_ENCODE[key] as String)
-	return value
-
 
 static func create_suite_record(report_link: String, report: GdUnitTestSuiteReport) -> String:
 	return GdUnitHtmlPatterns.build(GdUnitHtmlPatterns.TABLE_RECORD_TESTSUITE, report, report_link)
 
 
-static func create_test_failure_report(_report_dir :String, report: GdUnitTestCaseReport) -> String:
+static func create_test_failure_report(_report_dir: String, report: GdUnitTestCaseReport) -> String:
 	return GdUnitHtmlPatterns.TABLE_RECORD_TESTCASE\
 		.replace(GdUnitHtmlPatterns.REPORT_STATE, report.report_state().to_lower())\
 		.replace(GdUnitHtmlPatterns.REPORT_STATE_LABEL, report.report_state())\
@@ -187,7 +197,7 @@ static func create_test_failure_report(_report_dir :String, report: GdUnitTestCa
 		.replace(GdUnitHtmlPatterns.SKIPPED_COUNT, str(report.skipped_count()))\
 		.replace(GdUnitHtmlPatterns.ORPHAN_COUNT, str(report.orphan_count()))\
 		.replace(GdUnitHtmlPatterns.DURATION, LocalTime.elapsed(report._duration))\
-		.replace(GdUnitHtmlPatterns.FAILURE_REPORT, report.failure_report())
+		.replace(GdUnitHtmlPatterns.FAILURE_REPORT, GdUnitHtmlEncoder.encode(report.failure_report()))
 
 
 static func create_suite_failure_report(report: GdUnitTestSuiteReport) -> String:
@@ -196,4 +206,4 @@ static func create_suite_failure_report(report: GdUnitTestSuiteReport) -> String
 		.replace(GdUnitHtmlPatterns.REPORT_STATE_LABEL, report.report_state())\
 		.replace(GdUnitHtmlPatterns.ORPHAN_COUNT, str(report.orphan_count()))\
 		.replace(GdUnitHtmlPatterns.DURATION, LocalTime.elapsed(report._duration))\
-		.replace(GdUnitHtmlPatterns.FAILURE_REPORT, report.failure_report())
+		.replace(GdUnitHtmlPatterns.FAILURE_REPORT, GdUnitHtmlEncoder.encode(report.failure_report()))

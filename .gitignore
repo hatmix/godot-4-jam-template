@@ -3,8 +3,13 @@
 .godot/*
 
 # Packaging and devlog files
+<<<<<<< HEAD
 media/*
 !media/itch-easy-releasy
+=======
+media
+media/*
+>>>>>>> template/main
 devlog
 devlog/*
 *.mkv

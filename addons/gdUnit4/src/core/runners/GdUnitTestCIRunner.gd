@@ -20,8 +20,6 @@ extends "res://addons/gdUnit4/src/core/runners/GdUnitTestSessionRunner.gd"
 ## runtest -a <directory> -i <testsuite:test_name>
 ## [/codeblock]
 
-const GdUnitTools := preload("res://addons/gdUnit4/src/core/GdUnitTools.gd")
-
 var _console := GdUnitCSIMessageWriter.new()
 var _console_reporter: GdUnitConsoleTestReporter
 var _headless_mode_ignore := false
@@ -113,12 +111,10 @@ func _ready() -> void:
 
 func _notification(what: int) -> void:
 	super(what)
-	if what == NOTIFICATION_PREDELETE:
-		prints("Finallize .. done")
 
 
 func init_runner() -> void:
-	init_gd_unit()
+	await init_gd_unit()
 
 
 ## Returns the exit code based on test results.[br]
@@ -131,10 +127,8 @@ func get_exit_code() -> int:
 ## [br]
 ## [param code] The exit code to return.
 func quit(code: int) -> void:
-	_state = EXIT
-	GdUnitTools.dispose_all()
-	await GdUnitMemoryObserver.gc_on_guarded_instances()
 	await super(code)
+	get_tree().quit(code)
 
 
 ## Prints info message to console.[br]
@@ -383,11 +377,22 @@ func init_gd_unit() -> void:
 			quit(RETURN_ERROR_HEADLESS_NOT_SUPPORTED)
 			return
 
+	var script_error_collector := GdUnitScriptErrorCollector.new()
 	_test_cases = discover_tests()
+
+	# Check for script errors captured during discovery
+	if script_error_collector.has_errors():
+		console_error("Script errors were detected during test discovery!")
+		for error in script_error_collector.errors():
+			console_info("  %s" % error)
+		console_error("Abnormal exit with %d" % RETURN_ERROR_SCRIPT_ERRORS_DETECTED)
+		await quit(RETURN_ERROR_SCRIPT_ERRORS_DETECTED)
+		return
+
 	if _test_cases.is_empty():
 		console_info("No test cases found, abort test run!", Color.YELLOW)
 		console_info("Exit code: %d" % RETURN_SUCCESS, Color.DARK_SALMON)
-		quit(RETURN_SUCCESS)
+		await quit(RETURN_SUCCESS)
 		return
 	_state = RUN
 

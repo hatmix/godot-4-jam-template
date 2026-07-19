@@ -8,12 +8,16 @@
 
 config_version=5
 
+[animation]
+
+compatibility/default_parent_skeleton_in_mesh_instance_3d=true
+
 [application]
 
 config/name="Godot-4-Jam-Template"
 config/description="Godot 4 template project for game jams"
 run/main_scene="res://src/main.tscn"
-config/features=PackedStringArray("4.5")
+config/features=PackedStringArray("4.6")
 boot_splash/bg_color=Color(0.050980393, 0.16862746, 0.27058825, 1)
 boot_splash/show_image=false
 config/icon="res://icon.png"
@@ -67,6 +71,19 @@ folder_colors={
 report/assert/verbose_warnings=false
 report/godot/script_error=false
 ui/toolbar/run_overall=true
+report/godot/push_error=false
+settings/test/flaky_check_enable=false
+settings/test/test_suite_naming_convention=0
+report/assert/strict_number_type_compare=true
+templates/testsuite/GDScript="# GdUnit generated TestSuite
+class_name ${suite_class_name}
+extends GdUnitTestSuite
+@warning_ignore('unused_parameter')
+@warning_ignore('return_value_discarded')
+
+# TestSuite generated from
+const __source: String = '${source_resource_path}'
+"
 
 [godot_resource_groups]
 
