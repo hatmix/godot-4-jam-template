@@ -31,6 +31,13 @@ signal joy_button_state_changed()
 signal joy_axis_state_changed()
 ## Signalled, when the touch state has changed.
 signal touch_state_changed()
+## Signalled when the application loses focus. Unlike the other signals above,
+## this is not triggered by an InputEvent — Godot clears its own input state
+## directly in Input::release_pressed_events() (core/input/input.cpp) without
+## dispatching any events. Inputs that maintain their own internal state should
+## listen to this signal and reset it immediately when focus is lost.
+## See: https://github.com/godotneers/G.U.I.D.E/issues/189
+signal application_focus_lost()
 
 # Keys that are currently pressed. Key is the key index, value is not important. The presence of a key in the dictionary
 # indicates that the key is currently pressed.
@@ -116,13 +123,68 @@ func disconnect_virtual_stick(device_id:int) -> void:
 	
 	if _joy_buttons.has(device_id):
 		_joy_buttons.erase(device_id)
+		_recalculate_any_joy_buttons()
 		joy_button_state_changed.emit()
-		
+
 	if _joy_axes.has(device_id):
 		_joy_axes.erase(device_id)
+		_recalculate_any_joy_axes()
 		joy_axis_state_changed.emit()
 
-# Used by the automated tests to make sure we don't have any leftovers from the 
+## Recalculates a specific button state for ANY_JOY_DEVICE_ID based on all connected devices.
+func _recalculate_any_joy_button(button: int) -> void:
+	var any_value: bool = false
+	for device_id in _joy_buttons.keys():
+		if device_id != ANY_JOY_DEVICE_ID and _joy_buttons[device_id].has(button):
+			any_value = true
+			break
+
+	if any_value:
+		_joy_buttons[ANY_JOY_DEVICE_ID][button] = true
+	else:
+		_joy_buttons[ANY_JOY_DEVICE_ID].erase(button)
+
+
+## Recalculates all button states for ANY_JOY_DEVICE_ID based on all connected devices.
+func _recalculate_any_joy_buttons() -> void:
+	_joy_buttons[ANY_JOY_DEVICE_ID].clear()
+	for device_id in _joy_buttons.keys():
+		if device_id != ANY_JOY_DEVICE_ID:
+			for button in _joy_buttons[device_id].keys():
+				_joy_buttons[ANY_JOY_DEVICE_ID][button] = true
+
+
+## Recalculates a specific axis value for ANY_JOY_DEVICE_ID based on all connected devices.
+## Uses the maximum actuation across all devices.
+func _recalculate_any_joy_axis(axis: int) -> void:
+	var any_value: float = 0.0
+	var maximum_actuation: float = 0.0
+	for device_id in _joy_axes.keys():
+		if device_id != ANY_JOY_DEVICE_ID and _joy_axes[device_id].has(axis):
+			var strength: float = abs(_joy_axes[device_id][axis])
+			if strength > maximum_actuation:
+				maximum_actuation = strength
+				any_value = _joy_axes[device_id][axis]
+
+	_joy_axes[ANY_JOY_DEVICE_ID][axis] = any_value
+
+
+## Recalculates all axis values for ANY_JOY_DEVICE_ID based on all connected devices.
+func _recalculate_any_joy_axes() -> void:
+	# Collect all unique axes that have been actuated on any device
+	var all_axes: Dictionary = {}
+	for device_id in _joy_axes.keys():
+		if device_id != ANY_JOY_DEVICE_ID:
+			for axis in _joy_axes[device_id].keys():
+				all_axes[axis] = true
+
+	# Recalculate each axis
+	_joy_axes[ANY_JOY_DEVICE_ID].clear()
+	for axis in all_axes.keys():
+		_recalculate_any_joy_axis(axis)
+
+
+# Used by the automated tests to make sure we don't have any leftovers from the
 # last test.
 func _clear():
 	_keys.clear()
@@ -147,7 +209,7 @@ func _clear():
 	# pending states are created on demand, so we don't need to clear them here
 
 
-# Called when any joy device is connected or disconnected. This will refresh the joy device ids and clear out any	
+# Called when any joy device is connected or disconnected. This will refresh the joy device ids and clear out any
 # joy state which is not valid anymore. Will also notify relevant inputs.
 func _refresh_joy_device_ids(_ignore1, _ignore2):
 	# refresh the joy device ids
@@ -191,6 +253,7 @@ func _refresh_joy_device_ids(_ignore1, _ignore2):
 			_joy_buttons.erase(device_id)
 
 	if dirty:
+		_recalculate_any_joy_buttons()
 		# notify all inputs that the joy state has changed
 		joy_button_state_changed.emit()
 
@@ -201,8 +264,59 @@ func _refresh_joy_device_ids(_ignore1, _ignore2):
 			_joy_axes.erase(device_id)
 
 	if dirty:
+		_recalculate_any_joy_axes()
 		# notify all inputs that the joy state has changed
 		joy_axis_state_changed.emit()
+
+
+## Called when the application loses focus. Clears input state that Godot
+## itself clears in Input::release_pressed_events() (core/input/input.cpp).
+##
+## Godot does this by directly zeroing its internal arrays — no InputEvents
+## are ever dispatched. Because G.U.I.D.E maintains its own shadow state
+## (_keys, _mouse_buttons, etc.) that is only updated from incoming events,
+## we must mirror this cleanup here or stale state will cause inputs like
+## GUIDEInputAny to keep firing every frame after focus returns.
+##
+## What Godot clears (and so do we):
+##   - keys_pressed / physical_keys_pressed / key_label_pressed  → always
+##
+## What Godot does NOT clear (and neither do we, to stay consistent):
+##   - mouse button state — left as-is by Godot on focus loss
+##
+## See: https://github.com/godotneers/G.U.I.D.E/issues/189
+func focus_lost() -> void:
+	# Discard any key events that arrived this frame but haven't been
+	# committed to _keys yet, then clear the committed state.
+	_pending_keys.clear()
+	if not _keys.is_empty():
+		_keys.clear()
+		keyboard_state_changed.emit()
+
+	# Mirror Godot's conditional joy clearing: Input::release_pressed_events()
+	# only clears joy state when ignore_joypad_on_unfocused_application is set
+	# (input_devices/joypads/ignore_joypad_on_unfocused_application in project settings).
+	if ProjectSettings.get_setting("input_devices/joypads/ignore_joypad_on_unfocused_application", false):
+		for device_id in _pending_joy_buttons:
+			_pending_joy_buttons[device_id].clear()
+
+		var joy_buttons_dirty := false
+		for device_id in _joy_buttons:
+			if not _joy_buttons[device_id].is_empty():
+				_joy_buttons[device_id].clear()
+				joy_buttons_dirty = true
+		if joy_buttons_dirty:
+			joy_button_state_changed.emit()
+
+		var joy_axes_dirty := false
+		for device_id in _joy_axes:
+			if not _joy_axes[device_id].is_empty():
+				_joy_axes[device_id].clear()
+				joy_axes_dirty = true
+		if joy_axes_dirty:
+			joy_axis_state_changed.emit()
+
+	application_focus_lost.emit()
 
 
 ## Called at the end of the frame to reset the state before the next frame.
@@ -247,22 +361,12 @@ func _reset() -> void:
 			elif not is_down and _joy_buttons[joy].has(button):
 				_joy_buttons[joy].erase(button)
 				changed = true
-				
-			# only evaluate the ANY_JOY device if actually something changed.
-			# otherwise the inner value would not change
+	
+			# Recalculate ANY_JOY_DEVICE_ID and emit signal if something changed
 			if changed:
-				var any_value: bool = false
-				for inner in _joy_buttons.keys():
-					if inner != ANY_JOY_DEVICE_ID and _joy_buttons[inner].has(button):
-						any_value = true
-						break
-				
-				if any_value:  # we don't need to check the change state here as we'r going to send an event anyways.
-					_joy_buttons[ANY_JOY_DEVICE_ID][button] = true
-				else:
-					_joy_buttons[ANY_JOY_DEVICE_ID].erase(button)
+				_recalculate_any_joy_button(button)
 				joy_button_state_changed.emit()
-				
+
 		# and clear out the pending buttons for this joy
 		_pending_joy_buttons[joy].clear()		
 
@@ -326,13 +430,14 @@ func _input(event: InputEvent) -> void:
 
 		return
 
-	# ----------------------- JOYSTICK BUTTONS -----------------------		
+	# ----------------------- JOYSTICK BUTTONS -----------------------
 	if event is InputEventJoypadButton:
 		var device_id: int = event.device
 		var button: int = event.button_index
 
-		# _refresh_joy_device_ids ensures we have an inner dictionary for the device id
-		# so we don't need to check for it here
+		# Ignore stray events from disconnected devices
+		if not _joy_buttons.has(device_id):
+			return
 
 		if _pending_joy_buttons[device_id].has(button):
 			_pending_joy_buttons[device_id][button] = event.pressed
@@ -348,47 +453,26 @@ func _input(event: InputEvent) -> void:
 			_joy_buttons[device_id].erase(button)
 			changed = true
 		
-		# finally set the ANY_JOY_DEVICE_ID state based on what we know
-		# only do this if the button value actually changed. Otherwise
-		# the Any value would not change either.
+		# Recalculate ANY_JOY_DEVICE_ID and emit signal if something changed
 		if changed:
-			var any_value: bool = false
-			for inner in _joy_buttons.keys():
-				if inner != ANY_JOY_DEVICE_ID and _joy_buttons[inner].has(button):
-					any_value = true
-					break
-	
-			if any_value:
-				_joy_buttons[ANY_JOY_DEVICE_ID][button] = true
-			else:
-				_joy_buttons[ANY_JOY_DEVICE_ID].erase(button)
-		
-		# Emit the joy button state changed signal if something changed
-		if changed:
+			_recalculate_any_joy_button(button)
 			joy_button_state_changed.emit()
 		return
 
-	# ----------------------- JOYSTICK AXES -----------------------		
+	# ----------------------- JOYSTICK AXES -----------------------
 	if event is InputEventJoypadMotion:
 		var device_id: int = event.device
 		var axis: int = event.axis
 
+		# Ignore stray events from disconnected devices
+		if not _joy_axes.has(device_id):
+			return
+
 		# update the axis value
 		_joy_axes[device_id][axis] = event.axis_value
 
-		# for the ANY_JOY_DEVICE_ID, we apply the maximum actuation of all devices (in any direction)
-		var any_value: float = 0.0
-		var maximum_actuation: float = 0.0
-		for inner in _joy_axes.keys():
-			if inner != ANY_JOY_DEVICE_ID and _joy_axes[inner].has(axis):
-				var strength: float = abs(_joy_axes[inner][axis])
-				if strength > maximum_actuation:
-					maximum_actuation = strength
-					any_value = _joy_axes[inner][axis]
-
-		_joy_axes[ANY_JOY_DEVICE_ID][axis] = any_value
-
-		# Emit the joy axis state changed signal
+		# Recalculate ANY_JOY_DEVICE_ID for this axis and emit signal
+		_recalculate_any_joy_axis(axis)
 		joy_axis_state_changed.emit()
 		return
 

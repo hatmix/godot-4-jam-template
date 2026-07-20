@@ -10,7 +10,9 @@ const GUIDEInputTracker = preload("guide_input_tracker.gd")
 ## This is useful for updating UI prompts.
 signal input_mappings_changed()
 
-## The currently active contexts. Key is the context, value is the priority
+## The currently active contexts. Key is the context, value is an array [priority, timestamp_usec].
+## The timestamp is used to break ties when contexts have the same priority - more recently enabled
+## contexts take precedence, allowing later-enabled contexts to merge their inputs with higher priority.
 var _active_contexts:Dictionary = {}
 ## The currently active action mappings.
 var _active_action_mappings:Array[GUIDEActionMapping] = []
@@ -58,8 +60,19 @@ func _ready():
 	Input.joy_connection_changed.connect(func(ig, ig2): input_mappings_changed.emit())
 
 
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_APPLICATION_FOCUS_OUT:
+		# When the application loses focus, Godot clears its own input state
+		# directly in Input::release_pressed_events() (core/input/input.cpp)
+		# without dispatching any InputEvents. Since G.U.I.D.E maintains its
+		# own shadow input state in GUIDEInputState, we must replicate this
+		# cleanup ourselves. See: https://github.com/godotneers/G.U.I.D.E/issues/189
+		if _input_state != null:
+			_input_state.focus_lost()
+
+
 ## Called when a node is added to the tree. If the node is a window
-## GUIDE will instrument it to get events when the window is focused.	
+## GUIDE will instrument it to get events when the window is focused.
 func _on_node_added(node:Node) -> void:
 	if not node is Window:
 		return
@@ -97,9 +110,13 @@ func enable_mapping_context(context:GUIDEMappingContext, disable_others:bool = f
 		return
 	
 	if disable_others:
+		for enabled_context:GUIDEMappingContext in _active_contexts:
+			if enabled_context == context:
+				continue
+			enabled_context.disabled.emit()
 		_active_contexts.clear()	
 	
-	_active_contexts[context] = priority
+	_active_contexts[context] = [priority, Time.get_ticks_usec()]
 	_update_caches()
 	# notify listeners that the context was enabled
 	context.enabled.emit()
@@ -115,6 +132,51 @@ func disable_mapping_context(context:GUIDEMappingContext) -> void:
 	_update_caches()
 	# notify listeners that the context was disabled
 	context.disabled.emit()
+
+
+## Replaces the currently enabled mapping contexts with a new set of contexts.
+## This is more efficient than calling enable_mapping_context multiple times as it only
+## updates the internal caches once. All contexts are enabled with priority 0, with contexts
+## later in the array having higher precedence when merging inputs (due to later timestamps).
+## Returns the array of contexts that were active before this call.
+func set_enabled_mapping_contexts(contexts:Array[GUIDEMappingContext]) -> Array[GUIDEMappingContext]:
+	# Step 1: Capture previous contexts to return to caller
+	var previous_contexts := get_enabled_mapping_contexts()
+
+	# Step 2: Validate all contexts first (fail fast before modifying state)
+	for context:GUIDEMappingContext in contexts:
+		if not is_instance_valid(context):
+			push_error("Null context given. Ignoring. Aborting mapping context changes.")
+			return previous_contexts
+
+	# Step 3: Save old active contexts for signal emission, then clear
+	_active_contexts.clear()
+
+	# Step 4: Add all new contexts with priority=0 and incrementing timestamps
+	# Start with current timestamp and increment by 1 for each subsequent context
+	# This ensures contexts later in the array have higher precedence when merging inputs
+	var base_timestamp := Time.get_ticks_usec()
+	for i:int in contexts.size():
+		var context := contexts[i]
+		# If context appears multiple times in array, later occurrence wins (higher timestamp)
+		_active_contexts[context] = [0, base_timestamp + i]
+
+	# Step 5: Update caches
+	_update_caches()
+
+	# Step 6: Emit signals for context changes
+	# Emit disabled for contexts that were active but are not in the new set
+	for context:GUIDEMappingContext in previous_contexts:
+		if not _active_contexts.has(context):
+			context.disabled.emit()
+
+	# Emit enabled only for contexts that are new (not previously active)
+	for context:GUIDEMappingContext in contexts:
+		if not previous_contexts.has(context):
+			context.enabled.emit()
+
+	# Step 7: Return previously active contexts
+	return previous_contexts
 
 
 ## Checks whether the given mapping context is currently enabled.
@@ -195,6 +257,125 @@ func _process(delta:float) -> void:
 					GUIDETrigger.GUIDETriggerState.TRIGGERED:
 						action._triggered(consolidated_value, delta)
 
+
+## Parses input mappings from a mapping context and adds them to an effective action mapping.
+## This enables multiple mapping contexts to contribute different inputs to the same action
+## (e.g., keyboard context provides WASD while controller context provides joystick for the same "move" action).
+## Duplicate inputs are skipped to ensure only one mapping exists per input-action pair, with higher
+## priority contexts taking precedence.
+func _parse_input_mappings(
+		action_mapping:GUIDEActionMapping, 
+		context:GUIDEMappingContext, 
+		action:GUIDEAction, 
+		new_inputs:GUIDESet, 
+		new_modifiers:GUIDESet, 
+		effective_mapping:GUIDEActionMapping
+	) -> GUIDEActionMapping:
+	# the trigger hold threshold is the minimum time that the input must be held
+	# down before the action triggers. This is used to hint the UI about
+	# how long the input must be held down. We collect this while iterating
+	# over the input mappings.
+	var trigger_hold_threshold:float = -1.0
+
+	# now update the action and input mappings
+	for index in action_mapping.input_mappings.size():
+		var input_mapping:GUIDEInputMapping = action_mapping.input_mappings[index]
+		# get the input that is assigned to this action mapping
+		var bound_input:GUIDEInput = input_mapping.input
+
+		# if the re-mapping has an override for the input (e.g. the player has changed
+		# the default binding to something else), apply it.
+		if _active_remapping_config != null and \
+				_active_remapping_config._has(context, action, index):
+			bound_input = _active_remapping_config._get_bound_input_or_null(context, action, index)
+			# If the remapping explicitly set this to null, it means the input was unbound.
+			# Skip adding this input mapping entirely.
+			if bound_input == null:
+				continue
+
+		# Consolidate inputs - but only if bound_input is not null (combo mappings can have null inputs)
+		if bound_input != null:
+			# check if we already have this kind of input
+			# first try to find it in the currently active inputs, this way we don't need to recreate
+			# inputs that are already active.
+			var existing:GUIDEInput = _active_inputs.first_match(func(it:GUIDEInput): return it.is_same_as(bound_input))
+			if existing == null:
+				# try to find it in the consolidated inputs
+				existing = new_inputs.first_match(func(it:GUIDEInput): return it.is_same_as(bound_input))
+
+			if existing != null:
+				# if we already use this input, we can just use the existing one
+				bound_input = existing
+
+			# ensure that the input is initialized and ready to be used
+			if not _is_used(bound_input):
+				bound_input._state = _input_state
+				bound_input._begin_usage()
+				_mark_used(bound_input, true)
+
+			new_inputs.add(bound_input)
+
+		# Skip this action and input pair if it has already been defined by a
+		# higher priority mapping context. We check this after remapping and consolidation
+		# to ensure we're comparing the actual input that will be used. We can use == here
+		# because consolidation ensures that inputs that are logically the same share the same object reference.
+		if effective_mapping.input_mappings.any(func(existing): return existing.input == bound_input):
+			continue
+
+		# make a new input mapping
+		var new_input_mapping:GUIDEInputMapping = GUIDEInputMapping.new()
+			
+		# copy metadata as this may be important for formatting	
+		new_input_mapping.input = bound_input
+		new_input_mapping.display_name = input_mapping.display_name
+		new_input_mapping.display_category = input_mapping.display_category
+		new_input_mapping.override_action_settings = input_mapping.override_action_settings
+		new_input_mapping.is_remappable = input_mapping.is_remappable
+		_copy_meta(input_mapping, new_input_mapping)
+		
+		# modifiers cannot be re-bound so we can just use the one
+		# from the original configuration. this is also needed for shared
+		# modifiers to work.
+		new_input_mapping.modifiers = input_mapping.modifiers
+		# track the modifiers, so we can later only disable the ones we don't need anymore.
+		for modifier:GUIDEModifier in new_input_mapping.modifiers:
+			# new_modifiers is a set so we can just add the modifier,
+			# if we already have it, it will not be added again.
+			new_modifiers.add(modifier)
+			
+			# initialize the modifier if it is not already in use
+			if not _is_used(modifier):
+				modifier._begin_usage()
+				_mark_used(modifier, true)
+				
+		# triggers also cannot be re-bound but we still make a copy
+		# to ensure that no shared triggers exist.
+		new_input_mapping.triggers = []
+		
+		for trigger in input_mapping.triggers:
+			# Clone trigger to get a new instance while preserving action references
+			new_input_mapping.triggers.append(trigger.clone())
+
+		# now initialize the input mapping
+		new_input_mapping._initialize(action.action_value_type)
+		# collect the hold threshold
+		var mapping_hold_threshold:float = new_input_mapping._trigger_hold_threshold
+		# smallest hold threshold that isn't negative wins
+		if trigger_hold_threshold < 0 or mapping_hold_threshold < trigger_hold_threshold:
+			trigger_hold_threshold = mapping_hold_threshold
+		
+		# and add it to the mapping
+		effective_mapping.input_mappings.append(new_input_mapping)
+
+	# finally we set the hold threshold for the action
+	# We need to handle the -1 (uninitialized) case: only use min() when both values are valid
+	if trigger_hold_threshold >= 0:
+		if action._trigger_hold_threshold < 0:
+			action._trigger_hold_threshold = trigger_hold_threshold
+		else:
+			action._trigger_hold_threshold = min(action._trigger_hold_threshold, trigger_hold_threshold)
+
+	return effective_mapping
 						
 ## This updates the caches of active inputs, action mappings and modifiers. It's sort of expensive to run
 ## but it is only run when contexts are enabled/disabled or remapping configs are applied and it saves
@@ -203,14 +384,17 @@ func _process(delta:float) -> void:
 ## This is called automatically when contexts are enabled/disabled or remapping configs are applied.
 func _update_caches() -> void:
 	if _locked:
-		push_error("Mapping context changed again while processing a change. Ignoring to avoid endless loop.")
+		push_warning("Mapping context changed while processing a context change. Use call_deferred() to change mapping contexts from action signal handlers.")
 		return
 	
 	_locked = true	
 	
 	var sorted_contexts:Array[GUIDEMappingContext] = []
 	sorted_contexts.assign(_active_contexts.keys())
-	sorted_contexts.sort_custom( func(a,b): return _active_contexts[a] < _active_contexts[b] )
+	# Sort higher priority,
+	# then sort later definitions first.
+	sorted_contexts.sort_custom(func(a,b): return _active_contexts[a][0] < _active_contexts[b][0] or \
+		(_active_contexts[a][0] == _active_contexts[b][0] and _active_contexts[a][1] > _active_contexts[b][1]))
 	
 	# The actions we already have processed. Same action may appear in different
 	# contexts, so if we find the same action twice, only the first instance wins.
@@ -257,13 +441,21 @@ func _update_caches() -> void:
 				continue
 			
 			# If the action was already configured in a higher priority context,
-			# we'll skip it.
+			# we'll try to merge inputs with other contexts then skip the rest.
 			if processed_actions.has(action):
+				for mapping in new_action_mappings:
+					if mapping.action != action_mapping.action:
+						continue
+
+					_parse_input_mappings(action_mapping, context, action, new_inputs, new_modifiers, mapping)
 				# skip
 				continue
 				
 			processed_actions.add(action)
-		
+			# Reset the hold threshold for this action since we're rebuilding it from scratch.
+			# This ensures we don't carry over stale values from previous cache updates.
+			action._trigger_hold_threshold = -1.0
+
 			# If the action mapping is the same as one that is already active,
 			# we use the existing one instead of creating a new one.
 			# We do this to avoid losing state in the  triggers and modifiers when
@@ -298,93 +490,8 @@ func _update_caches() -> void:
 			var effective_mapping := GUIDEActionMapping.new()
 			effective_mapping.action = action
 			_copy_meta(action_mapping, effective_mapping)
-		
-			# the trigger hold threshold is the minimum time that the input must be held
-			# down before the action triggers. This is used to hint the UI about
-			# how long the input must be held down. We collect this while iterating
-			# over the input mappings.
-			var trigger_hold_threshold:float = -1.0
 
-			# now update the action and input mappings
-			for index in action_mapping.input_mappings.size():
-				var input_mapping:GUIDEInputMapping = action_mapping.input_mappings[index]
-				# get the input that is assigned to this action mapping
-				var bound_input:GUIDEInput = input_mapping.input
-				
-				# if the re-mapping has an override for the input (e.g. the player has changed
-				# the default binding to something else), apply it.
-				if _active_remapping_config != null and \
-						_active_remapping_config._has(context, action, index):
-					bound_input = _active_remapping_config._get_bound_input_or_null(context, action, index)
-
-				# make a new input mapping
-				var new_input_mapping:GUIDEInputMapping = GUIDEInputMapping.new()
-
-				# bound_input can be null for combo mappings, so check that
-				if bound_input != null:
-					# check if we already have this kind of input
-					# first try to find it in the currently active inputs, this way we don't need to recreate
-					# inputs that are already active.
-					var existing:GUIDEInput = _active_inputs.first_match(func(it:GUIDEInput): return it.is_same_as(bound_input))
-					if existing == null:
-						# try to find it in the consolidated inputs
-						existing = new_inputs.first_match(func(it:GUIDEInput): return it.is_same_as(bound_input))
-					
-					if existing != null:
-						# if we already use this input, we can just use the existing one
-						bound_input = existing
-						
-					# ensure that the input is initialized and ready to be used
-					if not _is_used(bound_input):
-						bound_input._state = _input_state
-						bound_input._begin_usage()
-						_mark_used(bound_input, true)
-
-					new_inputs.add(bound_input)
-					
-				# copy metadata as this may be important for formatting	
-				new_input_mapping.input = bound_input
-				new_input_mapping.display_name = input_mapping.display_name
-				new_input_mapping.display_category = input_mapping.display_category
-				new_input_mapping.override_action_settings = input_mapping.override_action_settings
-				new_input_mapping.is_remappable = input_mapping.is_remappable
-				_copy_meta(input_mapping, new_input_mapping)
-				
-				# modifiers cannot be re-bound so we can just use the one
-				# from the original configuration. this is also needed for shared
-				# modifiers to work.
-				new_input_mapping.modifiers = input_mapping.modifiers
-				# track the modifiers, so we can later only disable the ones we don't need anymore.
-				for modifier:GUIDEModifier in new_input_mapping.modifiers:
-					# new_modifiers is a set so we can just add the modifier,
-					# if we already have it, it will not be added again.
-					new_modifiers.add(modifier)
-					
-					# initialize the modifier if it is not already in use
-					if not _is_used(modifier):
-						modifier._begin_usage()
-						_mark_used(modifier, true)
-						
-				# triggers also cannot be re-bound but we still make a copy
-				# to ensure that no shared triggers exist.
-				new_input_mapping.triggers = []
-				
-				for trigger in input_mapping.triggers:
-					new_input_mapping.triggers.append(trigger.duplicate())
-
-				# now initialize the input mapping
-				new_input_mapping._initialize(action.action_value_type)
-				# collect the hold threshold
-				var mapping_hold_threshold:float = new_input_mapping._trigger_hold_threshold
-				# smallest hold threshold that isn't negative wins
-				if trigger_hold_threshold < 0 or mapping_hold_threshold < trigger_hold_threshold:
-					trigger_hold_threshold = mapping_hold_threshold
-				
-				# and add it to the new mapping
-				effective_mapping.input_mappings.append(new_input_mapping)
-
-			# finally we set the hold threshold for the action
-			action._trigger_hold_threshold = trigger_hold_threshold
+			effective_mapping = _parse_input_mappings(action_mapping, context, action, new_inputs, new_modifiers, effective_mapping)
 			
 			# if any binding remains, add the mapping to the list of active
 			# action mappings

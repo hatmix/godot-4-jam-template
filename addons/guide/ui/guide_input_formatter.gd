@@ -127,6 +127,17 @@ static func for_context(context:GUIDEMappingContext, icon_size:int = 32) -> GUID
 		return null
 		
 	return GUIDEInputFormatter.new(icon_size, resolver)
+
+## Returns an input formatter that can format actions using the given contexts.
+static func for_contexts(contexts:Array[GUIDEMappingContext], icon_size:int = 32) -> GUIDEInputFormatter:
+	var resolver:Callable = func(action:GUIDEAction) -> GUIDEActionMapping:
+		for context in contexts:
+			for mapping in context.mappings:
+				if mapping.action == action:
+					return  mapping
+		return null
+		
+	return GUIDEInputFormatter.new(icon_size, resolver)	
 	
 	
 ## Formats the action input as richtext with icons suitable for a RichTextLabel. This function
@@ -269,10 +280,13 @@ func _materialize_action_input(action:GUIDEAction) -> MaterializedInput:
 				chord.parts.append(combo)
 			if combos.is_empty():
 				if input_mapping.input != null:
-					chord.parts.append(
-						_materialize_input(FormattingContext.for_action(input_mapping.input, input_mapping, action))
-					)					
-			result.parts.append(chord)
+					var additional_inputs := _materialize_input(FormattingContext.for_action(input_mapping.input, input_mapping, action))
+					# https://github.com/godotneers/G.U.I.D.E/issues/175
+					# additional inputs can be blank if they are filtered out. if they are blank
+					# we can discard the whole input mapping, as it could never trigger (we have a chorded action + no input)
+					if not additional_inputs.is_blank():
+						chord.parts.append(additional_inputs)					
+						result.parts.append(chord)
 		else:
 			for combo in combos:
 				result.parts.append(combo)
@@ -333,7 +347,8 @@ func _materialize_input(context:FormattingContext, materialize_actions:bool = tr
 	
 	
 class MaterializedInput:
-	pass
+	func is_blank() -> bool:
+		return false
 	
 class MaterializedSimpleInput:
 	extends MaterializedInput
@@ -341,18 +356,40 @@ class MaterializedSimpleInput:
 	
 	func _init(input:GUIDEInput):
 		self.input = input
+		
+	func _to_string() -> String:
+		return "MaterializedSimpleInput(%s)" % input
 	
 class MaterializedMixedInput:
 	extends MaterializedInput
 	var parts:Array[MaterializedInput] = []
 	
+	func is_blank() -> bool:
+		return parts.is_empty()
+	
+	func _to_string() -> String:
+		return "MaterializedMixedInput(%s)" % ", ".join(parts.map(func(it:MaterializedInput)->String: return it.to_string()))
+	
 class MaterializedChordedInput:
 	extends MaterializedInput
 	var parts:Array[MaterializedInput] = []
+
+	func is_blank() -> bool:
+		return parts.is_empty()
+
+	func _to_string() -> String:
+		return "MaterializedChordedInput(%s)" % ", ".join(parts.map(func(it:MaterializedInput)->String: return it.to_string()))
 	
 class MaterializedComboInput:
 	extends MaterializedInput
 	var parts:Array[MaterializedInput] = []
+
+	func is_blank() -> bool:
+		return parts.is_empty()
+
+	func _to_string() -> String:
+		return "MaterializedComboInput(%s)" % ", ".join(parts.map(func(it:MaterializedInput)->String: return it.to_string()))
+	
 
 ## A formatting context.
 class FormattingContext:
