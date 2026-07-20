@@ -3,7 +3,7 @@
 # Godot 4 Jam Template
 
 ###### TODO: Update contributors
-A Godot 4.5.1 template project by [hatmix](https://hatmix.itch.io)
+A Godot 4.6.2 template project by [hatmix](https://hatmix.itch.io)
 [/center]
 
 ###### TODO: Add attribution for any assets that require it
