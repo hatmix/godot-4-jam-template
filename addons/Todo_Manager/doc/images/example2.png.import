@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://osdq4kaujrir"
-path="res://.godot/imported/TODO_Manager_Logo.png-e07d7ec75201c66b732ef87ec1bece15.ctex"
+uid="uid://dws1mdee455r5"
+path="res://.godot/imported/example2.png-2e3a8f9cd1e178daf22b83dc0513f37a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/Todo_Manager/doc/images/TODO_Manager_Logo.png"
-dest_files=["res://.godot/imported/TODO_Manager_Logo.png-e07d7ec75201c66b732ef87ec1bece15.ctex"]
+source_file="res://addons/Todo_Manager/doc/images/example2.png"
+dest_files=["res://.godot/imported/example2.png-2e3a8f9cd1e178daf22b83dc0513f37a.ctex"]
 
 [params]
 
