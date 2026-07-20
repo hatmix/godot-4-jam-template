@@ -1,4 +1,3 @@
-class_name UI
 extends CanvasLayer
 
 signal preset_ready
@@ -58,6 +57,8 @@ func show_ui(page: Variant) -> void:
 
 
 func go_to(page: Variant) -> void:
+	if not is_preset_ready:
+		await preset_ready
 	await hide_ui()
 	show_ui(page)
 
@@ -112,7 +113,7 @@ func _resolve_ui_page(node_or_name: Variant) -> Node:
 
 
 func _ready() -> void:
-	add_to_group("__UI__")
+	#add_to_group("__UI__")
 	get_viewport().gui_focus_changed.connect(_on_focus_changed)
 	get_viewport().size_changed.connect(_handle_scaled_or_resized)
 	visible = false

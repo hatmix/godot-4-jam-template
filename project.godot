@@ -28,6 +28,7 @@ Settings="*res://src/autoloads/settings.gd"
 Globals="*res://src/autoloads/globals.gd"
 GUIDE="*res://addons/guide/guide.gd"
 InputManager="*res://src/autoloads/input_manager.tscn"
+UI="*uid://u1vgfeia861q"
 
 [debug]
 
@@ -71,19 +72,6 @@ folder_colors={
 report/assert/verbose_warnings=false
 report/godot/script_error=false
 ui/toolbar/run_overall=true
-report/godot/push_error=false
-settings/test/flaky_check_enable=false
-settings/test/test_suite_naming_convention=0
-report/assert/strict_number_type_compare=true
-templates/testsuite/GDScript="# GdUnit generated TestSuite
-class_name ${suite_class_name}
-extends GdUnitTestSuite
-@warning_ignore('unused_parameter')
-@warning_ignore('return_value_discarded')
-
-# TestSuite generated from
-const __source: String = '${source_resource_path}'
-"
 
 [godot_resource_groups]
 

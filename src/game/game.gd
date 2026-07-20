@@ -3,13 +3,9 @@ extends Node2D
 # This scene is started by clicking the "Play" button in main.tscn.
 # Change Project Settings: application/run/start_scene to game/game.tscn to skip the menus while developing
 
-@onready var ui: UI = $UI
-
 
 # TODO: Create your game beginning here
 
 func _ready() -> void:
 	add_to_group("__Game__")
-	if not ui.is_preset_ready:
-		await ui.preset_ready
-	ui.show_ui("Game")
+	UI.go_to("Game")

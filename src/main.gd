@@ -7,6 +7,4 @@ func _ready() -> void:
 
 
 func show_main_menu() -> void:
-	if not $UI.is_preset_ready:
-		await $UI.preset_ready
-	$UI.show_ui("MainMenu")
+	UI.go_to("MainMenu")
