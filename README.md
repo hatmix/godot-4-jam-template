@@ -1,6 +1,5 @@
 # Godot 4 Jam Template
 
-<<<<<<< HEAD
 An opinionated quick-start Godot 4.4+ template for game jams. See the plain template in action at [https://hatmix.itch.io/godot-4-jam-template](https://hatmix.itch.io/godot-4-jam-template) (password `hatmix`).
 
 A styled and modified example (for Godot 4.3) can be found at [https://hatmix.itch.io/game-jam-starter-template](https://hatmix.itch.io/game-jam-starter-template). This is an example of what the template can look like with customization. The code can be found in the release-promo branch.
@@ -136,18 +135,3 @@ The file `res://version.txt` is used as a version or build identifier in the mai
 ## Publishing on Itch.io
 
 Publishing your game on Itch.io is not the end of your jam journey. A good looking game page will create a strong first impression before your game is played. Jannik Boysen's Easy-Releasy .png templates are included in the `media` folder to simplify making a great looking page for your game.
-=======
-A very tiny Godot 4.4 example project with Github workflows for continuous integration and continuous deployment.
-
-Uses [MikeSchulze/gdUnit4](https://github.com/MikeSchulze/gdUnit4) for testing.
-
-This template includes Github actions for running tests and optionally deploying to itch.io. The tests workflow runs on every push to every branch. Deploy runs after successful test runs on the main branch.
-
-On succesful export, and if configured, the deploy workflow uses butler to deploy the game to itch.io. Setup these secrets in your Github repository to enable push:
-
-ITCHIO_USERNAME
-ITCHIO_GAME
-BUTLER_API_KEY
-
-Note that for butler uploads to work, the game page must already be created on Itch.io with one file manually uploaded. After that, butler can perform all the updates. (See butler's documentation)
->>>>>>> template/main
