@@ -1,32 +1,38 @@
-[gd_scene load_steps=3 format=3 uid="uid://2vrf5v6tmuk7"]
+[gd_scene format=3 uid="uid://2vrf5v6tmuk7"]
 
 [ext_resource type="Script" uid="uid://k3andar72og3" path="res://src/ui/main_menu/main_menu.gd" id="1_px5tl"]
 [ext_resource type="PackedScene" uid="uid://dgxrcxbe8s24d" path="res://src/ui/build_info/build_info.tscn" id="3_oraeq"]
 
-[node name="MainMenu" type="MarginContainer" node_paths=PackedStringArray("default_focus_control")]
+[node name="MainMenu" type="MarginContainer" unique_id=1915017283 node_paths=PackedStringArray("default_focus_control")]
+process_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 script = ExtResource("1_px5tl")
 default_focus_control = NodePath("ContentMarginContainer/Buttons/Play")
 
-[node name="Background" type="TextureRect" parent="."]
+[node name="Background" type="TextureRect" parent="." unique_id=289683401]
 texture_repeat = 2
 layout_mode = 2
 stretch_mode = 1
 
-[node name="ContentMarginContainer" type="MarginContainer" parent="."]
+[node name="ContentMarginContainer" type="MarginContainer" parent="." unique_id=456053066]
 unique_name_in_owner = true
 layout_mode = 2
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
 
-[node name="GitInfo" parent="ContentMarginContainer" instance=ExtResource("3_oraeq")]
+[node name="GitInfo" parent="ContentMarginContainer" unique_id=529720677 instance=ExtResource("3_oraeq")]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 8
 
-[node name="Buttons" type="VBoxContainer" parent="ContentMarginContainer"]
+[node name="Buttons" type="VBoxContainer" parent="ContentMarginContainer" unique_id=1734876004]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(130, 0)
 layout_mode = 2
@@ -34,33 +40,33 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_constants/separation = 4
 
-[node name="Play" type="Button" parent="ContentMarginContainer/Buttons"]
+[node name="Play" type="Button" parent="ContentMarginContainer/Buttons" unique_id=1723300752]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 96
 text = "Play"
 
-[node name="HowToPlay" type="Button" parent="ContentMarginContainer/Buttons"]
+[node name="HowToPlay" type="Button" parent="ContentMarginContainer/Buttons" unique_id=1488483069]
 unique_name_in_owner = true
 layout_mode = 2
 text = "How to Play"
 
-[node name="Settings" type="Button" parent="ContentMarginContainer/Buttons"]
+[node name="Settings" type="Button" parent="ContentMarginContainer/Buttons" unique_id=2051962037]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Settings"
 
-[node name="Controls" type="Button" parent="ContentMarginContainer/Buttons"]
+[node name="Controls" type="Button" parent="ContentMarginContainer/Buttons" unique_id=480538855]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Controls"
 
-[node name="Credits" type="Button" parent="ContentMarginContainer/Buttons"]
+[node name="Credits" type="Button" parent="ContentMarginContainer/Buttons" unique_id=106200516]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Credits"
 
-[node name="Exit" type="Button" parent="ContentMarginContainer/Buttons"]
+[node name="Exit" type="Button" parent="ContentMarginContainer/Buttons" unique_id=1742386979]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Exit"
