@@ -16,9 +16,3 @@ var game: Game:
 		if not is_instance_valid(game):
 			game = get_tree().get_first_node_in_group("__Game__")
 		return game
-
-var ui: UI:
-	get():
-		if not is_instance_valid(ui):
-			ui = get_tree().get_first_node_in_group("__UI__")
-		return ui
