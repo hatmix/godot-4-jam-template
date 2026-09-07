@@ -59,22 +59,17 @@ func _on_button_pressed(_control: Button) -> void:
 func _on_button_focus_entered(control: Button) -> void:
 	$UiSfxButtonFocused.play()
 	var tween: Tween = get_node_tween(control)
-	tween.set_trans(Tween.TRANS_SINE)
+	tween.set_trans(Tween.TRANS_BACK)
+	tween.tween_property(control, "offset_transform_enabled", true, 0)
 	tween.tween_property(control, "z_index", control.z_index + 1, 0)
-	if control.get_parent() is HBoxContainer:
-		tween.tween_property(control, "position:y", -20, 0.2)
-	else:
-		tween.tween_property(control, "position:x", 20, 0.2)
+	tween.tween_property(control, "offset_transform_scale", Vector2.ONE * 1.2, 0.3)
 
 
 func _on_button_focus_exited(control: Button) -> void:
 	var tween: Tween = get_node_tween(control)
-	tween.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	tween.set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 	tween.tween_property(control, "z_index", control.z_index - 1, 0)
-	if control.get_parent() is HBoxContainer:
-		tween.tween_property(control, "position:y", 0, 0.2)
-	else:
-		tween.tween_property(control, "position:x", 0, 0.2)
+	tween.tween_property(control, "offset_transform_scale", Vector2.ONE, 0.3)
 
 
 #endregion
