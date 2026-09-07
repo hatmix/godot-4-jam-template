@@ -20,7 +20,6 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_ypuet")
 remap_mapping_contexts = Array[ExtResource("2_v7gdq")]([ExtResource("3_b2afy")])
-icon_size = 32
 default_focus_control = NodePath("ContentMarginContainer/Buttons/Back")
 
 [node name="ContentMarginContainer" type="MarginContainer" parent="." unique_id=1650311929]

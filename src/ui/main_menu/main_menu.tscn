@@ -28,14 +28,13 @@ theme_override_constants/margin_top = 0
 theme_override_constants/margin_right = 0
 theme_override_constants/margin_bottom = 0
 
-[node name="GitInfo" parent="ContentMarginContainer" unique_id=529720677 instance=ExtResource("3_oraeq")]
+[node name="BuildInfo" parent="ContentMarginContainer" unique_id=529720677 instance=ExtResource("3_oraeq")]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 8
 
 [node name="Buttons" type="VBoxContainer" parent="ContentMarginContainer" unique_id=1734876004]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(130, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -44,7 +43,7 @@ theme_override_constants/separation = 4
 [node name="Play" type="Button" parent="ContentMarginContainer/Buttons" unique_id=1723300752]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_font_sizes/font_size = 96
+theme_type_variation = &"Play_button"
 text = "Play"
 
 [node name="HowToPlay" type="Button" parent="ContentMarginContainer/Buttons" unique_id=1488483069]

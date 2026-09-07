@@ -45,7 +45,6 @@ horizontal_alignment = 1
 [node name="Audio" type="GridContainer" parent="ContentMarginContainer/VBoxContainer" unique_id=810512460]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_horizontal = 4
 columns = 2
 
 [node name="MasterLabel" type="Label" parent="ContentMarginContainer/VBoxContainer/Audio" unique_id=173348277]
@@ -53,7 +52,6 @@ layout_mode = 2
 text = "Main"
 
 [node name="Master" type="HSlider" parent="ContentMarginContainer/VBoxContainer/Audio" unique_id=458613533]
-custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
@@ -91,7 +89,6 @@ horizontal_alignment = 1
 
 [node name="GridContainer" type="GridContainer" parent="ContentMarginContainer/VBoxContainer" unique_id=1542848399]
 layout_mode = 2
-size_flags_horizontal = 4
 columns = 2
 
 [node name="UiScaleLabel" type="Label" parent="ContentMarginContainer/VBoxContainer/GridContainer" unique_id=209771939]
@@ -100,7 +97,6 @@ text = "UI Scale"
 
 [node name="UiScale" type="HSlider" parent="ContentMarginContainer/VBoxContainer/GridContainer" unique_id=1269216815]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4

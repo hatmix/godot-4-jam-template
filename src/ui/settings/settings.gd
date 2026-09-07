@@ -3,10 +3,14 @@ extends UiPage
 
 var _audio_bus_name_idx_mapping: Dictionary = {}
 
+@onready var v_box_container: VBoxContainer = $ContentMarginContainer/VBoxContainer
+
 
 func _ready() -> void:
 	if Engine.is_editor_hint():
 		return
+	# give top vbox a min x size so sliders get some room
+	v_box_container.custom_minimum_size.x = get_viewport_rect().size.x * 0.5
 	# mobile can have very different aspect ratio, so allow larger UI scale
 	if OS.has_feature("web_android") or OS.has_feature("web_ios"):
 		%UiScale.max_value += 1.0

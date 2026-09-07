@@ -20,6 +20,10 @@ func _ready() -> void:
 	%InputPanel.visible = false
 	if Engine.is_editor_hint():
 		return
+	var project_theme: Theme = ThemeDB.get_project_theme()
+	if not icon_size:
+		print("default font size")
+		icon_size = 2 * project_theme.default_font_size + 4
 	%Back.pressed.connect(go_back)
 	_init_actions()
 	resized.connect(_handle_resize)

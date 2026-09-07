@@ -1,7 +1,7 @@
-[gd_resource type="Theme" load_steps=2 format=3 uid="uid://q28m8w8roi5r"]
+[gd_resource type="Theme" format=3 uid="uid://q28m8w8roi5r"]
 
-[ext_resource type="FontFile" uid="uid://bg0c1tlup760h" path="res://src/ui/assets/fonts/Lato-Black.ttf" id="1_pewhb"]
+[ext_resource type="FontFile" uid="uid://4aurltit3r1c" path="res://src/ui/assets/fonts/pixelFont-2-5x5-sproutLands.ttf" id="1_4i2hm"]
 
 [resource]
-default_font = ExtResource("1_pewhb")
-default_font_size = 24
+default_font = ExtResource("1_4i2hm")
+default_font_size = 8

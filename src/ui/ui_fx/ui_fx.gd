@@ -59,10 +59,10 @@ func _on_button_pressed(_control: Button) -> void:
 func _on_button_focus_entered(control: Button) -> void:
 	$UiSfxButtonFocused.play()
 	var tween: Tween = get_node_tween(control)
-	tween.set_trans(Tween.TRANS_BACK)
+	tween.set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 	tween.tween_property(control, "offset_transform_enabled", true, 0)
 	tween.tween_property(control, "z_index", control.z_index + 1, 0)
-	tween.tween_property(control, "offset_transform_scale", Vector2.ONE * 1.2, 0.3)
+	tween.tween_property(control, "offset_transform_scale", Vector2.ONE * 2, 0.3)
 
 
 func _on_button_focus_exited(control: Button) -> void:

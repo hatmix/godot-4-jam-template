@@ -2,7 +2,7 @@
 extends ProgrammaticTheme
 # Note that ProgrammaticTheme stylebox_ functions return Dictionary objects, not StyleBox
 
-const DEFAULT_FONT_SIZE: int = 48
+const DEFAULT_FONT_SIZE: int = 8
 
 
 @warning_ignore("integer_division")
@@ -13,17 +13,22 @@ func setup() -> void:
 
 # TODO: Consider defining the UI theme below with ThemeGen or manually edit res://ui/ui_theme.tres
 func define_theme() -> void:
-	define_default_font(load("res://src/ui/assets/fonts/Lato-Black.ttf"))
+	#define_default_font(load("res://src/ui/assets/fonts/Lato-Black.ttf"))
+	define_default_font(load("res://src/ui/assets/fonts/pixelFont-2-5x5-sproutLands.ttf"))
 	define_default_font_size(DEFAULT_FONT_SIZE)
 
 	# Uncomment to set splash and clear colors in settings.
 	# Not technically part of the theme, but usually changed together
-	#ProjectSettings.set_setting("rendering/environment/defaults/default_clear_color", Color.BLACK)
-	#ProjectSettings.set_setting("application/boot_splash/bg_color", Color.BLACK)
+	ProjectSettings.set_setting("rendering/environment/defaults/default_clear_color", Color.BLACK)
+	ProjectSettings.set_setting("application/boot_splash/bg_color", Color.BLACK)
+	ProjectSettings.save()
 
 #region Control Styles
 	#define_style("BoxContainer", {})
 	#define_style("Button", {})
+	define_variant_style("Play_button", "Button", {
+		font_size = 2 * DEFAULT_FONT_SIZE,
+	})
 	# define_style("CheckBox", {})
 	#define_style("CheckButton", {})
 	#define_style("CodeEdit", {})
@@ -88,9 +93,10 @@ func define_theme() -> void:
 #endregion
 
 #region Build info styling
+	var build_font_size: int = max(8, int(DEFAULT_FONT_SIZE / 2.0))
 	@warning_ignore("integer_division")
 	define_variant_style("BuildInfoLabel", "Label", {
-		font_size = DEFAULT_FONT_SIZE / 2,
+		font_size = build_font_size,
 	})
 #endregion
 
@@ -105,7 +111,7 @@ func define_theme() -> void:
 		{
 			border_ = border_width(2),
 			border_color = Color.WHITE,
-			corners_ = corner_radius(2),
+			corners_ = corner_radius(0),
 			bg_color = Color.TRANSPARENT,
 		}
 	)

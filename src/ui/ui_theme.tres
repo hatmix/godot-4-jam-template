@@ -1,6 +1,6 @@
 [gd_resource type="Theme" format=3 uid="uid://c3w4awv5348yw"]
 
-[ext_resource type="FontFile" uid="uid://bg0c1tlup760h" path="res://src/ui/assets/fonts/Lato-Black.ttf" id="1_wksio"]
+[ext_resource type="FontFile" uid="uid://4aurltit3r1c" path="res://src/ui/assets/fonts/pixelFont-2-5x5-sproutLands.ttf" id="1_wksio"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wksio"]
 bg_color = Color(1, 1, 1, 0)
@@ -9,10 +9,6 @@ border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
 border_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 2
-corner_radius_top_right = 2
-corner_radius_bottom_right = 2
-corner_radius_bottom_left = 2
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lupir"]
 bg_color = Color(1, 1, 1, 0)
@@ -21,10 +17,6 @@ border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
 border_color = Color(0.4117647, 0.4117647, 0.4117647, 1)
-corner_radius_top_left = 2
-corner_radius_top_right = 2
-corner_radius_bottom_right = 2
-corner_radius_bottom_left = 2
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xm6e3"]
 
@@ -35,18 +27,16 @@ border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
 border_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 2
-corner_radius_top_right = 2
-corner_radius_bottom_right = 2
-corner_radius_bottom_left = 2
 
 [resource]
 default_font = ExtResource("1_wksio")
-default_font_size = 48
+default_font_size = 8
 BuildInfoLabel/base_type = &"Label"
-BuildInfoLabel/font_sizes/font_size = 24
+BuildInfoLabel/font_sizes/font_size = 8
 MessageLabel/base_type = &"Label"
 MessagePanelContainer/base_type = &"PanelContainer"
+Play_button/base_type = &"Button"
+Play_button/font_sizes/font_size = 16
 RemapButton/base_type = &"Button"
 RemapButton/styles/focus = SubResource("StyleBoxFlat_wksio")
 RemapButton/styles/hover = SubResource("StyleBoxFlat_lupir")

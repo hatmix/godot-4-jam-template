@@ -12,18 +12,22 @@
 [sub_resource type="Resource" id="Resource_olsbt"]
 resource_local_to_scene = true
 script = ExtResource("4_h0eqe")
+font_size = 2.0
 
 [sub_resource type="Resource" id="Resource_vt6jt"]
 resource_local_to_scene = true
 script = ExtResource("5_xmv6d")
+font_size = 1.0
 
 [sub_resource type="Resource" id="Resource_1awd4"]
 resource_local_to_scene = true
 script = ExtResource("6_6xvi1")
+font_size = 1.0
 
 [sub_resource type="Resource" id="Resource_cwasd"]
 resource_local_to_scene = true
 script = ExtResource("7_ye0td")
+font_size = 1.0
 
 [sub_resource type="Resource" id="Resource_gcqir"]
 resource_local_to_scene = true
@@ -32,6 +36,7 @@ script = ExtResource("8_pq5cp")
 [sub_resource type="Resource" id="Resource_fec2k"]
 resource_local_to_scene = true
 script = ExtResource("9_40fmp")
+font_size = 1.0
 
 [node name="Credits" type="MarginContainer" unique_id=965065407 node_paths=PackedStringArray("default_focus_control")]
 process_mode = 3
@@ -59,7 +64,6 @@ theme_override_constants/margin_bottom = 0
 layout_mode = 2
 
 [node name="ScrollContainer" type="ScrollContainer" parent="ContentMarginContainer/VBoxContainer" unique_id=1386347114]
-custom_minimum_size = Vector2(400, 400)
 layout_mode = 2
 size_flags_vertical = 3
 scroll_vertical_custom_step = 5.0

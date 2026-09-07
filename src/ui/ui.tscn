@@ -34,33 +34,16 @@ color = Color(0, 0, 0, 0.784314)
 script = ExtResource("5_n6lj8")
 
 [node name="Credits" parent="." unique_id=339119122 instance=ExtResource("5_hqkqk")]
-ui_margin_left = 30
-ui_margin_top = 10
-ui_margin_bottom = 10
 
 [node name="HowToPlay" parent="." unique_id=898651339 instance=ExtResource("8_y2e8e")]
-ui_margin_left = 30
-ui_margin_top = 10
-ui_margin_bottom = 10
 
 [node name="Settings" parent="." unique_id=121729922 instance=ExtResource("9_jqbk6")]
-ui_margin_left = 30
-ui_margin_top = 10
-ui_margin_bottom = 10
 
 [node name="Controls" parent="." unique_id=1368105996 instance=ExtResource("11_w3b35")]
-icon_size = 64
-ui_margin_left = 30
-ui_margin_top = 10
-ui_margin_bottom = 10
 
 [node name="MainMenu" parent="." unique_id=1868743851 instance=ExtResource("2_7jndn")]
 
 [node name="Game" parent="." unique_id=1745439911 instance=ExtResource("8_62oa5")]
-ui_margin_left = 30
-ui_margin_top = 10
-ui_margin_right = 30
-ui_margin_bottom = 10
 
 [node name="PlaytestHelper" parent="." unique_id=215236586 instance=ExtResource("10_idipi")]
 offset_right = 418.0
