@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://cceay2ptc23wf"]
+
+[ext_resource type="Script" uid="uid://b1jwbvk6u8grl" path="res://src/ui/playtest_helper/playtest_helper.gd" id="1_rn7w7"]
+[ext_resource type="PackedScene" uid="uid://dkr80d2pi0d41" path="res://addons/guide/debugger/guide_debugger.tscn" id="2_pn81x"]
+[ext_resource type="Theme" uid="uid://q28m8w8roi5r" path="res://src/ui/playtest_helper/guide_debugger/debugger.tres" id="3_kdvb5"]
+
+[node name="PlaytestHelper" type="MarginContainer" unique_id=215236586]
+process_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_rn7w7")
+metadata/_custom_type_script = "uid://qrnhiju8ifst"
+
+[node name="ContentMarginContainer" type="MarginContainer" parent="." unique_id=1458622373]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ContentMarginContainer" unique_id=922412826]
+layout_mode = 2
+
+[node name="ToggleGuideDebugger" type="CheckButton" parent="ContentMarginContainer/VBoxContainer" unique_id=1932936471]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "GUIDE Debugger"
+
+[node name="GuideDebugger" parent="ContentMarginContainer/VBoxContainer" unique_id=1282102977 instance=ExtResource("2_pn81x")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("3_kdvb5")

@@ -7,7 +7,7 @@ A styled and modified example (for Godot 4.3) can be found at [https://hatmix.it
 Features:
 * Web, Windows, Linux and macOS exports configured for maximum jam
 * Github workflows for automatic uploads to Itch.io
-* Premade basic UI for main menu, pause menu, settings, remapping controls, credits, instructions and thank you screens
+* Premade basic UI for main menu, pause menu, settings, remapping controls, credits, instructions, thank you screens, and more!
 * User-controlled UI scaling with support for resizing the game (e.g. fullscreen button on Itch)
 * Simple control audio effects and animation example (animation only on buttons, but extendable in `ui_fx.gd`)
 * [G.U.I.D.E](https://godotneers.github.io/G.U.I.D.E/) for input, input prompts, and virtual controls for touchscreens
@@ -65,9 +65,11 @@ It's up to your preference and the type of project whether the separation of `re
 
 The main UI scene `res://src/ui/ui.tscn` treats its direct children extended from UiPage as components to show or hide. They might be an entire screen or just a widget in the corner. The main UI scene includes basic UI for all of the template's menus, and a stub in-game UI with pause screen.
 
+UI components are contained in directories under `res://src/ui`. The intended approach is to keep all UI in `res://ui/ui.tscn` which is an autoload. Then, use `UI.go_to(page)`, `UI.show_ui(page)`, and `UI.hide_ui(page)` from scripts.
+
 UiPage defines basic functions for show_ui() and hide_ui() that can be overridden/customized for animating the UI reveal.
 
-Main UI components are contained in directories under `res://src/ui`. The intended approach is to keep all UI in `res://ui/ui.tscn` and instantiate it as a child of every other root-level scene.
+Gameplay_helper is intended for testing utilities, like the G.U.I.D.E debugger. It is shown only in debug builds.
 
 ```
 ├───src
@@ -81,6 +83,7 @@ Main UI components are contained in directories under `res://src/ui`. The intend
 │       ├───controls
 │       ├───credits
 │       ├───game
+│       ├───gameplay_helper
 │       ├───how_to_play
 │       ├───main_menu
 │       ├───notifications

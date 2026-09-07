@@ -19,14 +19,16 @@ func show_ui() -> void:
 		_pushed_state = false
 		ui.pop_state()
 	super()
+
+	if OS.has_feature("debug"):
+		ui.show_ui("PlaytestHelper")
+
 	# put this here so it shows in "game ui" and not "main menu"
 	if is_instance_valid(ui) and ui.browser_on_mobile:
 		ui.show_ui("VirtualJoysticks")
 
 
 func _ready() -> void:
-	%ToggleGuideDebugger.toggled.connect(_toggle_guide_debugger)
-	%GuideDebugger.hide()
 	UI_BACK_GUIDE_ACTION.triggered.connect(_pause)
 
 
@@ -43,10 +45,3 @@ func _pause() -> void:
 	ui.push_state()
 	_pushed_state = true
 	ui.go_to("PauseMenu")
-
-
-func _toggle_guide_debugger(toggled_on: bool) -> void:
-	%GuideDebugger.visible = toggled_on
-	%ToggleGuideDebugger.release_focus()
-	await get_tree().process_frame
-	%ToggleGuideDebugger.release_focus()
