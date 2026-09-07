@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://mwbv2jh1ugjq"]
+[gd_scene format=3 uid="uid://mwbv2jh1ugjq"]
 
 [ext_resource type="Script" uid="uid://crli6jbg5fenn" path="res://src/ui/controls/controls.gd" id="1_ypuet"]
 [ext_resource type="Script" uid="uid://dsa1dnifd6w32" path="res://addons/guide/guide_mapping_context.gd" id="2_v7gdq"]
@@ -9,23 +9,30 @@
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qy0v7"]
 bg_color = Color(0.162066, 0.162066, 0.162065, 1)
 
-[node name="Controls" type="MarginContainer" node_paths=PackedStringArray("default_focus_control")]
+[node name="Controls" type="MarginContainer" unique_id=348489634 node_paths=PackedStringArray("default_focus_control")]
+process_mode = 3
 texture_filter = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 script = ExtResource("1_ypuet")
 remap_mapping_contexts = Array[ExtResource("2_v7gdq")]([ExtResource("3_b2afy")])
 icon_size = 32
 default_focus_control = NodePath("ContentMarginContainer/Buttons/Back")
 
-[node name="ContentMarginContainer" type="MarginContainer" parent="."]
+[node name="ContentMarginContainer" type="MarginContainer" parent="." unique_id=1650311929]
 unique_name_in_owner = true
 layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
 
-[node name="BoxContainer" type="BoxContainer" parent="ContentMarginContainer"]
+[node name="BoxContainer" type="BoxContainer" parent="ContentMarginContainer" unique_id=1343439895]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
@@ -33,17 +40,17 @@ size_flags_vertical = 4
 theme_override_constants/separation = 40
 alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="ContentMarginContainer/BoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="ContentMarginContainer/BoxContainer" unique_id=1350740992]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
 
-[node name="Label" type="Label" parent="ContentMarginContainer/BoxContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="ContentMarginContainer/BoxContainer/VBoxContainer" unique_id=1299056596]
 layout_mode = 2
 text = "Keyboard"
 horizontal_alignment = 1
 
-[node name="KeyboardMouseActions" type="GridContainer" parent="ContentMarginContainer/BoxContainer/VBoxContainer"]
+[node name="KeyboardMouseActions" type="GridContainer" parent="ContentMarginContainer/BoxContainer/VBoxContainer" unique_id=195879917]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
@@ -52,17 +59,17 @@ theme_override_constants/h_separation = 20
 theme_override_constants/v_separation = 4
 columns = 2
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="ContentMarginContainer/BoxContainer"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="ContentMarginContainer/BoxContainer" unique_id=126146574]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
 
-[node name="Label" type="Label" parent="ContentMarginContainer/BoxContainer/VBoxContainer2"]
+[node name="Label" type="Label" parent="ContentMarginContainer/BoxContainer/VBoxContainer2" unique_id=1955699181]
 layout_mode = 2
 text = "Controller"
 horizontal_alignment = 1
 
-[node name="ControllerActions" type="GridContainer" parent="ContentMarginContainer/BoxContainer/VBoxContainer2"]
+[node name="ControllerActions" type="GridContainer" parent="ContentMarginContainer/BoxContainer/VBoxContainer2" unique_id=1757963103]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
@@ -71,17 +78,17 @@ theme_override_constants/h_separation = 20
 theme_override_constants/v_separation = 4
 columns = 2
 
-[node name="Buttons" type="HBoxContainer" parent="ContentMarginContainer"]
+[node name="Buttons" type="HBoxContainer" parent="ContentMarginContainer" unique_id=1441611753]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
 
-[node name="Back" type="Button" parent="ContentMarginContainer/Buttons"]
+[node name="Back" type="Button" parent="ContentMarginContainer/Buttons" unique_id=1076738681]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Back"
 
-[node name="InputPanel" type="PopupPanel" parent="."]
+[node name="InputPanel" type="PopupPanel" parent="." unique_id=680121084]
 unique_name_in_owner = true
 oversampling_override = 1.0
 initial_position = 2
@@ -91,7 +98,7 @@ min_size = Vector2i(320, 160)
 theme_override_styles/panel = SubResource("StyleBoxFlat_qy0v7")
 script = ExtResource("5_7bxk6")
 
-[node name="MarginContainer" type="MarginContainer" parent="InputPanel"]
+[node name="MarginContainer" type="MarginContainer" parent="InputPanel" unique_id=638397955]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -100,7 +107,7 @@ offset_bottom = 160.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="KeyboardMouseLabel" type="Label" parent="InputPanel/MarginContainer"]
+[node name="KeyboardMouseLabel" type="Label" parent="InputPanel/MarginContainer" unique_id=1803900647]
 unique_name_in_owner = true
 visible = false
 custom_minimum_size = Vector2(280, 0)
@@ -110,7 +117,7 @@ text = "Waiting for keyboard or mouse input"
 horizontal_alignment = 1
 autowrap_mode = 2
 
-[node name="JoypadLabel" type="Label" parent="InputPanel/MarginContainer"]
+[node name="JoypadLabel" type="Label" parent="InputPanel/MarginContainer" unique_id=1867118248]
 unique_name_in_owner = true
 visible = false
 custom_minimum_size = Vector2(300, 0)
@@ -120,7 +127,7 @@ text = "Waiting for controller input"
 horizontal_alignment = 1
 autowrap_mode = 2
 
-[node name="GUIDEInputDetector" type="Node" parent="InputPanel"]
+[node name="GUIDEInputDetector" type="Node" parent="InputPanel" unique_id=1202395818]
 unique_name_in_owner = true
 script = ExtResource("5_64hdo")
 detection_countdown_seconds = 0.1

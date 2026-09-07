@@ -1,8 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://udxerxnmw35e"]
+[gd_scene format=3 uid="uid://udxerxnmw35e"]
 
 [ext_resource type="Script" uid="uid://bcecg7aq0mloi" path="res://src/ui/notifications/message.gd" id="1_pe0jv"]
 
-[node name="Message" type="PanelContainer"]
+[node name="Message" type="PanelContainer" unique_id=970962373]
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -13,11 +13,11 @@ offset_bottom = 79.0
 grow_horizontal = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-mouse_filter = 1
+mouse_filter = 2
 theme_type_variation = &"MessagePanelContainer"
 script = ExtResource("1_pe0jv")
 
-[node name="Text" type="Label" parent="."]
+[node name="Text" type="Label" parent="." unique_id=1885441482]
 unique_name_in_owner = true
 modulate = Color(0.980392, 0.380392, 0.286275, 1)
 layout_mode = 2

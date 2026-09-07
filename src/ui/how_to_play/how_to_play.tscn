@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://dfgowfkuko4ne"]
+[gd_scene format=3 uid="uid://dfgowfkuko4ne"]
 
 [ext_resource type="Script" uid="uid://bcrmkt6ctmi10" path="res://src/ui/how_to_play/how_to_play.gd" id="1_qyscc"]
 [ext_resource type="Script" uid="uid://dbap0gqox0ty1" path="res://addons/markdownlabel/markdownlabel.gd" id="2_run12"]
@@ -33,34 +33,47 @@ script = ExtResource("7_alr6f")
 resource_local_to_scene = true
 script = ExtResource("8_4vnxd")
 
-[node name="HowToPlay" type="MarginContainer" node_paths=PackedStringArray("default_focus_control")]
+[node name="HowToPlay" type="MarginContainer" unique_id=1611456014 node_paths=PackedStringArray("default_focus_control")]
+process_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 script = ExtResource("1_qyscc")
 default_focus_control = NodePath("ContentMarginContainer/VBoxContainer/HBoxContainer/Back")
 
-[node name="ContentMarginContainer" type="MarginContainer" parent="."]
+[node name="ContentMarginContainer" type="MarginContainer" parent="." unique_id=1861315271]
 unique_name_in_owner = true
 layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="ContentMarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="ContentMarginContainer" unique_id=776645157]
 layout_mode = 2
 
-[node name="ScrollContainer" type="ScrollContainer" parent="ContentMarginContainer/VBoxContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="ContentMarginContainer/VBoxContainer" unique_id=1751676509]
 layout_mode = 2
 size_flags_vertical = 3
 horizontal_scroll_mode = 0
 
-[node name="MarkdownLabel" type="RichTextLabel" parent="ContentMarginContainer/VBoxContainer/ScrollContainer"]
+[node name="MarkdownLabel" type="RichTextLabel" parent="ContentMarginContainer/VBoxContainer/ScrollContainer" unique_id=41265642]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 bbcode_enabled = true
 script = ExtResource("2_run12")
+markdown_text = "[center]
+# How to Play
+[/center]
+
+###### TODO: Create a markdown doc with instructions for the player--see https://github.com/daenvil/MarkdownLabel for formatting.
+"
 h1 = SubResource("Resource_byagm")
 h2 = SubResource("Resource_l1upl")
 h3 = SubResource("Resource_0tw4e")
@@ -68,12 +81,13 @@ h4 = SubResource("Resource_dadt8")
 h5 = SubResource("Resource_a05v1")
 h6 = SubResource("Resource_d4keb")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="ContentMarginContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="ContentMarginContainer/VBoxContainer" unique_id=662960467]
 layout_mode = 2
 alignment = 1
 
-[node name="Back" type="Button" parent="ContentMarginContainer/VBoxContainer/HBoxContainer"]
+[node name="Back" type="Button" parent="ContentMarginContainer/VBoxContainer/HBoxContainer" unique_id=681954674]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
+offset_transform_enabled = true
 text = "Back"

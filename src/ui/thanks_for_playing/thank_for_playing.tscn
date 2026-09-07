@@ -1,19 +1,26 @@
-[gd_scene load_steps=2 format=3 uid="uid://xyqp4vhj6251"]
+[gd_scene format=3 uid="uid://xyqp4vhj6251"]
 
 [ext_resource type="Script" uid="uid://cb47qntox38p8" path="res://src/ui/thanks_for_playing/thanks_for_playing.gd" id="1_fjjl0"]
 
-[node name="ThanksForPlaying" type="MarginContainer"]
+[node name="ThanksForPlaying" type="MarginContainer" unique_id=112318639]
+process_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 script = ExtResource("1_fjjl0")
 
-[node name="TextureRect" type="TextureRect" parent="."]
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1191321887]
 layout_mode = 2
 expand_mode = 2
 
-[node name="ContentMarginContainer" type="MarginContainer" parent="."]
+[node name="ContentMarginContainer" type="MarginContainer" parent="." unique_id=391355972]
 unique_name_in_owner = true
 layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0

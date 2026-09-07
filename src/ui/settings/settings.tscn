@@ -1,97 +1,104 @@
-[gd_scene load_steps=2 format=3 uid="uid://c31bw3nk5ujvg"]
+[gd_scene format=3 uid="uid://c31bw3nk5ujvg"]
 
 [ext_resource type="Script" uid="uid://de7x8mivrhisn" path="res://src/ui/settings/settings.gd" id="1_dabjx"]
 
-[node name="Settings" type="MarginContainer" node_paths=PackedStringArray("default_focus_control")]
+[node name="Settings" type="MarginContainer" unique_id=2124181525 node_paths=PackedStringArray("default_focus_control")]
+process_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 script = ExtResource("1_dabjx")
 default_focus_control = NodePath("ContentMarginContainer/HBoxContainer/Back")
 
-[node name="ContentMarginContainer" type="MarginContainer" parent="."]
+[node name="ContentMarginContainer" type="MarginContainer" parent="." unique_id=1031392192]
 unique_name_in_owner = true
 layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="ContentMarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="ContentMarginContainer" unique_id=1140762562]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 alignment = 1
 
-[node name="SettingsLabel" type="Label" parent="ContentMarginContainer/VBoxContainer"]
+[node name="SettingsLabel" type="Label" parent="ContentMarginContainer/VBoxContainer" unique_id=201738569]
 layout_mode = 2
 text = "Settings"
 horizontal_alignment = 1
 
-[node name="Spacer" type="Label" parent="ContentMarginContainer/VBoxContainer"]
+[node name="Spacer" type="Label" parent="ContentMarginContainer/VBoxContainer" unique_id=1531401950]
 layout_mode = 2
 horizontal_alignment = 1
 
-[node name="VolumeLabel" type="Label" parent="ContentMarginContainer/VBoxContainer"]
+[node name="VolumeLabel" type="Label" parent="ContentMarginContainer/VBoxContainer" unique_id=2116828142]
 layout_mode = 2
 text = "Volume"
 horizontal_alignment = 1
 
-[node name="Audio" type="GridContainer" parent="ContentMarginContainer/VBoxContainer"]
+[node name="Audio" type="GridContainer" parent="ContentMarginContainer/VBoxContainer" unique_id=810512460]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 columns = 2
 
-[node name="MasterLabel" type="Label" parent="ContentMarginContainer/VBoxContainer/Audio"]
+[node name="MasterLabel" type="Label" parent="ContentMarginContainer/VBoxContainer/Audio" unique_id=173348277]
 layout_mode = 2
 text = "Main"
 
-[node name="Master" type="HSlider" parent="ContentMarginContainer/VBoxContainer/Audio"]
+[node name="Master" type="HSlider" parent="ContentMarginContainer/VBoxContainer/Audio" unique_id=458613533]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 value = 100.0
 
-[node name="MusicLabel" type="Label" parent="ContentMarginContainer/VBoxContainer/Audio"]
+[node name="MusicLabel" type="Label" parent="ContentMarginContainer/VBoxContainer/Audio" unique_id=117618828]
 layout_mode = 2
 text = "Music"
 
-[node name="Music" type="HSlider" parent="ContentMarginContainer/VBoxContainer/Audio"]
+[node name="Music" type="HSlider" parent="ContentMarginContainer/VBoxContainer/Audio" unique_id=413651863]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 value = 100.0
 
-[node name="SfxLabel" type="Label" parent="ContentMarginContainer/VBoxContainer/Audio"]
+[node name="SfxLabel" type="Label" parent="ContentMarginContainer/VBoxContainer/Audio" unique_id=71826610]
 layout_mode = 2
 text = "Effects"
 
-[node name="SFX" type="HSlider" parent="ContentMarginContainer/VBoxContainer/Audio"]
+[node name="SFX" type="HSlider" parent="ContentMarginContainer/VBoxContainer/Audio" unique_id=234383956]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 value = 100.0
 ticks_on_borders = true
 
-[node name="Spacer2" type="Label" parent="ContentMarginContainer/VBoxContainer"]
+[node name="Spacer2" type="Label" parent="ContentMarginContainer/VBoxContainer" unique_id=553518778]
 layout_mode = 2
 horizontal_alignment = 1
 
-[node name="DisplayLabel" type="Label" parent="ContentMarginContainer/VBoxContainer"]
+[node name="DisplayLabel" type="Label" parent="ContentMarginContainer/VBoxContainer" unique_id=1462952220]
 layout_mode = 2
 text = "Display"
 horizontal_alignment = 1
 
-[node name="GridContainer" type="GridContainer" parent="ContentMarginContainer/VBoxContainer"]
+[node name="GridContainer" type="GridContainer" parent="ContentMarginContainer/VBoxContainer" unique_id=1542848399]
 layout_mode = 2
 size_flags_horizontal = 4
 columns = 2
 
-[node name="UiScaleLabel" type="Label" parent="ContentMarginContainer/VBoxContainer/GridContainer"]
+[node name="UiScaleLabel" type="Label" parent="ContentMarginContainer/VBoxContainer/GridContainer" unique_id=209771939]
 layout_mode = 2
 text = "UI Scale"
 
-[node name="UiScale" type="HSlider" parent="ContentMarginContainer/VBoxContainer/GridContainer"]
+[node name="UiScale" type="HSlider" parent="ContentMarginContainer/VBoxContainer/GridContainer" unique_id=1269216815]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
@@ -103,18 +110,18 @@ step = 0.05
 value = 1.0
 ticks_on_borders = true
 
-[node name="ResetScale" type="Button" parent="ContentMarginContainer/VBoxContainer"]
+[node name="ResetScale" type="Button" parent="ContentMarginContainer/VBoxContainer" unique_id=938284157]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 0
 text = "Reset Scale"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="ContentMarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="ContentMarginContainer" unique_id=1544226688]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
 
-[node name="Back" type="Button" parent="ContentMarginContainer/HBoxContainer"]
+[node name="Back" type="Button" parent="ContentMarginContainer/HBoxContainer" unique_id=2016237512]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Back"

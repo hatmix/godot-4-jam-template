@@ -22,6 +22,7 @@ stretch_mode = 1
 [node name="ContentMarginContainer" type="MarginContainer" parent="." unique_id=456053066]
 unique_name_in_owner = true
 layout_mode = 2
+mouse_filter = 2
 theme_override_constants/margin_left = 0
 theme_override_constants/margin_top = 0
 theme_override_constants/margin_right = 0

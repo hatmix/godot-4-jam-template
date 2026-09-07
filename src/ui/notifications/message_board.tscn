@@ -1,8 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://dtrluvg5ox2vb"]
+[gd_scene format=3 uid="uid://dtrluvg5ox2vb"]
 
 [ext_resource type="Script" uid="uid://bxt32pijs8kgg" path="res://src/ui/notifications/message_board.gd" id="1_y2nll"]
 
-[node name="MessageQueue" type="MarginContainer"]
+[node name="MessageQueue" type="MarginContainer" unique_id=1845550091]
+process_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -12,14 +13,19 @@ mouse_filter = 2
 script = ExtResource("1_y2nll")
 prevent_joypad_focus_capture = true
 
-[node name="Timer" type="Timer" parent="."]
+[node name="Timer" type="Timer" parent="." unique_id=1200881371]
 autostart = true
 
-[node name="ContentMarginContainer" type="MarginContainer" parent="."]
+[node name="ContentMarginContainer" type="MarginContainer" parent="." unique_id=184408835]
 unique_name_in_owner = true
 layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
 
-[node name="Messages" type="VBoxContainer" parent="ContentMarginContainer"]
+[node name="Messages" type="VBoxContainer" parent="ContentMarginContainer" unique_id=1964649776]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(320, 100)
 layout_mode = 2

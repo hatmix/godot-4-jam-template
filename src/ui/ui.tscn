@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://u1vgfeia861q"]
+[gd_scene format=3 uid="uid://u1vgfeia861q"]
 
 [ext_resource type="Script" uid="uid://bau08qsdeicv2" path="res://src/ui/ui.gd" id="1_yeoin"]
 [ext_resource type="PackedScene" uid="uid://2vrf5v6tmuk7" path="res://src/ui/main_menu/main_menu.tscn" id="2_7jndn"]
@@ -15,13 +15,13 @@
 [ext_resource type="PackedScene" uid="uid://xyqp4vhj6251" path="res://src/ui/thanks_for_playing/thank_for_playing.tscn" id="13_0pgbw"]
 [ext_resource type="PackedScene" uid="uid://1oybadbf4td" path="res://src/ui/virtual_joysticks/virtual_joysticks.tscn" id="13_wwjrv"]
 
-[node name="UI" type="CanvasLayer"]
+[node name="UI" type="CanvasLayer" unique_id=2016169460]
 process_mode = 3
 script = ExtResource("1_yeoin")
 
-[node name="UiSfx" parent="." instance=ExtResource("2_j4riv")]
+[node name="UiSfx" parent="." unique_id=92608112 instance=ExtResource("2_j4riv")]
 
-[node name="InGameMenuOverlay" type="ColorRect" parent="."]
+[node name="InGameMenuOverlay" type="ColorRect" parent="." unique_id=1508500154]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -32,61 +32,44 @@ size_flags_vertical = 3
 color = Color(0, 0, 0, 0.784314)
 script = ExtResource("5_n6lj8")
 
-[node name="Credits" parent="." instance=ExtResource("5_hqkqk")]
-process_mode = 3
-mouse_filter = 2
+[node name="Credits" parent="." unique_id=339119122 instance=ExtResource("5_hqkqk")]
 ui_margin_left = 30
 ui_margin_top = 10
 ui_margin_bottom = 10
 
-[node name="HowToPlay" parent="." instance=ExtResource("8_y2e8e")]
-process_mode = 3
-mouse_filter = 2
+[node name="HowToPlay" parent="." unique_id=898651339 instance=ExtResource("8_y2e8e")]
 ui_margin_left = 30
 ui_margin_top = 10
 ui_margin_bottom = 10
 
-[node name="Settings" parent="." instance=ExtResource("9_jqbk6")]
-process_mode = 3
-mouse_filter = 2
+[node name="Settings" parent="." unique_id=121729922 instance=ExtResource("9_jqbk6")]
 ui_margin_left = 30
 ui_margin_top = 10
 ui_margin_bottom = 10
 
-[node name="Controls" parent="." instance=ExtResource("11_w3b35")]
-process_mode = 3
-mouse_filter = 2
+[node name="Controls" parent="." unique_id=1368105996 instance=ExtResource("11_w3b35")]
 icon_size = 64
 ui_margin_left = 30
 ui_margin_top = 10
 ui_margin_bottom = 10
 
-[node name="MainMenu" parent="." instance=ExtResource("2_7jndn")]
-process_mode = 3
-mouse_filter = 2
+[node name="MainMenu" parent="." unique_id=1868743851 instance=ExtResource("2_7jndn")]
 
-[node name="Game" parent="." instance=ExtResource("8_62oa5")]
+[node name="Game" parent="." unique_id=1745439911 instance=ExtResource("8_62oa5")]
 ui_margin_left = 30
 ui_margin_top = 10
 ui_margin_right = 30
 ui_margin_bottom = 10
 
-[node name="PauseMenu" parent="." instance=ExtResource("6_2pasj")]
-process_mode = 3
-mouse_filter = 2
+[node name="PauseMenu" parent="." unique_id=771225022 instance=ExtResource("6_2pasj")]
 
-[node name="MessageBoard" parent="." instance=ExtResource("12_hlgii")]
+[node name="MessageBoard" parent="." unique_id=1613179575 instance=ExtResource("12_hlgii")]
 process_mode = 3
 connect_fx = false
 
-[node name="Confirmation" parent="." instance=ExtResource("12_ri2wq")]
-process_mode = 3
-mouse_filter = 2
+[node name="Confirmation" parent="." unique_id=2029777210 instance=ExtResource("12_ri2wq")]
 
-[node name="ThanksForPlaying" parent="." instance=ExtResource("13_0pgbw")]
-process_mode = 3
-mouse_filter = 2
+[node name="ThanksForPlaying" parent="." unique_id=835360396 instance=ExtResource("13_0pgbw")]
 
-[node name="VirtualJoysticks" parent="." instance=ExtResource("13_wwjrv")]
-process_mode = 3
+[node name="VirtualJoysticks" parent="." unique_id=1354402389 instance=ExtResource("13_wwjrv")]
 connect_fx = false

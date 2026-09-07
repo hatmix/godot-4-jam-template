@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://1oybadbf4td"]
+[gd_scene format=3 uid="uid://1oybadbf4td"]
 
 [ext_resource type="Script" uid="uid://dcljkfrkqnhsp" path="res://src/ui/virtual_joysticks/virtual_joysticks.gd" id="1_eq2ww"]
 [ext_resource type="Script" uid="uid://nrxpuvak5oc6" path="res://addons/guide/ui/virtual_joy/virtual_stick/guide_virtual_stick.gd" id="2_qm77i"]
@@ -7,7 +7,8 @@
 [ext_resource type="Texture2D" uid="uid://xpmfm2t6uiwq" path="res://src/ui/assets/icons/hamburgericon_gray.png" id="5_i62o5"]
 [ext_resource type="Texture2D" uid="uid://b4mvsqqk4qltf" path="res://src/ui/assets/icons/hamburgericon_white.png" id="6_kx6n4"]
 
-[node name="VirtualJoysticks" type="MarginContainer"]
+[node name="VirtualJoysticks" type="MarginContainer" unique_id=319133259]
+process_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -16,14 +17,19 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_eq2ww")
 
-[node name="ContentMarginContainer" type="MarginContainer" parent="."]
+[node name="ContentMarginContainer" type="MarginContainer" parent="." unique_id=2101583740]
 unique_name_in_owner = true
 layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
 
-[node name="Control" type="Control" parent="ContentMarginContainer"]
+[node name="Control" type="Control" parent="ContentMarginContainer" unique_id=272117901]
 layout_mode = 2
 
-[node name="GUIDEVirtualStickLeft" type="CenterContainer" parent="ContentMarginContainer/Control"]
+[node name="GUIDEVirtualStickLeft" type="CenterContainer" parent="ContentMarginContainer/Control" unique_id=107855295]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.1
@@ -40,7 +46,7 @@ max_actuation_radius = 50.0
 draw_debug = true
 metadata/_custom_type_script = "uid://nrxpuvak5oc6"
 
-[node name="GUIDEVirtualStickRight" type="CenterContainer" parent="ContentMarginContainer/Control"]
+[node name="GUIDEVirtualStickRight" type="CenterContainer" parent="ContentMarginContainer/Control" unique_id=898760410]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.9
@@ -59,7 +65,7 @@ stick_position = 1
 draw_debug = true
 metadata/_custom_type_script = "uid://nrxpuvak5oc6"
 
-[node name="GUIDEVirtualButton" type="CenterContainer" parent="ContentMarginContainer/Control"]
+[node name="GUIDEVirtualButton" type="CenterContainer" parent="ContentMarginContainer/Control" unique_id=1384834401]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.95
@@ -75,7 +81,7 @@ button_index = 6
 draw_debug = true
 metadata/_custom_type_script = "uid://mtww7c1tlwt7"
 
-[node name="GUIDEVirtualButtonTextureRenderer" type="Control" parent="ContentMarginContainer/Control/GUIDEVirtualButton"]
+[node name="GUIDEVirtualButtonTextureRenderer" type="Control" parent="ContentMarginContainer/Control/GUIDEVirtualButton" unique_id=1529519641]
 layout_mode = 2
 script = ExtResource("4_280y8")
 idle_texture = ExtResource("5_i62o5")
