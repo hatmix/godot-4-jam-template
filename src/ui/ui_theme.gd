@@ -2,7 +2,7 @@
 extends ProgrammaticTheme
 # Note that ProgrammaticTheme stylebox_ functions return Dictionary objects, not StyleBox
 
-const DEFAULT_FONT_SIZE: int = 8
+const DEFAULT_FONT_SIZE: int = 16
 
 
 @warning_ignore("integer_division")
@@ -13,8 +13,7 @@ func setup() -> void:
 
 # TODO: Consider defining the UI theme below with ThemeGen or manually edit res://ui/ui_theme.tres
 func define_theme() -> void:
-	#define_default_font(load("res://src/ui/assets/fonts/Lato-Black.ttf"))
-	define_default_font(load("res://src/ui/assets/fonts/pixelFont-2-5x5-sproutLands.ttf"))
+	define_default_font(load("res://src/ui/assets/fonts/Lato-Black.ttf"))
 	define_default_font_size(DEFAULT_FONT_SIZE)
 
 	# Uncomment to set splash and clear colors in settings.

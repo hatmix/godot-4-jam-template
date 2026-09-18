@@ -34,6 +34,7 @@ var ui: UI
 # Using enter tree so extended scripts don't need to call super() in ready
 func _enter_tree() -> void:
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
+	content_margin_container.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	_hook_ui_scale_changed.call_deferred()
 	update_margins.call_deferred()

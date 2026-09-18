@@ -18,6 +18,11 @@ metadata/_custom_type_script = "uid://qrnhiju8ifst"
 [node name="ContentMarginContainer" type="MarginContainer" parent="." unique_id=1458622373]
 unique_name_in_owner = true
 layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ContentMarginContainer" unique_id=922412826]
 layout_mode = 2
