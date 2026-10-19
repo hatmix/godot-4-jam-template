@@ -82,6 +82,47 @@ ticks_on_borders = true
 layout_mode = 2
 horizontal_alignment = 1
 
+[node name="InputLabel" type="Label" parent="ContentMarginContainer/VBoxContainer" unique_id=1404209445]
+layout_mode = 2
+text = "Input Sensitivity"
+horizontal_alignment = 1
+
+[node name="GridContainer2" type="GridContainer" parent="ContentMarginContainer/VBoxContainer" unique_id=1092477302]
+layout_mode = 2
+columns = 2
+
+[node name="MouseSensitivityLabel" type="Label" parent="ContentMarginContainer/VBoxContainer/GridContainer2" unique_id=899684742]
+layout_mode = 2
+text = "Mouse"
+
+[node name="MouseSensitivity" type="HSlider" parent="ContentMarginContainer/VBoxContainer/GridContainer2" unique_id=83440560]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+min_value = 1.0
+max_value = 200.0
+value = 100.0
+ticks_on_borders = true
+
+[node name="ControllerSensitivityLabel2" type="Label" parent="ContentMarginContainer/VBoxContainer/GridContainer2" unique_id=523236771]
+layout_mode = 2
+text = "Controller"
+
+[node name="ControllerSensitivity" type="HSlider" parent="ContentMarginContainer/VBoxContainer/GridContainer2" unique_id=1887928227]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+min_value = 1.0
+max_value = 200.0
+value = 100.0
+ticks_on_borders = true
+
+[node name="Spacer3" type="Label" parent="ContentMarginContainer/VBoxContainer" unique_id=2095451503]
+layout_mode = 2
+horizontal_alignment = 1
+
 [node name="DisplayLabel" type="Label" parent="ContentMarginContainer/VBoxContainer" unique_id=1462952220]
 layout_mode = 2
 text = "Display"

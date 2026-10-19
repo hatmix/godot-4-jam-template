@@ -21,6 +21,7 @@ func _ready() -> void:
 	_update_audio_sliders.call_deferred()
 	_init_display()
 	_update_display.call_deferred()
+	_init_sensitivity()
 
 
 func _input(event: InputEvent) -> void:
@@ -59,9 +60,34 @@ func _update_audio_sliders() -> void:
 		var control: Slider = %Audio.find_child(bus_name)
 		if control:
 			control.value = int(settings_level)
-
-
 #endregion
+
+
+func _init_sensitivity() -> void:
+	%MouseSensitivity.value_changed.connect(_on_mouse_sensitivity_value_changed)
+	%ControllerSensitivity.value_changed.connect(_on_controller_sensitivity_value_changed)
+	_update_mouse_sensitivity.call_deferred()
+	_update_controller_sensitivity.call_deferred()
+
+
+func _on_mouse_sensitivity_value_changed(value: float) -> void:
+	if Settings.get_value(Settings.Section.SENSITIVITY, "mouse", 0.5) != %MouseSensitivity.value:
+		Settings.set_value(Settings.Section.SENSITIVITY, "mouse", %MouseSensitivity.value)
+
+
+func _update_mouse_sensitivity() -> void:
+	var settings_level: Variant = Settings.get_value(Settings.Section.SENSITIVITY, "mouse", 0.5)
+	%MouseSensitivity.value = settings_level
+
+
+func _on_controller_sensitivity_value_changed(value: float) -> void:
+	if Settings.get_value(Settings.Section.SENSITIVITY, "controller", 0.5) != %ControllerSensitivity.value:
+		Settings.set_value(Settings.Section.SENSITIVITY, "controller", %ControllerSensitivity.value)
+
+
+func _update_controller_sensitivity() -> void:
+	var settings_level: Variant = Settings.get_value(Settings.Section.SENSITIVITY, "controller", 1.0)
+	%ControllerSensitivity.value = settings_level
 
 
 func _init_display() -> void:

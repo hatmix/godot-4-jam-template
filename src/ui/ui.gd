@@ -96,6 +96,8 @@ func pop_state() -> void:
 
 
 func post_message(_text: String) -> void:
+	if not is_node_ready():
+		await ready
 	message_board.show_message(_text)
 
 

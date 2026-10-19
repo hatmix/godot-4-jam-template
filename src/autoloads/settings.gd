@@ -5,7 +5,7 @@ extends Node
 # view of the game area as the UI is scaled up/down
 signal ui_scale_changed(scale_factor: float)
 
-enum Section { AUDIO, DISPLAY }
+enum Section { AUDIO, DISPLAY, SENSITIVITY }
 
 const CONTROLS_FILE: String = "user://controls.tres"
 const SETTINGS_FILE: String = "user://settings.cfg"
