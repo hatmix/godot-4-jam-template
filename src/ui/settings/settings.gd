@@ -72,7 +72,7 @@ func _init_display() -> void:
 func _on_ui_scale_value_changed(value: float) -> void:
 #func _on_ui_scale_value_changed(changed: bool) -> void:
 	#get_viewport().content_scale_factor = value
-	ui.ui_scale = Vector2.ONE * %UiScale.value
+	UI.ui_scale = Vector2.ONE * %UiScale.value
 	if Settings.get_value(Settings.Section.DISPLAY, "ui_scale", 1.0) != %UiScale.value:
 		Settings.set_value(Settings.Section.DISPLAY, "ui_scale", %UiScale.value)
 		Settings.ui_scale_changed.emit(%UiScale.value)
@@ -82,7 +82,7 @@ func _update_display() -> void:
 	if not is_inside_tree():
 		await ready
 	var settings_level: Variant = Settings.get_value(Settings.Section.DISPLAY, "ui_scale", 1.0)
-	if settings_level and is_instance_valid(ui):
-		ui.ui_scale = Vector2.ONE * settings_level
-	if is_instance_valid(ui):
-		%UiScale.value = ui.ui_scale.x
+	if settings_level and is_instance_valid(UI):
+		UI.ui_scale = Vector2.ONE * settings_level
+	if is_instance_valid(UI):
+		%UiScale.value = UI.ui_scale.x

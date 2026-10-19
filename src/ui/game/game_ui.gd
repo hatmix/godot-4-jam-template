@@ -5,7 +5,7 @@ extends UiPage
 # This UiPage is also responsible for pausing the game (and restoring UI state after)
 
 # Note for aligning control in UI canvas layer to node in world:
-# ui.control.global_position =
+# UI.control.global_position =
 #		get_tree().current_scene.get_canvas_transform() * node.global_position
 
 # The action used by virtual controls to pause game
@@ -17,15 +17,15 @@ var _pushed_state: bool = false
 func show_ui() -> void:
 	if _pushed_state:
 		_pushed_state = false
-		ui.pop_state()
+		UI.pop_state()
 	super()
 
 	if OS.has_feature("debug"):
-		ui.show_ui("PlaytestHelper")
+		UI.show_ui("PlaytestHelper")
 
-	# put this here so it shows in "game ui" and not "main menu"
-	if is_instance_valid(ui) and ui.browser_on_mobile:
-		ui.show_ui("VirtualJoysticks")
+	# put this here so it shows in "game UI" and not "main menu"
+	if is_instance_valid(UI) and UI.browser_on_mobile:
+		UI.show_ui("VirtualJoysticks")
 
 
 func _ready() -> void:
@@ -42,6 +42,6 @@ func _pause() -> void:
 	if get_tree().paused:
 		return
 	get_tree().paused = true
-	ui.push_state()
+	UI.push_state()
 	_pushed_state = true
-	ui.go_to("PauseMenu")
+	UI.go_to("PauseMenu")

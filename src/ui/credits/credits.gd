@@ -8,7 +8,7 @@ func _ready() -> void:
 
 
 func _connect_buttons() -> void:
-	if ui:
+	if UI:
 		%Back.pressed.connect(go_back)
 
 

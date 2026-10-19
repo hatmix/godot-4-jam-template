@@ -14,7 +14,6 @@
 [ext_resource type="PackedScene" uid="uid://dtrluvg5ox2vb" path="res://src/ui/notifications/message_board.tscn" id="12_hlgii"]
 [ext_resource type="PackedScene" uid="uid://ddsnqq0wec0ab" path="res://src/ui/confirmation/confirmation.tscn" id="12_ri2wq"]
 [ext_resource type="PackedScene" uid="uid://xyqp4vhj6251" path="res://src/ui/thanks_for_playing/thank_for_playing.tscn" id="13_0pgbw"]
-[ext_resource type="PackedScene" uid="uid://1oybadbf4td" path="res://src/ui/virtual_joysticks/virtual_joysticks.tscn" id="13_wwjrv"]
 
 [node name="UI" type="CanvasLayer" unique_id=2016169460]
 process_mode = 3
@@ -58,6 +57,3 @@ connect_fx = false
 [node name="Confirmation" parent="." unique_id=2029777210 instance=ExtResource("12_ri2wq")]
 
 [node name="ThanksForPlaying" parent="." unique_id=835360396 instance=ExtResource("13_0pgbw")]
-
-[node name="VirtualJoysticks" parent="." unique_id=1354402389 instance=ExtResource("13_wwjrv")]
-connect_fx = false

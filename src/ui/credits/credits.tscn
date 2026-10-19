@@ -77,13 +77,14 @@ size_flags_vertical = 3
 focus_neighbor_left = NodePath("../../HBoxContainer/Back")
 focus_mode = 2
 bbcode_enabled = true
+horizontal_alignment = 1
 script = ExtResource("3_rqcdg")
 markdown_text = "[center]
 ###### TODO: Update title
 # Godot 4 Jam Template
 
 ###### TODO: Update contributors
-A Godot 4.6.2 template project by [hatmix](https://hatmix.itch.io)
+A Godot 4.7.2 template project by [hatmix](https://hatmix.itch.io)
 [/center]
 
 ###### TODO: Add attribution for any assets that require it

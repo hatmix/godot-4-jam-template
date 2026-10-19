@@ -9,17 +9,16 @@ func _ready() -> void:
 	if Engine.is_editor_hint():
 		return
 	$Timer.timeout.connect(_check_queue)
-	Globals.post_ui_message.connect(show_message)
 
 
 func _check_queue() -> void:
 	if %Messages.get_child_count() == 0:
-		ui.hide_ui("MessageBoard")
+		UI.hide_ui("MessageBoard")
 
 
 func show_message(text: String) -> void:
-	if not ui.is_shown("MessageBoard"):
-		ui.show_ui("MessageBoard")
+	if not UI.is_shown("MessageBoard"):
+		UI.show_ui("MessageBoard")
 	var message: Message = message_scene.instantiate()
 	%Messages.add_child(message)
 	message.display(text)

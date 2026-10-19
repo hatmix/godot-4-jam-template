@@ -1,5 +1,5 @@
 @tool
-@icon("ui-page-icon.svg")
+@icon("UI-page-icon.svg")
 class_name UiPage
 extends MarginContainer
 # Base control for grouping UI elements to show & hide together
@@ -26,21 +26,19 @@ extends MarginContainer
 		ui_margin_bottom = v
 		update_margins()
 
-var ui: UI
-
 @onready var content_margin_container: MarginContainer = %ContentMarginContainer
 
 
 # Using enter tree so extended scripts don't need to call super() in ready
 func _enter_tree() -> void:
-	mouse_filter = Control.MOUSE_FILTER_IGNORE
-	content_margin_container.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	_hook_ui_scale_changed.call_deferred()
 	update_margins.call_deferred()
+	mouse_filter = Control.MOUSE_FILTER_IGNORE
+	#content_margin_container.mouse_filter = Control.MOUSE_FILTER_IGNORE
 
 
-# TODO: consider using the hide_ui and show_ui to add ui animation
+# TODO: consider using the hide_ui and show_ui to add UI animation
 # The commented example here adds a scaling pop in effect to every UiPage
 # Each UiPage can provide its own animation by extending the script and
 # overiding the methods (Note that template UiPages already have extended
@@ -85,18 +83,18 @@ func update_margins() -> void:
 func go_back() -> void:
 	if get_tree().paused == true:
 		hide_ui()
-		ui.show_ui("PauseMenu")
+		UI.show_ui("PauseMenu")
 	else:
-		ui.go_to("MainMenu")
+		UI.go_to("MainMenu")
 
 
 func _hook_ui_scale_changed() -> void:
-	if is_instance_valid(ui):
-		ui.scale_changed.connect(_on_ui_scale_changed)
+	if is_instance_valid(UI):
+		UI.scale_changed.connect(_on_ui_scale_changed)
 
 
 func _on_ui_scale_changed() -> void:
-	add_theme_constant_override("margin_top", int(-ui.offset.y / ui.scale.y))
-	add_theme_constant_override("margin_left", int(-ui.offset.x / ui.scale.x))
-	add_theme_constant_override("margin_bottom", int(-ui.offset.y / ui.scale.y))
-	add_theme_constant_override("margin_right", int(-ui.offset.x / ui.scale.x))
+	add_theme_constant_override("margin_top", int(-UI.offset.y / UI.scale.y))
+	add_theme_constant_override("margin_left", int(-UI.offset.x / UI.scale.x))
+	add_theme_constant_override("margin_bottom", int(-UI.offset.y / UI.scale.y))
+	add_theme_constant_override("margin_right", int(-UI.offset.x / UI.scale.x))

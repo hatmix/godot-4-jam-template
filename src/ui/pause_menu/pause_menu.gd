@@ -3,7 +3,7 @@ extends UiPage
 
 
 func show_ui() -> void:
-	ui.pause_move_to_front()
+	UI.pause_move_to_front()
 	visible = true
 
 
@@ -12,10 +12,10 @@ func _ready() -> void:
 
 
 func _connect_buttons() -> void:
-	if ui:
+	if UI:
 		%Resume.pressed.connect(_resume)
-		%Settings.pressed.connect(ui.go_to.bind("Settings"))
-		%Controls.pressed.connect(ui.go_to.bind("Controls"))
+		%Settings.pressed.connect(UI.go_to.bind("Settings"))
+		%Controls.pressed.connect(UI.go_to.bind("Controls"))
 		%Quit.pressed.connect(_main_menu)
 
 
@@ -28,13 +28,13 @@ func _input(event: InputEvent) -> void:
 
 
 func _resume() -> void:
-	if ui:
-		ui.go_to("Game")
+	if UI:
+		UI.go_to("Game")
 	get_tree().paused = false
 
 
 func _main_menu() -> void:
-	var result: bool = await ui.show_popup_dialog("Quit to main menu?")
+	var result: bool = await UI.show_popup_dialog("Quit to main menu?")
 	if not result:
 		return
 	get_tree().set_deferred("paused", false)

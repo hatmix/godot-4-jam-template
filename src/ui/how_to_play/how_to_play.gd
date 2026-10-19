@@ -8,8 +8,8 @@ func _ready() -> void:
 
 
 func _connect_buttons() -> void:
-	if ui:
-		%Back.pressed.connect(ui.go_to.bind("MainMenu"))
+	if UI:
+		%Back.pressed.connect(UI.go_to.bind("MainMenu"))
 
 
 func _input(event: InputEvent) -> void:

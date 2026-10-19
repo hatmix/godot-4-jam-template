@@ -21,6 +21,7 @@ var ui_scale: Vector2 = Vector2.ONE:
 	$MessageBoard, $PauseMenu, $Confirmation
 ]
 @onready var confirmation: MarginContainer = $Confirmation
+@onready var message_board: MessageQueue = $MessageBoard
 
 
 func show_popup_dialog(message: String, cancel_button_text: String = "Cancel", ok_button_text: String = "OK") -> bool:
@@ -94,6 +95,10 @@ func pop_state() -> void:
 			hide_ui(page)
 
 
+func post_message(_text: String) -> void:
+	message_board.show_message(_text)
+
+
 # ensures the pause menu UiPages are in front of any other elements in the
 # UI canvas layer
 func pause_move_to_front() -> void:
@@ -108,7 +113,7 @@ func _resolve_ui_page(node_or_name: Variant) -> Node:
 		var node: Variant = page_lookup.get(node_or_name, null)
 		if node is UiPage:
 			return node
-	push_error("Can't find ui page '%s'" % node_or_name)
+	push_error("Can't find UI page '%s'" % node_or_name)
 	return
 
 
@@ -120,19 +125,8 @@ func _ready() -> void:
 	# Called to setup @export margins in each page
 	_handle_scaled_or_resized.call_deferred()
 
-	# Detect browser on mobile
-	if (
-		OS.has_feature("web_android")
-		or OS.has_feature("web_ios")
-		or (Globals.show_virtual_controls and OS.has_feature("debug"))
-	):
-		browser_on_mobile = true
-
 	for child: Node in get_children():
 		if child is UiPage:
-			# inject ui in child page
-			child.set("ui", self)
-			# add to lookup
 			page_lookup[child.name] = child
 	_preset_all_at_ready.call_deferred()
 
