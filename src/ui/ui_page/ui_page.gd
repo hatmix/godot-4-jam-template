@@ -1,5 +1,5 @@
 @tool
-@icon("UI-page-icon.svg")
+@icon("ui-page-icon.svg")
 class_name UiPage
 extends MarginContainer
 # Base control for grouping UI elements to show & hide together
@@ -89,8 +89,7 @@ func go_back() -> void:
 
 
 func _hook_ui_scale_changed() -> void:
-	if is_instance_valid(UI):
-		UI.scale_changed.connect(_on_ui_scale_changed)
+	UI.scale_changed.connect(_on_ui_scale_changed, CONNECT_DEFERRED)
 
 
 func _on_ui_scale_changed() -> void:

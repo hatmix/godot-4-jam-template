@@ -16,13 +16,9 @@ func _process(_delta: float) -> void:
 
 
 func _hook_ui_scale_changed() -> void:
-	var ui: Node = get_parent()
-	if is_instance_valid(UI) and UI is UI:
-		get_parent().scale_changed.connect(_on_ui_scale_changed)
+	UI.scale_changed.connect(_on_ui_scale_changed)
 
 
 func _on_ui_scale_changed() -> void:
-	var ui: Node = get_parent()
-	if is_instance_valid(UI) and UI is UI:
-		scale = Vector2.ONE / UI.scale
-		position = -UI.offset / UI.scale
+	scale = Vector2.ONE / UI.scale
+	position = -UI.offset / UI.scale
