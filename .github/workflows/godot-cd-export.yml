@@ -10,6 +10,13 @@ on:
         options:
           - debug
           - release
+  push:
+    paths-ignore:
+      - '**.md'
+      - '!ATTRIBUTION.md'
+      - '.gitignore'
+      - '.gitattributes'
+      - '.github/workflows/godot-ci-test.yml'
   workflow_run:
     workflows: [Tests]
     types: [completed]
