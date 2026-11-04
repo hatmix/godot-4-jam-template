@@ -36,13 +36,11 @@ var _current_touch_drag_position: Vector2 = Vector2.ZERO
 
 # time factor settings
 var _time_factor := 1.0
-var _saved_iterations_per_second: float
 var _scene_auto_free := false
 
 
 func _init(p_scene: Variant, p_verbose: bool, p_hide_push_errors := false) -> void:
 	_verbose = p_verbose
-	_saved_iterations_per_second = Engine.get_physics_ticks_per_second()
 	@warning_ignore("return_value_discarded")
 	set_time_factor(1)
 	# handle scene loading by resource path
@@ -110,7 +108,7 @@ func _scene_tree() -> SceneTree:
 
 
 func await_input_processed() -> void:
-	if scene() != null and scene().process_mode != Node.PROCESS_MODE_DISABLED:
+	if scene() != null:
 		Input.flush_buffered_events()
 	await (Engine.get_main_loop() as SceneTree).process_frame
 	await (Engine.get_main_loop() as SceneTree).physics_frame
@@ -406,7 +404,7 @@ func set_time_factor(time_factor: float = 1.0) -> GdUnitSceneRunner:
 	_time_factor = min(9.0, time_factor)
 	__activate_time_factor()
 	__print("set time factor: %f" % _time_factor)
-	__print("set physics physics_ticks_per_second: %d" % (_saved_iterations_per_second*_time_factor))
+	__print("set physics physics_ticks_per_second: %d" % (get_project_physics_ticks_per_second() * _time_factor))
 	return self
 
 
@@ -502,12 +500,16 @@ func _scene_name() -> String:
 
 func __activate_time_factor() -> void:
 	Engine.set_time_scale(_time_factor)
-	Engine.set_physics_ticks_per_second((_saved_iterations_per_second * _time_factor) as int)
+	Engine.set_physics_ticks_per_second((get_project_physics_ticks_per_second() * _time_factor) as int)
 
 
 func __deactivate_time_factor() -> void:
 	Engine.set_time_scale(1)
-	Engine.set_physics_ticks_per_second(_saved_iterations_per_second as int)
+	Engine.set_physics_ticks_per_second(get_project_physics_ticks_per_second())
+
+
+func get_project_physics_ticks_per_second() -> int:
+	return ProjectSettings.get_setting("physics/common/physics_ticks_per_second")
 
 
 # copy over current active modifiers
@@ -574,15 +576,8 @@ func _handle_input_event(event: InputEvent) -> GdUnitSceneRunner:
 
 	var current_scene := scene()
 	if is_instance_valid(current_scene):
-		# do not flush events if node processing disabled otherwise we run into errors at tree removed
-		if _current_scene.process_mode != Node.PROCESS_MODE_DISABLED:
-			Input.flush_buffered_events()
+		Input.flush_buffered_events()
 		__print("	process event %s (%s) <- %s" % [current_scene, _scene_name(), event.as_text()])
-		if(current_scene.has_method("_gui_input")):
-			(current_scene as Control)._gui_input(event)
-		if(current_scene.has_method("_unhandled_input")):
-			current_scene._unhandled_input(event)
-		current_scene.get_viewport().set_input_as_handled()
 
 	# save last input event needs to be merged with next InputEventMouseButton
 	_last_input_event = event
@@ -607,7 +602,7 @@ func _reset_input_to_default() -> void:
 			simulate_action_release(action)
 	_action_on_press.clear()
 
-	if is_instance_valid(_current_scene) and _current_scene.process_mode != Node.PROCESS_MODE_DISABLED:
+	if is_instance_valid(_current_scene):
 		Input.flush_buffered_events()
 	_last_input_event = null
 

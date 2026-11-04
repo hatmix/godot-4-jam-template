@@ -1,31 +1,20 @@
-class_name GdUnitCommandTestSession
+@abstract class_name GdUnitCommandTestSession
 extends GdUnitBaseCommand
 
 
-const ID := "Start Test Session"
-
-
 var _current_runner_process_id: int
-var _is_running: bool
 var _is_debug: bool
 var _is_fail_fast: bool
 
 
-func _init() -> void:
-	super(ID, GdUnitShortcut.ShortCut.NONE)
-	_is_running = false
+func _init(p_id: String, p_shortcut: GdUnitShortcut.ShortCut) -> void:
+	super(p_id, p_shortcut)
 	_is_fail_fast = false
+	# Start with an invalid PID so we never treat the default `0` as a real runner process.
+	_current_runner_process_id = -1
 
 
-func is_running() -> bool:
-	return _is_running
-
-
-func stop() -> void:
-	if not is_running():
-		return
-	_is_running = false
-
+func _do_stop() -> void:
 	if _is_debug:
 		force_pause_scene()
 
@@ -33,15 +22,21 @@ func stop() -> void:
 	# Give the API time to commit terminate to the client
 	await get_tree().create_timer(.5).timeout
 
-	if _is_debug and EditorInterface.is_playing_scene():
-		EditorInterface.stop_playing_scene()
-	elif OS.is_process_running(_current_runner_process_id):
+	if _is_debug:
+		# In debug mode the runner is a played scene, not a spawned process, so there is no PID to kill.
+		if EditorInterface.is_playing_scene():
+			EditorInterface.stop_playing_scene()
+	elif _is_valid_runner_process(_current_runner_process_id):
 		var result := OS.kill(_current_runner_process_id)
 		if result != OK:
-			push_error("ERROR checked stopping GdUnit Test Runner. error code: %s" % result)
+			push_error("Failed to stop GdUnit Test Runner (pid: %d). OS.kill() returned: %s" % [_current_runner_process_id, result])
 		_current_runner_process_id = -1
 	# We need finaly to send the test session close event because the current run is hard aborted.
 	GdUnitSignals.instance().gdunit_event.emit(GdUnitSessionClose.new())
+
+
+static func _is_valid_runner_process(pid: int) -> bool:
+	return pid > 0 and OS.is_process_running(pid)
 
 
 ## Forces the running scene to unpause when the debugger hits a breakpoint.[br]
@@ -63,7 +58,7 @@ func stop() -> void:
 ## 2. Searches for the pause button by matching its icon[br]
 ## 3. Unpresses the button if it's currently pressed (paused state)[br]
 ## 4. Manually triggers the button's connected callbacks to resume execution[br]
-func force_pause_scene() -> bool:
+static func force_pause_scene() -> bool:
 	var nodes := EditorInterface.get_base_control().find_children("*", "EditorRunBar", true, false)
 	if nodes.size() != 1:
 		push_error("GdUnitCommandTestSession:force_pause_scene() Can't find Editor component 'EditorRunBar'")
@@ -90,6 +85,7 @@ func force_pause_scene() -> bool:
 
 
 func execute(...parameters: Array) -> void:
+	is_running = true
 	var tests_to_execute: Array[GdUnitTestCase] = parameters[0]
 	_is_debug = parameters[1]
 
@@ -105,7 +101,6 @@ func execute(...parameters: Array) -> void:
 		arguments.append(ProjectSettings.globalize_path("res://"))
 		arguments.append("res://addons/gdUnit4/src/core/runners/GdUnitTestRunner.tscn")
 		_current_runner_process_id = OS.create_process(OS.get_executable_path(), arguments, false);
-	_is_running = true
 
 
 func _prepare_test_session(tests_to_execute: Array[GdUnitTestCase]) -> void:

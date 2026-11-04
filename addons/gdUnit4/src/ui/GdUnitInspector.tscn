@@ -9,7 +9,7 @@
 
 [node name="GdUnit" type="Control" unique_id=272268338]
 clip_contents = true
-custom_minimum_size = Vector2(360, 440)
+custom_minimum_size = Vector2(120, 440)
 layout_mode = 3
 anchors_preset = 9
 anchor_bottom = 1.0
@@ -65,4 +65,3 @@ layout_mode = 2
 [connection signal="select_orphan_prevous" from="VBoxContainer/Header/StatusBar" to="VBoxContainer/MainPanel" method="_on_select_previous_item_by_state" binds= [9]]
 [connection signal="select_skipped_next" from="VBoxContainer/Header/StatusBar" to="VBoxContainer/MainPanel" method="_on_select_next_item_by_state" binds= [2]]
 [connection signal="select_skipped_prevous" from="VBoxContainer/Header/StatusBar" to="VBoxContainer/MainPanel" method="_on_select_previous_item_by_state" binds= [2]]
-[connection signal="tree_view_mode_changed" from="VBoxContainer/Header/StatusBar" to="VBoxContainer/MainPanel" method="_on_status_bar_tree_view_mode_changed"]

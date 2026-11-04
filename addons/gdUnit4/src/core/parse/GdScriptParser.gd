@@ -478,7 +478,7 @@ func _parse_function_arguments(input: String) -> Array[Dictionary]:
 						arg_value = _parse_end_function(input.substr(current_index), true)
 						current_index += arg_value.length()
 						current_argument["name"] = (token as FuzzerToken).name()
-						current_argument["value"] = arg_value.lstrip(" ")
+						current_argument["value"] = arg_value.strip_edges()
 						current_argument["type"] = TYPE_FUZZER
 						arguments.append(current_argument)
 						continue
@@ -498,12 +498,11 @@ func _parse_function_arguments(input: String) -> Array[Dictionary]:
 					TOKEN_ARGUMENT_TYPE_ASIGNMENT:
 						arg_value = _parse_end_function(input.substr(current_index), true)
 						current_index += arg_value.length()
-						current_argument["value"] = arg_value.lstrip(" ")
+						current_argument["value"] = arg_value.strip_edges()
 					TOKEN_ARGUMENT_ASIGNMENT:
-						token = next_token(input, current_index)
 						arg_value = _parse_end_function(input.substr(current_index), true)
 						current_index += arg_value.length()
-						current_argument["value"] = arg_value.lstrip(" ")
+						current_argument["value"] = arg_value.strip_edges()
 
 					TOKEN_BRACKET_SQUARE_OPEN:
 						bracket += 1
@@ -540,6 +539,22 @@ func _parse_function_arguments(input: String) -> Array[Dictionary]:
 	return arguments
 
 
+## Finds the index of the next [param quote_char] in [param input] starting at [param start],
+## skipping backslash-escaped characters (e.g. [code]\"[/code]) so escaped quotes do not end the string.
+## Returns -1 when no unescaped quote is found.
+func _find_unescaped_quote(input: String, quote_char: String, start: int) -> int:
+	var index := start
+	while index < input.length():
+		var character := input[index]
+		if character == "\\":
+			index += 2
+			continue
+		if character == quote_char:
+			return index
+		index += 1
+	return -1
+
+
 func _parse_end_function(input: String, remove_trailing_char := false) -> String:
 	# find end of function
 	var current_index := 0
@@ -552,7 +567,7 @@ func _parse_end_function(input: String, remove_trailing_char := false) -> String
 		var character := input[current_index]
 		# step over strings
 		if character == "'" :
-			current_index = input.find("'", current_index+1) + 1
+			current_index = _find_unescaped_quote(input, "'", current_index+1) + 1
 			if current_index == 0:
 				push_error("Parsing error on '%s', can't evaluate end of string." % input)
 				return ""
@@ -562,7 +577,7 @@ func _parse_end_function(input: String, remove_trailing_char := false) -> String
 			if input.find('"""', current_index) == current_index:
 				current_index = input.find('"""', current_index+3) + 3
 			else:
-				current_index = input.find('"', current_index+1) + 1
+				current_index = _find_unescaped_quote(input, '"', current_index+1) + 1
 			if current_index == 0:
 				push_error("Parsing error on '%s', can't evaluate end of string." % input)
 				return ""
