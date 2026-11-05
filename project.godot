@@ -25,11 +25,11 @@ config/icon="res://icon.png"
 
 [autoload]
 
+GUIDE="*uid://p2jwrgjcbexr"
 Settings="*res://src/autoloads/settings.gd"
 Globals="*res://src/autoloads/globals.gd"
 InputManager="*res://src/autoloads/input_manager.tscn"
 UI="*uid://u1vgfeia861q"
-GUIDE="*uid://p2jwrgjcbexr"
 
 [debug]
 

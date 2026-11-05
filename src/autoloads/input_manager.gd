@@ -17,8 +17,8 @@ var last_input_device: InputDevice
 
 
 func _ready() -> void:
-	GUIDE.enable_mapping_context(default_mapping_context)
-	GUIDE.enable_mapping_context(input_device_mapping_context)
+	GUIDE.enable_mapping_context.call_deferred(default_mapping_context)
+	GUIDE.enable_mapping_context.call_deferred(input_device_mapping_context)
 	controller_action.triggered.connect(_last_used.bind(InputDevice.CONTROLLER))
 	keyboard_and_mouse_action.triggered.connect(_last_used.bind(InputDevice.KEYBOARD_MOUSE))
 
