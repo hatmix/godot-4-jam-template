@@ -8,12 +8,12 @@ func _ready() -> void:
 
 
 func _connect_buttons() -> void:
-	if UI:
+	if not Engine.is_editor_hint():
 		%Back.pressed.connect(UI.go_to.bind("MainMenu"))
 
 
 func _input(event: InputEvent) -> void:
-	if not visible:
+	if Engine.is_editor_hint() or not visible:
 		return
 	if event.is_action_pressed("ui_cancel") or event.is_action_pressed("ui_back"):
 		get_viewport().set_input_as_handled()

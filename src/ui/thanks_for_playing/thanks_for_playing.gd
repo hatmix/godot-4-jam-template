@@ -9,7 +9,9 @@ extends UiPage
 @onready var texture_rect: TextureRect = $TextureRect
 
 
-func _process(_delta: float) -> void:
-	if visible and Input.is_anything_pressed() and is_instance_valid(UI):
+func _input(event: InputEvent) -> void:
+	if Engine.is_editor_hint() or not visible:
+		return
+	if event.is_pressed():
 		await UI.hide_ui(self)
 		get_tree().change_scene_to_file("res://main.tscn")

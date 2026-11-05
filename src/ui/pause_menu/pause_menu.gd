@@ -12,7 +12,7 @@ func _ready() -> void:
 
 
 func _connect_buttons() -> void:
-	if UI:
+	if not Engine.is_editor_hint():
 		%Resume.pressed.connect(_resume)
 		%Settings.pressed.connect(UI.go_to.bind("Settings"))
 		%Controls.pressed.connect(UI.go_to.bind("Controls"))

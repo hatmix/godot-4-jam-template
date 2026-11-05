@@ -89,7 +89,8 @@ func go_back() -> void:
 
 
 func _hook_ui_scale_changed() -> void:
-	UI.scale_changed.connect(_on_ui_scale_changed, CONNECT_DEFERRED)
+	if not Engine.is_editor_hint():
+		UI.scale_changed.connect(_on_ui_scale_changed, CONNECT_DEFERRED)
 
 
 func _on_ui_scale_changed() -> void:
