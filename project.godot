@@ -26,9 +26,8 @@ config/icon="res://icon.png"
 [autoload]
 
 GUIDE="*uid://p2jwrgjcbexr"
-Settings="*res://src/autoloads/settings.gd"
-Globals="*res://src/autoloads/globals.gd"
-InputManager="*res://src/autoloads/input_manager.tscn"
+Settings="*res://src/ui/settings/settings_autoload.gd"
+InputManager="*res://src/input/_template/input_manager.tscn"
 UI="*uid://u1vgfeia861q"
 
 [debug]
@@ -61,7 +60,6 @@ folder_colors={
 "res://addons/": "red",
 "res://exports/": "gray",
 "res://src/": "orange",
-"res://src/autoloads/": "yellow",
 "res://src/game/": "green",
 "res://src/input/": "teal",
 "res://src/ui/": "blue",

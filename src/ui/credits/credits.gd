@@ -55,4 +55,3 @@ func roll_credits() -> void:
 	visible = true
 	await get_tree().process_frame
 	_roll = true
-	

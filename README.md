@@ -44,8 +44,6 @@ Once the Godot project files are saved locally, open `res://src/game/game.tscn` 
 
 `res://media/` is intended for screenshots and other items used for documentation or the Itch.io page for the project. (See section [Publishing on Itch.io](#publishing-on-itch-io))
 
-`res://src/autoloads/` contains scripts added to the Godot project's globals/autoloads. (See section [Settings Persistence](#settings-persistence))
-
 `res://src/game/` you should build a game in here
 
 `res://src/input/` contains a default G.U.I.D.E action and context mapping. (See [G.U.I.D.E documentation](https://godotneers.github.io/G.U.I.D.E/) for how to add new actions, etc.)

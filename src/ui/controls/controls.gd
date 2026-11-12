@@ -117,4 +117,4 @@ func _get_new_input_for_action(item: GUIDERemapper.ConfigItem, for_joypad: bool 
 	# we apply & save at every change
 	var config: GUIDERemappingConfig = _remapper.get_mapping_config()
 	GUIDE.set_remapping_config(config)
-	Globals.controls_changed.emit(config)
+	UI.controls_changed.emit(config)

@@ -17,7 +17,7 @@ static var _settings: ConfigFile
 
 
 func _ready() -> void:
-	Globals.controls_changed.connect(save_controls)
+	UI.controls_changed.connect(save_controls)
 
 
 #region control remapping
